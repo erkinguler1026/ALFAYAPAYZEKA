@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Bot, Cpu, Zap, ChevronRight, Send, Monitor, Globe, Settings, 
-  LifeBuoy, ShieldCheck, CheckCircle2, BarChart, Code2, Users2, HelpCircle 
+  Bot, Cpu, Zap, ChevronRight, Globe, Settings, 
+  LifeBuoy, Shield, CheckCircle2, HelpCircle 
 } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -11,6 +11,10 @@ import { Link } from 'react-router-dom';
 const Home = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    console.log("AI Web Studio Home Loaded - V1.0.5");
+  }, []);
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
@@ -210,7 +214,7 @@ const Home = () => {
                <Zap size={40} /> <span className="font-bold text-xs tracking-widest uppercase">Lightning Speed</span>
             </div>
             <div className="flex flex-col items-center gap-4">
-               <ShieldCheck className="w-10 h-10" /> <span className="font-bold text-xs tracking-widest uppercase">Safe & Secure</span>
+               <Shield className="w-10 h-10" /> <span className="font-bold text-xs tracking-widest uppercase">Safe & Secure</span>
             </div>
          </div>
       </section>
@@ -235,7 +239,7 @@ const Home = () => {
 
       {/* 7. Final CTA & Contact */}
       <section id="contact" className="max-w-7xl mx-auto py-40">
-        <div className="premium-card rounded-[60px] p-12 md:p-24 overflow-hidden relative group">
+        <div className="premium-card rounded-[60px] p-12 md:p-24 overflow-hidden relative group border-white/5">
           <div className="absolute -bottom-20 -right-20 w-[600px] h-[600px] bg-primary/10 blur-[150px] rounded-full pointer-events-none group-hover:bg-primary/20 transition-colors duration-1000" />
           
           <div className="grid lg:grid-cols-2 gap-20">

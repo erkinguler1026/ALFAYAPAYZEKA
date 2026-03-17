@@ -10,6 +10,10 @@ import Portfolio from './pages/Portfolio';
 import Pricing from './pages/Pricing';
 
 const App = () => {
+  React.useEffect(() => {
+    console.log("AI Web Studio App Initialized - V1.0.5");
+  }, []);
+
   return (
     <>
       <ToastContainer position="bottom-right" theme="dark" />
