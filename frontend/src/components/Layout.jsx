@@ -1,8 +1,8 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, Outlet } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, ChevronRight } from 'lucide-react';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   const location = useLocation();
 
   return (
@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
       </nav>
 
       {/* Main Content Area */}
-      <main className="pt-20">
+      <main className="pt-20 min-h-[80vh]">
         <AnimatePresence mode="wait">
           <motion.div
             key={location.pathname}
@@ -49,7 +49,7 @@ const Layout = ({ children }) => {
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            {children}
+            <Outlet />
           </motion.div>
         </AnimatePresence>
       </main>
