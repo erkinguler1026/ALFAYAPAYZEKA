@@ -86,7 +86,7 @@ const Home = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-6xl md:text-9xl font-bold tracking-tighter leading-[1] mb-12 text-gradient"
         >
-          YENİ NESİL <br /> AI SERVİSİ.
+          YENİ NESİL <br /> AI SERVİSİ - Akıllı Web Sitesi
         </motion.h1>
 
         <motion.p 
