@@ -139,7 +139,7 @@ const Pricing = () => {
                 </div>
                 <div className="text-left">
                     <h4 className="font-bold">Güvenli Altyapı</h4>
-                    <p className="text-white/40 text-xs">ISO standartlarında veri güvenliği ve bakım.</p>
+                    <p className="text-white/40 text-xs">ISO Kalite standartlarında veri güvenliği ve bakım.</p>
                 </div>
             </div>
         </div>

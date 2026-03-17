@@ -97,7 +97,7 @@ const Home = () => {
         >
           Geleceğin işletmeleri için akıllı web siteleri <span className="text-white font-medium">üretiyor</span>, 
           satışını <span className="text-white font-medium">yapıyor</span> ve 
-          ömür boyu <span className="text-white font-medium">teknik servis</span> sağlıyoruz.
+          sözleşme süresince <span className="text-white font-medium">teknik servis</span> sağlıyoruz.
         </motion.p>
 
         <motion.div 
@@ -246,7 +246,7 @@ const Home = () => {
             <div>
               <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">Yeni Bir Başarı <br /> Hikayesi Yazalım.</h2>
               <p className="text-white/40 text-xl leading-relaxed mb-12">
-                Hemen formu doldurun, 24 saat içerisinde projenizi teknik olarak projelendirip sizi arayalım.
+                Hemen formu doldurun, 48 saat içerisinde projenizi teknik olarak projelendirip sizi arayalım.
               </p>
               <div className="space-y-6">
                  <div className="flex items-center gap-4 py-4 border-b border-white/5">
