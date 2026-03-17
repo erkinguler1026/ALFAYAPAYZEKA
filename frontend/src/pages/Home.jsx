@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Bot, Cpu, Zap, ChevronRight, Send, Monitor, Globe, Settings, 
-  LifeBuoy, CheckCircle2, BarChart, Code2, Users2, HelpCircle 
+  LifeBuoy, ShieldCheck, CheckCircle2, BarChart, Code2, Users2, HelpCircle 
 } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
