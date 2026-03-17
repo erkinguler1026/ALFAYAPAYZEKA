@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Bot, Cpu, Zap, ChevronRight, Send, Monitor, Globe, Settings, LifeBuoy } from 'lucide-react';
+import { 
+  Bot, Cpu, Zap, ChevronRight, Send, Monitor, Globe, Settings, 
+  LifeBuoy, CheckCircle2, BarChart, Code2, Users2, HelpCircle 
+} from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
@@ -23,189 +26,237 @@ const Home = () => {
     }
   };
 
+  const services = [
+    {
+      icon: <Globe className="text-primary w-8 h-8" />,
+      title: "AI Web Sitesi Hazırlama",
+      desc: "İşinize özel kodlanmış, yapay zeka asistanları entegre edilmiş modern web arayüzleri.",
+      tags: ["Tasarım", "Yazılım", "AI"]
+    },
+    {
+      icon: <LifeBuoy className="text-accent w-8 h-8" />,
+      title: "Teknik Destek & Servis",
+      desc: "7/24 kesintisiz teknik destek, güvenlik güncellemeleri ve periyodik sunucu bakımları.",
+      tags: ["Bakım", "Güvenlik", "7/24"]
+    },
+    {
+      icon: <Bot className="text-secondary w-8 h-8" />,
+      title: "AI Bot Entegrasyonu",
+      desc: "Mevcut web sitelerinize ChatGPT veya Claude tabanlı akıllı müşteri asistanları.",
+      tags: ["LLM", "Chatbot", "Support"]
+    }
+  ];
+
+  const processSteps = [
+    { title: "Analiz & Strateji", desc: "İş modelinizi inceliyor, size en uygun AI yol haritasını belirliyoruz." },
+    { title: "Tasarım & Prototip", desc: "Mühendislik disipliniyle premium ve kullanıcı odaklı arayüzler çiziyoruz." },
+    { title: "AI Geliştirme", desc: "Yapay zeka modellerini web sitenizin kalbine yerleştiriyoruz." },
+    { title: "Test & Optimizasyon", desc: "Hız, güvenlik ve yapay zeka performansını en üst seviyeye çıkarıyoruz." },
+    { title: "Yayına Alma & Satış", desc: "Sitenizi dünyanın en hızlı altyapılarıyla yayına alıyoruz." },
+    { title: "Sürekli Bakım", desc: "Siz işinize odaklanın, teknik her şeyi biz yönetelim." }
+  ];
+
+  const faqs = [
+    { q: "Neden Yapay Zeka destekli bir siteye ihtiyacım var?", a: "AI siteler, müşterilerinizle 7/24 etkileşime girer, verileri analiz eder ve satış süreçlerinizi otomatikleştirir." },
+    { q: "Sitemin bakımını kim yapacak?", a: "Tüm teknik bakım, güncelleme ve güvenlik süreçlerini biz üstleniyoruz. Siz sadece işinizle ilgileniyorsunuz." },
+    { q: "Fiyatlandırma nasıl belirleniyor?", a: "Projenin kapsamına, sayfa sayısına ve entegre edilecek AI özelliklerine göre esnek paketler sunuyoruz." },
+    { q: "Mevcut siteme AI eklenebilir mi?", a: "Evet! Web sitenizin altyapısı ne olursa olsun, akıllı bot ve asistanlarımızı entegre edebiliyoruz." }
+  ];
+
   return (
-    <div className="px-6">
-      {/* Business Focused Hero Section */}
-      <section className="min-h-[90vh] flex flex-col items-center justify-center text-center max-w-6xl mx-auto py-20">
+    <div className="px-6 relative overflow-hidden">
+      
+      {/* 1. Hero Section */}
+      <section className="min-h-[90vh] flex flex-col items-center justify-center text-center max-w-6xl mx-auto py-32 border-b border-white/5">
         <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="px-4 py-1.5 rounded-full border border-primary/30 bg-primary/5 text-[10px] font-bold tracking-[0.3em] uppercase text-primary mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="px-5 py-2 rounded-full border border-primary/30 bg-primary/5 text-[11px] font-bold tracking-[0.4em] uppercase text-primary mb-12 shadow-lg shadow-primary/5"
         >
-          Yapay Zeka Destekli Web Çözümleri
+          Yapay Zeka & Web Mühendisliği
         </motion.div>
 
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-5xl md:text-8xl font-bold tracking-tighter leading-[1.1] mb-12 text-gradient"
+          className="text-6xl md:text-9xl font-bold tracking-tighter leading-[1] mb-12 text-gradient"
         >
-          YENİ NESİL <br /> AI WEB SİTELERİ.
+          YENİ NESİL <br /> AI SERVİSİ.
         </motion.h1>
 
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="max-w-3xl text-lg md:text-2xl text-white/60 leading-relaxed mb-16"
+          className="max-w-3xl text-xl md:text-3xl text-white/60 leading-relaxed mb-16 font-light"
         >
-          İşletmeniz için yapay zeka destekli web siteleri <span className="text-white">hazırlıyor</span>, 
-          AI araçları ile <span className="text-white">donatıyor</span> ve 
-          7/24 kesintisiz <span className="text-white">teknik destek & bakım</span> hizmeti veriyoruz.
+          Geleceğin işletmeleri için akıllı web siteleri <span className="text-white font-medium">üretiyor</span>, 
+          satışını <span className="text-white font-medium">yapıyor</span> ve 
+          ömür boyu <span className="text-white font-medium">teknik servis</span> sağlıyoruz.
         </motion.p>
 
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="flex flex-col sm:flex-row gap-6"
+          className="flex flex-col sm:flex-row gap-6 items-center"
         >
-          <a href="#contact" className="px-12 py-5 bg-white text-black rounded-full font-bold text-lg hover:scale-105 transition-transform active:scale-95 shadow-xl shadow-white/10">
-            Sitenizi Bugün Başlatın
+          <a href="#contact" className="px-14 py-6 bg-white text-black rounded-full font-bold text-xl hover:scale-105 transition-transform shadow-2xl shadow-white/10 active:scale-95">
+            Sitenizi Bugün Kurun
           </a>
-          <Link to="/pricing" className="px-12 py-5 glass-morphism rounded-full font-bold text-lg hover:bg-white/10 transition-colors">
-            Paketleri İncele
+          <Link to="/pricing" className="px-14 py-6 glass-morphism rounded-full font-bold text-xl hover:bg-white/10 transition-colors">
+            Servis Paketleri
           </Link>
         </motion.div>
       </section>
 
-      {/* Services Re-Focused for Core Business */}
-      <section id="services" className="max-w-7xl mx-auto mb-40">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-          <div className="max-w-xl">
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-4 text-gradient">Hizmet Alanlarımız</h2>
-            <p className="text-white/40 text-lg leading-relaxed">Web dünyasını AI ile yeniden tanımlıyoruz. Hazırlamadan bakıma, her adımda yanınızdayız.</p>
-          </div>
+      {/* 2. core values / Mission */}
+      <section className="max-w-7xl mx-auto py-40 border-b border-white/5">
+         <div className="grid md:grid-cols-2 gap-20 items-center">
+            <div>
+               <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 text-gradient">Sadece Kod Değil, <br /> Bir Strateji Satıyoruz.</h2>
+               <p className="text-white/40 text-lg leading-relaxed mb-10">
+                  Bir web sitesinin sadece güzel görünmesi artık yetmiyor. Biz, işletmenize değer katan, müşterilerinizi tanıyan ve teknik dertleri üzerinizden alan akıllı sistemler kuruyoruz. 
+               </p>
+               <div className="space-y-4">
+                  {[
+                    "Kâr odaklı yapay zeka çözümleri",
+                    "Kesintisiz teknik bakım ve güncellik",
+                    "Minimum enerji, maksimum dijital verimlilik"
+                  ].map((val, i) => (
+                    <div key={i} className="flex items-center gap-3 text-white/80 font-medium">
+                      <CheckCircle2 className="text-primary" size={20} /> {val}
+                    </div>
+                  ))}
+               </div>
+            </div>
+            <div className="relative">
+               <div className="aspect-square glass-morphism rounded-[60px] p-12 flex items-center justify-center relative overflow-hidden group">
+                  <Bot className="text-primary w-40 h-40 group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute inset-0 bg-primary/5 group-hover:bg-primary/10 transition-colors" />
+               </div>
+               <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-secondary/10 blur-[80px] rounded-full" />
+            </div>
+         </div>
+      </section>
+
+      {/* 3. Services Grid (Bento) */}
+      <section id="services" className="max-w-7xl mx-auto py-40 border-b border-white/5">
+        <div className="text-center mb-20">
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Uçtan Uca Hizmet.</h2>
+            <p className="text-white/40 text-lg">Hazırlıktan bakıma, ihtiyacınız olan her şey tek çatı altında.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Service: Preparation & Sales */}
-          <div className="md:col-span-2 premium-card p-12 rounded-[40px] flex flex-col justify-between group overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 blur-[100px] rounded-full -mr-20 -mt-20" />
-            <div>
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mb-8 border border-primary/20">
-                <Globe className="text-primary w-8 h-8" />
-              </div>
-              <h3 className="text-3xl md:text-4xl font-bold mb-6 tracking-tight">AI Web Sitesi Hazırlama & Satış</h3>
-              <p className="text-white/50 text-lg max-w-md leading-relaxed">
-                İşinize özel tasarlanmış, SEO uyumlu ve içinde yapay zeka asistanları barındıran modern web siteleri üretiyoruz. Statik siteleri değil, yaşayan akıllı sistemleri satıyoruz.
-              </p>
-            </div>
-            <div className="mt-12 flex items-center gap-2 text-primary font-bold">
-              <span>Hemen Teklif Al</span> <ChevronRight size={18} />
-            </div>
-          </div>
-
-          {/* Service: Maintenance & Support */}
-          <div className="premium-card p-10 rounded-[40px] flex flex-col justify-between group">
-            <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-8 border border-accent/20">
-              <LifeBuoy className="text-accent w-7 h-7" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-4">Teknik Destek & Bakım</h3>
-              <p className="text-white/40 text-sm leading-relaxed">Sitenizin güncel kalması, güvenliği ve performans takibi bizim sorumluluğumuzda. 7/24 teknik servis desteği ile işiniz asla aksamaz.</p>
-            </div>
-          </div>
-
-          {/* Service: AI Integration */}
-          <div className="premium-card p-10 rounded-[40px] flex flex-col justify-between group">
-            <div className="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mb-8 border border-secondary/20">
-              <Bot className="text-secondary w-7 h-7" />
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold mb-4">AI Entegrasyonu</h3>
-              <p className="text-white/40 text-sm leading-relaxed">Mevcut web sitelerinize ChatGPT, Claude veya özel LLM tabanlı müşteri destek botları ve veri analiz araçları entegre ediyoruz.</p>
-            </div>
-          </div>
-
-          {/* Service: Hosting & Infrastructure */}
-          <div className="md:col-span-2 premium-card p-12 rounded-[40px] flex flex-row items-center justify-between group overflow-hidden relative">
-             <div className="max-w-md">
-                <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/10 text-white">
-                  <Settings className="w-7 h-7" />
+          {services.map((service, i) => (
+            <motion.div 
+              key={i} 
+              whileHover={{ y: -10 }}
+              className={`premium-card p-12 rounded-[50px] flex flex-col justify-between ${i === 0 ? 'md:col-span-2' : ''}`}
+            >
+              <div>
+                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mb-8 border border-white/10">
+                  {service.icon}
                 </div>
-                <h3 className="text-2xl font-bold mb-2 tracking-tight">Altyapı & Servis</h3>
-                <p className="text-white/40 text-sm leading-relaxed">Dünya standartlarında Cloudflare altyapısı ile yıldırım hızında ve %99.9 uptime garantili servis sağlıyoruz.</p>
-             </div>
-             <div className="hidden lg:block">
-                <div className="w-32 h-32 bg-primary/20 blur-[60px] rounded-full animate-pulse" />
-             </div>
-          </div>
+                <h3 className="text-3xl font-bold mb-6 tracking-tight">{service.title}</h3>
+                <p className="text-white/40 text-lg leading-relaxed mb-10">
+                  {service.desc}
+                </p>
+              </div>
+              <div className="flex gap-3">
+                {service.tags.map((tag, t) => (
+                  <span key={t} className="text-[10px] uppercase tracking-widest font-bold text-white/20 border border-white/5 px-3 py-1 rounded-full bg-white/5">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* AI Guide Interactive Section - Updated Message */}
-      <section className="max-w-4xl mx-auto mb-48 text-center relative">
-        <div className="absolute -inset-40 bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
-        
-        <motion.div 
-          animate={{ y: [0, -10, 0] }}
-          transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-          className="relative z-10"
-        >
-          <div className="inline-block p-8 glass-morphism rounded-[32px] mb-12 shadow-2xl relative">
-            <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-6 h-6 rotate-45 glass-morphism border-t-0 border-l-0" />
-            <p className="text-xl md:text-2xl font-medium tracking-tight">
-              "Bakım modülü aktif. <span className="text-primary">Tüm AI Web Sitelerimiz</span> %100 
-              performansla çalışıyor. Sizin işletmenize hangisini kuralım?"
-            </p>
-          </div>
-          
-          <div className="flex flex-col items-center gap-6">
-            <div className="relative group">
-              <div className="w-24 h-24 rounded-full p-1 bg-gradient-to-br from-primary via-secondary to-accent">
-                <div className="w-full h-full rounded-full bg-background flex items-center justify-center border-4 border-background overflow-hidden relative">
-                  <Bot className="text-primary w-12 h-12" />
-                  <motion.div 
-                    animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 8, ease: "linear" }}
-                    className="absolute inset-0 border border-primary/20 rounded-full"
-                  />
-                </div>
-              </div>
-              <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-4 border-background rounded-full animate-pulse" />
+      {/* 4. Process Section (Longer Content) */}
+      <section className="max-w-7xl mx-auto py-40 border-b border-white/5">
+         <div className="flex flex-col md:flex-row gap-20">
+            <div className="md:w-1/3">
+               <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8 sticky top-32">Nasıl <br /> Çalışıyoruz?</h2>
             </div>
-            <div className="flex flex-col items-center">
-              <span className="font-bold text-white tracking-widest uppercase text-xs mb-2">Alpha AI Guide</span>
-              <div className="flex items-center gap-2">
-                <div className="flex gap-1">
-                  {[1, 2, 3].map(i => (
-                    <motion.div 
-                      key={i}
-                      animate={{ opacity: [0.2, 1, 0.2] }}
-                      transition={{ repeat: Infinity, duration: 1.5, delay: i * 0.2 }}
-                      className="w-1.5 h-1.5 bg-primary rounded-full"
-                    />
-                  ))}
-                </div>
-                <span className="text-[10px] text-white/30 font-bold tracking-[0.2em] uppercase">Canlı Destek Hattı Aktif</span>
-              </div>
+            <div className="md:w-2/3 grid gap-12">
+               {processSteps.map((step, i) => (
+                  <div key={i} className="flex gap-8 group">
+                     <span className="text-6xl font-bold text-white/5 group-hover:text-primary/20 transition-colors leading-none">0{i+1}</span>
+                     <div>
+                        <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
+                        <p className="text-white/40 text-lg leading-relaxed">{step.desc}</p>
+                     </div>
+                  </div>
+               ))}
             </div>
-          </div>
-        </motion.div>
+         </div>
       </section>
 
-      {/* Contact Section - Updated for Direct Enquiry */}
-      <section id="contact" className="max-w-7xl mx-auto mb-32">
-        <div className="premium-card rounded-[50px] p-12 md:p-24 overflow-hidden relative border-white/5">
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/10 blur-[150px] rounded-full -mb-64 -mr-64 pointer-events-none" />
+      {/* 5. Interactive Stats / Tech Stack */}
+      <section className="max-w-7xl mx-auto py-40 border-b border-white/5 text-center">
+         <h2 className="text-3xl font-bold mb-20 text-white/30 uppercase tracking-[0.3em]">Güçlü Teknolojik Altyapı</h2>
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 opacity-40">
+            <div className="flex flex-col items-center gap-4">
+               <Cpu size={40} /> <span className="font-bold text-xs tracking-widest uppercase">Custom Models</span>
+            </div>
+            <div className="flex flex-col items-center gap-4">
+               <Globe size={40} /> <span className="font-bold text-xs tracking-widest uppercase">Edge Delivery</span>
+            </div>
+            <div className="flex flex-col items-center gap-4">
+               <Zap size={40} /> <span className="font-bold text-xs tracking-widest uppercase">Lightning Speed</span>
+            </div>
+            <div className="flex flex-col items-center gap-4">
+               <ShieldCheck className="w-10 h-10" /> <span className="font-bold text-xs tracking-widest uppercase">Safe & Secure</span>
+            </div>
+         </div>
+      </section>
+
+      {/* 6. FAQ Section */}
+      <section className="max-w-4xl mx-auto py-40 border-b border-white/5">
+         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-16 text-center">Sıkça Sorulanlar</h2>
+         <div className="space-y-8">
+            {faqs.map((faq, i) => (
+               <div key={i} className="premium-card p-10 rounded-3xl">
+                  <div className="flex gap-4 items-start">
+                     <HelpCircle className="text-primary mt-1 flex-shrink-0" size={24} />
+                     <div>
+                        <h4 className="text-xl font-bold mb-4">{faq.q}</h4>
+                        <p className="text-white/40 leading-relaxed">{faq.a}</p>
+                     </div>
+                  </div>
+               </div>
+            ))}
+         </div>
+      </section>
+
+      {/* 7. Final CTA & Contact */}
+      <section id="contact" className="max-w-7xl mx-auto py-40">
+        <div className="premium-card rounded-[60px] p-12 md:p-24 overflow-hidden relative group">
+          <div className="absolute -bottom-20 -right-20 w-[600px] h-[600px] bg-primary/10 blur-[150px] rounded-full pointer-events-none group-hover:bg-primary/20 transition-colors duration-1000" />
           
-          <div className="grid md:grid-cols-2 gap-20">
+          <div className="grid lg:grid-cols-2 gap-20">
             <div>
-              <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">Hemen <br /> Başlayalım.</h2>
-              <p className="text-white/40 text-lg leading-relaxed mb-12">
-                Hayalinizdeki akıllı web sitesini projelendirmek ve yıllık servis planlarımızı öğrenmek için formu doldurun. Uzman ekibimiz 24 saat içinde demo ile dönecektir.
+              <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">Yeni Bir Başarı <br /> Hikayesi Yazalım.</h2>
+              <p className="text-white/40 text-xl leading-relaxed mb-12">
+                Hemen formu doldurun, 24 saat içerisinde projenizi teknik olarak projelendirip sizi arayalım.
               </p>
               <div className="space-y-6">
-                <div className="flex items-center gap-4 text-white/60 font-semibold">
-                   <div className="w-10 h-10 rounded-full border border-primary/20 flex items-center justify-center bg-primary/5 text-primary"><Zap size={18}/></div>
-                   <span>Hızlı Kurulum (15-30 Gün)</span>
-                </div>
-                <div className="flex items-center gap-4 text-white/60 font-semibold">
-                   <div className="w-10 h-10 rounded-full border border-accent/20 flex items-center justify-center bg-accent/5 text-accent"><LifeBuoy size={18}/></div>
-                   <span>Ömür Boyu Teknik Servis</span>
-                </div>
+                 <div className="flex items-center gap-4 py-4 border-b border-white/5">
+                    <span className="text-primary font-bold text-2xl">01</span>
+                    <span className="text-white/80 font-medium">Demo Tasarımı Hazırlıyoruz</span>
+                 </div>
+                 <div className="flex items-center gap-4 py-4 border-b border-white/5">
+                    <span className="text-accent font-bold text-2xl">02</span>
+                    <span className="text-white/80 font-medium">AI Entegrasyon Planını Çıkarıyoruz</span>
+                 </div>
+                 <div className="flex items-center gap-4 py-4">
+                    <span className="text-secondary font-bold text-2xl">03</span>
+                    <span className="text-white/80 font-medium">Fiyatlandırma & Servis Önerisi</span>
+                 </div>
               </div>
             </div>
 
@@ -216,7 +267,7 @@ const Home = () => {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
-                className="w-full bg-white/5 border border-white/10 rounded-3xl px-8 py-5 text-lg focus:outline-none focus:border-primary transition-colors hover:bg-white/10"
+                className="w-full bg-white/5 border border-white/10 rounded-3xl px-8 py-5 text-xl focus:outline-none focus:border-primary transition-colors hover:bg-white/10"
               />
               <input 
                 type="email" 
@@ -224,29 +275,30 @@ const Home = () => {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({...formData, email: e.target.value})}
-                className="w-full bg-white/5 border border-white/10 rounded-3xl px-8 py-5 text-lg focus:outline-none focus:border-primary transition-colors hover:bg-white/10"
+                className="w-full bg-white/5 border border-white/10 rounded-3xl px-8 py-5 text-xl focus:outline-none focus:border-primary transition-colors hover:bg-white/10"
               />
               <textarea 
-                rows="4" 
-                placeholder="Projeniz veya istediğiniz servis türü (AI Web Sitesi, Bakım vb.)" 
+                rows="5" 
+                placeholder="Proje hedefiniz veya servis talebiniz..." 
                 required
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
-                className="w-full bg-white/5 border border-white/10 rounded-3xl px-8 py-5 text-lg focus:outline-none focus:border-primary transition-colors hover:bg-white/10"
+                className="w-full bg-white/5 border border-white/10 rounded-3xl px-8 py-5 text-xl focus:outline-none focus:border-primary transition-colors hover:bg-white/10"
               />
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-white text-black font-bold py-6 rounded-3xl text-xl flex items-center justify-center gap-3 hover:scale-[0.98] transition-all disabled:opacity-50"
+                className="w-full bg-white text-black font-bold py-7 rounded-3xl text-2xl flex items-center justify-center gap-3 hover:bg-primary hover:text-white transition-all active:scale-[0.98] disabled:opacity-50"
               >
-                {isSubmitting ? 'Gönderiliyor...' : (
-                  <>Hemen Teklif Al <ChevronRight size={24} /></>
+                {isSubmitting ? 'Hazırlanıyor...' : (
+                  <>Hemen Teklif Al <ChevronRight size={28} /></>
                 )}
               </button>
             </form>
           </div>
         </div>
       </section>
+
     </div>
   );
 };
