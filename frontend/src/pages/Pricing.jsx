@@ -180,14 +180,14 @@ const Pricing = () => {
                   <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Sistem Kurulumu</span>
                   <div className="flex items-baseline gap-2">
                     <span className="text-4xl font-black tracking-tighter text-white">{plan.price.split(' ')[0]} {plan.price.split(' ')[1]}</span>
-                    {plan.price.includes('+KDV') && <span className="text-[13px] text-white/40 font-bold ml-1">+KDV</span>}
+                    {plan.price.includes('+KDV') && <span className="text-[14px] text-white/40 font-bold ml-1">+KDV</span>}
                   </div>
                 </div>
                 <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-2xl">
                   <span className="block text-white/40 text-[9px] uppercase tracking-widest font-semibold mb-1">Aylık Sistem Yönetimi (Zorunlu)</span>
                   <div className="flex items-baseline gap-2">
                     <span className="text-xl font-bold text-primary">{plan.monthlyService.split(' ')[0]} {plan.monthlyService.split(' ')[1]}</span>
-                    {plan.monthlyService.includes('+KDV') && <span className="text-[11px] text-primary/40 font-bold ml-1">+KDV</span>}
+                    {plan.monthlyService.includes('+KDV') && <span className="text-[14px] text-primary/40 font-bold ml-1">+KDV</span>}
                     <span className="text-[10px] text-white/30 font-normal">/ ay</span>
                   </div>
                 </div>
