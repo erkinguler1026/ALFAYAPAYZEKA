@@ -9,7 +9,7 @@ const Layout = () => {
       <div className="bg-mesh" />
 
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-white/5 h-24">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-[#0a0a0c]/90 to-purple-800/20 backdrop-blur-xl border-b border-white/5 h-24">
         <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
           <Link to="/" className="flex items-center gap-4 group">
             <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-primary/50 transition-all duration-500">
@@ -43,7 +43,7 @@ const Layout = () => {
       </main>
 
       {/* Premium Footer (PIXEL PERFECT TO 3097) */}
-      <footer className="py-32 px-6 border-t border-white/5 relative z-10 bg-gradient-to-br from-[#050505] to-purple-900/10 overflow-hidden">
+      <footer className="py-32 px-6 border-t border-white/5 relative z-10 bg-gradient-to-br from-[#050505] to-purple-800/20 overflow-hidden">
         <div className="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary/10 to-transparent pointer-events-none" />
         
         <div className="max-w-7xl mx-auto relative z-10">
