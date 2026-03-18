@@ -39,7 +39,7 @@ const Pricing = () => {
       name: "BAŞLANGIÇ PAKETİ",
       description: "Hızlı başlangıç yapmak isteyen küçük işletmeler için hazırlık ve kurulum.",
       price: isTurkish ? "6.999 ₺ +KDV" : "$299",
-      monthlyService: isTurkish ? "499 ₺ +KDV" : "$25",
+      monthlyService: isTurkish ? "999 ₺ +KDV" : "$25",
       productionTime: "4-7 İş Günü",
       launchTime: "24-48 Saat",
       features: [
@@ -60,7 +60,7 @@ const Pricing = () => {
       name: "STANDART PAKET",
       description: "Büyüyen firmalar için tam kapsamlı üretim ve servis paketi.",
       price: isTurkish ? "15.999 ₺ +KDV" : "$899",
-      monthlyService: isTurkish ? "999 ₺ +KDV" : "$45",
+      monthlyService: isTurkish ? "1.599 ₺ +KDV" : "$45",
       productionTime: "10-15 İş Günü",
       launchTime: "3-5 İş Günü",
       features: [
@@ -84,7 +84,7 @@ const Pricing = () => {
       name: "KURUMSAL PAKET",
       description: "Büyük ölçekli projeler ve özel yazılım servis planları.",
       price: "Özel Teklif",
-      monthlyService: isTurkish ? "2.499 ₺ +KDV" : "$120",
+      monthlyService: isTurkish ? "3.699 ₺ +KDV" : "$120",
       productionTime: "20-35 İş Günü",
       launchTime: "7-10 İş Günü",
       features: [

@@ -400,7 +400,7 @@ const Home = () => {
             <div className="text-center">
               <span className="block text-white text-[16px] uppercase tracking-widest font-bold mb-2 font-mono">Yönetim Paketi</span>
               <p className="text-5xl font-black text-primary tracking-tighter flex items-baseline justify-center gap-1">
-                499 ₺ 
+                999 ₺ 
                 <span className="text-[18px] text-primary/80 font-black ml-1">+KDV</span> 
                 <span className="text-white font-bold text-lg">/ay</span>
               </p>
