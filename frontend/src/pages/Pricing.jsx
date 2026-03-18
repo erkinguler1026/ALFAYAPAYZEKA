@@ -245,23 +245,23 @@ const Pricing = () => {
         </div>
 
         {/* Global Support info */}
-        <div className="mt-24 flex flex-col md:flex-row items-center justify-center gap-12 border-t border-white/5 pt-12">
-            <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent">
-                    <LifeBuoy size={20} />
+        <div className="mt-24 flex flex-col md:flex-row items-center justify-center gap-16 border-t border-white/5 pt-16">
+            <div className="flex items-center gap-6">
+                <div className="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center text-accent flex-shrink-0">
+                    <LifeBuoy size={28} />
                 </div>
                 <div className="text-left">
-                    <h4 className="font-bold text-sm">Anlık Teknik Servis</h4>
-                    <p className="text-white/40 text-[10px]">Olası sorunlarda 1 saat içinde müdahale.</p>
+                    <h4 className="font-bold text-xl mb-1">Anlık Teknik Servis</h4>
+                    <p className="text-white/50 text-base">Olası sorunlarda 1 saat içinde müdahale.</p>
                 </div>
             </div>
-            <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-secondary">
-                    <ShieldCheck size={20} />
+            <div className="flex items-center gap-6">
+                <div className="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center text-secondary flex-shrink-0">
+                    <ShieldCheck size={28} />
                 </div>
                 <div className="text-left">
-                    <h4 className="font-bold text-sm">Güvenli Altyapı</h4>
-                    <p className="text-white/40 text-[10px]">ISO27001:2022 ISMS kapsamında veri güvenliği ve bakım.</p>
+                    <h4 className="font-bold text-xl mb-1">Güvenli Altyapı</h4>
+                    <p className="text-white/50 text-base">ISO27001:2022 ISMS kapsamında veri güvenliği ve bakım.</p>
                 </div>
             </div>
         </div>
