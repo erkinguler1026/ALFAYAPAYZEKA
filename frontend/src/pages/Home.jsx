@@ -273,12 +273,12 @@ const Home = () => {
       </section>
 
       {/* 6. Digital Insurance & Assurance - NEW SECTION */}
-      <section className="max-w-7xl mx-auto py-12 border-t border-white/5 relative overflow-hidden">
+      <section className="max-w-[1600px] mx-auto py-12 border-t border-white/5 relative overflow-hidden">
         {/* Decorative background element */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10" />
         
-        <div className="grid lg:grid-cols-[1.1fr_auto] gap-32 items-center">
-          <div className="max-w-3xl">
+        <div className="grid lg:grid-cols-[1.5fr_auto] gap-[150px] items-center">
+          <div className="w-full">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -326,9 +326,9 @@ const Home = () => {
       </section>
 
       {/* 4. After-Sales / Technical Service (The "Garage" Analogy) */}
-      <section className="max-w-7xl mx-auto py-12 border-t border-white/5">
-        <div className="flex flex-col lg:flex-row gap-20 items-center">
-          <div className="lg:w-1/2">
+      <section className="max-w-[1600px] mx-auto py-12 border-t border-white/5">
+        <div className="grid lg:grid-cols-[1.5fr_auto] gap-[150px] items-center">
+          <div className="w-full">
             <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">
               Arabanızın Servisi <br />
               Varsa, <span className="text-primary">Sitenizin de Olmalı.</span>
