@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Info, LifeBuoy, ShieldCheck } from 'lucide-react';
+import { Check, Info, LifeBuoy, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 const FeatureItem = ({ text, description }) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -211,9 +211,25 @@ const Pricing = () => {
 
               <div className="mb-6 pt-4 border-t border-white/5">
                 <span className="text-[10px] text-accent font-black tracking-widest uppercase block mb-2">OPSİYONEL GÜVENCE</span>
-                <div className="flex items-center gap-2 text-white/40">
+                <div className="flex items-center gap-2 text-white/40 mb-4">
                   <ShieldCheck size={14} className="text-accent" />
                   <span className="text-[11px] font-medium">Siber Sigorta & Güvence Paketi</span>
+                </div>
+                
+                <div className="space-y-3 pl-1">
+                  {[
+                    { title: "Siber Risk Poliçesi", desc: "Veri sızıntısı, hacking ve itibar suikastine mali teminat." },
+                    { title: "İş Durması Teminatı", desc: "Teknik aksaklıktan kaynaklanan gelir kaybı koruması." },
+                    { title: "Acente Danışmanlığı", desc: "Acentelerimiz kanalıyla en uygun poliçe hazırlığı." }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-2 items-start">
+                      <CheckCircle2 size={10} className="text-accent/40 mt-1 flex-shrink-0" />
+                      <div>
+                        <h4 className="text-[10px] font-bold text-white/60 leading-tight">{item.title}</h4>
+                        <p className="text-[9px] text-white/30 leading-tight font-light">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
