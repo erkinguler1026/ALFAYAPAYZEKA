@@ -210,7 +210,7 @@ const Home = () => {
       {/* 5. Trust Bridge / Philosophy - NEW TRANSITION */}
       <section className="max-w-5xl mx-auto py-20 text-center relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-primary/50 to-transparent" />
-        <h3 className="text-white/30 text-sm uppercase tracking-[0.5em] font-black mb-6 mt-12">Neden Alfa AI Studio?</h3>
+        <h1 className="text-white text-lg uppercase tracking-[0.5em] font-black mb-6 mt-12 underline decoration-primary underline-offset-8">Neden Alfa AI Studio?</h1>
         <p className="text-3xl md:text-5xl font-light text-white leading-tight">
           "Biz sadece kod yazmıyoruz; işinizi <span className="text-primary font-medium">dijital bir satış makinesine</span> dönüştüren akıllı bir mimari inşa ediyoruz."
         </p>
@@ -403,7 +403,7 @@ const Home = () => {
             <div className="w-px h-16 bg-white/10 hidden md:block" />
             <div className="text-center">
               <span className="block text-white text-[16px] uppercase tracking-widest font-bold mb-2 font-mono">Hizmet Taahhüdü</span>
-              <p className="text-3xl font-bold text-white uppercase tracking-tighter">12 Ay <br /> <span className="text-white/20 text-sm font-normal">Teknik Sigorta</span></p>
+              <p className="text-3xl font-bold text-white uppercase tracking-tighter">12 Ay <br /> <span className="text-white text-[16px] font-bold">Teknik Sigorta</span></p>
             </div>
           </div>
           <Link to="/pricing" className="inline-flex items-center gap-3 px-12 py-5 bg-white text-black font-bold rounded-2xl hover:bg-primary hover:text-white transition-all">
