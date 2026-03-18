@@ -50,13 +50,6 @@ const Home = () => {
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0c] text-white selection:bg-primary/30 overflow-x-hidden pt-10">
-      {/* Nuclear Deployment Marker */}
-      <div 
-        style={{ position: 'fixed', top: 0, left: 0, width: '100%', backgroundColor: '#dc2626', color: 'white', fontSize: '12px', fontWeight: 'bold', padding: '10px 0', textAlign: 'center', zIndex: 9999, textTransform: 'uppercase', letterSpacing: '0.4em' }}
-      >
-        LIVE DEPLOYMENT SYNC Status: V.1.6.0 - TIMESTAMP: {new Date().toLocaleTimeString('tr-TR')} - ACTIVE ✅
-      </div>
-
       <div className="bg-mesh" />
       
       {/* 1. Hero Section */}
@@ -67,7 +60,7 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1 }}
             className="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-[12px] font-bold tracking-[0.3em] uppercase text-primary mb-10 inline-block"
           >
-            <Zap size={12} className="inline-block mr-2 animate-pulse" /> ALFA AI SİSTEM STRATEJİMİZ (V.1.6.0)
+            <Zap size={12} className="inline-block mr-2 animate-pulse" /> ALFA AI SİSTEM STRATEJİMİZ
           </motion.div>
 
           <motion.h1 
@@ -86,7 +79,7 @@ const Home = () => {
             transition={{ delay: 0.2 }}
             className="max-w-3xl mx-auto text-xl md:text-2xl text-white/50 leading-relaxed mb-16 font-light"
           >
-            Yapay zeka destekli akıllı web siteleriyle müşteri kazanın, satışlarınızı otomatikleştirin ve işinizi büyütün.
+            Yapay zeka destekli akıllı web siteleriyle müşteri kazanın, satışlarınızı otomatikleştirin ve işinizi büyütün. Biz sadece site tasarlamıyoruz; <span className="text-white font-medium">sizin yerinize 7/24 satış yapan akıllı sistemler kuruyoruz.</span>
           </motion.p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -150,13 +143,10 @@ const Home = () => {
           </div>
 
           <div className="flex justify-center lg:justify-end">
-             <div 
-               style={{ width: '550px', height: '550px', minWidth: '550px', minHeight: '550px' }}
-               className="flex flex-col items-center justify-center p-16 glass-morphism rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 flex-shrink-0 overflow-hidden"
-             >
+             <div className="symmetric-frame p-16 glass-morphism rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 overflow-hidden">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
                 <ShieldCheck className="w-24 h-24 text-primary mx-auto mb-8 hover:scale-110 transition-all duration-500 cursor-pointer" />
-                <h3 className="text-3xl font-bold mb-4">ISO31000:2018 Risk Yönetim Sistemi Kapsamında  <br /> & Güvence</h3>
+                <h3 className="text-3xl font-bold mb-4 text-[28px] leading-tight">ISO31000:2018 Risk Yönetim Sistemi Kapsamında  <br /> & Güvence</h3>
                 <p className="text-white/30 text-xs uppercase tracking-widest font-black">Insurance Partnership</p>
                 <div className="mt-8 pt-8 border-t border-white/5 flex flex-wrap justify-center gap-4 opacity-30 grayscale contrast-125">
                    <span className="font-black italic text-xs uppercase tracking-tighter">Siber Güvence Partnerliği</span>
@@ -175,7 +165,7 @@ const Home = () => {
               Varsa, <span className="text-primary">Sitenizin de Olmalı.</span>
             </h2>
             <p className="text-white/40 text-xl leading-relaxed mb-12">
-              Biz, işletmenizin dijital motoru olan sitenize tam kapsamlı "Satış Sonrası Servis" sağlıyoruz.
+              Biz, işletmenizin dijital motoru olan sitenize tam kapsamlı "Satış Sonrası Servis" (After-Sales) sağlıyoruz.
             </p>
 
             <div className="grid sm:grid-cols-2 gap-8">
@@ -195,10 +185,7 @@ const Home = () => {
           </div>
 
           <div className="flex justify-center lg:justify-end">
-             <div 
-               style={{ width: '550px', height: '550px', minWidth: '550px', minHeight: '550px' }}
-               className="flex flex-col items-center justify-center p-16 glass-morphism rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 flex-shrink-0 overflow-hidden"
-             >
+             <div className="symmetric-frame p-16 glass-morphism rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 overflow-hidden">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
                 <Wrench className="w-32 h-32 text-primary mb-8 group-hover:rotate-45 transition-transform duration-700" />
                 <h3 className="text-3xl font-bold mb-4">Tam Yetkili <br /> Teknik Servis</h3>
@@ -217,6 +204,9 @@ const Home = () => {
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div>
               <h2 className="text-5xl md:text-7xl font-bold tracking-tight mb-8 text-white">Bize Bir Mesaj <br /> Bırakın.</h2>
+              <p className="text-white/40 text-xl leading-relaxed mb-12">
+                Projenizi veya ihtiyacınızı yazın, en geç 24 saat içinde sizi arayıp teknik çözümümüzü sunalım.
+              </p>
               <form onSubmit={handleContactSubmit} className="flex flex-col gap-6">
                 <input 
                   type="text" 
