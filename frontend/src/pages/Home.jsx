@@ -277,8 +277,8 @@ const Home = () => {
         {/* Decorative background element */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10" />
         
-        <div className="flex flex-col lg:flex-row gap-20 items-center">
-          <div className="lg:w-3/5">
+        <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div className="lg:w-1/2">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -310,8 +310,8 @@ const Home = () => {
             </div>
           </div>
           
-          <div className="lg:w-2/5">
-             <div className="aspect-square flex flex-col items-center justify-center p-12 glass-morphism rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500">
+          <div className="lg:w-1/2 flex justify-center lg:justify-end">
+             <div className="aspect-square w-full max-w-[500px] flex flex-col items-center justify-center p-16 glass-morphism rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
                 <ShieldCheck className="w-24 h-24 text-primary mx-auto mb-8 hover:scale-110 hover:text-purple-400 transition-all duration-500 cursor-pointer" />
                 <h3 className="text-3xl font-bold mb-4">ISO31000:2018 Risk Yönetim Sistemi Kapsamında  <br /> & Güvence</h3>
@@ -363,7 +363,7 @@ const Home = () => {
           </div>
 
           <div className="lg:w-1/2 relative group">
-             <div className="aspect-square flex flex-col items-center justify-center glass-morphism rounded-[60px] p-12 text-center hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 relative border border-white/10">
+             <div className="aspect-square w-full max-w-[500px] flex flex-col items-center justify-center glass-morphism rounded-[60px] p-16 text-center hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 relative border border-white/10">
                 <Wrench className="w-32 h-32 text-primary mb-8 group-hover:rotate-45 transition-transform duration-700" />
                 <h3 className="text-3xl font-bold mb-4">Tam Yetkili <br /> Teknik Servis</h3>
                 <p className="text-white/30 uppercase tracking-widest font-bold text-xs">Alfa AI Studio Assurance</p>
