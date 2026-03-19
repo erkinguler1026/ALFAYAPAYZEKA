@@ -5,12 +5,23 @@ import './index.css'
 import App from './App.jsx'
 
 /**
- * main.jsx (Uygulamanın Giriş Noktası / Entry Point)
- * 
- * Burası React uygulamasının DOM'a (HTML'e) bağlandığı ilk yerdir.
- * - StrictMode: Geliştirme aşamasında potansiyel hataları bulmak için kullanılır.
- * - BrowserRouter: React Router'ın tarayıcı geçmişini (URL) yönetebilmesi için tüm uygulamayı sarmalar.
- * - index.css: Tailwind ve global stillerin sisteme dahil edildiği temel CSS dosyasıdır.
+ * main.jsx — Uygulamanın Giriş Noktası (Entry Point)
+ *
+ * Bu dosya Vite tarafından derlemenin başlangıç noktası olarak kullanılır.
+ * React uygulaması burada public/index.html içindeki <div id="root"> elementine
+ * bağlanır (hydrate edilir).
+ *
+ * Sarmalayıcı katmanlar (dıştan içe):
+ *   <StrictMode>    → Geliştirme modunda çift render yaparak potansiyel
+ *                     hataları ve eski API kullanımlarını konsola raporlar.
+ *                     Production build'de etkisizdir.
+ *
+ *   <BrowserRouter> → React Router'ın HTML5 History API'sini kullanarak
+ *                     URL geçişlerini yönetmesini sağlar. Tüm <Route>
+ *                     ve <Link> bileşenlerinin çalışabilmesi için zorunludur.
+ *
+ *   <App />         → Routing yapısı ve global bileşenler (ToastContainer)
+ *                     burada başlatılır.
  */
 createRoot(document.getElementById('root')).render(
   <StrictMode>

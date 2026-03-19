@@ -1,10 +1,22 @@
 /**
- * Backend Ana Giriş Dosyası (Node.js & Express)
- * 
- * - 'express': Web sunucusunu ayağa kaldırmak için kullanılır.
- * - 'cors': Gelen isteklerin nereden geldiğini denetler (Cross-Origin Resource Sharing).
- * - 'nodemailer': İletişim formundan gelen mailleri Brevo (veya herhangi bir SMTP) üzerinden gönderir.
- * - Çevresel değişkenler '.env' dosyasından (dotenv) çekilerek güvenli bir şekilde tutulur.
+ * backend/index.js — Node.js/Express API Sunucusu
+ *
+ * Versiyon: 1.0.0 | Port: 5000 (varsayılan)
+ *
+ * Bağımlılıklar:
+ *   - express   : HTTP sunucu çerçevesi; route tanımları ve middleware yönetimi.
+ *   - cors       : Frontend'den (localhost:5173) gelen cross-origin isteklere izin verir.
+ *   - morgan     : Her HTTP isteğini 'dev' formatında konsola loglar (geşmiş yok olur).
+ *   - dotenv     : .env dosyasındaki BREVO_SMTP_USER, BREVO_SMTP_KEY,
+ *                  CONTACT_SENDER, CONTACT_RECEIVER değişkenlerini process.env'e yükler.
+ *   - nodemailer : E-posta gönderimi için Brevo SMTP rölesi kullanır.
+ *
+ * NOT: 'bcryptjs' package.json'da mevcut ama henüz kullanılmıyor.
+ *      İleride kullanıcı kimlik doğrulama (auth) eklenirse buraya import edilecek.
+ *
+ * Endpoint'ler:
+ *   GET  /api/health  → Sunucunun ayakta olduğunu doğrular.
+ *   POST /api/contact → İletişim formundan gelen veriyi Brevo SMTP ile e-posta olarak gönderir.
  */
 import express from 'express';
 import cors from 'cors';

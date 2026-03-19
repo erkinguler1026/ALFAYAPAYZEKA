@@ -1,3 +1,11 @@
+/**
+ * index.css — Global Stil Sistemi
+ * 
+ * Bu dosya Tailwind CSS v4'ün ana import noktasıdır.
+ * @import "tailwindcss" → v4'te base, components ve utilities katmanlarını
+ * tek satırda dahil eder. Ayrı @tailwind direktiflerine gerek YOKTUR.
+ * CSS değişkenleri (custom properties) ve özel sınıflar burada tanımlanır.
+ */
 @import "tailwindcss";
 
 :root {
@@ -67,9 +75,8 @@ body {
   background: rgba(99, 102, 241, 0.05);
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* NOT: @tailwind base/components/utilities direktifleri Tailwind v4'te
+ * kullanılmaz. @import "tailwindcss" üstte tüm katmanları zaten kapsar. */
 
 .symmetric-frame {
   width: 100%;

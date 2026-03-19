@@ -4,12 +4,30 @@ import { Mail, Phone, MapPin, Send, MessageSquare, User, AtSign } from 'lucide-r
 import { toast } from 'react-toastify';
 
 /**
- * Contact (İletişim) Sayfası Bileşeni
- * 
- * Kullanıcıların iletişim formu aracılığıyla mesaj göndermesini sağlar.
- * - Form verileri (formData state'i içerisinde adı, email, mesaj) tutulur.
- * - Node.js API'sine (Backend) fetch/axios ile asenkron istek atılır.
- * - Başarı/Hata durumlarında toastify ile bildirim gösterilir.
+ * Contact — İletişim Sayfası Bileşeni
+ *
+ * Kullanıcılara iletişim formu aracılığıyla mesaj gönderme imkânı sunar.
+ *
+ * State:
+ *   - formData     : { name, email, message } — form alanlarını tutar.
+ *   - isSubmitting : Form POST isteği süresince butonu devre dışı bırakır.
+ *
+ * İşleyiciler:
+ *   - handleSubmit : e.preventDefault() ile sayfa yenilenmeden fetch() ile
+ *                   backend'e (POST /api/contact) veri gönderir.
+ *                   Başarıda → toast.success, hata durumunda → toast.error.
+ *   - handleChange : Gerçek zamanlı olarak formData state'ini günceller.
+ *
+ * Sayfa yapısı (2 sütun):
+ *   Sol  → Şirket bilgileri (e-posta, telefon, adres) — ContactInfoItem bileşeni.
+ *   Sağ  → Glass-morphism stilli form kartı.
+ *
+ * Alt bileşen:
+ *   <ContactInfoItem> → Her iletişim bilgisi satırını (ikon + başlık + içerik)
+ *                       hover animasyonuyla gösterir.
+ *
+ * NOT: Bu sayfa fetch() API kullanır. Home.jsx iletişim formu ise axios kullanır.
+ *      İkisi de aynı /api/contact endpoint'ine bağlanır.
  */
 const Contact = () => {
   useEffect(() => {

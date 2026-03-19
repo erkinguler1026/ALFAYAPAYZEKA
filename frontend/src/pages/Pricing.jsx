@@ -3,9 +3,15 @@ import { motion } from 'framer-motion';
 import { Check, Info, LifeBuoy, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 /**
- * FeatureItem (Özellik Satırı Bileşeni)
- * - Fiyatlandırma paketleri içindeki her bir özelliği gösterir.
- * - İçerisinde 'Info' ikonuna üzerine gelindiğinde detay (Tooltip) çıkarır.
+ * FeatureItem — Fiyat Paketi Özellik Satırı
+ *
+ * @param {string} text        - Görüntülenecek özellik başlığı
+ * @param {string} description - Info ikonu hover'ında gösterilecek tooltip açıklaması
+ *
+ * Davranış:
+ *   - ℹ️ ikonu üzerine gelinince `showTooltip` state'i true olur.
+ *   - Tooltip, özellik satırının üstünde konumlanır (absolute, bottom-full).
+ *   - Mouse dışarı çıkınca tooltip kapanır.
  */
 const FeatureItem = ({ text, description }) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -36,6 +42,30 @@ const FeatureItem = ({ text, description }) => {
   );
 };
 
+/**
+ * Pricing — Fiyatlandırma Sayfası Bileşeni
+ *
+ * Ajansın 4 servis paketini (Başlangıç, Standart, Kurumsal, Özel-Girişim)
+ * interaktif kartlar halinde sunar.
+ *
+ * State:
+ *   - isTurkish : Para birimi toggle'ı. true → ₺ TL, false → USD $
+ *
+ * Veri yapısı (`plans` dizisi):
+ *   Her plan nesnesi şunları içerir:
+ *     - name          : Paketin başlığı
+ *     - description   : Kısa açıklama
+ *     - price         : Kurulum bedeli (isTurkish'e göre değişir)
+ *     - monthlyService: Aylık yönetim bedeli
+ *     - productionTime: İşleme süresi
+ *     - launchTime    : Yayına alma süresi
+ *     - features      : FeatureItem listesi (text + description)
+ *     - cta           : Buton yazısı
+ *     - popular       : true → "En Popüler" stili uygulanır
+ *
+ * Alt bileşen:
+ *   <FeatureItem> → Her özellik satırı için tooltip'li liste öğesi.
+ */
 const Pricing = () => {
   const [isTurkish, setIsTurkish] = useState(true);
 

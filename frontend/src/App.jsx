@@ -12,16 +12,29 @@ import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
 
 /**
- * App Bileşeni
- * 
- * Bu bileşen uygulamanın ana "Router" (Yönlendirme) yapısını barındırır.
- * - 'react-router-dom' kullanılarak sayfa geçişleri yönetilir.
- * - <ToastContainer /> ile sistem genelindeki bildirimler (başarı/hata mesajları) gösterilir.
- * - Tüm sayfalar <Layout /> bileşeni (Header ve Footer barındıran sarmalayıcı) içinde render edilir.
+ * App Bileşeni — Uygulamanın Kök Bileşeni
+ *
+ * Versiyon: V1.3.0 | Tarih: Mart 2026
+ *
+ * Bu bileşen uygulamanın ana "Router" (Yönlendirme) yapısını barındırır:
+ * - 'react-router-dom' (v7) kullanılarak URL bazlı sayfa geçişleri yönetilir.
+ * - <ToastContainer /> ile uygulama genelindeki anlık bildirimler (başarı/hata
+ *   uyarıları) sağ alt köşede gösterilir.
+ * - Tüm sayfalar (<Home>, <About>, <Portfolio>, <Pricing>, <Contact>) ortak
+ *   <Layout /> bileşeni (Navbar + Footer) içine nested route olarak yerleştirilir.
+ *
+ * Routing Yapısı:
+ *   / → Layout (Navbar + Footer)
+ *     ├── index → Home
+ *     ├── /about → About
+ *     ├── /portfolio → Portfolio
+ *     ├── /pricing → Pricing
+ *     └── /contact → Contact
  */
 const App = () => {
   React.useEffect(() => {
-    console.log("AI Web Studio App Initialized - V1.0.5");
+    // Versiyon numarası Hero bölümündeki sürüm etiketiyle senkronize tutulmalıdır.
+    console.log("Alfa Yapay Zeka — App Initialized V1.3.0");
   }, []);
 
   return (

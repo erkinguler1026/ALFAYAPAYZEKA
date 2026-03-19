@@ -1,7 +1,62 @@
-# Frontend Klasörü
-Bu klasör, Alfa AI Studio (aiwebstudio.dev) web uygulamasının kullanıcı arayüzü (Client-Side) kodlarını barındırır.
-Proje **React** (Vite) kullanılarak geliştirilmiş olup, stil yönetimi için **Tailwind CSS v4** kullanılmaktadır.
+# ALFAYAPAYZEKA — Frontend
 
-## Başlatma Komutları
-- `npm run dev` : Geliştirme sunucusunu başlatır.
-- `npm run build` : Canlı (Production) ortam için projeyi derler.
+React + Vite + Tailwind CSS v4 ile inşa edilmiş **Alfa Yapay Zeka Ajansı** web sitesinin frontend katmanıdır.
+
+## 🚀 Kurulum & Çalıştırma
+
+```bash
+# Bağımlılıkları kur
+npm install
+
+# Geliştirme sunucusunu başlat (http://localhost:5173)
+npm run dev
+
+# Production build
+npm run build
+```
+
+## ⚙️ Ortam Değişkenleri (.env)
+
+| Değişken | Açıklama | Varsayılan |
+|---|---|---|
+| `VITE_API_BASE_URL` | Backend API adresi | `http://localhost:5000` |
+
+## 🗂️ Sayfa Yapısı
+
+| Route | Bileşen | Açıklama |
+|---|---|---|
+| `/` | `Home.jsx` | Ana sayfa (Landing Page), 11 bölüm |
+| `/about` | `About.jsx` | Vizyon ve hizmet standartları |
+| `/portfolio` | `Portfolio.jsx` | Proje vitrin sayfası |
+| `/pricing` | `Pricing.jsx` | 4 fiyat paketi, TL/USD toggle |
+| `/contact` | `Contact.jsx` | İletişim formu (POST /api/contact) |
+
+## 🛠️ Teknoloji Yığını
+
+| Paket | Versiyon | Kullanım |
+|---|---|---|
+| React | 19 | UI bileşen kütüphanesi |
+| React Router DOM | 7 | URL yönlendirme |
+| Vite | 8 | Build & dev sunucusu |
+| Tailwind CSS | 4 | Utility-first CSS |
+| Framer Motion | 12 | Animasyonlar |
+| Lucide React | 0.577 | İkonlar |
+| Axios | 1.13 | HTTP istekleri (Home.jsx) |
+| React Toastify | 11 | Bildirim sistemi |
+
+## 📁 Dizin Yapısı
+
+```
+frontend/
+├── public/            # Statik dosyalar
+├── src/
+│   ├── assets/        # Görseller
+│   ├── components/    # Layout.jsx (Navbar + Footer sarmalayıcısı)
+│   ├── pages/         # Sayfa bileşenleri
+│   ├── App.jsx        # Router ve global yapı
+│   ├── main.jsx       # Giriş noktası
+│   └── index.css      # Tailwind + global stiller
+├── .env               # API URL gibi çevre değişkenleri
+├── vite.config.js     # Vite yapılandırması
+└── tailwind.config.js # Tailwind eklenti ayarları
+```

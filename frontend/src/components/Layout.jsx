@@ -3,12 +3,18 @@ import { motion } from 'framer-motion';
 import { Bot, ChevronRight, Zap } from 'lucide-react';
 
 /**
- * Layout Bileşeni
- * 
- * Tüm uygulamanın ortak şablonunu oluşturur (Sarmalayıcı / Wrapper).
- * İçerisinde Navbar (Üst Menü), Footer (Alt Bilgi Alanı) ve 'Outlet' bulunur.
- * 'Outlet', o anki URL'e göre değişen sayfa içeriklerinin (Home, About vb.) 
- * Layout içine yerleştirildiği dinamik alandır.
+ * Layout Bileşeni — Uygulamanın Ortak Şablonu (Wrapper)
+ *
+ * Tüm sayfaların paylaştığı iskelet yapıdır:
+ *   1. Navbar  : Üstte sabit konumlanan navigasyon menüsü.
+ *   2. <Outlet>: React Router'ın o anki URL'ye göre içeri yerleştirdiği
+ *               dinamik sayfa bileşeni (Home, About, Portfolio vb.).
+ *   3. Footer  : Altta yer alan site künyesi ve bağlantılar bölümü.
+ *
+ * Arka plan:
+ *   - `.bg-mesh` sınıfı: index.css'te tanımlı radial gradient arka plan.
+ *   - Navbar `fixed` konumlama ile scroll'da üstte kalır.
+ *   - `<main>` alanına `pt-24` ile navbar yüksekliği kadar boşluk verilir.
  */
 const Layout = () => {
   return (
@@ -98,6 +104,18 @@ const Layout = () => {
   );
 };
 
+/**
+ * NavLink — Aktif Sayfa Farkındalıklı Navigasyon Bağlantısı
+ *
+ * @param {string} to    - React Router Link hedef URL'si (örn. "/about")
+ * @param {string} label - Menüde görüntülenecek metin
+ *
+ * Özellikler:
+ *   - `useLocation()` ile mevcut URL'e bakarak aktif durumu belirler.
+ *   - Aktifse: Framer Motion `layoutId="nav-underline"` ile animate edilmiş
+ *     mor alt çizgi görünür.
+ *   - Pasifse: Hover'da genişleyen CSS geçişli alt çizgi gösterilir.
+ */
 const NavLink = ({ to, label }) => {
   const location = useLocation();
   const isActive = location.pathname === to;

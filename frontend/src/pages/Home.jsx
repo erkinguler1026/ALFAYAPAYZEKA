@@ -10,12 +10,30 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 /**
- * Home (Ana Sayfa) Bileşeni
- * 
- * Sitenin karşılama noktasıdır (Landing Page).
- * Framer Motion kullanılarak kaydırma, giriş ve animasyon efektleri tasarlanmıştır.
- * Toplamda 6 ana bölümden (Hero, Outcomes, Lifecycle, Workflow, Digital Security, Insurance) oluşur.
- * İletişim Formu (Contact Form) doğrudan bu sayfanın altında yer alır.
+ * Home — Ana Sayfa Bileşeni (Landing Page)
+ *
+ * Versiyon: V1.3.0 | Siteye gelen ziyaretçinin ilk gördüğü içeriktir.
+ *
+ * Sayfanın Bölümleri (yukarıdan aşağıya):
+ *   1. Hero Section         – Ana başlık, alt yazı ve CTA butonları
+ *   2. Outcome Strip        – 3 adımlık değer önerisi (Çek / Dönüştür / Otomatikleştir)
+ *   3. Core Benefits Bento  – Sitedan elde edilecek 3 ana kazanım
+ *   4. Service Lifecycle    – 3 katmanlı hizmet yapısı (Kurulum / Yönetim / Büyüme)
+ *   5. Workflow Timeline    – 10 günlük proje doğum süreci
+ *   6. Trust Bridge         – "Neden Alfa AI Studio?" felsefe bölümü
+ *   7. Digital Security     – Zırhlı kod ve siber güvenlik özellikleri
+ *   8. Digital Insurance    – Sigorta ortaklığı ve risk teminatları
+ *   9. After-Sales Service  – Servis analojisi (Araba servisi gibi)
+ *  10. Pricing Preview      – Fiyat önizi ve Sistemleri İncele CTA
+ *  11. Contact Form         – Mesaj formu (backend /api/contact'a gönderir)
+ *
+ * State yönetimi:
+ *   - formData     : İsim, e-posta ve mesaj alanlarını tutar.
+ *   - isSubmitting : Form gönderim sürecinde butonu devre dışı bırakır.
+ *
+ * API entegrasyonu:
+ *   - axios.post(´/api/contact´) ile backend'e veri atılır.
+ *   - Başarı / Hata bildirimleri react-toastify üzerinden verilir.
  */
 const Home = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });

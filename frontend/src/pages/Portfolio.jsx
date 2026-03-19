@@ -2,11 +2,23 @@ import { motion } from 'framer-motion';
 import { ChevronRight, ExternalLink } from 'lucide-react';
 
 /**
- * Portfolio (Portfolyo) Sayfası Bileşeni
- * 
- * Ajansın önceki çalışmalarını sergilediği bölümdür.
- * Her bir proje 'projects' dizisi içerisinde (JSON objesi olarak) tutulur ve map() ile render edilir.
- * Premium ve Glassmorphism tasarım dili (hover efektleri) kullanılmıştır.
+ * Portfolio — Portfolyo Sayfası Bileşeni
+ *
+ * Ajansın önceki çalışmalarını sergileyen vitrin sayfası.
+ *
+ * Veri yapısı:
+ *   `projects` dizisi içindeki her nesne şu alanları taşır:
+ *     - title : Proje adı
+ *     - tag   : Kategori etiketi (Industrial AI, Business SaaS vb.)
+ *     - color : Tailwind gradient sınıfları (hover'da arka plana uygulanır)
+ *     - desc  : Kısa açıklama cümlesi
+ *
+ * Animasyonlar:
+ *   - Framer Motion ile her kart sırayla (delay: i * 0.1s) aşağıdan yukarı fade-in yapar.
+ *   - Hover'da gradient arka plan `opacity-0 → opacity-10` ile açılır.
+ *   - ExternalLink ikonu hover'da `rotate-12` + primary renk ile belirginleşir.
+ *
+ * NOT: Proje detay sayfaları henüz geliştirilmedi. İleride her karta link eklenecek.
  */
 const Portfolio = () => {
   const projects = [

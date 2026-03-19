@@ -2,11 +2,16 @@ import { motion } from 'framer-motion';
 import { Target, Lightbulb, TrendingUp, ShieldCheck, LifeBuoy, Zap } from 'lucide-react';
 
 /**
- * About (Hakkımızda) Sayfası Bileşeni
- * 
- * Kurumun vizyonunu, değerlerini ve hizmet standartlarını anlatan bölümdür.
- * Framer Motion kullanılarak giriş animasyonları (fade-in, slide-in) sağlanır.
- * Özellikle dijital servis standartları ve operasyon yaklaşımı vurgulanmaktadır.
+ * About — Hakkımızda Sayfası Bileşeni
+ *
+ * Kurumun vizyon, misyon ve hizmet standartlarını anlatan tanıtım sayfası.
+ * İçerisindeki bölümler:
+ *   - Üst kısım : Sayfa başlığı ve açıklama yazısı (fade-in animasyonlu)
+ *   - Alt kısım : 3 değer kartı (Hızlı Üretim / Kesintisiz Destek / Güvenli Bakım)
+ *
+ * Animasyonlar:
+ *   - Framer Motion ile giriş sırasında opacity ve y ekseninde fade-in efekti.
+ *   - Kartlarda ikon renkleri CSS değişkenleri (--primary, --secondary, --accent) kullanır.
  */
 const About = () => {
   return (
