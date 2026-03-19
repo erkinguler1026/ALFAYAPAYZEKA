@@ -96,7 +96,7 @@ const Contact = () => {
             </div>
 
             <div className="flex flex-col gap-6 mt-4">
-              <ContactInfoItem icon={<Mail size={20} className="text-primary" />} title="E-posta" content="iletisim@aiwebstudio.dev" />
+              <ContactInfoItem icon={<Mail size={20} className="text-primary" />} title="E-posta" content="iletisim@alfayapayzeka.com" />
               <ContactInfoItem icon={<Phone size={20} className="text-primary" />} title="Telefon" content="+90 (532) 466 30 76" />
               <ContactInfoItem icon={<MapPin size={20} className="text-primary" />} title="Ofis" content="Esentepe Mah. Gürler Cad. Akayya Sok. Evşenkent Sitesi C Blok. No:3/C 16130 Nilüfer, Bursa Türkiye" />
             </div>
