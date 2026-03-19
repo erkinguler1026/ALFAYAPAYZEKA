@@ -1,6 +1,13 @@
 import { motion } from 'framer-motion';
 import { ChevronRight, ExternalLink } from 'lucide-react';
 
+/**
+ * Portfolio (Portfolyo) Sayfası Bileşeni
+ * 
+ * Ajansın önceki çalışmalarını sergilediği bölümdür.
+ * Her bir proje 'projects' dizisi içerisinde (JSON objesi olarak) tutulur ve map() ile render edilir.
+ * Premium ve Glassmorphism tasarım dili (hover efektleri) kullanılmıştır.
+ */
 const Portfolio = () => {
   const projects = [
     { title: "AI-FMEA Portal", tag: "Industrial AI", color: "from-blue-600 to-cyan-500", desc: "Mühendislik standartlarına tam uyumlu, yapay zeka destekli süreç analiz platformu." },

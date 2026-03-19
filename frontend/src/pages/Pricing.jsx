@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Info, LifeBuoy, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
+/**
+ * FeatureItem (Özellik Satırı Bileşeni)
+ * - Fiyatlandırma paketleri içindeki her bir özelliği gösterir.
+ * - İçerisinde 'Info' ikonuna üzerine gelindiğinde detay (Tooltip) çıkarır.
+ */
 const FeatureItem = ({ text, description }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 

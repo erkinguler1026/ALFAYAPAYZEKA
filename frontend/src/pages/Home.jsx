@@ -9,6 +9,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
+/**
+ * Home (Ana Sayfa) Bileşeni
+ * 
+ * Sitenin karşılama noktasıdır (Landing Page).
+ * Framer Motion kullanılarak kaydırma, giriş ve animasyon efektleri tasarlanmıştır.
+ * Toplamda 6 ana bölümden (Hero, Outcomes, Lifecycle, Workflow, Digital Security, Insurance) oluşur.
+ * İletişim Formu (Contact Form) doğrudan bu sayfanın altında yer alır.
+ */
 const Home = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);

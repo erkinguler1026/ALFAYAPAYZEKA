@@ -2,6 +2,14 @@ import { Link, useLocation, Outlet } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Bot, ChevronRight, Zap } from 'lucide-react';
 
+/**
+ * Layout Bileşeni
+ * 
+ * Tüm uygulamanın ortak şablonunu oluşturur (Sarmalayıcı / Wrapper).
+ * İçerisinde Navbar (Üst Menü), Footer (Alt Bilgi Alanı) ve 'Outlet' bulunur.
+ * 'Outlet', o anki URL'e göre değişen sayfa içeriklerinin (Home, About vb.) 
+ * Layout içine yerleştirildiği dinamik alandır.
+ */
 const Layout = () => {
   return (
     <div className="min-h-screen relative selection:bg-primary/30 bg-[#0a0a0c]">

@@ -3,6 +3,14 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, User, AtSign } from 'lucide-react';
 import { toast } from 'react-toastify';
 
+/**
+ * Contact (İletişim) Sayfası Bileşeni
+ * 
+ * Kullanıcıların iletişim formu aracılığıyla mesaj göndermesini sağlar.
+ * - Form verileri (formData state'i içerisinde adı, email, mesaj) tutulur.
+ * - Node.js API'sine (Backend) fetch/axios ile asenkron istek atılır.
+ * - Başarı/Hata durumlarında toastify ile bildirim gösterilir.
+ */
 const Contact = () => {
   useEffect(() => {
     console.log("Contact Page Mounted - Premium Version");

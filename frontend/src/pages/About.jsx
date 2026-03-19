@@ -1,6 +1,13 @@
 import { motion } from 'framer-motion';
 import { Target, Lightbulb, TrendingUp, ShieldCheck, LifeBuoy, Zap } from 'lucide-react';
 
+/**
+ * About (Hakkımızda) Sayfası Bileşeni
+ * 
+ * Kurumun vizyonunu, değerlerini ve hizmet standartlarını anlatan bölümdür.
+ * Framer Motion kullanılarak giriş animasyonları (fade-in, slide-in) sağlanır.
+ * Özellikle dijital servis standartları ve operasyon yaklaşımı vurgulanmaktadır.
+ */
 const About = () => {
   return (
     <div className="py-24 px-6 max-w-7xl mx-auto min-h-[80vh]">

@@ -1,3 +1,11 @@
+/**
+ * Backend Ana Giriş Dosyası (Node.js & Express)
+ * 
+ * - 'express': Web sunucusunu ayağa kaldırmak için kullanılır.
+ * - 'cors': Gelen isteklerin nereden geldiğini denetler (Cross-Origin Resource Sharing).
+ * - 'nodemailer': İletişim formundan gelen mailleri Brevo (veya herhangi bir SMTP) üzerinden gönderir.
+ * - Çevresel değişkenler '.env' dosyasından (dotenv) çekilerek güvenli bir şekilde tutulur.
+ */
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
