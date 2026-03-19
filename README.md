@@ -16,7 +16,7 @@ Proje temel olarak iki ana klasörden oluşur, her birinin kendi çalıştırıl
 
 ### 1. [frontend/](./frontend/README.md)
 Kullanıcı arayüzünü (UI) barındırır. 
-- **Teknolojiler:** React v19, Vite, Tailwind CSS v4, React Router DOM, Framer Motion, Lucide React.
+- **Teknolojiler:** React v19, Vite, Redux Toolkit, Tailwind CSS v4, React Router DOM, Framer Motion, Lucide React.
 - **Çalıştırma:** `npm run dev` (Port 5173'te çalışır)
 
 ### 2. [backend/](./backend/README.md)
@@ -52,5 +52,5 @@ npm run dev
 ## 🛡️ Bakım ve Geliştirme Notları
 
 - **Ortam Değişkenleri (.env):** Frontend iletişim formunun doğru endpointe istek atabilmesi için `frontend/.env` dosyası içinde `VITE_API_BASE_URL` değişkeni tutulur. Backend'de ise SMTP mail erişim anahtarları (`backend/.env`) bulunur.
-- **Versiyonlama:** Projenin son kararlı/aktif versiyonu arayüzde (Footer ve App.jsx) `V1.3.0` olarak belirtilmiştir.
+- **Versiyonlama:** Projenin son kararlı/aktif versiyonu arayüzde (Footer ve App.jsx) `V1.3.1` olarak belirtilmiştir.
 - **Katkıda Bulunan:** Projenin tüm interaktif bileşenlerindeki (Framer Motion) gecikme (delay) süreleri sistemli şekilde kurgulanmıştır; bileşen hiyerarşisinde değişiklik yapılacağında sıralı geçişlere dikkat edilmelidir.

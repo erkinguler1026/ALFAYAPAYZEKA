@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, ChevronRight, Menu, X } from 'lucide-react';
+import { toggleMenu, closeMenu } from '../store/slices/uiSlice';
 
 /**
  * NavLink — Aktif Sayfa Farkındalıklı Navigasyon Bağlantısı
@@ -40,19 +42,27 @@ const NavLink = ({ to, label }) => {
 
 /**
  * Header Bileşeni — Üst Navigasyon Menüsü
+ * 
+ * Versiyon: V1.3.1
+ * 
+ * Teknik Detaylar:
+ *   - State Yönetimi: Redux Toolkit (uiSlice) ile 'isMenuOpen' durumu kontrol edilir.
+ *   - Hooks: useDispatch (aksiyonlar için), useSelector (state okumak için).
+ *   - Animasyonlar: Framer Motion AnimatePresence ile akıcı mobil menü geçişleri.
  */
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isMenuOpen = useSelector((state) => state.ui.isMenuOpen);
   const location = useLocation();
 
   // Menü açıkken sayfa kaydırmasını engelle
   useEffect(() => {
-    if (isOpen) {
+    if (isMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isOpen]);
+  }, [isMenuOpen]);
 
   const navLinks = [
     { to: "/", label: "Ana Sayfa" },
@@ -92,16 +102,16 @@ const Header = () => {
           {/* Mobile Toggle Button */}
           <button 
             className="md:hidden p-3 bg-white/5 border border-white/10 rounded-xl text-white"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => dispatch(toggleMenu())}
           >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </nav>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
-        {isOpen && (
+        {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -122,7 +132,7 @@ const Header = () => {
                 >
                   <Link 
                     to={link.to} 
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => dispatch(closeMenu())}
                     className={`text-4xl font-black tracking-tighter uppercase ${location.pathname === link.to ? 'text-primary' : 'text-white'}`}
                   >
                     {link.label}
@@ -138,7 +148,7 @@ const Header = () => {
               >
                 <Link 
                   to="/contact" 
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => dispatch(closeMenu())}
                   className="w-full flex items-center justify-center gap-3 bg-primary text-white py-6 rounded-3xl font-black text-2xl"
                 >
                   Başlayın

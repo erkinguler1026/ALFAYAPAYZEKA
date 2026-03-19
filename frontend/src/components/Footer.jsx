@@ -2,7 +2,14 @@ import { Link } from 'react-router-dom';
 import { Bot } from 'lucide-react';
 
 /**
- * Footer Bileşeni
+ * Footer Bileşeni — Alt Bilgi ve Navigasyon
+ *
+ * Versiyon: V1.3.1
+ * 
+ * Özellikler:
+ *   - SPA Uyumu: Tüm navigasyon Link bileşenleri ile sayfa yenilenmeden yapılır.
+ *   - Logo Linkleme: Ajans logosu ve ismi ana sayfaya (/) yönlendirir.
+ *   - Responsive: Mobil ekranlarda daraltılmış padding (py-16) kullanılır.
  */
 const Footer = () => {
   return (

@@ -36,12 +36,14 @@ npm run build
 | Paket | Versiyon | Kullanım |
 |---|---|---|
 | React | 19 | UI bileşen kütüphanesi |
+| Redux Toolkit | 2 | Merkezi state yönetimi |
+| React Redux | 9 | React-Redux bağlantısı |
 | React Router DOM | 7 | URL yönlendirme |
 | Vite | 8 | Build & dev sunucusu |
 | Tailwind CSS | 4 | Utility-first CSS |
 | Framer Motion | 12 | Animasyonlar |
 | Lucide React | 0.577 | İkonlar |
-| Axios | 1.13 | HTTP istekleri (Home.jsx) |
+| Axios | 1.13 | HTTP istekleri |
 | React Toastify | 11 | Bildirim sistemi |
 
 ## 📁 Dizin Yapısı
@@ -51,10 +53,11 @@ frontend/
 ├── public/            # Statik dosyalar
 ├── src/
 │   ├── assets/        # Görseller
-│   ├── components/    # Layout.jsx (Navbar + Footer sarmalayıcısı)
-│   ├── pages/         # Sayfa bileşenleri
+│   ├── components/    # Ortak bileşenler (Header, Footer, Layout)
+│   ├── pages/         # Sayfa bileşenleri (Home, About, Portfolio vb.)
+│   ├── store/         # Redux Toolkit (Store ve Slices)
 │   ├── App.jsx        # Router ve global yapı
-│   ├── main.jsx       # Giriş noktası
+│   ├── main.jsx       # Provider ve giriş noktası
 │   └── index.css      # Tailwind + global stiller
 ├── .env               # API URL gibi çevre değişkenleri
 ├── vite.config.js     # Vite yapılandırması

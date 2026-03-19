@@ -14,9 +14,10 @@ import Contact from './pages/Contact';
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni
  *
- * Versiyon: V1.3.0 | Tarih: Mart 2026
+ * Versiyon: V1.3.1 | Tarih: Mart 2026
  *
  * Bu bileşen uygulamanın ana "Router" (Yönlendirme) yapısını barındırır:
+ * - Redux Toolkit (RTK) ile merkezi state yönetimi sağlanır.
  * - 'react-router-dom' (v7) kullanılarak URL bazlı sayfa geçişleri yönetilir.
  * - <ToastContainer /> ile uygulama genelindeki anlık bildirimler (başarı/hata
  *   uyarıları) sağ alt köşede gösterilir.
@@ -34,7 +35,7 @@ import Contact from './pages/Contact';
 const App = () => {
   React.useEffect(() => {
     // Versiyon numarası Hero bölümündeki sürüm etiketiyle senkronize tutulmalıdır.
-    console.log("Alfa Yapay Zeka — App Initialized V1.3.0");
+    console.log("Alfa Yapay Zeka — App Initialized V1.3.1 — Redux Store Active");
   }, []);
 
   return (
