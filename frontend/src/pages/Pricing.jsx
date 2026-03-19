@@ -43,6 +43,7 @@ const Pricing = () => {
       productionTime: "4-7 İş Günü",
       launchTime: "24-48 Saat",
       features: [
+        { text: "3 Adet Web Sayfası", description: "İhtiyacınıza uygun 3 adet detaylı web sayfası tasarımı." },
         { text: "SSR (Server Side Rendering)", description: "Sayfanın sunucuda hazırlanması; Google'da en üstte çıkmanızı ve sitenin anında açılmasını sağlar." },
         { text: "Meta-Tag & SEO Optimizasyonu", description: "Arama motorlarının sitenizi tam doğrulukla dizine eklemesini sağlar." },
         { text: "SSL & Güvenlik Duvarı", description: "Ziyaretçi verilerini şifreler ve sitenizi güvenli (https) hale getirir." },
@@ -64,6 +65,7 @@ const Pricing = () => {
       productionTime: "10-15 İş Günü",
       launchTime: "3-5 İş Günü",
       features: [
+        { text: "5 Adet Web Sayfası", description: "Kurumsal yapınıza uygun 5 adet detaylı web sayfası tasarımı." },
         { text: "GPT-4 Tabanlı Akıllı Chatbot", description: "Müşterilerinizin sorularını anında yanıtlayan, satış odaklı yapay zeka asistanı." },
         { text: "Lighthouse 90+ Performans", description: "Dünya standartlarında hız ve erişilebilirlik puanı garantisi." },
         { text: "Detaylı Aylık Analytics Raporu", description: "Ziyaretçilerinizin davranışlarını ve performans verilerini içeren rapor." },
@@ -72,7 +74,7 @@ const Pricing = () => {
         { text: "İçerik Yönetim Paneli (CMS)", description: "Sitenizdeki metin ve görselleri kolayca güncellemenizi sağlayan panel." },
         { text: "Hızlandırılmış CDN Servisi", description: "Sitenizin dünyanın her yerinde ışık hızında açılmasını sağlayan sunucu ağı." },
         { text: "Alfa Dakik Öncelikli Destek", description: "Küçük revizyon taleplerinizde 1 saat içinde müdahale garantisi." },
-        { text: "Mini Onarım (Auto King Stili)", description: "Ufak tasarım ve bug hasarları için sınırsız teknik rötüş desteği." },
+        { text: "Mini Onarım", description: "Ufak tasarım ve bug hasarları için sınırsız teknik rötüş desteği." },
         { text: "Anti-Spam & reCAPTCHA", description: "Sitenizi kötü niyetli botlara ve gereksiz e-postalara karşı koruma." },
         { text: "Premium Reklam Stratejisi", description: "Google ve Sosyal Medya reklamları için teknik altyapı ve strateji desteği." },
         { text: "Aylık Büyüme Check-up", description: "Sitenizin satış performansını artıran aylık stratejik inceleme seansı." }
