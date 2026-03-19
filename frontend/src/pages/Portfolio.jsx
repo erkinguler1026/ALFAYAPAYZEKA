@@ -34,7 +34,7 @@ const Portfolio = () => {
         <motion.h1 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-5xl md:text-7xl font-bold tracking-tight mb-6 text-gradient"
+          className="text-4xl md:text-7xl font-bold tracking-tight mb-6 text-gradient"
         >
           Seçkin İşlerimiz.
         </motion.h1>
@@ -50,7 +50,7 @@ const Portfolio = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="premium-card rounded-[40px] p-10 h-[400px] flex flex-col justify-end group relative overflow-hidden"
+            className="premium-card rounded-[40px] p-6 md:p-10 h-auto min-h-[350px] md:h-[400px] flex flex-col justify-end group relative overflow-hidden"
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-10 transition-opacity duration-700`} />
             
@@ -64,7 +64,7 @@ const Portfolio = () => {
               </button>
             </div>
             
-            <div className="absolute top-10 right-10 opacity-20 group-hover:opacity-100 group-hover:rotate-12 transition-all duration-500">
+            <div className="absolute top-6 right-6 md:top-10 md:right-10 opacity-20 group-hover:opacity-100 group-hover:rotate-12 transition-all duration-500">
               <ExternalLink size={32} className="text-white/20 group-hover:text-primary" />
             </div>
           </motion.div>

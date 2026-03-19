@@ -78,11 +78,11 @@ const Home = () => {
     <div className="px-6 relative overflow-hidden bg-[#050505]">
       
       {/* 1. Hero Section - Extreme Focus */}
-      <section className="min-h-[45vh] flex flex-col items-center justify-center text-center max-w-6xl mx-auto pt-12 pb-8">
+      <section className="min-h-[45vh] flex flex-col items-center justify-center text-center max-w-6xl mx-auto pt-4 md:pt-12 pb-8">
         <motion.div 
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-[12px] font-bold tracking-[0.3em] uppercase text-primary mb-10"
+          className="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-[12px] font-bold tracking-[0.3em] uppercase text-primary mb-6 md:mb-10"
         >
           <Zap size={12} className="inline-block mr-2 animate-pulse" /> ALFA AI SİSTEM STRATEJİMİZ (V.1.3.0)
         </motion.div>
@@ -91,7 +91,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-6xl md:text-9xl font-bold tracking-tight leading-[1.1] mb-10 text-white uppercase"
+          className="text-5xl md:text-9xl font-bold tracking-tight leading-[1.1] mb-6 md:mb-10 text-white uppercase"
         >
           Web Siteniz Sizin <br /> 
           İçin <span className="text-gradient">Çalışsın</span><span className="inline-block ml-3 tracking-normal">.</span>
@@ -101,7 +101,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="max-w-3xl text-xl md:text-2xl text-white/50 leading-relaxed mb-16 font-light"
+          className="max-w-3xl text-lg md:text-2xl text-white/50 leading-relaxed mb-8 md:mb-16 font-light"
         >
           Yapay zeka destekli akıllı web siteleriyle müşteri kazanın, satışlarınızı otomatikleştirin ve işinizi büyütün. Biz sadece site tasarlamıyoruz; <span className="text-white font-medium">sizin yerinize 7/24 satış yapan akıllı sistemler kuruyoruz.</span>
         </motion.p>
@@ -110,7 +110,7 @@ const Home = () => {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="flex items-center gap-2 mb-10 text-white text-[16px] uppercase tracking-widest font-bold underline decoration-primary underline-offset-4"
+          className="flex items-center gap-2 mb-6 md:mb-10 text-white text-[14px] md:text-[16px] uppercase tracking-widest font-bold underline decoration-primary underline-offset-4"
         >
           <Shield size={14} className="text-primary" /> 100% Teknik Servis Garantisi
         </motion.div>
@@ -130,7 +130,7 @@ const Home = () => {
         </motion.div>
       </section>
 
-      <section className="max-w-7xl mx-auto py-10 border-y border-white/5">
+      <section className="max-w-7xl mx-auto py-6 md:py-10 border-y border-white/5">
         <div className="grid md:grid-cols-3 gap-12">
           {[
             { step: "01", icon: <Globe size={32} />, title: "Ziyaretçi Çekin", desc: "SEO ve yapay zeka destekli içeriklerle hedef kitlenize anında ulaşın." },
@@ -303,21 +303,21 @@ const Home = () => {
         {/* Decorative background element */}
         <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 blur-[120px] rounded-full -z-10" />
         
-        <div className="grid lg:grid-cols-[1.5fr_auto] gap-[150px] items-center">
+        <div className="grid lg:grid-cols-[1.5fr_auto] gap-12 lg:gap-[150px] items-center">
           <div className="w-full">
             <motion.h2 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="text-5xl md:text-7xl font-bold tracking-tight mb-8"
+              className="text-4xl md:text-7xl font-bold tracking-tight mb-8"
             >
               İşiniz Sadece Kodla Değil, <br />
               <span className="text-primary">Sigorta ile de</span> Güvende.
             </motion.h2>
-            <p className="text-white/50 text-xl leading-relaxed mb-12 max-w-2xl">
+            <p className="text-white/50 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl">
               İş ortaklığı ağımız üzerinden, dijital varlıklarınızı siber risklere karşı <span className="text-white font-bold underline decoration-primary underline-offset-4">poliçe kapsamına</span> alıyoruz.
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 relative mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 relative mt-10">
                <div className="hidden sm:block absolute top-[32px] left-[15%] right-[15%] h-px bg-white/10 -z-10" />
                {[
                  { title: "Siber Risk Poliçesi", desc: "Veri sızıntısı, hacking ve dijital itibar suikastlerine karşı mali teminat.", icon: <ShieldAlert size={24}/> },
@@ -335,15 +335,14 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="flex justify-end">
-             <div className="w-[500px] h-[500px] flex flex-col items-center justify-center p-16 glass-morphism rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 flex-shrink-0">
+          <div className="flex justify-center lg:justify-end w-full">
+             <div className="w-full max-w-[500px] aspect-square flex flex-col items-center justify-center p-8 md:p-16 glass-morphism rounded-[40px] md:rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 flex-shrink-0 overflow-hidden">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
-                <ShieldCheck className="w-24 h-24 text-primary mx-auto mb-8 hover:scale-110 hover:text-purple-400 transition-all duration-500 cursor-pointer" />
-                <h3 className="text-3xl font-bold mb-4">ISO31000:2018 Risk Yönetim Sistemi Kapsamında  <br /> & Güvence</h3>
-                <p className="text-white/30 text-xs uppercase tracking-widest font-black">Insurance Partnership</p>
-                <div className="mt-8 pt-8 border-t border-white/5 flex flex-wrap justify-center gap-4 opacity-30 grayscale contrast-125">
-                   {/* Placeholder for insurance branding */}
-                   <span className="font-black italic text-xs uppercase tracking-tighter">Siber Güvence Partnerliği</span>
+                <ShieldCheck className="w-16 h-16 md:w-24 md:h-24 text-primary mx-auto mb-6 md:mb-8 hover:scale-110 hover:text-purple-400 transition-all duration-500 cursor-pointer" />
+                <h3 className="text-xl md:text-3xl font-bold mb-4">ISO31000:2018 Risk Yönetim Sistemi Kapsamında  <br /> & Güvence</h3>
+                <p className="text-white/30 text-[10px] md:text-xs uppercase tracking-widest font-black">Insurance Partnership</p>
+                <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-white/5 flex flex-wrap justify-center gap-4 opacity-30 grayscale contrast-125">
+                   <span className="font-black italic text-[10px] md:text-xs uppercase tracking-tighter">Siber Güvence Partnerliği</span>
                 </div>
              </div>
           </div>
@@ -352,50 +351,50 @@ const Home = () => {
 
       {/* 4. After-Sales / Technical Service (The "Garage" Analogy) */}
       <section className="max-w-[1600px] mx-auto py-12 border-t border-white/5">
-        <div className="grid lg:grid-cols-[1.5fr_auto] gap-[150px] items-center">
+        <div className="grid lg:grid-cols-[1.5fr_auto] gap-12 lg:gap-[150px] items-center">
           <div className="w-full">
             <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">
               Arabanızın Servisi <br />
               Varsa, <span className="text-primary">Sitenizin de Olmalı.</span>
             </h2>
-            <p className="text-white/40 text-xl leading-relaxed mb-12">
+            <p className="text-white/40 text-lg md:text-xl leading-relaxed mb-12">
               Bir web sitesi kurup kaçmıyoruz. Biz, işletmenizin dijital motoru olan sitenize
               tam kapsamlı "Satış Sonrası Servis" (After-Sales) sağlıyoruz.
             </p>
 
-            <div className="grid sm:grid-cols-2 gap-8">
-              <div className="flex flex-col gap-6 p-14 bg-white/5 rounded-[50px] border border-white/10 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] hover:-translate-y-2 transition-all duration-300 min-h-[380px] justify-center">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8">
+              <div className="flex flex-col gap-6 p-8 md:p-14 bg-white/5 rounded-[40px] md:rounded-[50px] border border-white/10 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] hover:-translate-y-2 transition-all duration-300 min-h-[300px] md:min-h-[380px] justify-center">
                 <Zap className="text-primary" size={40} />
-                <h4 className="text-3xl font-bold">Alfa Dakik</h4>
-                <p className="text-white/40 text-lg">Hızda Sınır Yok: Küçük içerik ve tasarım revizyonları için <span className="text-white font-bold text-sm uppercase">60 Dakika</span> müdahale sözü.</p>
+                <h4 className="text-2xl md:text-3xl font-bold">Alfa Dakik</h4>
+                <p className="text-white/40 text-base md:text-lg">Hızda Sınır Yok: Küçük içerik ve tasarım revizyonları için <span className="text-white font-bold text-sm uppercase">60 Dakika</span> müdahale sözü.</p>
               </div>
-              <div className="flex flex-col gap-6 p-14 bg-white/5 rounded-[50px] border border-white/10 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] hover:-translate-y-2 transition-all duration-300 min-h-[380px] justify-center">
+              <div className="flex flex-col gap-6 p-8 md:p-14 bg-white/5 rounded-[40px] md:rounded-[50px] border border-white/10 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] hover:-translate-y-2 transition-all duration-300 min-h-[300px] md:min-h-[380px] justify-center">
                 <Activity className="text-accent" size={40} />
-                <h4 className="text-3xl font-bold">Teknik Sigorta</h4>
-                <p className="text-white/40 text-lg">12 ay zorunlu bakım; siber risklere karşı <span className="text-white font-bold text-sm uppercase tracking-tighter">İsteğe Bağlı Poliçe</span> ve kesintisiz çalışma kalkanı.</p>
+                <h4 className="text-2xl md:text-3xl font-bold">Teknik Sigorta</h4>
+                <p className="text-white/40 text-base md:text-lg">12 ay zorunlu bakım; siber risklere karşı <span className="text-white font-bold text-sm uppercase tracking-tighter">İsteğe Bağlı Poliçe</span> ve kesintisiz çalışma kalkanı.</p>
               </div>
-              <div className="flex flex-col gap-6 p-14 bg-white/5 rounded-[50px] border border-white/10 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] hover:-translate-y-2 transition-all duration-300 min-h-[380px] justify-center">
+              <div className="flex flex-col gap-6 p-8 md:p-14 bg-white/5 rounded-[40px] md:rounded-[50px] border border-white/10 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] hover:-translate-y-2 transition-all duration-300 min-h-[300px] md:min-h-[380px] justify-center">
                 <Wrench className="text-secondary" size={40} />
-                <h4 className="text-3xl font-bold">Yedek Parça</h4>
-                <p className="text-white/40 text-lg">Modüler Mimarisi; Gelecekte eklemek istediğiniz her yeni 'AI modülü' için şasiniz bugünden hazır.</p>
+                <h4 className="text-2xl md:text-3xl font-bold">Yedek Parça</h4>
+                <p className="text-white/40 text-base md:text-lg">Modüler Mimarisi; Gelecekte eklemek istediğiniz her yeni 'AI modülü' için şasiniz bugünden hazır.</p>
               </div>
-              <div className="flex flex-col gap-6 p-14 bg-white/5 rounded-[50px] border border-white/10 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] hover:-translate-y-2 transition-all duration-300 min-h-[380px] justify-center">
+              <div className="flex flex-col gap-6 p-8 md:p-14 bg-white/5 rounded-[40px] md:rounded-[50px] border border-white/10 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] hover:-translate-y-2 transition-all duration-300 min-h-[300px] md:min-h-[380px] justify-center">
                 <Cpu className="text-white" size={40} />
-                <h4 className="text-3xl font-bold">Ağır Bakım</h4>
-                <p className="text-white/40 text-lg">Yıllık Rektifiye; Sitenizin motorunu ve kod tabanını her yıl en yeni teknolojiye (GPT-5 vb.) güncelliyoruz.</p>
+                <h4 className="text-2xl md:text-3xl font-bold">Ağır Bakım</h4>
+                <p className="text-white/40 text-base md:text-lg">Yıllık Rektifiye; Sitenizin motorunu ve kod tabanını her yıl en yeni teknolojiye (GPT-5 vb.) güncelliyoruz.</p>
               </div>
             </div>
           </div>
 
-          <div className="lg:w-1/2 relative group">
-             <div className="w-[500px] h-[500px] flex flex-col items-center justify-center p-16 glass-morphism rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 flex-shrink-0">
+          <div className="flex justify-center lg:justify-end w-full">
+             <div className="w-full max-w-[500px] aspect-square flex flex-col items-center justify-center p-8 md:p-16 glass-morphism rounded-[40px] md:rounded-[60px] border border-white/10 text-center relative group hover:-translate-y-2 hover:border-purple-500/50 hover:shadow-[0_0_50px_rgba(168,85,247,0.25)] transition-all duration-500 flex-shrink-0">
                 <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent opacity-20 blur-xl group-hover:opacity-40 transition-opacity" />
-                <Wrench className="w-32 h-32 text-primary mb-8 group-hover:rotate-45 transition-transform duration-700" />
-                <h3 className="text-3xl font-bold mb-4">Tam Yetkili <br /> Teknik Servis</h3>
-                <p className="text-white/30 uppercase tracking-widest font-bold text-xs">Alfa AI Studio Assurance</p>
-                <div className="mt-8 pt-8 border-t border-white/5 flex flex-wrap justify-center gap-4 opacity-30 grayscale contrast-125">
+                <Wrench className="w-20 h-20 md:w-32 md:h-32 text-primary mb-6 md:mb-8 group-hover:rotate-45 transition-transform duration-700" />
+                <h3 className="text-xl md:text-3xl font-bold mb-4">Tam Yetkili <br /> Teknik Servis</h3>
+                <p className="text-white/30 uppercase tracking-widest font-bold text-[10px] md:text-xs">Alfa AI Studio Assurance</p>
+                <div className="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-white/5 flex flex-wrap justify-center gap-4 opacity-30 grayscale contrast-125">
                    {/* Placeholder for insurance branding */}
-                   <span className="font-black italic text-xs uppercase tracking-tighter">Siber Güvence Partnerliği</span>
+                   <span className="font-black italic text-[10px] md:text-xs uppercase tracking-tighter">Siber Güvence Partnerliği</span>
                 </div>
              </div>
              {/* Decorative glow */}
@@ -443,7 +442,7 @@ const Home = () => {
       </section>
 
       {/* 5. Direct Contact Form */}
-      <section id="contact" className="max-w-7xl mx-auto py-40">
+      <section id="contact" className="max-w-7xl mx-auto py-12 md:py-40">
         <div className="premium-card rounded-[60px] p-12 md:p-24 overflow-hidden relative border-white/5 hover:border-purple-500/50 hover:shadow-[0_0_60px_rgba(168,85,247,0.3)] hover:-translate-y-2 transition-all duration-500">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div>

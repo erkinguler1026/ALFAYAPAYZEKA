@@ -176,7 +176,7 @@ const Pricing = () => {
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-bold mb-6 text-gradient uppercase tracking-tighter"
+            className="text-4xl md:text-7xl font-bold mb-6 text-gradient uppercase tracking-tighter"
           >
             Üretim & Dakik Servis
           </motion.h1>
@@ -216,8 +216,8 @@ const Pricing = () => {
                 <div className="flex flex-col gap-1">
                   <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Sistem Kurulumu</span>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-black tracking-tighter text-white">{plan.price.split(' ')[0]} {plan.price.split(' ')[1]}</span>
-                    {plan.price.includes('+KDV') && <span className="text-[18px] text-white/50 font-black ml-1">+KDV</span>}
+                    <span className="text-3xl md:text-4xl font-black tracking-tighter text-white">{plan.price.split(' ')[0]} {plan.price.split(' ')[1]}</span>
+                    {plan.price.includes('+KDV') && <span className="text-[14px] md:text-[18px] text-white/50 font-black ml-1">+KDV</span>}
                   </div>
                 </div>
                 <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-2xl">
@@ -229,12 +229,12 @@ const Pricing = () => {
                   </div>
                 </div>
 
-              <div className="grid grid-cols-2 gap-2 mb-8 border-y border-white/5 py-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-8 border-y border-white/5 py-4">
                 <div className="flex flex-col">
                   <span className="text-[9px] text-white/30 uppercase font-black tracking-tighter">İşleme Süresi</span>
                   <span className="text-[11px] font-bold text-white/80">{plan.productionTime}</span>
                 </div>
-                <div className="flex flex-col border-l border-white/5 pl-3">
+                <div className="flex flex-col border-t sm:border-t-0 sm:border-l border-white/5 pt-2 sm:pt-0 sm:pl-3">
                   <span className="text-[9px] text-white/30 uppercase font-black tracking-tighter">Yayına Alma</span>
                   <span className="text-[11px] font-bold text-white/80">{plan.launchTime}</span>
                 </div>

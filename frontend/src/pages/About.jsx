@@ -28,7 +28,7 @@ const About = () => {
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-5xl md:text-8xl font-bold tracking-tight mb-12 text-gradient"
+          className="text-4xl md:text-8xl font-bold tracking-tight mb-12 text-gradient"
         >
           DİJİTAL SERVİSİN <br /> YENİ STANDARTI.
         </motion.h1>
