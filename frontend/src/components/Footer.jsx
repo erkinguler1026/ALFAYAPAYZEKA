@@ -23,8 +23,11 @@ const Footer = () => {
               <Bot className="text-primary w-8 h-8 group-hover:scale-110 transition-transform" />
               <span className="font-black text-2xl tracking-tighter uppercase text-white group-hover:text-primary transition-colors">ALFA YAPAY ZEKA</span>
             </Link>
-            <p className="text-white/30 text-lg leading-relaxed font-light">
-              Mühendislik disiplini ve yapay zekanın sınırsız potansiyelini birleştirerek geleceğin dijital dünyasını inşa ediyoruz.
+            <p className="text-white/30 text-base leading-relaxed font-light mb-3">
+              Siber Tehditlere Kapalı, Müşterilere Açık — İşte Web Siteniz
+            </p>
+            <p className="text-white/20 text-sm leading-relaxed font-light">
+              Hackerlara karşı zırhlanmış, 7/24 satışa açık dijital sistemler kuruyoruz.
             </p>
           </div>
           
@@ -49,10 +52,10 @@ const Footer = () => {
         </div>
         
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] font-bold tracking-[0.3em] text-white/20 uppercase">
-          <span>© 2026 ALFA YAPAY ZEKA AJANSI</span>
+          <span>© 2026 ALFA YAPAY ZEKA AJANSI — Siber Tehditlere Kapalı, Müşterilere Açık.</span>
           <div className="flex gap-12">
-            <span className="hover:text-white transition-colors cursor-pointer">GİZLİLİK POLİTİKASI</span>
-            <span className="hover:text-white transition-colors cursor-pointer">KULLANIM ŞARTLARI</span>
+            <Link to="/privacy" className="hover:text-white transition-colors cursor-pointer">GİZLİLİK POLİTİKASI</Link>
+            <Link to="/terms" className="hover:text-white transition-colors cursor-pointer">KULLANIM ŞARTLARI</Link>
           </div>
         </div>
       </div>

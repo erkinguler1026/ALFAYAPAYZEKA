@@ -66,6 +66,7 @@ const Header = () => {
 
   const navLinks = [
     { to: "/", label: "Ana Sayfa" },
+    { to: "/offer", label: "🔥 Kampanya" },
     { to: "/portfolio", label: "Portfolyo" },
     { to: "/pricing", label: "Fiyatlandırma" },
     { to: "/about", label: "Hakkımızda" },
@@ -81,7 +82,9 @@ const Header = () => {
             </div>
             <div className="flex flex-col">
               <span className="font-black text-xl tracking-[0.1em] text-white">ALFA YAPAY ZEKA</span>
-              <span className="text-[10px] text-white/30 font-bold tracking-[0.3em] uppercase">STUDIO ADVISORY</span>
+              <span className="text-[11px] text-white/40 font-semibold leading-tight tracking-wide">
+                Siber Tehditlere Kapalı, Müşterilere Açık — İşte Web Siteniz
+              </span>
             </div>
           </Link>
 
@@ -157,8 +160,10 @@ const Header = () => {
               </motion.div>
 
               <div className="mt-auto pt-12 text-center">
-                <p className="text-white/20 text-xs tracking-widest uppercase font-bold">ALFA AI STUDIO ADVISORY</p>
-                <p className="text-white/10 text-[10px] mt-2">© 2026 | Sürüm V1.3.1</p>
+                <p className="text-white/20 text-[9px] tracking-widest uppercase font-bold leading-relaxed">
+                  Siber Tehditlere Kapalı, Müşterilere Açık
+                </p>
+                <p className="text-white/10 text-[10px] mt-2">© 2026 | Sürüm V1.3.2</p>
               </div>
             </div>
           </motion.div>

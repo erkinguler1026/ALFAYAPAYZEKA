@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, ExternalLink } from 'lucide-react';
 
@@ -21,6 +22,10 @@ import { ChevronRight, ExternalLink } from 'lucide-react';
  * NOT: Proje detay sayfaları henüz geliştirilmedi. İleride her karta link eklenecek.
  */
 const Portfolio = () => {
+  useEffect(() => {
+    document.title = 'Portföy | Alfa Yapay Zeka — Hacker Korumalı Web Projeleri';
+  }, []);
+
   const projects = [
     { title: "AI-FMEA Portal", tag: "Industrial AI", color: "from-blue-600 to-cyan-500", desc: "Mühendislik standartlarına tam uyumlu, yapay zeka destekli süreç analiz platformu." },
     { title: "SWOT Analysis Pro", tag: "Business SaaS", color: "from-indigo-600 to-purple-500", desc: "İşletmeler için anlık verilerle desteklenen akıllı strateji yönetim aracı." },

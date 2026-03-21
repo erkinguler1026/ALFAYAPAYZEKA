@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Target, Lightbulb, TrendingUp, ShieldCheck, LifeBuoy, Zap } from 'lucide-react';
 
@@ -14,6 +15,10 @@ import { Target, Lightbulb, TrendingUp, ShieldCheck, LifeBuoy, Zap } from 'lucid
  *   - Kartlarda ikon renkleri CSS değişkenleri (--primary, --secondary, --accent) kullanır.
  */
 const About = () => {
+  useEffect(() => {
+    document.title = 'Hakkımızda | Alfa Yapay Zeka — Zırhlı Sistemlerin Yeni Standardı';
+  }, []);
+
   return (
     <div className="py-24 px-6 max-w-7xl mx-auto min-h-[80vh]">
       <div className="max-w-4xl">
@@ -30,7 +35,7 @@ const About = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-4xl md:text-8xl font-bold tracking-tight mb-12 text-gradient"
         >
-          DİJİTAL SERVİSİN <br /> YENİ STANDARTI.
+          ZIRHLI SİSTEMLERİN <br /> YENİ STANDARTI.
         </motion.h1>
 
         <motion.p 
@@ -40,8 +45,8 @@ const About = () => {
           className="text-white/40 text-xl md:text-2xl leading-relaxed mb-20"
         >
           Alfa Yapay Zeka Stüdyosu olarak, sadece kod yazmıyoruz. 
-          <span className="text-white"> Yapay zeka destekli web siteleri tasarlıyor, satışını gerçekleştiriyor ve teknik bakım hizmetlerini üstleniyoruz.</span> 
-          İşletmenizi dijitalde yorulmayan, akıllı ve sürekli güncel kalan bir sisteme dönüştürüyoruz.
+          <span className="text-white"> Hacker saldırılarına karşı zırhlanmış, siber risklerden arındırılmış ve teknik "Warranty" (Garanti) kapsamına alınmış dijital varklıklar inşa ediyoruz.</span> 
+          İşletmenizi dijitalde yorulmayan, güvenli ve sürekli güncel kalan bir satış makinesine dönüştürüyoruz.
         </motion.p>
       </div>
 

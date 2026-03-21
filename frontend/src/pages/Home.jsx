@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Zap, ChevronRight, Globe, Shield, CheckCircle2, 
   Rocket, Wrench, Settings, BarChart3, Headphones,
-  Activity, Cpu, Lock, ShieldCheck, ShieldAlert
+  Activity, Cpu, Lock, ShieldCheck, ShieldAlert, Flame
 } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -39,6 +39,10 @@ const Home = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    document.title = 'Alfa Yapay Zeka | Hackerlara Kapalı, Satışa Açık Web Sistemleri — Bursa';
+  }, []);
+
   const handleContactSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -68,15 +72,38 @@ const Home = () => {
     },
     {
       icon: <Wrench className="text-secondary w-10 h-10" />,
-      title: "Bizden, Full Servis",
-      desc: "Bakım, güvenlik, güncelleme... Siz işinizle ilgilenin, teknik dertleri biz çözelim.",
-      outcome: "Sıfır Teknik Sorun"
+      title: "Zırhlı Koruma & Garanti",
+      desc: "Bakım, güvenlik, 'hacker shield' güncellemeleri... 12 ay boyunca teknik garanti kapsamındasınız.",
+      outcome: "Sıfır Risk, Tam Güvence"
     }
   ];
 
   return (
     <div className="px-6 relative overflow-hidden bg-[#050505]">
       
+      {/* 🔥 Campaign Banner */}
+      <section className="max-w-5xl mx-auto pt-4">
+        <Link
+          to="/offer"
+          className="flex flex-col gap-2 px-4 py-3 rounded-2xl bg-gradient-to-r from-red-600/20 to-primary/10 border border-red-500/30 hover:border-red-500/60 transition-all group sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4"
+        >
+          <div className="flex items-start gap-3 sm:items-center">
+            <Flame size={16} className="text-red-400 animate-pulse flex-shrink-0 mt-0.5 sm:mt-0" />
+            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-2">
+              <span className="text-white font-black text-sm leading-snug">
+                Kampanya — <span className="text-red-400">%20 İndirim</span>
+              </span>
+              <span className="text-white/50 text-xs leading-snug">
+                Dijital Kartvizit & Satış Makinesi · 30 Nisan 2026’ya kadar
+              </span>
+            </div>
+          </div>
+          <span className="flex items-center gap-1 text-xs font-bold text-red-400 ml-7 sm:ml-0 group-hover:gap-2 transition-all whitespace-nowrap">
+            Fırsatı Gör <ChevronRight size={14} />
+          </span>
+        </Link>
+      </section>
+
       {/* 1. Hero Section - Extreme Focus */}
       <section className="min-h-[45vh] flex flex-col items-center justify-center text-center max-w-6xl mx-auto pt-4 md:pt-12 pb-8">
         <motion.div 
@@ -84,7 +111,7 @@ const Home = () => {
           animate={{ opacity: 1, scale: 1 }}
           className="px-6 py-2 rounded-full border border-white/10 bg-white/5 text-[10px] md:text-[12px] font-bold tracking-[0.3em] uppercase text-primary mb-6 md:mb-10"
         >
-          <Zap size={12} className="inline-block mr-2 animate-pulse" /> ALFA AI SİSTEM STRATEJİMİZ (V.1.3.0)
+          <Zap size={12} className="inline-block mr-2 animate-pulse" /> ALFA AI SİSTEM STRATEJİMİZ (V.1.3.2)
         </motion.div>
 
         <motion.h1 
@@ -93,8 +120,8 @@ const Home = () => {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-5xl md:text-9xl font-bold tracking-tight leading-[1.1] mb-6 md:mb-10 text-white uppercase"
         >
-          Web Siteniz Sizin <br /> 
-          İçin <span className="text-gradient">Çalışsın</span><span className="inline-block ml-3 tracking-normal">.</span>
+          Hackerlara Kapalı <br /> 
+          Satışa <span className="text-gradient">Açık</span><span className="inline-block ml-3 tracking-normal">.</span>
         </motion.h1>
 
         <motion.p 
@@ -103,7 +130,7 @@ const Home = () => {
           transition={{ delay: 0.2, duration: 0.8 }}
           className="max-w-3xl text-lg md:text-2xl text-white/50 leading-relaxed mb-8 md:mb-16 font-light"
         >
-          Yapay zeka destekli akıllı web siteleriyle müşteri kazanın, satışlarınızı otomatikleştirin ve işinizi büyütün. Biz sadece site tasarlamıyoruz; <span className="text-white font-medium">sizin yerinize 7/24 satış yapan akıllı sistemler kuruyoruz.</span>
+          İşletmenizi dijital bir satış makinesine dönüştürürken, siber saldırılara ve veri risklerine karşı tam koruma sağlıyoruz. <span className="text-white font-medium">7/24 aktif "Hacker Kalkanı" ve "Teknik Garanti" (Warranty) ile işinizi güvenle büyütün.</span>
         </motion.p>
 
         <motion.div 
@@ -415,7 +442,7 @@ const Home = () => {
             <div className="text-center">
               <span className="block text-white text-[16px] uppercase tracking-widest font-bold mb-2 font-mono">Kurulum Başlangıcı</span>
               <p className="text-5xl font-black text-white tracking-tighter flex items-baseline justify-center gap-1">
-                6.999 ₺ 
+                8.999 ₺ 
                 <span className="text-[18px] text-white/80 font-black ml-1">+KDV</span> 
                 <span className="text-white font-bold text-lg">/tek</span>
               </p>
@@ -424,7 +451,7 @@ const Home = () => {
             <div className="text-center">
               <span className="block text-white text-[16px] uppercase tracking-widest font-bold mb-2 font-mono">Yönetim Paketi</span>
               <p className="text-5xl font-black text-primary tracking-tighter flex items-baseline justify-center gap-1">
-                999 ₺ 
+                3.999 ₺ 
                 <span className="text-[18px] text-primary/80 font-black ml-1">+KDV</span> 
                 <span className="text-white font-bold text-lg">/ay</span>
               </p>

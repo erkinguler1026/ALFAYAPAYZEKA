@@ -10,6 +10,8 @@ import About from './pages/About';
 import Portfolio from './pages/Portfolio';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
+import Offer from './pages/Offer';
+import Legal from './pages/Legal';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni
@@ -48,6 +50,9 @@ const App = () => {
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="pricing" element={<Pricing />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="offer" element={<Offer />} />
+          <Route path="privacy" element={<Legal />} />
+          <Route path="terms" element={<Legal />} />
         </Route>
       </Routes>
     </>

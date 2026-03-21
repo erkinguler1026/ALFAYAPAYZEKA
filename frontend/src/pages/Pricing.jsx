@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Info, LifeBuoy, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
@@ -69,12 +69,16 @@ const FeatureItem = ({ text, description }) => {
 const Pricing = () => {
   const [isTurkish, setIsTurkish] = useState(true);
 
+  useEffect(() => {
+    document.title = 'Fiyatlandırma | Dijital Kartvizit, Satış Makinesi, Zırhlı Dijital Varlık — Alfa Yapay Zeka';
+  }, []);
+
   const plans = [
     {
-      name: "BAŞLANGIÇ PAKETİ",
-      description: "Hızlı başlangıç yapmak isteyen küçük işletmeler için hazırlık ve kurulum.",
-      price: isTurkish ? "6.999 ₺ +KDV" : "$299",
-      monthlyService: isTurkish ? "999 ₺ +KDV" : "$25",
+      name: "DİJİTAL KARTVİZİT",
+      description: "Hızlı, güvenli ve bozulmayan bir kurumsal vitrin isteyen işletmeler için.",
+      price: isTurkish ? "8.999 ₺ +KDV" : "$399",
+      monthlyService: isTurkish ? "3.999 ₺ +KDV" : "$99",
       productionTime: "4-7 İş Günü",
       launchTime: "24-48 Saat",
       features: [
@@ -93,10 +97,10 @@ const Pricing = () => {
       popular: false
     },
     {
-      name: "STANDART PAKET",
-      description: "Büyüyen firmalar için tam kapsamlı üretim ve servis paketi.",
-      price: isTurkish ? "15.999 ₺ +KDV" : "$899",
-      monthlyService: isTurkish ? "1.599 ₺ +KDV" : "$45",
+      name: "SATIŞ MAKİNESİ",
+      description: "Ziyaretçiyi müşteriye dönüştüren, siber risklerden arındırılmış satış hunisi.",
+      price: isTurkish ? "19.999 ₺ +KDV" : "$999",
+      monthlyService: isTurkish ? "8.999 ₺ +KDV" : "$199",
       productionTime: "10-15 İş Günü",
       launchTime: "3-5 İş Günü",
       features: [
@@ -118,10 +122,10 @@ const Pricing = () => {
       popular: true
     },
     {
-      name: "KURUMSAL PAKET",
-      description: "Büyük ölçekli projeler ve özel yazılım servis planları.",
+      name: "ZIRHLI DİJİTAL VARLIK",
+      description: "Kritik veri işleyen, Hacker saldırılarına karşı tam koruma ve Garanti isteyen kurumlar için.",
       price: "Özel Teklif",
-      monthlyService: isTurkish ? "3.699 ₺ +KDV" : "$120",
+      monthlyService: isTurkish ? "12.999 ₺ +KDV" : "$399",
       productionTime: "20-35 İş Günü",
       launchTime: "7-10 İş Günü",
       features: [
@@ -221,7 +225,7 @@ const Pricing = () => {
                   </div>
                 </div>
                 <div className="mt-4 p-3 bg-primary/5 border border-primary/20 rounded-2xl">
-                  <span className="block text-white/40 text-[9px] uppercase tracking-widest font-semibold mb-1">Aylık Sistem Yönetimi (Zorunlu)</span>
+                  <span className="block text-white/40 text-[9px] uppercase tracking-widest font-semibold mb-1">Aylık Kalkan & Teknik Garanti (Zorunlu)</span>
                   <div className="flex items-baseline gap-2">
                     <span className="text-xl font-bold text-primary">{plan.monthlyService.split(' ')[0]} {plan.monthlyService.split(' ')[1]}</span>
                     {plan.monthlyService.includes('+KDV') && <span className="text-[18px] text-primary/50 font-black ml-1">+KDV</span>}

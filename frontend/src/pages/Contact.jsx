@@ -32,6 +32,7 @@ import { toast } from 'react-toastify';
 const Contact = () => {
   useEffect(() => {
     console.log("Contact Page Mounted - Premium Version");
+    document.title = 'İletişim | Alfa Yapay Zeka — Bursa Web Tasarım & Siber Güvenlik';
   }, []);
 
   const [formData, setFormData] = useState({
@@ -96,7 +97,7 @@ const Contact = () => {
             </div>
 
             <div className="flex flex-col gap-6 mt-4">
-              <ContactInfoItem icon={<Mail size={20} className="text-primary" />} title="E-posta" content="iletisim@alfayapayzeka.com" />
+              <ContactInfoItem icon={<Mail size={20} className="text-primary" />} title="E-posta" content="info@alfayapayzeka.com" />
               <ContactInfoItem icon={<Phone size={20} className="text-primary" />} title="Telefon" content="+90 (532) 466 30 76" />
               <ContactInfoItem icon={<MapPin size={20} className="text-primary" />} title="Ofis" content="Esentepe Mah. Gürler Cad. Akayya Sok. Evşenkent Sitesi C Blok. No:3/C 16130 Nilüfer, Bursa Türkiye" />
             </div>
@@ -180,6 +181,38 @@ const Contact = () => {
             </form>
           </motion.div>
         </div>
+
+        {/* Google Map Embed */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-16"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <MapPin size={18} className="text-primary" />
+            <span className="text-white/50 text-sm font-bold uppercase tracking-widest">Ofisimize Ulaşın</span>
+          </div>
+          <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-primary/5 group hover:border-primary/30 transition-all duration-500">
+            {/* Subtle color overlay to match dark theme */}
+            <div className="absolute inset-0 bg-primary/5 pointer-events-none z-10 mix-blend-multiply" />
+            <iframe
+              title="Alfa Yapay Zeka - Ofis Konumu"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3044.798!2d28.9752!3d40.2176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDEzJzAzLjQiTiAyOMKwNTgnMzAuNyJF!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str&q=Esentepe+Mah.+G%C3%BCrler+Cad.+Akayya+Sok.+Ev%C5%9Fenkent+Sitesi+C+Blok+No:3%2FC+Nil%C3%BCfer+Bursa+T%C3%BCrkiye"
+              width="100%"
+              height="400"
+              style={{ border: 0, display: 'block' }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+          <p className="text-white/20 text-xs text-center mt-4 tracking-wide">
+            Esentepe Mah. Gürler Cad. Akayya Sok. Evşenkent Sitesi C Blok. No:3/C 16130 Nilüfer, Bursa
+          </p>
+        </motion.div>
+
       </div>
     </div>
   );
