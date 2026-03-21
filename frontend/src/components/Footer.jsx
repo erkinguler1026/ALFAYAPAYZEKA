@@ -23,7 +23,7 @@ const Footer = () => {
               <Bot className="text-primary w-8 h-8 group-hover:scale-110 transition-transform" />
               <span className="font-black text-2xl tracking-tighter uppercase text-white group-hover:text-primary transition-colors">ALFA YAPAY ZEKA</span>
             </Link>
-            <p className="text-white/30 text-base leading-relaxed font-light mb-3">
+            <p className="text-white/30 text-base leading-relaxed font-normal mb-3">
               Siber Tehditlere Kapalı, Müşterilere Açık — İşte Web Siteniz
             </p>
             <p className="text-white/20 text-sm leading-relaxed font-light">
@@ -36,7 +36,7 @@ const Footer = () => {
               <span className="text-white text-[11px] tracking-[0.4em] mb-2">Platform</span>
               <Link to="/portfolio" className="hover:text-primary transition-colors">Portfolyo</Link>
               <Link to="/pricing" className="hover:text-primary transition-colors">Fiyatlandırma</Link>
-              <Link to="/pentest" className="hover:text-primary transition-colors">PENTEST</Link>
+              <Link to="/ai-pentest" className="hover:text-primary transition-colors uppercase">AI-PENTEST</Link>
             </div>
             <div className="flex flex-col gap-6">
               <span className="text-white text-[11px] tracking-[0.4em] mb-2">Şirket</span>

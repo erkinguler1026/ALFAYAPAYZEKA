@@ -67,7 +67,7 @@ const Header = () => {
   const navLinks = [
     { to: "/", label: "Ana Sayfa" },
     { to: "/offer", label: "🔥 Kampanya" },
-    { to: "/pentest", label: "PENTEST" },
+    { to: "/ai-pentest", label: "AI-PENTEST" },
     { to: "/portfolio", label: "Portfolyo" },
     { to: "/pricing", label: "Fiyatlandırma" },
     { to: "/about", label: "Hakkımızda" },
