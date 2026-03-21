@@ -305,13 +305,13 @@ const Pricing = () => {
                   <ShieldAlert size={32} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-2">Alfa Web-Risk Raporu</h3>
+                  <h3 className="text-2xl font-bold mb-2">TEMEL WEB-RİSK RAPORU</h3>
                   <p className="text-white/40 max-w-md">Mevcut sitenizin güvenlik açıklarını, SEO hatalarını, performans darboğazlarını ve siber risk profilini 48 sayfalık detaylı bir rapora dönüştürüyoruz.</p>
                 </div>
               </div>
               <div className="text-center md:text-right min-w-[200px]">
-                <div className="text-sm text-white/30 uppercase tracking-widest font-bold mb-1">Fiyat Aralığı</div>
-                <div className="text-3xl font-black text-white whitespace-nowrap">7.500 ₺ <span className="text-lg text-white/50">-</span> 25.000 ₺</div>
+                <div className="text-sm text-white/30 uppercase tracking-widest font-bold mb-1">Tek Seferlik</div>
+                <div className="text-3xl font-black text-white whitespace-nowrap">19.999 ₺ <span className="text-lg text-white/50">+</span> KDV</div>
                 <Link 
                   to="/web-risk-raporu" 
                   className="mt-4 inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all"
