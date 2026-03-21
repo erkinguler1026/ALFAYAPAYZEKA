@@ -36,6 +36,7 @@ const Footer = () => {
               <span className="text-white text-[11px] tracking-[0.4em] mb-2">Platform</span>
               <Link to="/portfolio" className="hover:text-primary transition-colors">Portfolyo</Link>
               <Link to="/pricing" className="hover:text-primary transition-colors">Fiyatlandırma</Link>
+              <Link to="/pentest" className="hover:text-primary transition-colors">PENTEST</Link>
             </div>
             <div className="flex flex-col gap-6">
               <span className="text-white text-[11px] tracking-[0.4em] mb-2">Şirket</span>

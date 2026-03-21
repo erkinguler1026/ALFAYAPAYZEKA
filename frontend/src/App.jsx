@@ -13,6 +13,7 @@ import Contact from './pages/Contact';
 import Offer from './pages/Offer';
 import Legal from './pages/Legal';
 import WebRisk from './pages/WebRisk';
+import Pentest from './pages/Pentest';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="kvkk" element={<Legal />} />
           <Route path="cookie" element={<Legal />} />
           <Route path="web-risk-raporu" element={<WebRisk />} />
+          <Route path="pentest" element={<Pentest />} />
         </Route>
       </Routes>
     </>

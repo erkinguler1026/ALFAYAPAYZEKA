@@ -320,6 +320,29 @@ const Pricing = () => {
                 </Link>
               </div>
             </div>
+
+            {/* 🔥 NEW: Advanced Pentest Banner */}
+            <div className="glass-morphism p-8 md:p-12 rounded-[40px] border border-red-500/10 flex flex-col md:flex-row items-center justify-between gap-8 group hover:border-red-500/50 transition-all bg-red-500/5">
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-red-500/20 rounded-2xl border border-red-500/40 text-red-500 group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(239,68,68,0.2)]">
+                  <ShieldAlert size={32} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-2">ADVANCED PENTEST & COMPLIANCE</h3>
+                  <p className="text-white/40 max-w-md italic">ISO 27001 Uyumlu Dış Ağ + İç Ağ Sızma Testleri. Kali, Nessus ve Manuel Manuel Analizler.</p>
+                </div>
+              </div>
+              <div className="text-center md:text-right min-w-[200px]">
+                <div className="text-sm text-white/30 uppercase tracking-widest font-bold mb-1">Kurumsal Teklif</div>
+                <div className="text-3xl font-black text-red-500 whitespace-nowrap">Teklif Alınız</div>
+                <Link 
+                  to="/pentest" 
+                  className="mt-4 inline-flex items-center gap-2 text-white bg-red-600 px-6 py-2 rounded-xl font-bold hover:bg-red-500 transition-all"
+                >
+                  Detayları Gör <ChevronRight size={16} />
+                </Link>
+              </div>
+            </div>
           </div>
         </motion.div>
 
