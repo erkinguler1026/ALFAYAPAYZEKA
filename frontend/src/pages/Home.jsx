@@ -79,8 +79,8 @@ const Home = () => {
     },
     {
       icon: <ShieldAlert className="text-red-400 w-10 h-10" />,
-      title: "TEMEL WEB-RİSK RAPORU",
-      desc: "Mevcut sitenizin güvenlik açıklarını, SEO hatalarını, performans darboğazlarını ve siber risk profilini 48 sayfalık detaylı bir rapora dönüştürüyoruz.",
+      title: "ALFA WEB-RISK RAPORU",
+      desc: "TEMEL WEB-RİSK RAPORU: Mevcut sitenizin güvenlik açıklarını, SEO hatalarını, performans darboğazlarını ve siber risk profilini 48 sayfalık detaylı bir rapora dönüştürüyoruz.",
       outcome: "Web-Risk Analizi Talep Et",
       isRisk: true
     }

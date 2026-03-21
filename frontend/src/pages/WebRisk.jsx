@@ -27,7 +27,7 @@ const WebRisk = () => {
       // Note: Backend endpoint should handle this with "Web-Risk Talebi" tag logic
       await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/contact`, {
         ...formData,
-        subject: 'TEMEL WEB-RİSK Analizi Talebi',
+        subject: 'ALFA WEB-RISK Analizi Talebi',
         type: 'web-risk'
       });
       toast.success('Analiz talebiniz başarıyla alındı! Teknik ekibimiz 24 saat içinde sizinle iletişime geçecektir.');
@@ -57,7 +57,7 @@ const WebRisk = () => {
             </h1>
             <p className="text-xl text-white/50 font-light leading-relaxed mb-12 max-w-xl">
               Görünmeyen açıklar, SEO hataları ve performans darboğazları işletmenize her gün zarar veriyor olabilir. 
-              Yapay zeka destekli <strong>TEMEL WEB-RİSK RAPORU</strong> ile gerçek durumu görün.
+              Yapay zeka destekli <strong>ALFA WEB-RISK RAPORU (Temel Seviye)</strong> ile gerçek durumu görün.
             </p>
 
             <div className="space-y-6">

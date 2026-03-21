@@ -305,8 +305,8 @@ const Pricing = () => {
                   <ShieldAlert size={32} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold mb-2">TEMEL WEB-RİSK RAPORU</h3>
-                  <p className="text-white/40 max-w-md">Mevcut sitenizin güvenlik açıklarını, SEO hatalarını, performans darboğazlarını ve siber risk profilini 48 sayfalık detaylı bir rapora dönüştürüyoruz.</p>
+                  <h3 className="text-2xl font-bold mb-2">ALFA WEB-RISK RAPORU</h3>
+                  <p className="text-white/40 max-w-md">TEMEL WEB-RİSK RAPORU: Mevcut sitenizin güvenlik açıklarını, SEO hatalarını, performans darboğazlarını ve siber risk profilini 48 sayfalık detaylı bir rapora dönüştürüyoruz.</p>
                 </div>
               </div>
               <div className="text-center md:text-right min-w-[200px]">
