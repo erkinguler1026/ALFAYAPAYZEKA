@@ -53,9 +53,11 @@ const Footer = () => {
         
         <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] font-bold tracking-[0.3em] text-white/20 uppercase">
           <span>© 2026 ALFA YAPAY ZEKA AJANSI — Siber Tehditlere Kapalı, Müşterilere Açık.</span>
-          <div className="flex gap-12">
+          <div className="flex flex-wrap gap-x-8 gap-y-4 justify-center md:justify-end">
             <Link to="/privacy" className="hover:text-white transition-colors cursor-pointer">GİZLİLİK POLİTİKASI</Link>
             <Link to="/terms" className="hover:text-white transition-colors cursor-pointer">KULLANIM ŞARTLARI</Link>
+            <Link to="/kvkk" className="hover:text-white transition-colors cursor-pointer">KVKK AYDINLATMA</Link>
+            <Link to="/cookie" className="hover:text-white transition-colors cursor-pointer">ÇEREZ POLİTİKASI</Link>
           </div>
         </div>
       </div>

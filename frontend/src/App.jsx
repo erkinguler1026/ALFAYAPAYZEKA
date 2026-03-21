@@ -12,6 +12,7 @@ import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
 import Offer from './pages/Offer';
 import Legal from './pages/Legal';
+import WebRisk from './pages/WebRisk';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni
@@ -53,6 +54,9 @@ const App = () => {
           <Route path="offer" element={<Offer />} />
           <Route path="privacy" element={<Legal />} />
           <Route path="terms" element={<Legal />} />
+          <Route path="kvkk" element={<Legal />} />
+          <Route path="cookie" element={<Legal />} />
+          <Route path="web-risk-raporu" element={<WebRisk />} />
         </Route>
       </Routes>
     </>

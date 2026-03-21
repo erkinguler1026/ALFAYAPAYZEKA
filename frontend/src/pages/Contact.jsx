@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, User, AtSign } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 /**
  * Contact — İletişim Sayfası Bileşeni
@@ -159,6 +160,20 @@ const Contact = () => {
                     placeholder="Projenizden bahsedin..."
                     className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm focus:outline-none focus:border-primary/50 transition-all placeholder:text-white/10 resize-none"
                   />
+                </div>
+              </div>
+
+              <div className="px-2">
+                <div className="flex items-start gap-3">
+                  <input 
+                    type="checkbox" 
+                    id="kvkk_consent" 
+                    required 
+                    className="mt-1 w-4 h-4 rounded border-white/10 bg-white/5 text-primary focus:ring-primary accent-primary cursor-pointer" 
+                  />
+                  <label htmlFor="kvkk_consent" className="text-[12px] text-white/30 leading-relaxed cursor-pointer select-none">
+                    <Link to="/kvkk" className="text-white/60 hover:text-white underline font-medium">KVKK Aydınlatma Metni</Link>'ni okudum ve kişisel verilerimin işlenmesini kabul ediyorum.
+                  </label>
                 </div>
               </div>
 

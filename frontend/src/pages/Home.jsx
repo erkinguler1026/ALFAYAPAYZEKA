@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { 
   Zap, ChevronRight, Globe, Shield, CheckCircle2, 
   Rocket, Wrench, Settings, BarChart3, Headphones,
-  Activity, Cpu, Lock, ShieldCheck, ShieldAlert, Flame
+  Activity, Cpu, Lock, ShieldCheck, ShieldAlert, Flame,
+  Check, Info, LifeBuoy // Added these icons
 } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -75,6 +76,13 @@ const Home = () => {
       title: "Zırhlı Koruma & Garanti",
       desc: "Bakım, güvenlik, 'hacker shield' güncellemeleri... 12 ay boyunca teknik garanti kapsamındasınız.",
       outcome: "Sıfır Risk, Tam Güvence"
+    },
+    {
+      icon: <ShieldAlert className="text-red-400 w-10 h-10" />,
+      title: "Alfa Web-Risk Raporu",
+      desc: "Mevcut sitenizin güvenlik açıklarını, SEO hatalarını ve performans darboğazlarını analiz ediyoruz.",
+      outcome: "Web-Risk Analizi Talep Et",
+      isRisk: true
     }
   ];
 
@@ -178,20 +186,21 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 3. Core Outcomes (Bento Box style but minimal) */}
       <section className="max-w-7xl mx-auto py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, i) => (
-            <div key={i} className="premium-card p-12 rounded-[40px] border border-white/5 hover:border-purple-500/50 hover:shadow-[0_0_40px_rgba(168,85,247,0.2)] hover:-translate-y-2 transition-all duration-300 group">
-              <div className="mb-8 p-4 bg-white/5 w-fit rounded-2xl border border-white/10 group-hover:bg-primary/10 transition-colors">
-                {benefit.icon}
+            <Link key={i} to={benefit.isRisk ? '/web-risk-raporu' : '#'} className={`premium-card p-12 rounded-[40px] border border-white/5 hover:border-purple-500/50 hover:shadow-[0_0_40px_rgba(168,85,247,0.2)] hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between ${benefit.isRisk ? 'cursor-pointer' : 'cursor-default'}`}>
+              <div>
+                <div className="mb-8 p-4 bg-white/5 w-fit rounded-2xl border border-white/10 group-hover:bg-primary/10 transition-colors">
+                  {benefit.icon}
+                </div>
+                <h3 className="text-3xl font-bold mb-4">{benefit.title}</h3>
+                <p className="text-white/40 text-lg mb-8 leading-relaxed">{benefit.desc}</p>
               </div>
-              <h3 className="text-3xl font-bold mb-4">{benefit.title}</h3>
-              <p className="text-white/40 text-lg mb-8 leading-relaxed">{benefit.desc}</p>
-              <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest">
-                <CheckCircle2 size={16} /> {benefit.outcome}
+              <div className="flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest mt-auto">
+                <CheckCircle2 size={16} /> {benefit.outcome} {benefit.isRisk && <ChevronRight size={16} />}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -313,7 +322,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="premium-card p-10 rounded-[40px] border-white/5 hover:border-purple-500/50 hover:shadow-[0_0_40px_rgba(168,85,247,0.2)] hover:-translate-y-2 transition-all duration-300 flex flex-col gap-6"
+              className="premium-card p-10 rounded-[40px] border border-white/5 hover:border-purple-500/50 hover:shadow-[0_0_40px_rgba(168,85,247,0.2)] hover:-translate-y-2 transition-all duration-300 flex flex-col gap-6"
             >
               <div className="p-4 bg-white/5 w-fit rounded-2xl border border-white/10 group-hover:bg-primary/20 transition-colors">
                 {item.icon}
@@ -512,6 +521,19 @@ const Home = () => {
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-8 py-5 text-xl focus:outline-none focus:border-primary transition-colors resize-none"
               />
+
+              <div className="flex items-start gap-3 px-2">
+                <input 
+                  type="checkbox" 
+                  id="kvkk_home" 
+                  required 
+                  className="mt-1 w-5 h-5 rounded border-white/10 bg-white/5 text-primary focus:ring-primary accent-primary cursor-pointer" 
+                />
+                <label htmlFor="kvkk_home" className="text-sm text-white/40 leading-relaxed cursor-pointer select-none">
+                  <Link to="/kvkk" className="text-white/60 hover:text-white underline font-medium">KVKK Aydınlatma Metni</Link>'ni okudum ve verilerimin işlenmesini kabul ediyorum.
+                </label>
+              </div>
+
               <button 
                 type="submit" 
                 disabled={isSubmitting}

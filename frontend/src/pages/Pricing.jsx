@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Check, Info, LifeBuoy, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Check, Info, LifeBuoy, ShieldCheck, CheckCircle2, ChevronRight, ShieldAlert } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 /**
  * FeatureItem — Fiyat Paketi Özellik Satırı
@@ -284,6 +285,43 @@ const Pricing = () => {
             </motion.div>
           ))}
         </div>
+
+        {/* --- Ek Hizmetler Section --- */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-32 max-w-5xl mx-auto"
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ek <span className="text-primary">Hizmetler</span></h2>
+            <p className="text-white/40 text-lg">İhtiyacınıza yönelik özel çözümler ve ileri düzey analizler.</p>
+          </div>
+
+          <div className="grid md:grid-cols-1 gap-6">
+            <div className="glass-morphism p-8 md:p-12 rounded-[40px] border border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 group hover:border-red-500/30 transition-all">
+              <div className="flex items-center gap-6">
+                <div className="p-4 bg-red-500/10 rounded-2xl border border-red-500/20 text-red-400 group-hover:scale-110 transition-transform">
+                  <ShieldAlert size={32} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-2">Alfa Web-Risk Raporu</h3>
+                  <p className="text-white/40 max-w-md">Mevcut sitenizin güvenlik açıklarını, SEO hatalarını, performans darboğazlarını ve siber risk profilini 48 sayfalık detaylı bir rapora dönüştürüyoruz.</p>
+                </div>
+              </div>
+              <div className="text-center md:text-right min-w-[200px]">
+                <div className="text-sm text-white/30 uppercase tracking-widest font-bold mb-1">Fiyat Aralığı</div>
+                <div className="text-3xl font-black text-white whitespace-nowrap">7.500 ₺ <span className="text-lg text-white/50">-</span> 25.000 ₺</div>
+                <Link 
+                  to="/web-risk-raporu" 
+                  className="mt-4 inline-flex items-center gap-2 text-primary font-bold hover:gap-4 transition-all"
+                >
+                  Analiz Talep Et <ChevronRight size={16} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Global Support info */}
         <div className="mt-24 flex flex-col md:flex-row items-center justify-center gap-16 border-t border-white/5 pt-16">
