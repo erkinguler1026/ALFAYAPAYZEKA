@@ -33,17 +33,22 @@ const Legal = () => {
             {isPrivacy ? <Shield size={120} /> : <FileText size={120} />}
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-black mb-8 tracking-tighter uppercase">
-            {isPrivacy && 'GİZLİLİK POLİTİKASI'}
-            {isTerms && 'KULLANIM ŞARTLARI'}
-            {isKVKK && 'KVKK AYDINLATMA METNİ'}
-            {isCookie && 'ÇEREZ POLİTİKASI'}
+          <h1 className="text-3xl md:text-5xl font-black mb-8 tracking-tighter uppercase leading-tight">
+            {isPrivacy && 'GİZLİLİK POLİTİKASI - Genel - (Privacy Policy)'}
+            {isTerms && 'KULLANIM ŞARTLARI - Genel - (Terms of Use)'}
+            {isKVKK && 'KVKK AYDINLATMA METNİ - Genel - (Clarification Text)'}
+            {isCookie && 'ÇEREZ POLİTİKASI - Genel - (Cookie Policy)'}
           </h1>
 
           <div className="space-y-10 text-white/70 leading-relaxed text-lg font-light">
-            <div className="pb-6 border-b border-white/5">
-              <p className="text-primary font-bold">Yürürlük Tarihi: 21.05.2025</p>
-              <p>Web Sitesi: www.alfayapayzeka.com</p>
+            <div className="pb-6 border-b border-white/5 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+              <div>
+                <p className="text-primary font-bold">Yürürlük Tarihi: 21.05.2025</p>
+                <p>Web Sitesi: www.alfayapayzeka.com</p>
+              </div>
+              <div className="bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+                <p className="text-white/40 text-sm font-mono tracking-widest">Revizyon 01.070</p>
+              </div>
             </div>
 
             {isPrivacy && (
