@@ -14,6 +14,7 @@ import Offer from './pages/Offer';
 import Legal from './pages/Legal';
 import WebRisk from './pages/WebRisk';
 import AIPentest from './pages/AIPentest';
+import ContractView from './pages/ContractView';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni
@@ -59,6 +60,7 @@ const App = () => {
           <Route path="cookie" element={<Legal />} />
           <Route path="web-risk-raporu" element={<WebRisk />} />
           <Route path="ai-pentest" element={<AIPentest />} />
+          <Route path="sozlesme/:type" element={<ContractView />} />
         </Route>
       </Routes>
     </>

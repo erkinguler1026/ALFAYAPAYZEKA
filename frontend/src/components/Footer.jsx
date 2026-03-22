@@ -39,10 +39,15 @@ const Footer = () => {
               <Link to="/ai-pentest" className="hover:text-primary transition-colors uppercase">AI-PENTEST</Link>
             </div>
             <div className="flex flex-col gap-6">
-              <span className="text-white text-[11px] tracking-[0.4em] mb-2">Şirket</span>
-              <Link to="/" className="hover:text-primary transition-colors">Ana Sayfa</Link>
+              <span className="text-white text-[11px] tracking-[0.4em] mb-2 uppercase">Şirket</span>
               <Link to="/about" className="hover:text-primary transition-colors">Hakkımızda</Link>
               <Link to="/contact" className="hover:text-primary transition-colors">İletişim</Link>
+              <Link to="/legal" className="hover:text-primary transition-colors">Bilgi Toplumu</Link>
+            </div>
+            <div className="flex flex-col gap-6">
+              <span className="text-white text-[11px] tracking-[0.4em] mb-2 uppercase">Sözleşmeler</span>
+              <Link to="/sozlesme/ai-web" target="_blank" className="hover:text-primary transition-colors text-xs">AI-Web Tasarım</Link>
+              <Link to="/sozlesme/ai-pentest" target="_blank" className="hover:text-primary transition-colors text-xs">AI-Pentest</Link>
             </div>
             <div className="flex flex-col gap-6">
               <span className="text-white text-[11px] tracking-[0.4em] mb-2">Sosyal</span>
