@@ -35,9 +35,9 @@ const ContractView = () => {
           <div className="flex gap-4">
             <button 
               onClick={handlePrint}
-              className="flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-xl font-bold shadow-lg shadow-primary/20 hover:scale-105 transition-all"
+              className="flex items-center gap-2 bg-red-600 text-white px-8 py-3 rounded-2xl font-black shadow-2xl shadow-red-600/30 hover:bg-red-700 hover:scale-105 transition-all"
             >
-              <Printer size={18} /> Yazdır / PDF Kaydet
+              <Printer size={20} /> Yazdır / PDF Kaydet
             </button>
           </div>
         </div>

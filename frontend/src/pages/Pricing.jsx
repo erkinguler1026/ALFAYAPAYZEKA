@@ -219,7 +219,7 @@ const Pricing = () => {
               <p className="text-white/40 text-[10px] mb-6 leading-relaxed min-h-[40px] uppercase tracking-wider">{plan.description}</p>
               
                 <div className="flex flex-col gap-1">
-                  <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Sistem Kurulumu</span>
+                  <span className="text-white/40 text-[10px] uppercase tracking-widest font-bold">Sistem Kurulumu (TAMAMI PEŞİN)</span>
                   <div className="flex items-baseline gap-2">
                     <span className="text-3xl md:text-4xl font-black tracking-tighter text-white">{plan.price.split(' ')[0]} {plan.price.split(' ')[1]}</span>
                     {plan.price.includes('+KDV') && <span className="text-[14px] md:text-[18px] text-white/50 font-black ml-1">+KDV</span>}
