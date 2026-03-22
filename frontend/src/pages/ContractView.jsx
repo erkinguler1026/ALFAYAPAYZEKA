@@ -24,7 +24,17 @@ const ContractView = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-24 pb-20 print:bg-white print:pt-0">
+    <div className="min-h-screen bg-gray-50 pt-24 pb-20 print:bg-white print:pt-4 print:pb-0">
+      {/* 📥 Print-Specific Styles */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @media print {
+          body { background: white !important; }
+          @page { margin: 20mm; }
+          .print-avoid-break { page-break-inside: avoid; }
+          nav, footer, .print-hidden { display: none !important; }
+        }
+      `}} />
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         
         {/* 🛠️ Action Toolbar (Hidden in Print) */}
@@ -90,7 +100,7 @@ const ContractView = () => {
           {/* Sections */}
           <div className="space-y-12 mb-20 print:space-y-8">
             {contract.sections.map((section) => (
-              <div key={section.id} className="relative pl-12">
+              <div key={section.id} className="relative pl-12 print-avoid-break">
                 <span className="absolute left-0 top-0 text-3xl font-black text-primary/10">0{section.id}</span>
                 <h3 className="text-lg font-black text-gray-900 mb-4 flex items-center gap-3">
                   {section.title}
@@ -105,7 +115,7 @@ const ContractView = () => {
           </div>
 
           {/* Signatures */}
-          <div className="grid grid-cols-2 gap-12 pt-16 border-t font-mono text-center">
+          <div className="grid grid-cols-2 gap-12 pt-16 border-t font-mono text-center print-avoid-break">
             <div>
               <p className="text-xs text-gray-400 mb-16 uppercase font-bold tracking-widest">Hizmet Sağlayıcı İmza / Kaşe</p>
               <div className="h-20 flex items-center justify-center opacity-10">

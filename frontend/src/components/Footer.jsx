@@ -13,7 +13,7 @@ import { Bot } from 'lucide-react';
  */
 const Footer = () => {
   return (
-    <footer className="py-16 md:py-32 px-6 border-t border-white/5 relative z-10 bg-gradient-to-br from-[#050505] to-purple-700/20 overflow-hidden">
+    <footer className="py-16 md:py-32 px-6 border-t border-white/5 relative z-10 bg-gradient-to-br from-[#050505] to-purple-700/20 overflow-hidden print:hidden">
       <div className="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary/10 to-transparent pointer-events-none" />
       
       <div className="max-w-7xl mx-auto relative z-10">

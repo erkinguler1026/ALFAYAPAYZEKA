@@ -60,8 +60,8 @@ const App = () => {
           <Route path="cookie" element={<Legal />} />
           <Route path="web-risk-raporu" element={<WebRisk />} />
           <Route path="ai-pentest" element={<AIPentest />} />
-          <Route path="sozlesme/:type" element={<ContractView />} />
         </Route>
+        <Route path="sozlesme/:type" element={<ContractView />} />
       </Routes>
     </>
   );
