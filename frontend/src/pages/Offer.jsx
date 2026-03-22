@@ -1,3 +1,16 @@
+/**
+ * Offer Sayfası — Kurumsal Kampanya Modülü (V1.4.0)
+ * 
+ * Açıklama: Alfa Yapay Zeka'nın güncel kampanya ve indirimlerini sunan 
+ * özel satış sayfasıdır.
+ * 
+ * Özellikler:
+ *   - Geri sayım sayacı (FomO etkisi).
+ *   - Kampanyalı paket karşılaştırmaları.
+ *   - Hızlı kampanya katılım formu.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
+ */
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';

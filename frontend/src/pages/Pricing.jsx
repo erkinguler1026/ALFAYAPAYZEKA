@@ -44,15 +44,6 @@ const FeatureItem = ({ text, description }) => {
 };
 
 /**
- * Pricing — Fiyatlandırma Sayfası Bileşeni
- *
- * Ajansın 4 servis paketini (Başlangıç, Standart, Kurumsal, Özel-Girişim)
- * interaktif kartlar halinde sunar.
- *
- * State:
- *   - isTurkish : Para birimi toggle'ı. true → ₺ TL, false → USD $
- *
- * Veri yapısı (`plans` dizisi):
  *   Her plan nesnesi şunları içerir:
  *     - name          : Paketin başlığı
  *     - description   : Kısa açıklama

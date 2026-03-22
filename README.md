@@ -2,11 +2,12 @@
 
 Alfa Yapay Zeka (ALFAYAPAYZEKA), işletmeler için Endüstriyel AI, İş Makinesi Otomasyonu ve Veri Analitiği çözümleri sunan modern ve kurumsal bir web projesidir. Frontend'de React/Vite, Backend'de ise Node.js/Express kullanılmıştır.
 
-**Arayüz Tasarım Dili:**
-- Karanlık Temalı (Dark Mode) UI
-- Glassmorphism (Cam Efekti)
-- Premium Akıcı Animasyonlar (Framer Motion)
-- Tailwind CSS v4
+**Arayüz Tasarım Dili & Özellikler:**
+- **Premium UI:** Karanlık Temalı (Dark Mode) Glassmorphism tasarımı.
+- **AI-PENTEST Hub:** MIT Lisanslı açık kaynak motorlar ve YAPAYZEKA algoritmalarıyla güçlendirilmiş siber güvenlik modülü.
+- **Dijital Sözleşme Sistemi:** Yazdırılabilir, PDF uyumlu ve kurumsal hizmet sözleşmesi yönetim katmanı.
+- **Akıcı Animasyonlar:** Framer Motion ile 60fps kullanıcı deneyimi.
+- **Modern Stack:** Tailwind CSS v4 ve React v19.
 
 ---
 
@@ -52,5 +53,9 @@ npm run dev
 ## 🛡️ Bakım ve Geliştirme Notları
 
 - **Ortam Değişkenleri (.env):** Frontend iletişim formunun doğru endpointe istek atabilmesi için `frontend/.env` dosyası içinde `VITE_API_BASE_URL` değişkeni tutulur. Backend'de ise SMTP mail erişim anahtarları (`backend/.env`) bulunur.
-- **Versiyonlama:** Projenin son kararlı/aktif versiyonu arayüzde (Footer ve App.jsx) `V1.3.1` olarak belirtilmiştir.
+- **Versiyonlama:** Projenin son kararlı/aktif versiyonu arayüzde (Footer ve App.jsx) `V1.4.0` olarak belirtilmiştir.
+- **Sözleşme Sistemi:** `frontend/src/data/contracts.js` dosyası, tüm hukuki metinlerin merkezi yönetim noktasıdır.
 - **Katkıda Bulunan:** Projenin tüm interaktif bileşenlerindeki (Framer Motion) gecikme (delay) süreleri sistemli şekilde kurgulanmıştır; bileşen hiyerarşisinde değişiklik yapılacağında sıralı geçişlere dikkat edilmelidir.
+
+---
+© 2026 ALFA YAPAY ZEKA — SİBER TEHDİTLERE KAPALI, MÜŞTERİLERE AÇIK.

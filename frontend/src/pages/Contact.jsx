@@ -5,30 +5,18 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 /**
- * Contact — İletişim Sayfası Bileşeni
- *
- * Kullanıcılara iletişim formu aracılığıyla mesaj gönderme imkânı sunar.
- *
- * State:
- *   - formData     : { name, email, message } — form alanlarını tutar.
- *   - isSubmitting : Form POST isteği süresince butonu devre dışı bırakır.
- *
- * İşleyiciler:
- *   - handleSubmit : e.preventDefault() ile sayfa yenilenmeden fetch() ile
- *                   backend'e (POST /api/contact) veri gönderir.
- *                   Başarıda → toast.success, hata durumunda → toast.error.
- *   - handleChange : Gerçek zamanlı olarak formData state'ini günceller.
- *
- * Sayfa yapısı (2 sütun):
- *   Sol  → Şirket bilgileri (e-posta, telefon, adres) — ContactInfoItem bileşeni.
- *   Sağ  → Glass-morphism stilli form kartı.
- *
- * Alt bileşen:
- *   <ContactInfoItem> → Her iletişim bilgisi satırını (ikon + başlık + içerik)
- *                       hover animasyonuyla gösterir.
- *
- * NOT: Bu sayfa fetch() API kullanır. Home.jsx iletişim formu ise axios kullanır.
- *      İkisi de aynı /api/contact endpoint'ine bağlanır.
+ * Contact Sayfası — Kurumsal İletişim Merkezi (V1.4.0)
+ * 
+ * Açıklama: Müşterilerin ajansla iletişime geçmesini sağlayan profesyonel 
+ * form ve lokasyon bilgilerini barındırır.
+ * 
+ * Özellikler:
+ *   - Gerçek zamanlı form validasyonu.
+ *   - Backend e-posta entegrasyonu (Brevo SMTP).
+ *   - İnteraktif Google Maps (Bursa Ofis).
+ *   - KVKK onay mekanizması.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
  */
 const Contact = () => {
   useEffect(() => {

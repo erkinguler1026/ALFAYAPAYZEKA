@@ -3,10 +3,17 @@ import Header from './Header';
 import Footer from './Footer';
 
 /**
- * Layout Bileşeni — Uygulamanın Ortak Şablonu (Wrapper)
- *
- * Tüm sayfaların paylaştığı iskelet yapıdır:
- *   1. Header  : Üstte sabit konumlanan navigasyon menüsü.
+ * Layout Bileşeni — Global Uygulama Çatısı (V1.4.0)
+ * 
+ * Açıklama: Tüm sayfalar için ortak olan Header, Footer ve mizanpaj (Padding/Margin)
+ * yapılarını barındırır.
+ * 
+ * Özellikler:
+ *   - Global Navbar (Header) ve Alt Bilgi (Footer) entegrasyonu.
+ *   - Outlet üzerinden dinamik sayfa içeriği gösterimi.
+ *   - Sayfa yüklenince otomatik "Scroll to Top" davranışı.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
  *   2. <Outlet>: React Router'ın o anki URL'ye göre içeri yerleştirdiği
  *               dinamik sayfa bileşeni (Home, About, Portfolio vb.).
  *   3. Footer  : Altta yer alan site künyesi ve bağlantılar bölümü.

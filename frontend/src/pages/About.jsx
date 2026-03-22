@@ -3,9 +3,17 @@ import { motion } from 'framer-motion';
 import { Target, Lightbulb, TrendingUp, ShieldCheck, LifeBuoy, Zap } from 'lucide-react';
 
 /**
- * About — Hakkımızda Sayfası Bileşeni
- *
- * Kurumun vizyon, misyon ve hizmet standartlarını anlatan tanıtım sayfası.
+ * About Sayfası — Kurumsal Kimlik ve Vizyon (V1.4.0)
+ * 
+ * Açıklama: Alfa Yapay Zeka'nın kuruluş hikayesi, teknoloji vizyonu ve 
+ * siber güvenlik odaklı yazılım felsefesini anlatır.
+ * 
+ * Bölümler:
+ *   - Vizyon & Misyon (Geleceği Bugünden Kodlamak).
+ *   - Kurumsal Değerler (Zırhlı Kod, Veri Güvenliği, Kesintisiz Destek).
+ *   - Teknik Stack ve Uzmanlık Alanları.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
  * İçerisindeki bölümler:
  *   - Üst kısım : Sayfa başlığı ve açıklama yazısı (fade-in animasyonlu)
  *   - Alt kısım : 3 değer kartı (Hızlı Üretim / Kesintisiz Destek / Güvenli Bakım)

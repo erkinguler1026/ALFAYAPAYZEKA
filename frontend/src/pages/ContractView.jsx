@@ -5,10 +5,17 @@ import { Printer, ArrowLeft, ShieldCheck, Download, FileText } from 'lucide-reac
 import { contractsData } from '../data/contracts';
 
 /**
- * ContractView Component — Profesyonel Sözleşme Görüntüleyici
+ * ContractView — Profesyonel Sözleşme Sistemi (V1.4.0)
  * 
- * Bu bileşen, /sozlesme/:type rotası üzerinden gelen sözleşmeleri 
- * yazdırılabilir ve PDF olarak kaydedilebilir formatta sunar.
+ * Açıklama: Kurumsal hizmet sözleşmelerini (AI-Web, AI-Pentest) A4 formatında,
+ * yazdırılabilir ve PDF olarak kaydedilebilir bir ara yüzle sunar.
+ * 
+ * Teknik Özellikler:
+ *   - Statik Layout İzolasyonu (Header/Footer içermez).
+ *   - @media print CSS optimizasyonları.
+ *   - Dinamik veri yükleme (contracts.js).
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
  */
 const ContractView = () => {
   const { type } = useParams();

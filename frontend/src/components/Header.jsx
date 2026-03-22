@@ -41,14 +41,19 @@ const NavLink = ({ to, label }) => {
 };
 
 /**
- * Header Bileşeni — Üst Navigasyon Menüsü
+ * Header Bileşeni — Üst Navigasyon Menüsü (V1.4.0)
  * 
- * Versiyon: V1.3.1
+ * Açıklama: Uygulamanın ana navigasyon barıdır. Masaüstü ve mobil (drawer) 
+ * menü yapılarını barındırır.
+ * 
+ * Versiyon: V1.4.0
  * 
  * Teknik Detaylar:
- *   - State Yönetimi: Redux Toolkit (uiSlice) ile 'isMenuOpen' durumu kontrol edilir.
- *   - Hooks: useDispatch (aksiyonlar için), useSelector (state okumak için).
- *   - Animasyonlar: Framer Motion AnimatePresence ile akıcı mobil menü geçişleri.
+ *   - Redux Toolkit (uiSlice) üzerinden mobil menü kontrolü.
+ *   - Framer Motion ile akışkan 'AnimatePresence' menü geçişleri.
+ *   - Aktif sayfa farkındalığı (useLocation).
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
  */
 const Header = () => {
   const dispatch = useDispatch();
@@ -164,7 +169,7 @@ const Header = () => {
                 <p className="text-white/20 text-[9px] tracking-widest uppercase font-bold leading-relaxed">
                   Siber Tehditlere Kapalı, Müşterilere Açık
                 </p>
-                <p className="text-white/10 text-[10px] mt-2">© 2026 | Sürüm V1.3.2</p>
+                <p className="text-white/10 text-[10px] mt-2">© 2026 | Sürüm V1.4.0</p>
               </div>
             </div>
           </motion.div>

@@ -2,14 +2,19 @@ import { Link } from 'react-router-dom';
 import { Bot } from 'lucide-react';
 
 /**
- * Footer Bileşeni — Alt Bilgi ve Navigasyon
- *
- * Versiyon: V1.3.1
+ * Footer Bileşeni — Alt Bilgi ve Navigasyon (V1.4.0)
+ * 
+ * Açıklama: Sayfa altı künyesi, hızlı erişim bağlantıları, sosyal medya 
+ * linkleri ve hukuki metin erişim noktalarını barındırır.
+ * 
+ * Versiyon: V1.4.0
  * 
  * Özellikler:
- *   - SPA Uyumu: Tüm navigasyon Link bileşenleri ile sayfa yenilenmeden yapılır.
- *   - Logo Linkleme: Ajans logosu ve ismi ana sayfaya (/) yönlendirir.
- *   - Responsive: Mobil ekranlarda daraltılmış padding (py-16) kullanılır.
+ *   - SPA uyumlu React Router linkleri.
+ *   - Dijital Sözleşme Sistemi (Contract Viewer) entegrasyonu.
+ *   - Responsive mizanpaj ve gradyan dekorasyonlar.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
  */
 const Footer = () => {
   return (

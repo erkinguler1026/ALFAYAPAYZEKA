@@ -1,7 +1,7 @@
 /**
- * backend/index.js — Node.js/Express API Sunucusu
+ * backend/index.js — Node.js/Express API Sunucusu (V1.4.0)
  *
- * Versiyon: 1.0.0 | Port: 5000 (varsayılan)
+ * Versiyon: V1.4.0 | Port: 5000 (varsayılan)
  *
  * Bağımlılıklar:
  *   - express   : HTTP sunucu çerçevesi; route tanımları ve middleware yönetimi.

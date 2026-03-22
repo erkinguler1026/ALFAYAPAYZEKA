@@ -4,6 +4,16 @@
  * Bu dosya, AI-WEB ve AI-PENTEST sözleşmelerinin şablonlarını tutar.
  */
 
+/**
+ * Hukuki Sözleşme Verileri (V1.4.0)
+ * 
+ * Açıklama: AI-WEB-TASARIM ve AI-PENTEST hizmet sözleşmelerinin kurumsal 
+ * şablonlarını barındıran merkezi veri dosyasıdır.
+ * 
+ * Not: Bu dosyadaki değişiklikler ContractView üzerinden tüm müşterilere yansır.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
+ */
 export const contractsData = {
   "ai-web": {
     title: "AI-WEB-TASARIM HİZMET SÖZLEŞMESİ",

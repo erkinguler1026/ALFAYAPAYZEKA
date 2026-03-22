@@ -11,10 +11,17 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 /**
- * Home — Ana Sayfa Bileşeni (Landing Page)
- *
- * Versiyon: V1.3.0 | Siteye gelen ziyaretçinin ilk gördüğü içeriktir.
- *
+ * Home Sayfası — Mega Landing Page (V1.4.0)
+ * 
+ * Açıklama: Alfa Yapay Zeka'nın ana vitrini. "Hackerlara Kapalı, Satışa Açık" 
+ * felsefesini premium bir kullanıcı deneyimiyle sunar.
+ * 
+ * Özellikler:
+ *   - Glassmorphism Hero Bölümü.
+ *   - AI Hizmetleri (Dinamik Kartlar).
+ *   - Portfolyo Önizlemesi.
+ *   - İletişim Formu Entegrasyonu (Brevo SMTP).
+ * 
  * Sayfanın Bölümleri (yukarıdan aşağıya):
  *   1. Hero Section         – Ana başlık, alt yazı ve CTA butonları
  *   2. Outcome Strip        – 3 adımlık değer önerisi (Çek / Dönüştür / Otomatikleştir)
@@ -33,8 +40,10 @@ import { Link } from 'react-router-dom';
  *   - isSubmitting : Form gönderim sürecinde butonu devre dışı bırakır.
  *
  * API entegrasyonu:
- *   - axios.post(´/api/contact´) ile backend'e veri atılır.
+ *   - axios.post('/api/contact') ile backend'e veri atılır.
  *   - Başarı / Hata bildirimleri react-toastify üzerinden verilir.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
  */
 const Home = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });

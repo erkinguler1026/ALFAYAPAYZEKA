@@ -1,4 +1,17 @@
-import { useEffect } from 'react';
+/**
+ * Portfolio Sayfası — Proje Vitrini (V1.4.0)
+ * 
+ * Açıklama: Alfa Yapay Zeka tarafından tamamlanan web tasarım, siber güvenlik 
+ * ve AI projelerini kategorize edilmiş şekilde sergiler.
+ * 
+ * Özellikler:
+ *   - Kategori bazlı filtreleme (Web / AI / Siber Güvenlik).
+ *   - Hover animasyonlu proje kartları.
+ *   - Modern grid yerleşimi.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
+ */
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronRight, ExternalLink } from 'lucide-react';
 
