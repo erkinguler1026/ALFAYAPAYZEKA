@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import MatrixRain from '../components/MatrixRain';
+import CampaignCountdown from '../components/CampaignCountdown';
 
 /**
  * SnapReport Sayfası — Dijital Zırh 60 Kampanyası
@@ -251,6 +252,7 @@ const SnapReport = () => {
               <strong className="text-white">"ALFA Web-Risk Check-Up"</strong> hizmetimiz, 60 gün boyunca sınırlı sayıda işletme için{' '}
               <span className="text-white font-bold ml-1">2 Sayfalık Ücretsiz Snap Report</span> olarak sunuluyor.
             </p>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
               {[
                 { title: "Altyapı Skoru",  desc: "Sunucu ve framework açıklarınızın A-F arası derecelendirmesi.", icon: <ShieldCheck size={20}/> },
@@ -287,10 +289,13 @@ const SnapReport = () => {
             </div>
 
             {/* Başlık */}
-            <div className="mb-6">
+            <div className="mb-4">
               <h3 className="text-3xl font-bold mb-1">Snap Report Başvurusu</h3>
               <p className="text-white/40 text-sm">Lütfen analiz edilecek domain bilgilerini giriniz.</p>
             </div>
+
+            {/* Campaign Countdown Timer (Formun Hemen Üstünde) */}
+            <CampaignCountdown />
 
             {/* ── Güven Skoru Barı ── */}
             <div className="mb-8 p-4 rounded-2xl bg-white/5 border border-white/5">
