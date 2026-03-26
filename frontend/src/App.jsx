@@ -15,6 +15,7 @@ import Legal from './pages/Legal';
 import WebRisk from './pages/WebRisk';
 import AIPentest from './pages/AIPentest';
 import ContractView from './pages/ContractView';
+import SnapReport from './pages/SnapReport';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni (V1.4.0)
@@ -51,6 +52,7 @@ const App = () => {
           <Route path="kvkk" element={<Legal />} />
           <Route path="cookie" element={<Legal />} />
           <Route path="web-risk-raporu" element={<WebRisk />} />
+          <Route path="snap-report" element={<SnapReport />} />
           <Route path="ai-pentest" element={<AIPentest />} />
         </Route>
         <Route path="sozlesme/:type" element={<ContractView />} />

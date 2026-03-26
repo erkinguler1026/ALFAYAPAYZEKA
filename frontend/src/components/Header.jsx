@@ -24,7 +24,7 @@ const NavLink = ({ to, label }) => {
   return (
     <Link 
       to={to} 
-      className={`transition-all relative group ${isActive ? 'text-white' : 'text-white/40 hover:text-white'}`}
+      className={`transition-all relative group whitespace-nowrap ${isActive ? 'text-white' : 'text-white/40 hover:text-white'}`}
     >
       {label}
       {isActive && (
@@ -80,28 +80,31 @@ const Header = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0c]/80 backdrop-blur-2xl border-b border-white/5 h-24 print:hidden">
-        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-4 group">
-            <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-primary/50 transition-all duration-500">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0c]/80 backdrop-blur-2xl border-b border-white/5 min-h-[96px] h-auto flex items-center py-4 xl:py-0 print:hidden">
+        <div className="max-w-7xl mx-auto px-6 w-full flex flex-col xl:flex-row items-center justify-between gap-6 xl:gap-0">
+          <Link to="/" className="flex items-center gap-4 group min-w-0 flex-shrink-0">
+            <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:border-primary/50 transition-all duration-500 flex-shrink-0">
                <Bot className="text-white w-7 h-7" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-black text-xl tracking-[0.1em] text-white">ALFA YAPAY ZEKA</span>
-              <span className="text-[11px] text-white/40 font-semibold leading-tight tracking-wide">
-                Siber Tehditlere Kapalı, Müşterilere Açık — İşte Web Siteniz
+            <div className="flex flex-col min-w-0">
+              <span className="font-black text-xl tracking-[0.1em] text-white whitespace-nowrap">ALFA YAPAY ZEKA</span>
+              <span className="text-[11px] text-white/40 font-semibold leading-none tracking-wide">
+                Siber Tehditlere Kapalı, Müşterilere Açık
+              </span>
+              <span className="text-[11px] text-white/40 font-semibold leading-none tracking-wide">
+                İşte Web Siteniz
               </span>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-12 font-bold tracking-widest text-[11px] uppercase">
+          <div className="hidden md:flex items-center justify-center flex-wrap gap-x-8 gap-y-4 lg:gap-x-12 font-bold tracking-widest text-[11px] uppercase">
             {navLinks.map((link) => (
               <NavLink key={link.to} to={link.to} label={link.label} />
             ))}
             <Link 
               to="/contact" 
-              className="group flex items-center gap-3 bg-white text-black px-8 py-3.5 rounded-2xl font-black hover:bg-primary hover:text-white transition-all transform active:scale-95"
+              className="group flex items-center gap-3 bg-white text-black px-6 lg:px-8 py-3 rounded-2xl font-black hover:bg-primary hover:text-white transition-all transform active:scale-95 whitespace-nowrap"
             >
               Başlayın
               <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />

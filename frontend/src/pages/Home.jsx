@@ -100,25 +100,25 @@ const Home = () => {
       
       {/* 🔥 Campaign Banner */}
       <section className="max-w-5xl mx-auto pt-4">
-        <Link
-          to="/offer"
-          className="flex flex-col gap-2 px-4 py-3 rounded-2xl bg-gradient-to-r from-red-600/20 to-primary/10 border border-red-500/30 hover:border-red-500/60 transition-all group sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4"
+        <button
+          onClick={() => window.dispatchEvent(new Event('open-campaign-modal'))}
+          className="w-full text-left flex flex-col gap-2 px-4 py-3 rounded-2xl bg-gradient-to-r from-red-600/20 to-primary/10 border border-red-500/30 hover:border-red-500/60 transition-all group sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-4 cursor-pointer"
         >
           <div className="flex items-start gap-3 sm:items-center">
             <Flame size={16} className="text-red-400 animate-pulse flex-shrink-0 mt-0.5 sm:mt-0" />
             <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-2">
-              <span className="text-white font-black text-sm leading-snug">
-                Kampanya — <span className="text-red-400">%20 İndirim</span>
+              <span className="text-white font-black text-sm leading-snug uppercase tracking-tight">
+                Kampanya — <span className="text-red-400">Ücretsiz Snap Report</span>
               </span>
               <span className="text-white/50 text-xs leading-snug">
-                Dijital Kartvizit & Satış Makinesi · 30 Nisan 2026’ya kadar
+                Dijital Zırh 60: Hızlı Risk Analizi & Güvenlik Karnesi
               </span>
             </div>
           </div>
           <span className="flex items-center gap-1 text-xs font-bold text-red-400 ml-7 sm:ml-0 group-hover:gap-2 transition-all whitespace-nowrap">
-            Fırsatı Gör <ChevronRight size={14} />
+            Ücretsiz Analiz Al <ChevronRight size={14} />
           </span>
-        </Link>
+        </button>
       </section>
 
       {/* 1. Hero Section - Extreme Focus */}

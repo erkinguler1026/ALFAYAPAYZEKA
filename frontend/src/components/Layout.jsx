@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
+import CampaignModal from './CampaignModal';
 
 /**
  * Layout Bileşeni — Global Uygulama Çatısı (V1.4.0)
@@ -29,11 +30,14 @@ const Layout = () => {
       {/* Premium Background Mesh */}
       <div className="bg-mesh" />
 
+      {/* Kampanya Popup Modal */}
+      <CampaignModal />
+
       {/* Header */}
       <Header />
 
       {/* Main Content Area */}
-      <main className="relative z-10 pt-24">
+      <main className="relative z-10 pt-40 md:pt-56 xl:pt-24">
         <Outlet />
       </main>
 

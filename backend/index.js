@@ -51,33 +51,40 @@ app.get('/api/health', (req, res) => {
 });
 
 app.post('/api/contact', async (req, res) => {
-  const { name, email, message } = req.body;
+  const { name, email, message, website, company, phone, subject, type } = req.body;
   
-  if (!name || !email || !message) {
-    return res.status(400).json({ status: 'Error', message: 'Lütfen tüm alanları doldurun.' });
+  if (!name || !email) {
+    return res.status(400).json({ status: 'Error', message: 'Lütfen isim ve e-posta alanlarını doldurun.' });
   }
 
-  console.log(`New Inquiry: ${name} (${email}) - ${message}`);
+  const finalSubject = subject || `Web Sitesi İletişim Formu: ${name}`;
+  const displayMessage = message || (type === 'snap-report' ? 'Snap Report (Hızlı Risk Analizi) talebi oluşturuldu.' : 'İletişim formu dolduruldu.');
+  
+  console.log(`New Inquiry [${type || 'contact'}]: ${name} (${email})`);
   
   try {
     const mailOptions = {
       from: `"${name}" <${process.env.CONTACT_SENDER}>`,
       to: process.env.CONTACT_RECEIVER,
       replyTo: email,
-      subject: `Web Sitesi İletişim Formu: ${name}`,
-      text: `Ad Source: ${name}\nEmail: ${email}\n\nMesaj:\n${message}`,
+      subject: finalSubject,
+      text: `Ad Soyad: ${name}\nEmail: ${email}\nTelefon: ${phone || '-'}\nŞirket: ${company || '-'}\nWebsite: ${website || '-'}\nTip: ${type || 'Genel'}\n\nMesaj:\n${displayMessage}`,
       html: `
-        <h3>Yeni İletişim Formu Mesajı</h3>
+        <h3>Yeni İletişim Formu / Talep</h3>
         <p><strong>Ad Soyad:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Telefon:</strong> ${phone || '-'}</p>
+        <p><strong>Şirket:</strong> ${company || '-'}</p>
+        <p><strong>Website:</strong> ${website || '-'}</p>
+        <p><strong>Talep Tipi:</strong> ${type || 'Genel'}</p>
         <hr/>
-        <p><strong>Mesaj:</strong></p>
-        <p>${message}</p>
+        <p><strong>Mesaj/Detay:</strong></p>
+        <p>${displayMessage}</p>
       `,
     };
 
     await transporter.sendMail(mailOptions);
-    res.json({ status: 'Success', message: 'Mesajınız başarıyla iletildi! En kısa sürede size döneceğiz.' });
+    res.json({ status: 'Success', message: 'Talebiniz başarıyla iletildi! En kısa sürede size döneceğiz.' });
   } catch (error) {
     console.error('Email sending error:', error);
     res.status(500).json({ status: 'Error', message: 'Mesaj gönderilirken bir hata oluştu.' });
