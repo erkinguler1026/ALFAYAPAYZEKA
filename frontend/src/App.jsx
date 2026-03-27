@@ -16,6 +16,7 @@ import WebRisk from './pages/WebRisk';
 import AIPentest from './pages/AIPentest';
 import ContractView from './pages/ContractView';
 import SnapReport from './pages/SnapReport';
+import SecurityScorecard from './pages/SecurityScorecard';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni (V1.4.0)
@@ -54,8 +55,9 @@ const App = () => {
           <Route path="web-risk-raporu" element={<WebRisk />} />
           <Route path="snap-report" element={<SnapReport />} />
           <Route path="ai-pentest" element={<AIPentest />} />
+          <Route path="scorecard" element={<SecurityScorecard />} />
+          <Route path="sozlesme/:type" element={<ContractView />} />
         </Route>
-        <Route path="sozlesme/:type" element={<ContractView />} />
       </Routes>
     </>
   );

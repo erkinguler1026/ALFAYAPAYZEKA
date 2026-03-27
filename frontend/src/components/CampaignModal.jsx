@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { X, Flame, ShieldCheck, Zap, ChevronRight } from 'lucide-react';
 import MatrixRain from './MatrixRain';
 
@@ -10,6 +10,7 @@ const CampaignModal = () => {
   const [visible, setVisible] = useState(false);
   const [countdown, setCountdown] = useState(7);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const dismiss = useCallback(() => {
     sessionStorage.setItem(SESSION_KEY, '1');
@@ -24,9 +25,17 @@ const CampaignModal = () => {
   // Popup'u 0.8 sn sonra göster (oturum başında 1 kez)
   useEffect(() => {
     if (sessionStorage.getItem(SESSION_KEY)) return;
+
+    // Scorecard (Özel Gizli Rapor) ve Kampanya sayfasının kendisinde OTOMATİK ÇIKMASIN!
+    // Aksi halde direkt Snap-Report'a zorla yönlendirir ve raporu okutmaz.
+    if (location.pathname === '/scorecard' || location.pathname === '/snap-report') {
+      sessionStorage.setItem(SESSION_KEY, '1'); // Bir daha rahatsız etmemesi için oturumda görüldü işaretle
+      return;
+    }
+
     const t = setTimeout(() => setVisible(true), 800);
     return () => clearTimeout(t);
-  }, []);
+  }, [location.pathname]);
 
   // Özel event ile tetikleme
   useEffect(() => {

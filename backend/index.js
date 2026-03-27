@@ -23,6 +23,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
+import { createReport, getAndIncrementReport } from './utils/db.js';
 
 dotenv.config();
 
@@ -63,7 +64,8 @@ app.post('/api/contact', async (req, res) => {
   console.log(`New Inquiry [${type || 'contact'}]: ${name} (${email})`);
   
   try {
-    const mailOptions = {
+    // Send Email to Admin (Standard System Log)
+    const adminMailOptions = {
       from: `"${name}" <${process.env.CONTACT_SENDER}>`,
       to: process.env.CONTACT_RECEIVER,
       replyTo: email,
@@ -82,12 +84,82 @@ app.post('/api/contact', async (req, res) => {
         <p>${displayMessage}</p>
       `,
     };
+    await transporter.sendMail(adminMailOptions);
 
-    await transporter.sendMail(mailOptions);
-    res.json({ status: 'Success', message: 'Talebiniz başarıyla iletildi! En kısa sürede size döneceğiz.' });
+    // B2C Magic Link Flow if it's a Snap Report
+    if (type === 'snap-report' && website) {
+      const tokenId = await createReport(website, email);
+      const magicLink = `http://localhost:5173/scorecard?token=${tokenId}`;
+      
+      const userMailOptions = {
+        from: `"Alfa Yapay Zeka" <${process.env.CONTACT_SENDER}>`,
+        to: email, // Sending to the client who filled the form
+        subject: 'GİZLİ: Web Güvenlik ve Sistem Analiz Raporunuz Hazır',
+        html: `
+          <div style="font-family: monospace; background-color: #020b14; color: #fff; padding: 20px; border-radius: 8px;">
+            <h2 style="color: #22d3ee;">ALFA YAPAY ZEKA SİBER GÜVENLİK BİRİMİ</h2>
+            <p>Sayın ${name},</p>
+            <p><strong>${website}</strong> altyapısı üzerinde gerçekleştirilen temel inceleme sonuçlanmıştır.</p>
+            <p style="color: #ef4444; border: 1px solid #ef4444; padding: 10px; font-weight: bold;">
+              DİKKAT: Üst düzey gizlilik protokolü gereği aşağıdaki şifreli bağlantı SADECE 3 KEZ açılabilir. Her oturum süresi güvenlik sebebiyle 10 DAKİKA ile sınırlandırılmıştır.
+            </p>
+            <br/>
+            <a href="${magicLink}" style="display: inline-block; padding: 12px 24px; background-color: #06b6d4; color: #020b14; text-decoration: none; font-weight: bold; font-size: 16px; border-radius: 4px;">
+              GİZLİ RAPORU GÖRÜNTÜLE
+            </a>
+            <br/><br/>
+            <p style="color: #64748b; font-size: 11px;">Raporu inceledikten sonra 'PDF Çıktısı Al' butonunu kullanarak yerel kopyanızı arşivlemeniz önemle tavsiye edilir.</p>
+            <p style="color: #64748b; font-size: 11px;">E. Güler | Güvenlik Takımı Yöneticisi</p>
+          </div>
+        `
+      };
+      await transporter.sendMail(userMailOptions);
+    }
+
+    res.json({ status: 'Success', message: 'Talebiniz başarıyla iletildi! Gizli rapor bağlantısı E-posta adresinize gönderilecektir.' });
   } catch (error) {
-    console.error('Email sending error:', error);
-    res.status(500).json({ status: 'Error', message: 'Mesaj gönderilirken bir hata oluştu.' });
+    console.error('--- EMAIL SYSTEM ERROR DETAILED ---');
+    console.error('Code:', error.code);
+    console.error('Response:', error.response);
+    console.error('Stack:', error.stack);
+    console.error('------------------------------------');
+    res.status(500).json({ 
+      status: 'Error', 
+      message: 'E-posta sistemi hatası: ' + (error.message || 'Bilinmeyen hata'),
+      debug: error.code
+    });
+  }
+});
+
+// Yeni Endpoint: Rapora Token ile Erişim Kontrolü
+app.get('/api/report/:token', async (req, res) => {
+  try {
+    // --- JOKER ADMIN BACKDOOR ---
+    if (req.params.token === 'ALFA_JOKER_ADMIN_777') {
+      return res.json({ 
+        success: true, 
+        domain: 'ALFA YÖNETIM_PANELI', 
+        clicksLeft: 999 
+      });
+    }
+
+    const report = await getAndIncrementReport(req.params.token);
+    if (!report) {
+      return res.status(404).json({ success: false, error: 'RAPOR BULUNAMADI VEYA SİLİNMİŞ.' });
+    }
+    if (report.error === 'ACCESS_DENIED_EXPIRED') {
+      return res.status(403).json({ success: false, error: 'ERİŞİM REDDEDİLDİ. MAKSİMUM GÖRÜNTÜLEME LİMİTİ (3) AŞILDI.' });
+    }
+    
+    // Success handling
+    res.json({ 
+      success: true, 
+      domain: report.domain, 
+      clicksLeft: report.maxClicks - report.clicks 
+    });
+  } catch (error) {
+    console.error('Token validation error:', error);
+    res.status(500).json({ success: false, error: 'Sunucu hatası.' });
   }
 });
 

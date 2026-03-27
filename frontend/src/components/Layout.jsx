@@ -26,23 +26,29 @@ import CampaignModal from './CampaignModal';
  */
 const Layout = () => {
   return (
-    <div className="min-h-screen relative selection:bg-primary/30 bg-[#0a0a0c]">
+    <div className="min-h-screen relative selection:bg-primary/30 bg-[#0a0a0c] print:bg-white">
       {/* Premium Background Mesh */}
-      <div className="bg-mesh" />
+      <div className="bg-mesh print:hidden" />
 
       {/* Kampanya Popup Modal */}
-      <CampaignModal />
+      <div className="print:hidden">
+        <CampaignModal />
+      </div>
 
       {/* Header */}
-      <Header />
+      <div className="print:hidden">
+        <Header />
+      </div>
 
       {/* Main Content Area */}
-      <main className="relative z-10 pt-40 md:pt-56 xl:pt-24">
+      <main className="relative z-10 pt-40 md:pt-56 xl:pt-24 print:pt-0 print:m-0">
         <Outlet />
       </main>
 
       {/* Premium Footer (PIXEL PERFECT TO 3097) */}
-      <Footer />
+      <div className="print:hidden">
+        <Footer />
+      </div>
     </div>
   );
 };

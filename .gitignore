@@ -26,3 +26,6 @@ dist-ssr
 
 # Backups
 YEDEK_*/
+
+# Data
+backend/data/

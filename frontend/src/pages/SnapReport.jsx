@@ -30,7 +30,7 @@ const PHONE_RE     = /^[0-9+\s\-()]{7,15}$/;
 const URL_RE       = /^https?:\/\/.+\..+/;
 const RATE_KEY     = 'snap_attempts';
 const MIN_FILL_SEC = 5; // saniyeden kısa doldurulursa bot sayılır
-const MAX_ATTEMPTS = 3; // saatte maks deneme
+const MAX_ATTEMPTS = 3; // Saatte maksimum deneme (Üretim ayarı)
 
 const FREE_EMAIL_DOMAINS = [
   'gmail.com','yahoo.com','yahoo.com.tr','hotmail.com','hotmail.com.tr',
@@ -185,10 +185,11 @@ const SnapReport = () => {
         subject: 'KAMPANYA: SNAP REPORT Talebi (Dijital Zırh 60)',
         type: 'snap-report'
       });
-      toast.success('Snap Report talebiniz alındı! Raporunuz 24-48 saat içinde e-postanıza gönderilecektir.');
+      toast.success('Analiz tamamlandı! Tek kullanımlık şifreli rapor linkiniz e-postanıza gönderildi.', { autoClose: 5000 });
       setFormData({ name: '', email: '', phone: '', website: '', company: '', isAuthorized: false });
-    } catch {
-      toast.error('Talep gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.');
+    } catch (err) {
+      const msg = err.response?.data?.message || 'Talep gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.';
+      toast.error(msg);
     } finally {
       setIsSubmitting(false);
     }
