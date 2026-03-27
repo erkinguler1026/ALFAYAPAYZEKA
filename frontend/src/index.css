@@ -32,7 +32,7 @@ body {
 @media print {
   html, body {
     background-color: #ffffff !important;
-    color: #1e293b !important;
+    color: #0f172a !important; /* Simplified slate-900 */
     height: auto !important;
     min-height: 0 !important;
     overflow: visible !important;
@@ -40,7 +40,7 @@ body {
     print-color-adjust: exact !important;
   }
 
-  /* Extreme Simplification for PDF Readers */
+  /* Extreme Performance: Remove all Alpha/Transparency calculation */
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -52,21 +52,44 @@ body {
     backdrop-filter: none !important;
     opacity: 1 !important;
     visibility: visible !important;
+    transform: none !important; /* Kill all complex coordinate calculations */
   }
 
-  /* Hide high-complexity backgrounds */
+  /* Solid HEX Color Overrides for Common UI Patterns */
+  .print\:bg-white { background-color: #ffffff !important; }
+  .print\:bg-slate-50 { background-color: #f8fafc !important; }
+  .print\:bg-blue-50 { background-color: #eff6ff !important; }
+  .print\:bg-emerald-50 { background-color: #ecfdf5 !important; }
+  .print\:bg-amber-50 { background-color: #fffbeb !important; }
+  .print\:bg-red-50 { background-color: #fef2f2 !important; }
+
+  /* Solid Border Colors */
+  .print\:border-slate-200 { border-color: #e2e8f0 !important; }
+  .print\:border-blue-200 { border-color: #bfdbfe !important; }
+  .print\:border-emerald-200 { border-color: #a7f3d0 !important; }
+
+  /* Solid Text Colors */
+  .print\:text-slate-800 { color: #1e293b !important; }
+  .print\:text-slate-700 { color: #334155 !important; }
+  .print\:text-slate-600 { color: #475569 !important; }
+  .print\:text-blue-600 { color: #2563eb !important; }
+  .print\:text-emerald-600 { color: #059669 !important; }
+  .print\:text-red-600 { color: #dc2626 !important; }
+
+  /* Force display of core report elements */
   .bg-mesh, .absolute[class*="blur"] {
     display: none !important;
   }
 
-  /* Hide print-specific hidden elements */
   .print\:hidden {
     display: none !important;
   }
 
-  /* Ensure border colors are solid */
-  .border, [class*="border-"] {
-    border-style: solid !important;
+  /* Signature Position Fix (No Scale) */
+  .print\:scale-100 {
+    transform: none !important;
+    width: 200px !important;
+    height: 100px !important;
   }
 }
 
