@@ -120,7 +120,7 @@ const SecurityScorecard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#020b14] print:bg-white text-white print:text-slate-800 p-4 md:p-8 font-mono relative overflow-hidden">
+    <div className="min-h-screen print:min-h-0 bg-[#020b14] print:bg-white text-white print:text-slate-800 p-4 md:p-8 font-mono relative overflow-hidden print:overflow-visible">
       {/* Background Glow - Screen Only */}
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-cyan-500/5 blur-[120px] rounded-full pointer-events-none print:hidden" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none print:hidden" />
@@ -174,10 +174,13 @@ const SecurityScorecard = () => {
           <ScorecardWidget title="Security Grade" className="lg:col-span-1 lg:row-span-2 flex flex-col items-center justify-center relative">
             <div className="relative w-56 h-56 flex items-center justify-center mb-4">
               <svg className="absolute inset-0 w-full h-full -rotate-90">
-                <circle cx="112" cy="112" r="100" fill="none" className="stroke-cyan-500/10 print:stroke-slate-200" strokeWidth="12" />
-                <circle cx="112" cy="112" r="100" fill="none" className="stroke-cyan-400 print:stroke-blue-500 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] print:drop-shadow-none" strokeWidth="12" strokeDasharray="628" strokeDashoffset="12" strokeLinecap="round" />
-                <circle cx="112" cy="112" r="85"  fill="none" className="stroke-orange-400/20 print:stroke-amber-200" strokeWidth="2" strokeDasharray="4 4" />
-                <circle cx="112" cy="112" r="85"  fill="none" className="stroke-orange-400 print:stroke-amber-500" strokeWidth="2" strokeDasharray="40 500" strokeLinecap="round" />
+                {/* Background Track */}
+                <circle cx="112" cy="112" r="100" fill="none" className="stroke-cyan-500/10 print:stroke-slate-100" strokeWidth="12" />
+                {/* Main Progress Circle (Blue/Cyan) */}
+                <circle cx="112" cy="112" r="100" fill="none" className="stroke-cyan-400 print:stroke-blue-600 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] print:drop-shadow-none" strokeWidth="12" strokeDasharray="628" strokeDashoffset="12" strokeLinecap="round" />
+                {/* Inner Decorative Circle (Orange/Amber) */}
+                <circle cx="112" cy="112" r="85"  fill="none" className="stroke-orange-400/20 print:stroke-amber-100" strokeWidth="2" strokeDasharray="4 4" />
+                <circle cx="112" cy="112" r="85"  fill="none" className="stroke-orange-400 print:stroke-amber-600" strokeWidth="3" strokeDasharray="40 500" strokeLinecap="round" />
               </svg>
               <div className="text-center z-10">
                 <span className="text-7xl font-black text-white print:text-slate-800 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] print:drop-shadow-none">A+</span>
@@ -451,7 +454,7 @@ const SecurityScorecard = () => {
                       <img 
                         src="/CLEAN_SIGNATURE_EG_FINAL.png" 
                         alt="Signature"
-                        className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(6,182,212,0.3)] print:drop-shadow-none translate-y-2 scale-120"
+                        className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(6,182,212,0.3)] print:drop-shadow-none translate-y-2 scale-120 print:filter-none"
                         style={{
                           mixBlendMode: 'multiply',
                           filter: 'contrast(1.2) brightness(1.1)'

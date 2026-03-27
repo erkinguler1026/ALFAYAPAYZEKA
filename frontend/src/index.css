@@ -35,6 +35,38 @@ body {
     color: #1e293b !important;
     height: auto !important;
     min-height: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Extreme Simplification for PDF Readers */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    animation: none !important;
+    transition: none !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    filter: none !important;
+    backdrop-filter: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+
+  /* Hide high-complexity backgrounds */
+  .bg-mesh, .absolute[class*="blur"] {
+    display: none !important;
+  }
+
+  /* Hide print-specific hidden elements */
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Ensure border colors are solid */
+  .border, [class*="border-"] {
+    border-style: solid !important;
   }
 }
 
