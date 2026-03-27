@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bot, ChevronRight, Menu, X } from 'lucide-react';
+import { Bot, ChevronRight, Menu, X, ShieldAlert } from 'lucide-react';
 import { toggleMenu, closeMenu } from '../store/slices/uiSlice';
+import AdminPasswordModal from './AdminPasswordModal';
 
 /**
  * NavLink — Aktif Sayfa Farkındalıklı Navigasyon Bağlantısı
@@ -59,6 +60,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const isMenuOpen = useSelector((state) => state.ui.isMenuOpen);
   const location = useLocation();
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
   // Menü açıkken sayfa kaydırmasını engelle
   useEffect(() => {
@@ -102,6 +104,17 @@ const Header = () => {
             {navLinks.map((link) => (
               <NavLink key={link.to} to={link.to} label={link.label} />
             ))}
+            
+            {/* ADMIN Button - Desktop */}
+            <button
+              onClick={() => setIsAdminModalOpen(true)}
+              className="opacity-30 hover:opacity-100 hover:text-red-500 transition-all duration-500 flex items-center gap-2 group ml-4"
+              title="Sistem Yönetimi"
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse group-hover:shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+              ADMIN
+            </button>
+
             <Link 
               to="/contact" 
               className="group flex items-center gap-3 bg-white text-black px-6 lg:px-8 py-3 rounded-2xl font-black hover:bg-primary hover:text-white transition-all transform active:scale-95 whitespace-nowrap"
@@ -151,6 +164,23 @@ const Header = () => {
                   </Link>
                 </motion.div>
               ))}
+
+              {/* ADMIN Link - Mobile */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <button 
+                  onClick={() => {
+                    dispatch(closeMenu());
+                    setIsAdminModalOpen(true);
+                  }}
+                  className="text-4xl font-black tracking-tighter uppercase text-red-500/40 hover:text-red-500 flex items-center gap-4 transition-colors"
+                >
+                  ADMIN <ShieldAlert size={32} />
+                </button>
+              </motion.div>
               
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -178,6 +208,12 @@ const Header = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Admin Password Modal */}
+      <AdminPasswordModal 
+        isOpen={isAdminModalOpen} 
+        onClose={() => setIsAdminModalOpen(false)} 
+      />
     </>
   );
 };

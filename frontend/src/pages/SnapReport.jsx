@@ -68,6 +68,7 @@ const SnapReport = () => {
   const [honeypot, setHoneypot]   = useState('');   // bot tuzağı
   const [errors,   setErrors]     = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const formLoadTime = useRef(Date.now());
 
   useEffect(() => {
@@ -185,8 +186,8 @@ const SnapReport = () => {
         subject: 'KAMPANYA: SNAP REPORT Talebi (Dijital Zırh 60)',
         type: 'snap-report'
       });
-      toast.success('Analiz tamamlandı! Tek kullanımlık şifreli rapor linkiniz e-postanıza gönderildi.', { autoClose: 5000 });
-      setFormData({ name: '', email: '', phone: '', website: '', company: '', isAuthorized: false });
+      toast.success('Analiz tamamlandı!');
+      setIsSuccess(true);
     } catch (err) {
       const msg = err.response?.data?.message || 'Talep gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.';
       toast.error(msg);
@@ -426,14 +427,43 @@ const SnapReport = () => {
               </div>
               {errors.auth && <p className="text-red-400 text-[11px] ml-4">{errors.auth}</p>}
 
-              {/* Gönder Butonu */}
-              <button
-                type="submit"
-                disabled={isButtonDisabled}
-                className="w-full py-6 bg-red-600 hover:bg-red-500 text-white font-black text-xl rounded-2xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-red-600/20 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed mt-4"
-              >
-                {isSubmitting ? 'Gönderiliyor...' : 'SNAP REPORT TALEBİ OLUŞTUR'} <Send size={20} />
-              </button>
+              {/* Gönder Butonu / Success UI */}
+              <AnimatePresence mode="wait">
+                {!isSuccess ? (
+                  <motion.button
+                    key="submit-btn"
+                    type="submit"
+                    disabled={isButtonDisabled}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="w-full py-6 bg-red-600 hover:bg-red-500 text-white font-black text-xl rounded-2xl flex items-center justify-center gap-3 transition-all shadow-xl shadow-red-600/20 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed mt-4"
+                  >
+                    {isSubmitting ? 'Gönderiliyor...' : 'SNAP REPORT TALEBİ OLUŞTUR'} <Send size={20} />
+                  </motion.button>
+                ) : (
+                  <motion.div
+                    key="success-ui"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-8 rounded-3xl bg-green-500/10 border-2 border-green-500/20 text-center space-y-6"
+                  >
+                    <div className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-green-500/20">
+                      <CheckCircle2 size={40} className="text-white" />
+                    </div>
+                    <div>
+                      <h4 className="text-2xl font-black text-white uppercase tracking-tight">Analiz Hazır!</h4>
+                      <p className="text-white/60 text-sm mt-2">Web sitenize ait 48 sayfalık derinlemesine güvenlik ve performans analizi oluşturuldu.</p>
+                    </div>
+                    <Link
+                      to={`/audit-generator?site=${getUrlDomain(formData.website)}`}
+                      className="block w-full py-5 bg-white text-black font-black text-lg rounded-2xl hover:bg-green-500 hover:text-white transition-all shadow-xl"
+                    >
+                      RAPORU ŞİMDİ GÖRÜNTÜLE (48 SAYFA)
+                    </Link>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <div className="flex flex-col items-center gap-3 pt-4">
                 <p className="text-[9px] text-white/20 text-center uppercase tracking-widest font-bold">

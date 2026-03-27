@@ -5,8 +5,8 @@ const CampaignCountdown = ({ targetDate }) => {
   const [timeLeft, setTimeLeft] = useState({ days: 60, hours: 21, minutes: 53, seconds: 1 });
 
   useEffect(() => {
-    // Eğer verilmezse varsayılan olarak şu andan itibaren 60 gün sonrasını hedefle
-    const target = targetDate ? new Date(targetDate).getTime() : new Date().getTime() + (60 * 24 * 60 * 60 * 1000) + (21 * 60 * 60 * 1000) + (53 * 60 * 1000);
+    // 27 Mayıs 2026 (Bugünden itibaren tam 60 gün sonrasına sabitlendi)
+    const target = targetDate ? new Date(targetDate).getTime() : new Date('2026-05-27T00:00:00Z').getTime();
     
     const interval = setInterval(() => {
       const now = new Date().getTime();

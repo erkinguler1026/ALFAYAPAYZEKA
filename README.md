@@ -6,6 +6,8 @@ Alfa Yapay Zeka (ALFAYAPAYZEKA), işletmeler için Endüstriyel AI, İş Makines
 - **Premium UI:** Karanlık Temalı (Dark Mode) Glassmorphism tasarımı.
 - **AI-PENTEST Hub:** MIT Lisanslı açık kaynak motorlar ve YAPAYZEKA algoritmalarıyla güçlendirilmiş siber güvenlik modülü.
 - **Dijital Sözleşme Sistemi:** Yazdırılabilir, PDF uyumlu ve kurumsal hizmet sözleşmesi yönetim katmanı.
+- **Siber Güvenlik Skor Kartı:** Dinamik PDF raporlama, profesyonel isimlendirme (`ALFA_TEMEL_PENETRASYON_RAPORU...`) ve real-time log akışı.
+- **Admin Kontrol Paneli:** Domain bazlı analiz yönetimi ve çoklu rapor (Snap/Full Audit) üretim desteği.
 - **Akıcı Animasyonlar:** Framer Motion ile 60fps kullanıcı deneyimi.
 - **Modern Stack:** Tailwind CSS v4 ve React v19.
 
