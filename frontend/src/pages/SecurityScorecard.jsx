@@ -178,10 +178,12 @@ const SecurityScorecard = () => {
 
   return (
     <div className="min-h-screen print:min-h-0 bg-[#020b14] print:bg-white text-white print:text-slate-800 p-4 md:p-8 font-mono relative overflow-hidden print:overflow-visible">
-  // CSS PRINT GUIDELINES
-  // Bu CSS bloğu, tarayıcının yazdırma motorunu A4 standartlarına zorlar ve 
-  // PDF çıktısında sayfa sonlarını (page-break) ve sayfa yapısını düzenler.
-  <style>{`
+      {/* 
+        CSS PRINT GUIDELINES 
+        Bu CSS bloğu, tarayıcının yazdırma motorunu A4 standartlarına zorlar ve 
+        PDF çıktısında sayfa sonlarını (page-break) ve sayfa yapısını düzenler.
+      */}
+      <style>{`
     @media print {
       @page { size: A4; margin: 0; }
           .print-content-wrapper {
