@@ -178,9 +178,9 @@ const SecurityScorecard = () => {
                 <circle cx="112" cy="112" r="100" fill="none" className="stroke-cyan-500/10 print:stroke-slate-100" strokeWidth="12" />
                 {/* Main Progress Circle (Blue/Cyan) */}
                 <circle cx="112" cy="112" r="100" fill="none" className="stroke-cyan-400 print:stroke-blue-600 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)] print:drop-shadow-none" strokeWidth="12" strokeDasharray="628" strokeDashoffset="12" strokeLinecap="round" />
-                {/* Inner Decorative Circle (Orange/Amber) */}
-                <circle cx="112" cy="112" r="85"  fill="none" className="stroke-orange-400/20 print:stroke-amber-100" strokeWidth="2" strokeDasharray="4 4" />
-                <circle cx="112" cy="112" r="85"  fill="none" className="stroke-orange-400 print:stroke-amber-600" strokeWidth="3" strokeDasharray="40 500" strokeLinecap="round" />
+                {/* Inner Decorative Circle (Hidden on Print for performance) */}
+                <circle cx="112" cy="112" r="85"  fill="none" className="stroke-orange-400/20 print:hidden" strokeWidth="2" strokeDasharray="4 4" />
+                <circle cx="112" cy="112" r="85"  fill="none" className="stroke-orange-400 print:hidden" strokeWidth="3" strokeDasharray="40 500" strokeLinecap="round" />
               </svg>
               <div className="text-center z-10">
                 <span className="text-7xl font-black text-white print:text-slate-800 drop-shadow-[0_0_15px_rgba(255,255,255,0.4)] print:drop-shadow-none">A+</span>
@@ -454,7 +454,7 @@ const SecurityScorecard = () => {
                       <img 
                         src="/CLEAN_SIGNATURE_EG_FINAL.png" 
                         alt="Signature"
-                        className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(6,182,212,0.3)] print:drop-shadow-none translate-y-2 scale-120 print:filter-none"
+                        className="w-full h-full object-contain drop-shadow-[0_0_8px_rgba(6,182,212,0.3)] print:drop-shadow-none translate-y-2 scale-120 print:scale-100 print:filter-none print:translate-y-0"
                         style={{
                           mixBlendMode: 'multiply',
                           filter: 'contrast(1.2) brightness(1.1)'
