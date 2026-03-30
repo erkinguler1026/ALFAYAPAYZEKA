@@ -1,6 +1,8 @@
 # 🛡️ ALFA YAPAY ZEKA — Kurumsal Siber Güvenlik ve AI Ajansı Web Portalı
 
 > **Sürüm:** V1.4.0 | **Tarih:** Mart 2026 | **Durum:** 🟢 Aktif / Production
+>
+> **Son Güncelleme:** 31.03.2026 — Admin şifresi onay modalı, ALFA SNAP & ALFA FULL rapor isimlendirmesi, `.com.tr` domain parse düzeltmesi, cursor-pointer iyileştirmeleri.
 
 **ALFA YAPAY ZEKA**, kurumsal işletmelere yönelik yapay zeka tabanlı siber güvenlik hizmetleri sunan profesyonel bir web platformudur. Müşteri iletişiminden otomatik güvenlik raporu üretimine kadar tüm iş akışlarını kapsar.
 
@@ -32,9 +34,9 @@ ALFAYAPAYZEKA/
 |---|---|
 | 🏠 **Ana Sayfa** | Hero, özellikler, CTA ve "Dijital Zırh 60" kampanya bölümleri |
 | 📋 **Snap Report Formu** | Müşteri bilgilerini alır, e-posta bildirimi gönderir |
-| 🔒 **Admin Paneli** | Yalnızca Local'de görünür; domain girerek rapor üretilir |
-| 📊 **Security Scorecard** | Token tabanlı güvenlik skor kartı (dinamik PDF çıktısı) |
-| 📄 **Full Audit Generator** | 250 sayfalık profesyonel pentest raporu (Snap → Full Audit) |
+| 🔒 **Admin Şifreli Giriş** | `eg941965` şifre modalı; onay sonrası `/admin-panel` yönlendirir |
+| 📊 **Security Scorecard** | Token tabanlı güvenlik skor kartı (ALFA SNAP PDF çıktısı) |
+| 📄 **Full Audit Generator** | 250 sayfalık profesyonel pentest raporu (ALFA FULL PDF) |
 | 📨 **E-posta Sistemi** | Brevo SMTP (local) + Web3Forms (production) çift-kanal desteği |
 | ⚖️ **Sözleşme Sistemi** | PDF uyumlu hukuki metinler (`/sozlesme/:type`) |
 | 🎨 **Matrix Arayüz** | Canvas tabanlı Matrix animasyonu, Glassmorphism, Dark Mode |
@@ -155,11 +157,13 @@ VITE_API_BASE_URL=http://localhost:5000
 
 - **ADMIN Butonu:** `isLocalEnvironment()` fonksiyonu (`utils/api.js`) `localhost` kontrolü yapar.  
   Production'da ADMIN butonu hiçbir zaman render edilmez.
-- **Domain Parse Hatası:** `com.tr` gibi çok parçalı TLD'ler için `getCleanDomain()` fonksiyonu  
-  `new URL().hostname` ile güvenli parse eder. `.replace('.COM', '')` tipi manipülasyonlardan kaçınılmalıdır.
+- **Admin Giriş Modalı:** `AdminPasswordModal.jsx` — şifre onaylanmış ise `sessionStorage.admin_auth = 'true'` seti ile `/admin-panel` yönlendirilir.
+- **Domain Parse:** `com.tr` ve `gov.tr` gibi çok parçalı TLD'ler için `getCleanDomain()` fonksiyonu  
+  `new URL().hostname` ile güvenli parse eder. `.replace('.COM', '')` türü string manipülasyonlardan kaçınılmalıdır.
+- **Rapor İsimlendirme:** Snap Report PDF'i `ALFA_SNAP_PENETRASYON_RAPORU_DOMAIN_TARIH` formatında, Full Audit PDF'i `ALFA_FULL_PENETRASYON_RAPORU_DOMAIN_TARIH` formatında kaydedilir.
 - **Rapor Token Sistemi:** `backend/data/reports.json` dosyasında saklanır.  
   Her token maksimum **3 görüntüleme** hakkına sahiptir.
-- **Admin Backdoor Token:** `ALFA_JOKER_ADMIN_777` — Admin paneli için sonsuz erişim sağlayan sabit token.
+- **Admin Backdoor Token:** `ALFA_JOKER_ADMIN_777` — Admin paneli için sonsuz erişim sağlayan sabit token (production env variable'a taşınması önerilir).
 
 ---
 

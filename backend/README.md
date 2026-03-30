@@ -1,6 +1,8 @@
 # 🖥️ ALFA YAPAY ZEKA — Backend API Sunucusu
 
 > **Sürüm:** V1.4.0 | **Platform:** Node.js + Express | **Port:** 5000 (dev) / 8080 (prod)
+>
+> **Son Güncelleme:** 31.03.2026 — Magic Link host tespiti iyileştirildi, Adaptive Port stratejisi belgenlendi.
 
 ALFA YAPAY ZEKA platformunun sunucu tarafı katmanıdır. İletişim formlarından gelen müşteri taleplerini e-posta ile iletir, Snap Report için güvenli Magic Link (token) oluşturur ve token tabanlı rapor erişim kontrolü sağlar.
 

@@ -22,8 +22,32 @@ const ScorecardWidget = ({ title, children, className = "" }) => (
   </motion.div>
 );
 
-// ALFA YAPAY ZEKA - Siber Güvenlik Skor Kartı ve Rapor Üretici
-// Bu bileşen, dinamik verilerle siber güvenlik analiz raporu oluşturur ve PDF çıktı desteği sunar.
+/**
+ * SecurityScorecard — ALFA Siber Güvenlik Skor Kartı (Snap Report Görüntüleyici)
+ *
+ * Versiyon: V1.4.0 | Tarih: Mart 2026
+ *
+ * Açıklama:
+ *   Token tabanlı erişim korumalı, interaktif siber güvenlik dashboard'u.
+ *   Müşteriye e-posta ile gönderilen gizli bağlantı (Magic Link) üzerinden
+ *   erişilir. Admin için kalıcı "ALFA_JOKER_ADMIN_777" joker token desteği vardır.
+ *
+ * Özellikler:
+ *   - Token doğrulama: /api/report/:token endpoint'i üzerinden erişim kontrolü.
+ *   - 10 dakikalık oturum sayacı (admin için devre dışı).
+ *   - Gerçek zamanlı güvenlik log akışı (simüle edilmiş terminal).
+ *   - PDF indirme: "ALFA_SNAP_PENETRASYON_RAPORU_DOMAIN_TARIH" formatında.
+ *   - Çift tema: Ekran için cyan/dark, yazdırma için siyah/beyaz.
+ *   - Kapak sayfası ve içindekiler tablosu (yalnızca yazdırma).
+ *
+ * Token Türleri:
+ *   - ALFA_JOKER_ADMIN_777 : Admin joker token (sınırsız erişim, sayaç sıfır).
+ *   - UUID tabanlı tokenlar : Veritabanından alınan, 3 tıklama sınırlı tokenlar.
+ *
+ * Props: Yok (URL parametrelerinden ?token= ve ?site= okur)
+ *
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
+ */
 const SecurityScorecard = () => {
   const [searchParams] = useSearchParams();
   const rawToken = searchParams.get('token');
@@ -145,17 +169,19 @@ const SecurityScorecard = () => {
 
   // PDF İNDİRME VE DİNAMİK İSİMLENDİRME
   // Raporu profesyonel bir formatta (ALFA_TEMEL_PENETRASYON_RAPORU_DOMAIN_TARIH_SAAT.pdf) kaydeder.
+  // PDF İNDİRME VE DİNAMİK İSİMLENDİRME
+  // Raporu profesyonel bir formatta (ALFA_SNAP_PENETRASYON_RAPORU_DOMAIN_TARIH.pdf) kaydeder.
   const downloadPDF = () => {
     const originalTitle = document.title;
     const now = new Date();
-    // FIRMAADI_TARIH_SAAT_DAKIKA_SANIYE
+    // Format: FIRMAADI_GUN_AY_YIL_SAAT_DAKIKA_SANIYE
     const dateStr = now.toLocaleDateString('tr-TR').replace(/\./g, '_');
     const timeStr = now.toLocaleTimeString('tr-TR').replace(/:/g, '_');
     
-    document.title = `ALFA_TEMEL_PENETRASYON_RAPORU_${domain.toUpperCase()}_${dateStr}_${timeStr}`;
+    document.title = `ALFA_SNAP_PENETRASYON_RAPORU_${domain.toUpperCase()}_${dateStr}_${timeStr}`;
     window.print();
     
-    // Baskı penceresi kapandığında (veya bir süre sonra) başlığı geri al
+    // Baskı penceresi kapandıktan 1 saniye sonra başlığı geri al
     setTimeout(() => {
       document.title = originalTitle;
     }, 1000);
@@ -216,7 +242,7 @@ const SecurityScorecard = () => {
             <ShieldCheck size={120} className="text-blue-600" />
           </div>
           <h1 className="text-6xl font-black tracking-tighter text-slate-900 uppercase">
-            ALFA TEMEL <br /> <span className="text-blue-600">PENETRASYON RAPORU</span>
+            ALFA SNAP <br /> <span className="text-blue-600">PENETRASYON RAPORU</span>
           </h1>
           <div className="h-2 w-48 bg-blue-600 mx-auto rounded-full"></div>
           <p className="text-2xl font-bold text-slate-500 tracking-[0.3em] uppercase">SİBER GÜVENLİK SKOR KARTI</p>

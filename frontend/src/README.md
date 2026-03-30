@@ -1,6 +1,8 @@
 # ⚛️ ALFA YAPAY ZEKA — Frontend (React / Vite SPA)
 
 > **Sürüm:** V1.4.0 | **Framework:** React v19 + Vite v6 | **Port:** 5173 (dev)
+>
+> **Son Güncelleme:** 31.03.2026 — Admin şifreli giriş (şifre onay modalı), ALFA SNAP & ALFA FULL PDF isimlendirmesi, domain parse düzeltmesi.
 
 ALFA YAPAY ZEKA platformunun tam istemci-tarafı uygulamasıdır. Dark mode Glassmorphism tasarım sistemi, Matrix animasyonu, dinamik PDF rapor üretimi ve e-posta entegrasyonunu barındırır.
 
@@ -49,7 +51,7 @@ src/
 │   ├── MatrixRain.jsx   # Canvas tabanlı Matrix animasyonu
 │   ├── CampaignModal.jsx     # Kampanya açılır penceresi
 │   ├── CampaignCountdown.jsx # Geri sayım sayacı (deadline)
-│   └── AdminPasswordModal.jsx # (Kaldırıldı — MVP iş akışı için)
+│   └── AdminPasswordModal.jsx # Admin şifre doğrulama modalı (eg941965 şifre onayı → /admin-panel)
 │
 ├── utils/
 │   └── api.js           # Merkezi API istemcisi, ortam tespiti, Web3Forms
