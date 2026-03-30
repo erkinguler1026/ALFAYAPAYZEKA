@@ -4,7 +4,7 @@
  * 
  * Features:
  * - Environment detection (Local vs Prod)
- * - Automatic Fallback (Port 5000) if reverse proxy fails (returns HTML)
+ * - Automatic Fallback (Port 8080) if reverse proxy fails (returns HTML)
  * - Centralized endpoint definitions
  */
 
@@ -25,17 +25,21 @@ const getBaseUrl = () => {
 
 export const API_BASE_URL = getBaseUrl();
 
-// Production Fallback: Direct Port 5000 if /api route is not proxied
+// Production Fallback: Direct Port 8080 (Cloudflare compat) if /api route is not proxied
 export const getDirectApiUrl = () => {
   if (typeof window === 'undefined') return 'http://localhost:5000';
   const { protocol, hostname } = window.location;
+  
+  // If we are on localhost, backend is at 5000
   if (hostname === 'localhost') return 'http://localhost:5000';
-  return `${protocol}//${hostname}:5000`;
+  
+  // If we are on live (Cloudflare), we must use the compatible port 8080
+  return `${protocol}//${hostname}:8080`;
 };
 
 /**
  * Smart API Client
- * Automatically retries with port 5000 if the main route returns HTML
+ * Automatically retries with direct port fallback if the main route returns HTML
  */
 export const apiClient = {
   get: async (endpoint) => {

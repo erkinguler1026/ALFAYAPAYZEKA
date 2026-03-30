@@ -28,7 +28,10 @@ import { createReport, getAndIncrementReport } from './utils/db.js';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+
+// Adaptive Port: Live (Cloudflare) uses 8080, Local uses 5000
+const PORT = process.env.PORT || (process.env.NODE_ENV === 'production' ? 8080 : 5000);
+const ENV_LABEL = process.env.NODE_ENV === 'production' ? 'PROD (8080)' : 'DEV (5000)';
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -166,5 +169,6 @@ app.get('/api/report/:token', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`[ALFA-SERVER] Running in ${ENV_LABEL} mode`);
+  console.log(`[ALFA-SERVER] Listening on port ${PORT}`);
 });
