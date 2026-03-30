@@ -89,12 +89,13 @@ const CoverPage = ({ siteName }) => (
         </div>
 
         {/* Target Site Card */}
-        <div className="relative z-10 w-full max-w-xl mb-[20px]">
-           <div className="bg-white/70 backdrop-blur-md border border-slate-100 p-12 rounded-[2rem] shadow-sm text-center">
+        <div className="relative z-10 w-full max-w-2xl mb-[20px]">
+           <div className="bg-white/70 backdrop-blur-md border border-slate-100 px-12 py-10 rounded-[2rem] shadow-sm text-center">
               <p className="text-[10px] font-black text-slate-300 uppercase tracking-[4px] mb-4">HEDEF KURULUŞ / DOMAIN</p>
-              <h4 className="text-5xl font-black text-slate-900 tracking-tighter uppercase">{siteName.toUpperCase()}</h4>
+              <h4 className="font-black text-slate-900 tracking-tight break-all leading-snug" style={{ fontSize: '36px' }}>https://www.{siteName.toLowerCase()}</h4>
            </div>
         </div>
+
 
         {/* Metadata Footer Section */}
         <div className="relative z-10 w-full max-w-2xl px-12 grid grid-cols-2 gap-x-12 gap-y-8">
