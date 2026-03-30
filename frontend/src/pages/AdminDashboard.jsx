@@ -180,7 +180,7 @@ const AdminDashboard = () => {
               <button
                 disabled={!isValid || isProcessing}
                 onClick={handleSnapReport}
-                className="group relative h-44 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-primary/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                className="group relative h-44 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-primary/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative p-8 flex flex-col items-start text-left h-full">
@@ -199,7 +199,7 @@ const AdminDashboard = () => {
               <button
                 disabled={!isValid || isProcessing}
                 onClick={handleFullAudit}
-                className="group relative h-44 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-red-500/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                className="group relative h-44 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-red-500/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative p-8 flex flex-col items-start text-left h-full">

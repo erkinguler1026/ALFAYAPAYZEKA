@@ -79,7 +79,7 @@ const CoverPage = ({ siteName }) => (
            </div>
            
            <div className="text-center space-y-2">
-              <h1 className="text-4xl font-black text-slate-800 tracking-tight leading-none uppercase">ALFA TEMEL</h1>
+              <h1 className="text-4xl font-black text-slate-800 tracking-tight leading-none uppercase">ALFA FULL</h1>
               <h2 className="text-5xl font-black text-blue-600 tracking-tight leading-none uppercase">PENETRASYON</h2>
               <h3 className="text-5xl font-black text-blue-600 tracking-tight leading-none uppercase">RAPORU</h3>
            </div>
@@ -92,7 +92,7 @@ const CoverPage = ({ siteName }) => (
         <div className="relative z-10 w-full max-w-xl mb-[20px]">
            <div className="bg-white/70 backdrop-blur-md border border-slate-100 p-12 rounded-[2rem] shadow-sm text-center">
               <p className="text-[10px] font-black text-slate-300 uppercase tracking-[4px] mb-4">HEDEF KURULUŞ / DOMAIN</p>
-              <h4 className="text-5xl font-black text-slate-900 tracking-tighter uppercase">{siteName.toUpperCase().replace('.COM', '')}.COM</h4>
+              <h4 className="text-5xl font-black text-slate-900 tracking-tighter uppercase">{siteName.toUpperCase()}</h4>
            </div>
         </div>
 
