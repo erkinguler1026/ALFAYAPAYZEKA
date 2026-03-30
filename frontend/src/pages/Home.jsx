@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { API_ENDPOINTS, apiClient } from '../utils/api';
+import { submitContactForm } from '../utils/api';
 
 /**
  * Home Sayfası — Mega Landing Page (V1.4.0)
@@ -57,11 +57,11 @@ const Home = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await apiClient.post(API_ENDPOINTS.CONTACT, formData);
-      toast.success(response.data.message);
+      await submitContactForm(formData);
+      toast.success('Mesajınız başarıyla iletildi! Uzmanlarımız kısa sürede dönüş yapacaktır.');
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
-      toast.error(error.response?.data?.message || 'Bir hata oluştu!');
+    } catch {
+      toast.error('Talep gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.');
     } finally {
       setIsSubmitting(false);
     }

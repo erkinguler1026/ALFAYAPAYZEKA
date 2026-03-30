@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Bot, ChevronRight, Menu, X, ShieldAlert } from 'lucide-react';
 import { toggleMenu, closeMenu } from '../store/slices/uiSlice';
-import AdminPasswordModal from './AdminPasswordModal';
+import { isLocalEnvironment } from '../utils/api';
 
 /**
  * NavLink — Aktif Sayfa Farkındalıklı Navigasyon Bağlantısı
@@ -60,7 +60,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const isMenuOpen = useSelector((state) => state.ui.isMenuOpen);
   const location = useLocation();
-  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+  const navigate = useNavigate(); // For direct admin routing
 
   // Menü açıkken sayfa kaydırmasını engelle
   useEffect(() => {
@@ -105,15 +105,17 @@ const Header = () => {
               <NavLink key={link.to} to={link.to} label={link.label} />
             ))}
             
-            {/* ADMIN Button - Desktop */}
-            <button
-              onClick={() => setIsAdminModalOpen(true)}
-              className="opacity-30 hover:opacity-100 hover:text-red-500 transition-all duration-500 flex items-center gap-2 group ml-4"
-              title="Sistem Yönetimi"
-            >
-              <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse group-hover:shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
-              ADMIN
-            </button>
+            {/* ADMIN Button - Desktop (Local Only) */}
+            {isLocalEnvironment() && (
+              <button
+                onClick={() => navigate('/admin-panel')}
+                className="opacity-30 hover:opacity-100 hover:text-red-500 transition-all duration-500 flex items-center gap-2 group ml-4"
+                title="Sistem Yönetimi (Local)"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse group-hover:shadow-[0_0_8px_rgba(239,68,68,0.8)]" />
+                ADMIN
+              </button>
+            )}
 
             <Link 
               to="/contact" 
@@ -165,22 +167,24 @@ const Header = () => {
                 </motion.div>
               ))}
 
-              {/* ADMIN Link - Mobile */}
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <button 
-                  onClick={() => {
-                    dispatch(closeMenu());
-                    setIsAdminModalOpen(true);
-                  }}
-                  className="text-4xl font-black tracking-tighter uppercase text-red-500/40 hover:text-red-500 flex items-center gap-4 transition-colors"
+              {/* ADMIN Link - Mobile (Local Only) */}
+              {isLocalEnvironment() && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.5 }}
                 >
-                  ADMIN <ShieldAlert size={32} />
-                </button>
-              </motion.div>
+                  <button 
+                    onClick={() => {
+                      dispatch(closeMenu());
+                      navigate('/admin-panel');
+                    }}
+                    className="text-4xl font-black tracking-tighter uppercase text-red-500/40 hover:text-red-500 flex items-center gap-4 transition-colors"
+                  >
+                    ADMIN <ShieldAlert size={32} />
+                  </button>
+                </motion.div>
+              )}
               
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -209,11 +213,7 @@ const Header = () => {
         )}
       </AnimatePresence>
 
-      {/* Admin Password Modal */}
-      <AdminPasswordModal 
-        isOpen={isAdminModalOpen} 
-        onClose={() => setIsAdminModalOpen(false)} 
-      />
+      {/* Admin Password Modal was removed for MVP workflow */}
     </>
   );
 };

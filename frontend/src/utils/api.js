@@ -10,13 +10,46 @@
 
 import axios from 'axios';
 
+// Web3Forms API Key for production emails
+// Müşteri talepleri doğrudan info@alfayapayzeka.com adresine düşecektir.
+export const WEB3FORMS_ACCESS_KEY = "fa5026e1-b3de-4c3b-a9c4-945ec875e9b8";
+
+export const isLocalEnvironment = () => {
+  if (typeof window === 'undefined') return true; // SSR fallback
+  return window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+};
+
+// Form submission handler routing (Backend in local, Web3Forms in prod)
+export const submitContactForm = async (data) => {
+  if (isLocalEnvironment()) {
+    // Local modda yine backend'i kullanabiliriz veya direkt başarılı dönebiliriz.
+    return apiClient.post(API_ENDPOINTS.CONTACT, data);
+  } else {
+    // Canlı sitede Backend olmadığı için ücretsiz Web3Forms'a gönder (Sipariş info'ya düşer)
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: data.subject || "ALFA Web Sitenizden Yeni Talep",
+        from_name: data.name || "ALFA Ziyaretçisi",
+        email: data.email,
+        message: `Yeni Talep Detayları:\n\nİsim: ${data.name}\nE-posta: ${data.email}\nWeb Sitesi: ${data.website || '-'}\nŞirket: ${data.company || '-'}\nTelefon: ${data.phone || '-'}\nMesaj Türü: ${data.type || 'İletişim'}\nMesaj: ${data.message || '-'}`,
+      }),
+    });
+    const result = await response.json();
+    if (!result.success) throw new Error(result.message || "Form gönderilemedi");
+    return result;
+  }
+};
+
 const getBaseUrl = () => {
   const envUrl = import.meta.env.VITE_API_BASE_URL;
   if (envUrl && !envUrl.includes('localhost')) {
     return envUrl.replace(/\/$/, '');
   }
 
-  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+  if (!isLocalEnvironment()) {
     return window.location.origin;
   }
 

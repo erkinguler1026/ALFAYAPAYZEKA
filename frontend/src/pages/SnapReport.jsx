@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MatrixRain from '../components/MatrixRain';
 import CampaignCountdown from '../components/CampaignCountdown';
-import { API_ENDPOINTS, apiClient } from '../utils/api';
+import { submitContactForm } from '../utils/api';
 
 /**
  * SnapReport Sayfası — Dijital Zırh 60 Kampanyası
@@ -181,12 +181,12 @@ const SnapReport = () => {
     addAttempt();
     setIsSubmitting(true);
     try {
-      await apiClient.post(API_ENDPOINTS.CONTACT, {
+      await submitContactForm({
         ...formData,
         subject: 'KAMPANYA: SNAP REPORT Talebi (Dijital Zırh 60)',
         type: 'snap-report'
       });
-      toast.success('Analiz tamamlandı!');
+      toast.success('Analiz talebiniz başarıyla iletildi! En kısa sürede geri dönüş yapacağız.');
       setIsSuccess(true);
     } catch (err) {
       const msg = err.response?.data?.message || 'Talep gönderilirken bir hata oluştu. Lütfen tekrar deneyiniz.';

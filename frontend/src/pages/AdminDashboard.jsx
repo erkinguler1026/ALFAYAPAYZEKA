@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import MatrixRain from '../components/MatrixRain';
+import { isLocalEnvironment } from '../utils/api';
 
 /**
  * AdminDashboard — Rapor Oluşturma ve Yönetim Paneli
@@ -27,8 +28,10 @@ const AdminDashboard = () => {
   // URL doğrulaması render sırasında hesaplanır (impure değil, targetUrl'e bağlıdır)
   const isValid = /^https?:\/\/.+\..+/.test(targetUrl);
 
-  // Oturum kontrolü
+  // Oturum kontrolü (Localhost'ta her zaman açık)
   useEffect(() => {
+    if (isLocalEnvironment()) return; // Bypass auth locally
+    
     const isAuth = sessionStorage.getItem('admin_auth');
     if (isAuth !== 'true') {
       navigate('/');
