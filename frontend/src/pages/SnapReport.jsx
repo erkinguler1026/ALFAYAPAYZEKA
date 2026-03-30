@@ -452,8 +452,8 @@ const SnapReport = () => {
                       <CheckCircle2 size={40} className="text-white" />
                     </div>
                     <div>
-                      <h4 className="text-2xl font-black text-white uppercase tracking-tight">Talebiniz Alındı!</h4>
-                      <p className="text-white/60 text-sm mt-2">Web sitenizin 48 sayfalık analizine başlıyoruz. Uzmanlarımız raporunuzu en kısa sürede e-posta adresinize iletecektir.</p>
+                      <h4 className="text-2xl font-black text-white uppercase tracking-tight">Talebiniz Alınmıştır!</h4>
+                      <p className="text-white/60 text-sm mt-2">Web sitenizin analizine başlıyoruz. ALFA YAPAY ZEKA Güvenlik Birimi, en kısa sürede sizinle irtibata geçerek, Snap-Test Raporunuzu sunacaktır. İyi günler dileriz.</p>
                     </div>
                     
                     {/* SADECE LOCALHOST'TA GÖRÜNÜR: Direkt Rapor İndirme Butonu (Sizin test etmeniz için) */}
