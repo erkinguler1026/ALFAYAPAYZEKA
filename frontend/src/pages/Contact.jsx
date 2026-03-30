@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, User, AtSign } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { API_ENDPOINTS } from '../utils/api';
 
 /**
  * Contact Sayfası — Kurumsal İletişim Merkezi (V1.4.0)
@@ -36,7 +37,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/contact`, {
+      const response = await fetch(API_ENDPOINTS.CONTACT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

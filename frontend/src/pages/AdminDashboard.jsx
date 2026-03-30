@@ -37,9 +37,12 @@ const AdminDashboard = () => {
 
   const getCleanDomain = (url) => {
     try {
-      return new URL(url).hostname.replace(/^www\./, '').toLowerCase();
+      // Remove trailing slashes and common artifacts
+      const cleanUrl = url.trim().replace(/\/$/, "");
+      const hostname = new URL(cleanUrl).hostname.replace(/^www\./, '').toLowerCase();
+      return hostname || cleanUrl.replace(/^https?:\/\/(www\.)?/, '').split('/')[0].toLowerCase();
     } catch {
-      return url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0].toLowerCase();
+      return url.trim().replace(/^https?:\/\/(www\.)?/, '').split('/')[0].toLowerCase();
     }
   };
 

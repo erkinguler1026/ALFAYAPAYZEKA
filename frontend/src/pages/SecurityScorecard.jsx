@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { 
-  ShieldCheck, AlertTriangle, Lock, Server, 
+import { ShieldCheck, AlertTriangle, Lock, Server, 
   Activity, CheckCircle2, XCircle, Search, 
   Settings, Bell, User, Clock, FileCode, Globe, Download, ShieldAlert, LogOut, Timer, ArrowLeft
 } from 'lucide-react';
+import { API_ENDPOINTS } from '../utils/api';
 
 const ScorecardWidget = ({ title, children, className = "" }) => (
   // DUAL THEME: Glowing cyan for screen, clean white/gray for print
@@ -26,7 +26,8 @@ const ScorecardWidget = ({ title, children, className = "" }) => (
 // Bu bileşen, dinamik verilerle siber güvenlik analiz raporu oluşturur ve PDF çıktı desteği sunar.
 const SecurityScorecard = () => {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
+  const rawToken = searchParams.get('token');
+  const token = rawToken ? rawToken.trim() : null; // Sanitize token
   const navigate = useNavigate();
 
   const [domain, setDomain] = useState("SYSTEM_SCAN");
@@ -85,14 +86,13 @@ const SecurityScorecard = () => {
       }
 
       try {
-        const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
-        const response = await axios.get(`${baseUrl}/api/report/${token}`);
+        const response = await axios.get(API_ENDPOINTS.REPORT(token));
         if (isMounted) {
           if (response.data.success) {
             // Admin girişi yapıldıysa ve 'site' parametresi varsa onu kullan
             const siteParam = searchParams.get('site');
             if (token === 'ALFA_JOKER_ADMIN_777' && siteParam) {
-              setDomain(siteParam.toUpperCase());
+              setDomain(siteParam.trim().toUpperCase());
             } else {
               setDomain(response.data.domain);
             }
@@ -105,7 +105,9 @@ const SecurityScorecard = () => {
         }
       } catch (err) {
         if (isMounted) {
-          setAccessError(err.response?.data?.error || 'Sunucu hatası: Erişim Reddedildi.');
+          console.error('VERIFICATION ERROR:', err);
+          const errorMsg = err.response?.data?.error || 'Sunucu hatası: Bağlantı kurulamadı veya Erişim Reddedildi.';
+          setAccessError(errorMsg);
         }
       }
     };

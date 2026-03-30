@@ -9,6 +9,7 @@ import {
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import { API_ENDPOINTS } from '../utils/api';
 
 /**
  * Home Sayfası — Mega Landing Page (V1.4.0)
@@ -57,7 +58,7 @@ const Home = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/contact`, formData);
+      const response = await axios.post(API_ENDPOINTS.CONTACT, formData);
       toast.success(response.data.message);
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {

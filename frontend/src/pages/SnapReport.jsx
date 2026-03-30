@@ -9,6 +9,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import MatrixRain from '../components/MatrixRain';
 import CampaignCountdown from '../components/CampaignCountdown';
+import { API_ENDPOINTS } from '../utils/api';
 
 /**
  * SnapReport Sayfası — Dijital Zırh 60 Kampanyası
@@ -181,7 +182,7 @@ const SnapReport = () => {
     addAttempt();
     setIsSubmitting(true);
     try {
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/contact`, {
+      await axios.post(API_ENDPOINTS.CONTACT, {
         ...formData,
         subject: 'KAMPANYA: SNAP REPORT Talebi (Dijital Zırh 60)',
         type: 'snap-report'

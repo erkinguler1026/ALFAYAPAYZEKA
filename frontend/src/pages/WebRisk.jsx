@@ -4,6 +4,7 @@ import { ShieldAlert, ChevronRight, BarChart3, Lock, Zap, CheckCircle2, Send } f
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { API_ENDPOINTS } from '../utils/api';
 
 const WebRisk = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const WebRisk = () => {
     setIsSubmitting(true);
     try {
       // Note: Backend endpoint should handle this with "Web-Risk Talebi" tag logic
-      await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000'}/api/contact`, {
+      await axios.post(API_ENDPOINTS.CONTACT, {
         ...formData,
         subject: 'ALFA WEB-RISK Analizi Talebi',
         type: 'web-risk'
