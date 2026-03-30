@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MatrixRain from '../components/MatrixRain';
 import CampaignCountdown from '../components/CampaignCountdown';
-import { submitContactForm } from '../utils/api';
+import { submitContactForm, isLocalEnvironment } from '../utils/api';
 
 /**
  * SnapReport Sayfası — Dijital Zırh 60 Kampanyası
@@ -452,15 +452,19 @@ const SnapReport = () => {
                       <CheckCircle2 size={40} className="text-white" />
                     </div>
                     <div>
-                      <h4 className="text-2xl font-black text-white uppercase tracking-tight">Analiz Hazır!</h4>
-                      <p className="text-white/60 text-sm mt-2">Web sitenize ait 48 sayfalık derinlemesine güvenlik ve performans analizi oluşturuldu.</p>
+                      <h4 className="text-2xl font-black text-white uppercase tracking-tight">Talebiniz Alındı!</h4>
+                      <p className="text-white/60 text-sm mt-2">Web sitenizin 48 sayfalık analizine başlıyoruz. Uzmanlarımız raporunuzu en kısa sürede e-posta adresinize iletecektir.</p>
                     </div>
-                    <Link
-                      to={`/audit-generator?site=${getUrlDomain(formData.website)}`}
-                      className="block w-full py-5 bg-white text-black font-black text-lg rounded-2xl hover:bg-green-500 hover:text-white transition-all shadow-xl"
-                    >
-                      RAPORU ŞİMDİ GÖRÜNTÜLE (48 SAYFA)
-                    </Link>
+                    
+                    {/* SADECE LOCALHOST'TA GÖRÜNÜR: Direkt Rapor İndirme Butonu (Sizin test etmeniz için) */}
+                    {isLocalEnvironment() && (
+                      <Link
+                        to={`/audit-generator?site=${getUrlDomain(formData.website)}`}
+                        className="block w-full py-5 bg-white text-black font-black text-lg rounded-2xl flex items-center justify-center gap-2 hover:bg-green-500 hover:text-white transition-all shadow-xl"
+                      >
+                        [DEV] RAPOR YARATICIYI AÇ 
+                      </Link>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
