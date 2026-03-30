@@ -1,63 +1,177 @@
-# Alfa Yapay Zeka Ajansı — Kurumsal Web Portalı
+# 🛡️ ALFA YAPAY ZEKA — Kurumsal Siber Güvenlik ve AI Ajansı Web Portalı
 
-Alfa Yapay Zeka (ALFAYAPAYZEKA), işletmeler için Endüstriyel AI, İş Makinesi Otomasyonu ve Veri Analitiği çözümleri sunan modern ve kurumsal bir web projesidir. Frontend'de React/Vite, Backend'de ise Node.js/Express kullanılmıştır.
+> **Sürüm:** V1.4.0 | **Tarih:** Mart 2026 | **Durum:** 🟢 Aktif / Production
 
-**Arayüz Tasarım Dili & Özellikler:**
-- **Premium UI:** Karanlık Temalı (Dark Mode) Glassmorphism tasarımı.
-- **AI-PENTEST Hub:** MIT Lisanslı açık kaynak motorlar ve YAPAYZEKA algoritmalarıyla güçlendirilmiş siber güvenlik modülü.
-- **Dijital Sözleşme Sistemi:** Yazdırılabilir, PDF uyumlu ve kurumsal hizmet sözleşmesi yönetim katmanı.
-- **Siber Güvenlik Skor Kartı:** Dinamik PDF raporlama, profesyonel isimlendirme (`ALFA_TEMEL_PENETRASYON_RAPORU...`) ve real-time log akışı.
-- **Admin Kontrol Paneli:** Domain bazlı analiz yönetimi ve çoklu rapor (Snap/Full Audit) üretim desteği.
-- **Akıcı Animasyonlar:** Framer Motion ile 60fps kullanıcı deneyimi.
-- **Modern Stack:** Tailwind CSS v4 ve React v19.
+**ALFA YAPAY ZEKA**, kurumsal işletmelere yönelik yapay zeka tabanlı siber güvenlik hizmetleri sunan profesyonel bir web platformudur. Müşteri iletişiminden otomatik güvenlik raporu üretimine kadar tüm iş akışlarını kapsar.
 
 ---
 
-## 📂 Proje Yapısı
+## 🗂️ Proje Mimarisi
 
-Proje temel olarak iki ana klasörden oluşur, her birinin kendi çalıştırılabilir ortamı (`package.json`) vardır:
-
-### 1. [frontend/](./frontend/README.md)
-Kullanıcı arayüzünü (UI) barındırır. 
-- **Teknolojiler:** React v19, Vite, Redux Toolkit, Tailwind CSS v4, React Router DOM, Framer Motion, Lucide React.
-- **Çalıştırma:** `npm run dev` (Port 5173'te çalışır)
-
-### 2. [backend/](./backend/README.md)
-Sunucu tarafı iş mantığını, iletişim formu aracılığıyla gelen mesajların e-posta (SMTP) ile gönderilmesini barındırır.
-- **Teknolojiler:** Node.js, Express.js, Nodemailer, CORS.
-- **Çalıştırma:** `npm run dev` (Port 5000'de çalışır)
+```
+ALFAYAPAYZEKA/
+├── frontend/          → React + Vite SPA (Port 5173)
+│   └── src/
+│       ├── pages/     → Sayfa bileşenleri (routing hedefleri)
+│       ├── components/→ Paylaşılan UI bileşenleri
+│       ├── utils/     → API istemcisi ve yardımcı fonksiyonlar
+│       ├── store/     → Redux Toolkit durum yönetimi
+│       └── data/      → Sözleşme ve statik içerik verileri
+└── backend/           → Node.js + Express REST API (Port 5000)
+    ├── index.js       → Ana sunucu ve endpoint tanımları
+    └── utils/
+        ├── db.js      → JSON tabanlı rapor veritabanı (token yönetimi)
+        └── auditFrame.js → Audit rapor çerçeve verisi
+```
 
 ---
 
-## 🚀 Hızlı Kurulum ve Başlatma
+## 🚀 Özellikler
 
-Yerel (Local) ortamda projeyi ayağa kaldırmak için **iki terminal** kullanmanız gerekir.
+| Özellik | Açıklama |
+|---|---|
+| 🏠 **Ana Sayfa** | Hero, özellikler, CTA ve "Dijital Zırh 60" kampanya bölümleri |
+| 📋 **Snap Report Formu** | Müşteri bilgilerini alır, e-posta bildirimi gönderir |
+| 🔒 **Admin Paneli** | Yalnızca Local'de görünür; domain girerek rapor üretilir |
+| 📊 **Security Scorecard** | Token tabanlı güvenlik skor kartı (dinamik PDF çıktısı) |
+| 📄 **Full Audit Generator** | 250 sayfalık profesyonel pentest raporu (Snap → Full Audit) |
+| 📨 **E-posta Sistemi** | Brevo SMTP (local) + Web3Forms (production) çift-kanal desteği |
+| ⚖️ **Sözleşme Sistemi** | PDF uyumlu hukuki metinler (`/sozlesme/:type`) |
+| 🎨 **Matrix Arayüz** | Canvas tabanlı Matrix animasyonu, Glassmorphism, Dark Mode |
 
-### Terminal 1: Backend
+---
+
+## 🗺️ Sayfa Haritası (Routing)
+
+| URL | Bileşen | Erişim |
+|---|---|---|
+| `/` | `Home.jsx` | Herkese açık |
+| `/offer` | `Offer.jsx` | Herkese açık (Kampanya) |
+| `/ai-pentest` | `AIPentest.jsx` | Herkese açık |
+| `/pricing` | `Pricing.jsx` | Herkese açık |
+| `/portfolio` | `Portfolio.jsx` | Herkese açık |
+| `/about` | `About.jsx` | Herkese açık |
+| `/contact` | `Contact.jsx` | Herkese açık |
+| `/snap-report` | `SnapReport.jsx` | Herkese açık (Kampanya formu) |
+| `/scorecard` | `SecurityScorecard.jsx` | Token ile erişim (Magic Link) |
+| `/audit-generator` | `AuditReportGenerator.jsx` | Admin + Token |
+| `/admin-panel` | `AdminDashboard.jsx` | **Yalnızca Local** |
+| `/sozlesme/:type` | `ContractView.jsx` | Herkese açık |
+| `/privacy`, `/terms`, `/kvkk`, `/cookie` | `Legal.jsx` | Herkese açık |
+
+---
+
+## ⚡ Hızlı Başlatma (Local Geliştirme)
+
+İki ayrı terminal açın:
+
+### Terminal 1 — Backend API
 ```bash
 cd backend
 npm install
 npm run dev
-# Beklenen çıktı: "Server is running on port 5000"
+# ✅ Beklenen: [ALFA-SERVER] Running in DEV (5000) mode
 ```
 
-### Terminal 2: Frontend
+### Terminal 2 — Frontend
 ```bash
 cd frontend
 npm install
 npm run dev
-# Beklenen çıktı: "VITE v8.x.x ready in ... ms"
-# Tarayıcıda http://localhost:5173 adresini açın.
+# ✅ Beklenen: VITE ready → http://localhost:5173
+```
+
+> **Admin Paneline Erişim:** Local ortamda Header'daki kırmızı `● ADMIN` butonuna tıklayın.  
+> Üretim ortamında bu buton **otomatik olarak gizlenir**.
+
+---
+
+## 🔐 İş Akışı: Snap Report → Magic Link → PDF
+
+```
+Müşteri → /snap-report formu doldurur
+    ↓
+Backend → Brevo SMTP ile admin'e bildirim gönderir
+    ↓
+Backend → Müşteri e-postasına "Magic Link" gönderir
+         (Token UUID, 3 görüntüleme hakkı)
+    ↓
+Müşteri → /scorecard?token=UUID linkini açar
+    ↓
+Scorecard → PDF İndir butonu ile raporu kaydeder
+```
+
+> **Production'da:** Web3Forms üzerinden yönlendirme yapılır.  
+> **Local'de:** Doğrudan Brevo SMTP kullanılır (backend .env gerektirir).
+
+---
+
+## 🔧 Ortam Değişkenleri
+
+### `backend/.env`
+```env
+PORT=5000
+BREVO_SMTP_USER=kullanici@brevo.com
+BREVO_SMTP_KEY=xsmtp-api-key-buraya
+CONTACT_SENDER=noreply@alfayapayzeka.com
+CONTACT_RECEIVER=info@alfayapayzeka.com
+```
+
+### `frontend/.env`
+```env
+VITE_API_BASE_URL=http://localhost:5000
 ```
 
 ---
 
-## 🛡️ Bakım ve Geliştirme Notları
+## 🛠️ Teknoloji Yığını
 
-- **Ortam Değişkenleri (.env):** Frontend iletişim formunun doğru endpointe istek atabilmesi için `frontend/.env` dosyası içinde `VITE_API_BASE_URL` değişkeni tutulur. Backend'de ise SMTP mail erişim anahtarları (`backend/.env`) bulunur.
-- **Versiyonlama:** Projenin son kararlı/aktif versiyonu arayüzde (Footer ve App.jsx) `V1.4.0` olarak belirtilmiştir.
-- **Sözleşme Sistemi:** `frontend/src/data/contracts.js` dosyası, tüm hukuki metinlerin merkezi yönetim noktasıdır.
-- **Katkıda Bulunan:** Projenin tüm interaktif bileşenlerindeki (Framer Motion) gecikme (delay) süreleri sistemli şekilde kurgulanmıştır; bileşen hiyerarşisinde değişiklik yapılacağında sıralı geçişlere dikkat edilmelidir.
+### Frontend
+| Paket | Sürüm | Kullanım |
+|---|---|---|
+| React | v19 | UI bileşen kütüphanesi |
+| Vite | v6+ | Geliştirme sunucusu ve build aracı |
+| React Router DOM | v7 | İstemci tarafı yönlendirme |
+| Redux Toolkit | v2 | Global durum yönetimi (UI, menü) |
+| Framer Motion | v11 | Animasyon ve geçiş sistemi |
+| Tailwind CSS | v4 | Utility-first CSS |
+| Lucide React | — | İkon kütüphanesi |
+| Axios | — | HTTP istemcisi |
+| React Toastify | — | Bildirim sistemi |
+
+### Backend
+| Paket | Kullanım |
+|---|---|
+| Express.js | HTTP sunucu çerçevesi |
+| Nodemailer | Brevo SMTP e-posta gönderimi |
+| CORS | Cross-origin izinleri |
+| Morgan | HTTP istek loglama |
+| Dotenv | Ortam değişkeni yönetimi |
+| Nodemon | Geliştirme otomatik yeniden başlatma |
 
 ---
-© 2026 ALFA YAPAY ZEKA — SİBER TEHDİTLERE KAPALI, MÜŞTERİLERE AÇIK.
+
+## 📋 Geliştirici Notları
+
+- **ADMIN Butonu:** `isLocalEnvironment()` fonksiyonu (`utils/api.js`) `localhost` kontrolü yapar.  
+  Production'da ADMIN butonu hiçbir zaman render edilmez.
+- **Domain Parse Hatası:** `com.tr` gibi çok parçalı TLD'ler için `getCleanDomain()` fonksiyonu  
+  `new URL().hostname` ile güvenli parse eder. `.replace('.COM', '')` tipi manipülasyonlardan kaçınılmalıdır.
+- **Rapor Token Sistemi:** `backend/data/reports.json` dosyasında saklanır.  
+  Her token maksimum **3 görüntüleme** hakkına sahiptir.
+- **Admin Backdoor Token:** `ALFA_JOKER_ADMIN_777` — Admin paneli için sonsuz erişim sağlayan sabit token.
+
+---
+
+## 🌐 Deployment
+
+| Platform | Branch | URL |
+|---|---|---|
+| Vercel (Frontend) | `main` | `https://www.alfayapayzeka.com` |
+| Backend | Ayrı servis (Cloudflare/VPS) | Port 8080 (production) |
+
+> Her `git push main` sonrasında Vercel otomatik deploy tetiklenir (~1-2 dakika).
+
+---
+
+© 2026 **ALFA YAPAY ZEKA** — Siber Tehditlere Kapalı, Müşterilere Açık.

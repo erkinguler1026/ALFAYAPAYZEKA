@@ -1,3 +1,37 @@
+/**
+ * backend/utils/db.js — JSON Tabanlı Rapor Token Veritabanı
+ *
+ * Versiyon: V1.4.0 | Tarih: Mart 2026
+ *
+ * Açıklama:
+ *   Snap Report başvuruları için token sistemi yöneticisidir.
+ *   Kalıcı bir veritabanı (PostgreSQL, MongoDB vb.) yerine hafif ve
+ *   serverless uyumlu bir JSON dosyası (`data/reports.json`) kullanır.
+ *   Vercel ve benzeri platformlarda dosya sistemi writable olmadığı için
+ *   bu sistem yalnızca local/VPS ortamlarda kalıcı çalışır.
+ *
+ * Token Yaşam Döngüsü:
+ *   1. Müşteri Snap Report formunu doldurur.
+ *   2. Backend `createReport()` ile UUID token oluşturur ve JSON'a kaydeder.
+ *   3. Müşteriye Magic Link e-postası gönderilir (token içerir).
+ *   4. Müşteri linke tıkladığında `getAndIncrementReport()` token doğrular.
+ *   5. Maksimum 3 görüntüleme hakkı aşıldığında erişim reddedilir.
+ *
+ * Kayıt Şeması:
+ *   {
+ *     id:        string  — UUID v4 token (Magic Link'teki değer)
+ *     domain:    string  — Analiz edilen web sitesi domain'i
+ *     email:     string  — Token sahibi müşteri e-postası
+ *     clicks:    number  — Mevcut görüntüleme sayısı (0'dan başlar)
+ *     maxClicks: number  — İzin verilen maksimum görüntüleme (varsayılan: 3)
+ *     createdAt: number  — Oluşturma zaman damgası (Unix ms)
+ *   }
+ *
+ * Bağımlılıklar:
+ *   - fs/promises : Asenkron dosya okuma/yazma
+ *   - path        : Platform bağımsız dosya yolu oluşturma
+ *   - crypto      : UUID v4 token üretimi
+ */
 import fs from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';

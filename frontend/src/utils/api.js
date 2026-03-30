@@ -1,11 +1,38 @@
 /**
- * frontend/src/utils/api.js
- * Centralized API configuration and client for Alfa Yapay Zeka.
- * 
- * Features:
- * - Environment detection (Local vs Prod)
- * - Automatic Fallback (Port 8080) if reverse proxy fails (returns HTML)
- * - Centralized endpoint definitions
+ * frontend/src/utils/api.js — Merkezi API İstemcisi ve Ortam Yöneticisi
+ *
+ * Versiyon: V1.4.0 | Tarih: Mart 2026
+ *
+ * Açıklama:
+ *   Uygulamanın tüm HTTP iletişimini tek noktadan yönetir.
+ *   Ortam tespiti (local vs production), akıllı fallback mekanizması
+ *   ve form gönderimi yönlendirmesi bu modülde tanımlanmıştır.
+ *
+ * Temel Sorumluluklar:
+ *   1. Ortam Tespiti    → isLocalEnvironment() ile localhost kontrolü
+ *   2. Form Yönlendirme → Local: Backend SMTP | Production: Web3Forms
+ *   3. Smart API Client → HTML yanıt tespiti + otomatik port fallback
+ *   4. Endpoint Merkezi → API_ENDPOINTS nesnesi ile tek kaynak
+ *
+ * Form Gönderim Stratejisi:
+ *   - LOCAL (localhost / 127.0.0.1):
+ *       → POST http://localhost:5000/api/contact (Brevo SMTP)
+ *   - PRODUCTION (alfayapayzeka.com):
+ *       → POST https://api.web3forms.com/submit (Ücretsiz, serverless)
+ *         Access Key: WEB3FORMS_ACCESS_KEY sabitinde tanımlı
+ *
+ * Fallback Mekanizması:
+ *   Cloudflare veya reverse proxy ortamlarında /api rotası bazen
+ *   ana sayfayı (HTML) döndürebilir. apiClient bu durumu tespit ederek
+ *   doğrudan port (8080) üzerinden yeniden istek atar.
+ *
+ * Dışa Aktarılan Semboller:
+ *   - isLocalEnvironment()    : boolean — localhost tespiti
+ *   - submitContactForm(data) : Promise — çift-kanal form gönderimi
+ *   - apiClient               : { get, post } — akıllı HTTP istemcisi
+ *   - API_BASE_URL            : string — hesaplanan temel URL
+ *   - API_ENDPOINTS           : object — merkezi endpoint tanımları
+ *   - WEB3FORMS_ACCESS_KEY    : string — production form anahtarı
  */
 
 import axios from 'axios';
