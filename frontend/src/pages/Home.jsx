@@ -6,10 +6,9 @@ import {
   Activity, Cpu, Lock, ShieldCheck, ShieldAlert, Flame,
   Check, Info, LifeBuoy // Added these icons
 } from 'lucide-react';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { API_ENDPOINTS } from '../utils/api';
+import { API_ENDPOINTS, apiClient } from '../utils/api';
 
 /**
  * Home Sayfası — Mega Landing Page (V1.4.0)
@@ -58,7 +57,7 @@ const Home = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const response = await axios.post(API_ENDPOINTS.CONTACT, formData);
+      const response = await apiClient.post(API_ENDPOINTS.CONTACT, formData);
       toast.success(response.data.message);
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {

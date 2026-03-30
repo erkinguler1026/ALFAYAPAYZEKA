@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { motion } from 'framer-motion';
-import { ShieldCheck, AlertTriangle, Lock, Server, 
+import { 
+  ShieldCheck, AlertTriangle, Lock, Server, 
   Activity, CheckCircle2, XCircle, Search, 
   Settings, Bell, User, Clock, FileCode, Globe, Download, ShieldAlert, LogOut, Timer, ArrowLeft
 } from 'lucide-react';
-import { API_ENDPOINTS } from '../utils/api';
+import { API_ENDPOINTS, apiClient } from '../utils/api';
 
 const ScorecardWidget = ({ title, children, className = "" }) => (
   // DUAL THEME: Glowing cyan for screen, clean white/gray for print
@@ -86,10 +86,10 @@ const SecurityScorecard = () => {
       }
 
       try {
-        const response = await axios.get(API_ENDPOINTS.REPORT(token));
+        const response = await apiClient.get(API_ENDPOINTS.REPORT(token));
+        
         if (isMounted) {
           if (response.data.success) {
-            // Admin girişi yapıldıysa ve 'site' parametresi varsa onu kullan
             const siteParam = searchParams.get('site');
             if (token === 'ALFA_JOKER_ADMIN_777' && siteParam) {
               setDomain(siteParam.trim().toUpperCase());
@@ -105,9 +105,8 @@ const SecurityScorecard = () => {
         }
       } catch (err) {
         if (isMounted) {
-          console.error('VERIFICATION ERROR:', err);
-          const errorMsg = err.response?.data?.error || 'Sunucu hatası: Bağlantı kurulamadı veya Erişim Reddedildi.';
-          setAccessError(errorMsg);
+          console.error('API Error:', err);
+          setAccessError('Sunucu Bağlantı Hatası: Lütfen internet bağlantınızı kontrol edin veya sunucu yetkilisi ile görüşün.');
         }
       }
     };

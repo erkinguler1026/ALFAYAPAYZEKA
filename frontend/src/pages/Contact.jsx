@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, MessageSquare, User, AtSign } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
-import { API_ENDPOINTS } from '../utils/api';
+import { API_ENDPOINTS, apiClient } from '../utils/api';
 
 /**
  * Contact Sayfası — Kurumsal İletişim Merkezi (V1.4.0)
@@ -37,25 +37,12 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(API_ENDPOINTS.CONTACT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        toast.success(data.message || 'Mesajınız başarıyla iletildi!');
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        toast.error(data.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
-      }
+      const response = await apiClient.post(API_ENDPOINTS.CONTACT, formData);
+      toast.success(response.data.message || 'Mesajınız başarıyla iletildi!');
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       console.error('Submit error:', error);
-      toast.error('Sunucu bağlantı hatası.');
+      toast.error('Sunucu bağlantı hatası veya Erişim Reddedildi.');
     } finally {
       setIsSubmitting(false);
     }

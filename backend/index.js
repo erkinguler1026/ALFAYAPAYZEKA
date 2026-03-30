@@ -89,7 +89,9 @@ app.post('/api/contact', async (req, res) => {
     // B2C Magic Link Flow if it's a Snap Report
     if (type === 'snap-report' && website) {
       const tokenId = await createReport(website, email);
-      const magicLink = `http://localhost:5173/scorecard?token=${tokenId}`;
+      // Dynamic Magic Link: Use Referer to determine host or default to production
+      const host = req.headers.referer ? new URL(req.headers.referer).origin : 'https://www.alfayapayzeka.com';
+      const magicLink = `${host}/scorecard?token=${tokenId}`;
       
       const userMailOptions = {
         from: `"Alfa Yapay Zeka" <${process.env.CONTACT_SENDER}>`,
