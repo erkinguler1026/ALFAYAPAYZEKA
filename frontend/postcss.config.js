@@ -1,5 +1,5 @@
 export default {
   plugins: {
-    '@tailwindcss/postcss': {},
+    // Tailwind v4 is now handled by @tailwindcss/vite in vite.config.js
   },
 }
