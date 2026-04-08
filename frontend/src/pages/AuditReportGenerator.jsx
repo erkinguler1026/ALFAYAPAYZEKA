@@ -1,5 +1,6 @@
 import React from 'react';
-import { Shield, Zap, Activity, Lock, Globe, FileText, CheckCircle2, AlertTriangle, ShieldAlert, Cpu, BarChart3, Search, Database, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { Shield, Zap, Activity, Lock, Globe, FileText, CheckCircle2, AlertTriangle, ShieldAlert, Cpu, BarChart3, Search, Database, ArrowLeft, ShieldCheck, QrCode } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 /**
@@ -220,31 +221,38 @@ const FinalPage = ({ t, pageNum }) => (
               {t.signatureDisclaimer}
            </p>
            
-           <div className="flex flex-col items-center justify-center mt-16 space-y-8">
-              <div className="p-12 border-4 border-primary rounded-[3rem] bg-primary/5 flex flex-col items-center justify-center space-y-6 relative overflow-hidden shadow-2xl scale-110">
-                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 -rotate-45 translate-x-16 -translate-y-16" />
-                 <ShieldCheck size={80} className="text-primary animate-pulse" />
-                 <div className="text-center">
-                    <p className="text-2xl font-black uppercase tracking-[0.3em] text-black">ALFA SECURED</p>
-                    <p className="text-[10px] font-bold text-primary mt-2 uppercase italic tracking-[0.4em]">Digital Integrity Verified</p>
+           <div className="flex items-center justify-center mt-16 gap-[30px]">
+              <div className="flex flex-col items-center justify-center relative">
+                 <div className="p-8 border-[6px] border-double border-red-600 rounded-[2rem] bg-transparent flex flex-col items-center justify-center space-y-4 shadow-sm transform -rotate-45 scale-90 mix-blend-multiply opacity-90">
+                    <ShieldCheck size={50} className="text-red-600" />
+                    <div className="text-center">
+                       <p className="text-xl font-black uppercase tracking-[0.3em] text-red-600">ALFA SECURED</p>
+                       <p className="text-[8px] font-bold text-red-600 mt-2 uppercase italic tracking-[0.4em]">Digital Integrity Verified</p>
+                    </div>
                  </div>
+                 <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest italic opacity-60 absolute -bottom-10">Verified Forensic Analysis Identification</p>
               </div>
-              <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest italic opacity-60">Verified Forensic Analysis Identification</p>
+
+              <div className="bg-white border-2 border-dashed border-gray-300 p-2 rounded-xl shadow-sm flex items-center justify-center">
+                 <QRCodeSVG 
+                   value={`TARGET: www.alfayapayzeka.com\nTIMESTAMP: ${new Date().toLocaleDateString('tr-TR')} ${new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute:'2-digit'})}\nCERTIFIED BY: Erkin GÜLER (Head of Cyber Security)`}
+                   size={128}
+                   level={"M"}
+                   includeMargin={true}
+                 />
+              </div>
            </div>
         </div>
 
         <div className="flex justify-end pt-24 pr-8">
-           <div className="text-right space-y-6">
-              <div className="space-y-1">
+           <div className="text-right flex flex-col items-end">
+              <div className="relative inline-block z-10 -mb-10 mr-4">
+                 <img src="/CLEAN_SIGNATURE_EG_FINAL.png" alt="Signature" className="h-28 mix-blend-multiply transition-transform hover:scale-105" />
+              </div>
+              <div className="space-y-1 relative z-0 pt-2">
                  <p className="text-3xl font-bold tracking-tighter leading-none">{t.signatureName}</p>
                  <p className="text-base font-semibold text-primary">{t.signatureHead}</p>
                  <p className="text-xs font-medium text-gray-400 border-t border-gray-100 pt-1 mt-1 inline-block">{t.signatureUnit}</p>
-              </div>
-              <div className="relative inline-block">
-                 <img src="/CLEAN_SIGNATURE_EG_FINAL.png" alt="Signature" className="h-28 mix-blend-multiply transition-transform hover:scale-105" />
-                 <div className="absolute -bottom-4 -right-10 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded-sm rotate-12 shadow-xl border-2 border-white uppercase tracking-widest">
-                    {t.certifiedOriginal}
-                 </div>
               </div>
            </div>
         </div>

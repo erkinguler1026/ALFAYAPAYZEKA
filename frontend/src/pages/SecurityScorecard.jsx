@@ -363,15 +363,14 @@ const SecurityScorecard = () => {
               <p className="max-w-2xl mx-auto text-slate-500 italic leading-relaxed px-12">{t.signatureDisclaimer}</p>
            </div>
            
-           <div className="mt-auto w-full flex flex-col items-center gap-6">
-              <div className="space-y-1">
+           <div className="mt-auto w-full flex flex-col items-center">
+              <div className="relative z-10 -mb-10">
+                 <img src="/CLEAN_SIGNATURE_EG_FINAL.png" alt="Signature" className="h-28 mix-blend-multiply transition-transform hover:scale-105" />
+              </div>
+              <div className="space-y-1 text-center relative z-0 pt-2">
                  <p className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">ERKİN GÜLER</p>
                  <p className="text-sm font-black text-blue-600 tracking-[0.2em] uppercase">{t.signatureHead}</p>
                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.unit}</p>
-              </div>
-              <div className="relative">
-                 <img src="/CLEAN_SIGNATURE_EG_FINAL.png" alt="Signature" className="h-28 mix-blend-multiply transition-transform hover:scale-105" />
-                 <div className="absolute -bottom-2 -right-10 bg-red-600 text-white text-[9px] font-black px-2 py-1 rounded-sm rotate-12 shadow-lg border-2 border-white uppercase tracking-widest">{t.certifiedOriginal}</div>
               </div>
            </div>
            
