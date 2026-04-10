@@ -24,6 +24,10 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import { createReport, getAndIncrementReport } from './utils/db.js';
+import FreePentestEngine from './utils/freePentestEngine.js';
+import { generateFullAudit } from './utils/fullPentestEngine.js';
+import { generateFullPentestReport } from './utils/realFullPentestEngine.js';
+import rateLimit from 'express-rate-limit';
 
 dotenv.config();
 
@@ -48,6 +52,15 @@ const transporter = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false
   }
+});
+
+// Rate Limiter — Full Pentest V2.0 (9 gerçek API çağrısı yaptığı için sınırlandırıldı)
+const fullPentestLimiter = rateLimit({
+  windowMs: 2 * 60 * 1000,  // 2 dakika
+  max: 2,                    // maks 2 istek (tarama ~40sn sürebilir)
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Her 2 dakikada en fazla 2 full-pentest isteği yapabilirsiniz. Lütfen bekleyin.' }
 });
 
 app.get('/api/health', (req, res) => {
@@ -91,7 +104,13 @@ app.post('/api/contact', async (req, res) => {
 
     // B2C Magic Link Flow if it's a Snap Report
     if (type === 'snap-report' && website) {
-      const tokenId = await createReport(website, email);
+      // --- GERÇEK ANALİZ BAŞLIYOR ---
+      console.log(`[ALFA-SCAN] Deep analysis starting for: ${website}`);
+      const scanner = new FreePentestEngine(website);
+      const scanResults = await scanner.performFullScan();
+      console.log(`[ALFA-SCAN] Analysis completed. Final Score: ${scanResults.score}`);
+
+      const tokenId = await createReport(website, email, scanResults);
       // Dynamic Magic Link: Use Referer to determine host or default to production
       const host = req.headers.referer ? new URL(req.headers.referer).origin : 'https://www.alfayapayzeka.com';
       const magicLink = `${host}/scorecard?token=${tokenId}`;
@@ -141,10 +160,31 @@ app.get('/api/report/:token', async (req, res) => {
   try {
     // --- JOKER ADMIN BACKDOOR ---
     if (req.params.token === 'ALFA_JOKER_ADMIN_777') {
+      const site = req.query.site;
+      let scanResults;
+      if (site) {
+        console.log(`[JOKER MODE] Live scanning requested for: ${site}`);
+        const scanner = new FreePentestEngine(site);
+        scanResults = await scanner.performFullScan();
+        console.log(`[JOKER MODE] Scan completed for ${site}. Score: ${scanResults.score}`);
+      } else {
+        scanResults = {
+          score: 88,
+          grade: 'A',
+          categories: {
+            service: { name: "SERVİS GÜVENLİĞİ", health: 100, status: 'GÜVENLİ', findings: [] },
+            headers: { name: "GÜVENLİK BAŞLIKLARI", health: 75, status: 'ORTA', findings: ["CSP başlığı eksik."] },
+            network: { name: "AĞ PORT GÜVENLİĞİ", health: 100, status: 'GÜVENLİ', findings: [] },
+            domain: { name: "DOMAIN & WHOIS", health: 90, status: 'GÜVENLİ', findings: ["WHOIS gizlilik koruması aktif."] },
+            patching: { name: "YAZILIM & YAMA", health: 70, status: 'BİLGİ SIZINTISI', findings: ["Server bilgisi sızıyor (Nginx)"] }
+          }
+        };
+      }
       return res.json({ 
         success: true, 
-        domain: 'ALFA YÖNETIM_PANELI', 
-        clicksLeft: 999 
+        domain: site || 'ALFA YÖNETIM_PANELI', 
+        clicksLeft: 999,
+        scanResults
       });
     }
 
@@ -156,15 +196,54 @@ app.get('/api/report/:token', async (req, res) => {
       return res.status(403).json({ success: false, error: 'ERİŞİM REDDEDİLDİ. MAKSİMUM GÖRÜNTÜLEME LİMİTİ (3) AŞILDI.' });
     }
     
-    // Success handling
     res.json({ 
       success: true, 
       domain: report.domain, 
-      clicksLeft: report.maxClicks - report.clicks 
+      clicksLeft: report.maxClicks - report.clicks,
+      scanResults: report.scanResults // Gerçek bulgular artık dönülüyor
     });
   } catch (error) {
     console.error('Token validation error:', error);
     res.status(500).json({ success: false, error: 'Sunucu hatası.' });
+  }
+});
+
+// ══════════════════════════════════════════════════
+// ALFA X-RAY FULL PENTEST ENDPOINT — realFullPentestEngine.js
+// Kullanım: GET /api/full-pentest?url=hedef.com
+// ══════════════════════════════════════════════════
+app.get('/api/full-pentest', fullPentestLimiter, async (req, res) => {
+  try {
+    const targetUrl = req.query.url;
+    if (!targetUrl) {
+      return res.status(400).json({ success: false, error: 'Target URL gerekli. ?url=hedef.com' });
+    }
+    console.log(`[FULL-PENTEST] X-RAY tarama başlıyor: ${targetUrl}`);
+    const results = await generateFullPentestReport(targetUrl);
+    console.log(`[FULL-PENTEST] Tamamlandı: ${targetUrl} | Skor: ${results.overallScore} | Süre: ${results.scanDurationSec}s`);
+    res.json({ success: true, results });
+  } catch (error) {
+    console.error('[FULL-PENTEST] Hata:', error);
+    res.status(500).json({ success: false, error: 'Full Pentest raporu oluşturulamadı: ' + error.message });
+  }
+});
+
+// YENİ V8.1 FULL PENTEST ENDPOINT
+app.get('/api/full-audit', async (req, res) => {
+  try {
+    const targetUrl = req.query.url;
+    if (!targetUrl) {
+      return res.status(400).json({ success: false, error: 'Target URL is required.' });
+    }
+
+    console.log(`[FULL-AUDIT] Starting comprehensive V8.1 audit for: ${targetUrl}`);
+    const results = await generateFullAudit(targetUrl);
+    console.log(`[FULL-AUDIT] Audit completed for: ${targetUrl}. Final Score: ${results.overallScore}`);
+    
+    res.json({ success: true, results });
+  } catch (error) {
+    console.error('[FULL-AUDIT] Error:', error);
+    res.status(500).json({ success: false, error: 'Audit generation failed.' });
   }
 });
 

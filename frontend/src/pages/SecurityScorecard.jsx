@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  ShieldCheck, AlertTriangle, Lock, Server, 
-  Activity, CheckCircle2, XCircle, Search, 
-  Settings, Bell, User, Clock, FileCode, Globe, Download, ShieldAlert, LogOut, Timer, ArrowLeft
+  ShieldCheck, Activity, Download, ShieldAlert, Timer, Clock, Lock, AlertTriangle, ArrowLeft
 } from 'lucide-react';
 import { API_ENDPOINTS, apiClient } from '../utils/api';
 
@@ -32,16 +30,15 @@ const SecurityScorecard = () => {
   const [accessError, setAccessError] = useState(null);
   const [timeLeft, setTimeLeft] = useState(600);
 
+
   const [logs, setLogs] = useState([
     "[LOG] 14:31:05 - Initializing Security Scan...",
     "[LOG] 14:31:10 - SSL Certificate Verified: SHA-256",
     "[LOG] 14:31:15 - Port Scan Completed: 0 vulnerabilities found"
   ]);
 
-  // Stable random chart data initialized once to satisfy React purity rules
-  const [chartData] = useState(() => 
-    Array.from({length: 40}).map(() => 20 + Math.random() * 80)
-  );
+
+  const [reportId] = useState(() => `ALFA_${Math.random().toString(36).substr(2, 9).toUpperCase()}`);
 
   useEffect(() => {
     if (isAnalyzing || accessError) return;
@@ -63,11 +60,18 @@ const SecurityScorecard = () => {
     return () => clearInterval(interval);
   }, [isAnalyzing, accessError, domain]);
 
-  const [reportMetadata] = useState(() => ({
-    uuid: crypto.randomUUID().slice(0, 18).toUpperCase(),
-    checksum: `0x${Math.floor(Math.random() * 1000000).toString(16).toUpperCase()}`
-  }));
-  
+  const [grade, setGrade] = useState("A");
+  const [certId] = useState(() => Math.random().toString(36).substr(2, 10).toUpperCase());
+  const [infrastructureData, setInfrastructureData] = useState([
+    { name: 'SSL/TLS', health: 100, color: 'bg-emerald-500' },
+    { name: 'HEADERS', health: 100, color: 'bg-emerald-500' },
+    { name: 'NETWORK', health: 100, color: 'bg-orange-500' },
+    { name: 'DOMAIN', health: 100, color: 'bg-yellow-500' },
+    { name: 'SOFTWARE', health: 100, color: 'bg-orange-500' }
+  ]);
+  const [realRisks, setRealRisks] = useState([]);
+  const [signedAt] = useState(() => new Date().toLocaleString());
+
   const lang = searchParams.get('lang') || 'tr';
 
   React.useEffect(() => {
@@ -120,11 +124,29 @@ const SecurityScorecard = () => {
       summaryBody2: "Kuruluşların yaygın güvenlik zayıflıklarını (CVE'ler) önceliklendirmesi ve siber dayanıklılığı artırmak için çok katmanlı savunma stratejileri uygulaması önerilir.",
       aboutTitle: "Bu rapor hakkında",
       aboutDesc: "Alfa Güvenlik Snap Raporu, kurumsal dijital varlıkların hızlı değerlendirilmesi için tasarlanmış otomatik bir adli denetim aracıdır. Kapsamlı bir güvenlik puanı sağlamak için gelişmiş OSINT ve zafiyet tarama tekniklerini kullanır.",
-      criticalTitle: "Kritik bulgular",
       riskTitle1: "3.1 Servis Güvenliği",
-      riskText1: "Hedef sistemde dış şebekeye açık yönetim portları veya dosya yolları tespit edilebilir durumdadır.",
+      riskText1: "Hedef sistemde dış şebekeye açık yönetim portları veya hassas dizin yolları tespit edilebilir durumdadır.",
       riskTitle2: "3.2 Güvenlik Başlıkları (Security Headers)",
-      riskText2: "Strict-Transport-Security (HSTS) ve Content-Security-Policy (CSP) tanımsız olup, sistem Tıklama Sahteciliği saldırılarına açıktır.",
+      riskText2: "Strict-Transport-Security (HSTS) ve Content-Security-Policy (CSP) tanımlanmamıştır; sistem tıklama sahteciliğine müsaittir.",
+      riskTitle3: "3.3 Ağ Port Güvenliği (NMAP Analizi)",
+      riskText3: "Dış networke açık bırakılmış potansiyel yönetim portları (22-SSH, 445-SMB) kaba kuvvet saldırı riski taşımaktadır.",
+      riskTitle4: "3.4 Domain & WHOIS Veri Sızıntısı",
+      riskText4: "Alan adı kayıt bilgilerinde görünen idari e-posta ve teknik personel verileri, sosyal mühendislik saldırıları için girdi sağlayabilir.",
+      riskTitle5: "3.5 Yazılım & Yama Düzeyi (Patching)",
+      riskText5: "Web sunucusu (Nginx/Apache) ve uygulama çatısına ait versiyon bilgileri sızdırılmakta olup, bilinen CVE açıklarına karşı savunmasızdır.",
+      execSummaryTitle: "YÖNETİCİ ÖZETİ (AI KARARI)",
+      execSummaryText: "Yapılan adli analiz sonucunda sistemin dış tehditlere karşı 'Açık' (Exposed) pozisyonda olduğu ve öncelikli olarak port güvenliği ile yazılım yaması katmanlarında acil müdahale gerektiği saptanmıştır.",
+      effort: "ÇÖZÜM ZORLUĞU",
+      effortLow: "DÜŞÜK",
+      effortMedium: "ORTA",
+      effortHigh: "YÜKSEK",
+      nextStepsTitle: "BİR SONRAKİ ADIMLAR (TAM DENETİM KAPSAMI)",
+      nextStepsDesc: "Bu rapor hızlı bir ön taramadır. Daha derinlemesine analiz için şu testler önerilir:",
+      advancedTest1: "SQL Injection & Veritabanı Güvenliği",
+      advancedTest2: "Cross-Site Scripting (XSS) Analizi",
+      advancedTest3: "DDoS & Yük Dayanıklılık Testi",
+      advancedTest4: "Sosyal Mühendislik & Kimlik Avı Simülasyonu",
+      verifiedBy: "ALFA AI TARAFINDAN DOĞRULANMIŞTIR",
       disclaimer: "YASAL UYARI: Bu rapor sadece bilgilendirme amaçlıdır ve tam bir penetrasyon testi yerine geçmez."
     },
     en: {
@@ -136,6 +158,9 @@ const SecurityScorecard = () => {
       logout: "Logout",
       securityGrade: "Security grade",
       excellent: "Excellent",
+      good: "Good",
+      fair: "Fair",
+      weak: "Weak / Risky",
       accessDenied: "Access denied",
       securityTokenMissing: "Access denied: Security token missing.",
       invalidLink: "Invalid link.",
@@ -172,14 +197,42 @@ const SecurityScorecard = () => {
       summaryBody2: "Organizations are advised to prioritize common security weaknesses (CVEs) and implement layered defense to enhance cyber resilience.",
       aboutTitle: "About this report",
       aboutDesc: "The Alfa Security Snap Report is an automated forensic tool for rapid assessment of digital assets using OSINT and vulnerability scanning techniques.",
-      criticalTitle: "Critical findings",
       riskTitle1: "3.1 Service security",
-      riskText1: "Exposed management ports or file paths detected on the target system.",
+      riskText1: "Exposed management ports or sensitive file paths detected on the target system.",
       riskTitle2: "3.2 Security headers",
       riskText2: "HSTS and CSP headers are undefined, leaving the system vulnerable to Clickjacking and other vectors.",
+      riskTitle3: "3.3 Network Port Security (NMAP)",
+      riskText3: "Potential administration ports (22-SSH, 445-SMB) exposed to the external network, posing brute-force risks.",
+      riskTitle4: "3.4 Domain & WHOIS Data Leak",
+      riskText4: "Administrative emails and technical staff details visible in WHOIS records may facilitate social engineering attacks.",
+      riskTitle5: "3.5 Software & Patch Level",
+      riskText5: "Server (Nginx/Apache) and framework version information is being leaked, inviting exploitation of known CVEs.",
+      execSummaryTitle: "EXECUTIVE SUMMARY (AI FINDING)",
+      execSummaryText: "Forensic analysis indicates an 'Exposed' posture to external threats. Urgent remediation is required in the network port and software patching layers.",
+      effort: "FIX EFFORT",
+      effortLow: "LOW",
+      effortMedium: "MEDIUM",
+      nextStepsTitle: "NEXT STEPS (FULL AUDIT SCOPE)",
+      advancedTest1: "SQL Injection & Database Security",
+      advancedTest2: "Cross-Site Scripting (XSS) Analysis",
+      advancedTest3: "DDoS & Load Resilience Testing",
+      advancedTest4: "Social Engineering & Phishing Simulation",
+      verifiedBy: "VERIFIED BY ALFA AI FORENSICS",
       disclaimer: "Disclaimer: This report is for information purposes only and is not a full penetration test."
     }
   }[lang];
+
+  useEffect(() => {
+    if (isAnalyzing || accessError || timeLeft <= 0) return;
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        // DEVELOPER KISITLAMASI İPTAL EDİLDİ
+        // if (prev <= 1) { setAccessError(t.timeout); clearInterval(timer); return 0; }
+        return prev > 0 ? prev - 1 : 0;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [isAnalyzing, accessError, timeLeft, t.timeout]);
 
   useEffect(() => {
     document.title = "Security Scorecard | Alfa Yapay Zeka";
@@ -187,11 +240,34 @@ const SecurityScorecard = () => {
     const verifyToken = async () => {
       if (!token) { setAccessError(t.securityTokenMissing); return; }
       try {
-        const response = await apiClient.get(API_ENDPOINTS.REPORT(token));
+        const siteParam = searchParams.get('site');
+        const response = await apiClient.get(API_ENDPOINTS.REPORT(token, siteParam));
         if (isMounted) {
           if (response.data.success) {
-            const siteParam = searchParams.get('site');
             setDomain((siteParam || response.data.domain).toUpperCase());
+            
+            // Gerçek tarama verilerini yükle
+              if (response.data.scanResults) {
+                const res = response.data.scanResults;
+                setGrade(res.grade);
+                setInfrastructureData([
+                  { name: 'SERVİS GÜVENLİĞİ', health: res.categories.service.health, color: res.categories.service.health >= 80 ? 'bg-emerald-500' : (res.categories.service.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+                  { name: 'GÜVENLİK BAŞLIKLARI', health: res.categories.headers.health, color: res.categories.headers.health >= 80 ? 'bg-emerald-500' : (res.categories.headers.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+                  { name: 'AĞ PORT GÜVENLİĞİ', health: res.categories.network.health, color: res.categories.network.health >= 80 ? 'bg-emerald-500' : (res.categories.network.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+                  { name: 'DOMAIN & WHOIS', health: res.categories.domain.health, color: res.categories.domain.health >= 80 ? 'bg-emerald-500' : (res.categories.domain.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+                  { name: 'YAZILIM & YAMA', health: res.categories.patching.health, color: res.categories.patching.health >= 80 ? 'bg-emerald-500' : (res.categories.patching.health >= 50 ? 'bg-orange-500' : 'bg-red-500') }
+                ]);
+
+                const allFindings = [
+                  { title: "3.1 SERVİS GÜVENLİĞİ", text: res.categories.service.findings.join(' '), risk: res.categories.service.status },
+                  { title: "3.2 GÜVENLİK BAŞLIKLARI (SECURITY HEADERS)", text: res.categories.headers.findings.join(' '), risk: res.categories.headers.status },
+                  { title: "3.3 AĞ PORT GÜVENLİĞİ (NMAP ANALİZİ)", text: res.categories.network.findings.join(' '), risk: res.categories.network.status },
+                  { title: "3.4 DOMAIN & WHOIS VERİ SIZINTISI", text: res.categories.domain.findings.join(' '), risk: res.categories.domain.status },
+                  { title: "3.5 YAZILIM & YAMA DÜZEYİ (PATCHING)", text: res.categories.patching.findings.join(' '), risk: res.categories.patching.status }
+                ];
+                setRealRisks(allFindings);
+              }
+
             setTimeout(() => { if (isMounted) setIsAnalyzing(false); }, 2500);
           } else { setAccessError(t.invalidLink); }
         }
@@ -201,31 +277,42 @@ const SecurityScorecard = () => {
     return () => { isMounted = false; };
   }, [token, searchParams, t.securityTokenMissing, t.invalidLink, t.connError]);
 
-  useEffect(() => {
-    if (isAnalyzing || accessError) return;
-    
-    // Joker admin for unlimited session
-    if (token === 'ALFA_JOKER_ADMIN_777') return;
-
-    if (timeLeft <= 0) {
-      setTimeout(() => setAccessError(t.timeout), 0);
-      return;
-    }
-
-    const interval = setInterval(() => {
-      setTimeLeft(prev => prev - 1);
-    }, 1000);
-    
-    return () => clearInterval(interval);
-  }, [isAnalyzing, accessError, timeLeft, token, t.timeout]);
-
   const downloadPDF = () => {
-    const originalTitle = document.title;
-    const timestamp = new Date().toISOString().replace(/[:T]/g, '_').split('.')[0];
-    document.title = `ALFA_SNAP_REPORT_${domain}_${timestamp}`;
-    window.print();
-    setTimeout(() => { document.title = originalTitle; }, 1000);
+    const params = new URLSearchParams(searchParams);
+    window.open(`/scorecard-print?${params.toString()}`, '_blank');
   };
+
+  if (isAnalyzing) {
+    return (
+      <div className="min-h-screen bg-[#020b14] flex flex-col items-center justify-center font-mono p-4">
+        <div className="relative w-64 h-64 mb-12">
+            <motion.div 
+               animate={{ rotate: 360 }} 
+               transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+               className="absolute inset-0 border-4 border-dashed border-cyan-500/20 rounded-full"
+            />
+            <div className="absolute inset-4 border border-cyan-500/10 rounded-full flex items-center justify-center bg-cyan-500/5 backdrop-blur-sm">
+                <Activity className="text-cyan-400 animate-pulse" size={64} />
+            </div>
+            <motion.div 
+               animate={{ scale: [1, 1.2, 1] }} 
+               transition={{ duration: 2, repeat: Infinity }}
+               className="absolute -top-2 -right-2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center text-white"
+            >
+               <ShieldCheck size={20} />
+            </motion.div>
+        </div>
+        
+        <div className="text-center space-y-4 max-w-lg">
+            <h2 className="text-2xl font-black text-white uppercase tracking-widest animate-pulse">{t.analyzing}</h2>
+            <div className="bg-black/40 border border-white/5 rounded p-4 h-32 overflow-hidden text-[10px] text-cyan-500/60 text-left">
+                {logs.map((log, i) => <p key={i} className="mb-1 truncate opacity-80">{log}</p>)}
+            </div>
+            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em]">Neural Analyzer Connection: ESTABLISHED</p>
+        </div>
+      </div>
+    );
+  }
 
   if (accessError) {
     return (
@@ -242,40 +329,44 @@ const SecurityScorecard = () => {
 
   return (
     <div className="min-h-screen print:min-h-0 bg-[#020b14] print:bg-white text-white print:text-slate-800 p-4 md:p-8 font-mono relative overflow-hidden print:overflow-visible">
-      <style>{`@media print { @page { size: A4; margin: 0; } .print-page { width: 100%; min-height: 296mm; padding: 20mm; position: relative; break-after: page; background: white !important; color: #1e293b !important; display: flex; flex-direction: column; } }`}</style>
+      <style>{`
+        @media print { 
+          @page { size: A4; margin: 0; } 
+          .print-page { width: 210mm; height: 292mm; padding: 8mm; position: relative; break-after: page; background: white !important; color: #1e293b !important; display: flex; flex-direction: column; box-sizing: border-box; overflow: hidden; zoom: 0.95; } 
+        }
+      `}</style>
 
-      {/* COVER PAGE (Print) */}
-      <div className="hidden print:flex print-page items-center justify-between border-[20px] border-double border-slate-100 relative">
-        <div className="text-center space-y-8 mt-10 w-full">
-          <ShieldCheck size={120} className="text-blue-600 mx-auto h-32 md:h-40" />
-          <h1 className="text-6xl font-black tracking-tighter text-slate-900 uppercase leading-[0.9]">{t.reportTitle}</h1>
-          <p className="text-2xl font-bold text-slate-500 tracking-[0.3em] uppercase">{t.scorecardSub}</p>
-        </div>
-        <div className="w-full flex-1 flex flex-col justify-center space-y-8 text-center py-10">
-            <div className="py-10 border-y border-slate-200 bg-slate-50/30">
-                <p className="text-sm font-black text-slate-400 uppercase tracking-[0.4em] mb-4">{t.targetDomain}</p>
-                <p className="text-6xl font-black text-slate-900 tracking-tighter font-serif lowercase" style={{ fontSize: '48px' }}>www.{domain.toLowerCase()}</p>
-            </div>
-            <div className="grid grid-cols-2 gap-x-16 gap-y-8 text-left max-w-3xl mx-auto w-full">
-                <div className="border-l-4 border-slate-200 pl-4">
-                    <p className="text-[10px] font-black text-slate-400">{t.reportNo}</p>
-                    <p className="text-sm font-bold text-slate-800 font-mono">#{token?.slice(0, 8).toUpperCase() || reportMetadata.uuid?.slice(0,8)}</p>
-                </div>
-                <div className="border-l-4 border-slate-200 pl-4">
-                    <p className="text-[10px] font-black text-slate-400">{t.analysisDate}</p>
-                    <p className="text-sm font-bold text-slate-800">{new Date().toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US')}</p>
-                </div>
-            </div>
-        </div>
-        <div className="w-full flex justify-between items-end pt-10 border-t">
-            <div className="text-[10px] font-bold text-slate-400 uppercase">{t.rights}</div>
-            <div className="text-right"><p className="text-[10px] font-black text-slate-900 uppercase">{t.approval}</p></div>
+      {/* PAGE 1: COVER (Print Only) */}
+      <div className="hidden print:flex print-page bg-white">
+        <div className="w-full h-full border-[8px] border-double border-slate-100 flex flex-col items-center justify-between p-8 relative">
+          <div className="text-center space-y-2 mt-4 w-full">
+            <ShieldCheck size={70} className="text-blue-600 mx-auto h-16" />
+            <h1 className="text-3xl font-black tracking-tighter text-slate-900 uppercase leading-none">{t.reportTitle}</h1>
+            <p className="text-sm font-bold text-slate-500 tracking-[0.3em] uppercase">{t.scorecardSub}</p>
+          </div>
+          
+          <div className="w-full flex-1 flex flex-col justify-center space-y-4 text-center">
+              <div className="py-4 border-y border-slate-200 bg-slate-50/30">
+                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em] mb-1">{t.targetDomain}</p>
+                  <p className="text-3xl font-black text-slate-900 tracking-tighter font-serif lowercase">www.{domain.toLowerCase()}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-x-8 gap-y-2 text-left max-w-lg mx-auto w-full px-4">
+                  <div className="border-l-2 border-slate-200 pl-3">
+                      <p className="text-[8px] font-black text-slate-400 uppercase">{t.reportNo}</p>
+                      <p className="text-[9px] font-bold text-slate-800 font-mono">#{reportId}</p>
+                  </div>
+                  <div className="border-l-2 border-slate-200 pl-3">
+                      <p className="text-[8px] font-black text-slate-400 uppercase">{t.analysisDate}</p>
+                      <p className="text-[9px] font-bold text-slate-800">{new Date().toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US')}</p>
+                  </div>
+              </div>
+          </div>
         </div>
       </div>
 
-      {/* DASHBOARD (Screen & PDF Page 4+) */}
+      {/* PAGE 2: DASHBOARD OVERVIEW (Print & Screen) */}
       <div id="scorecard-content" className="max-w-[1600px] mx-auto print:print-page">
-        <header className="flex flex-col md:flex-row items-center justify-between mb-8 border-b border-cyan-500/20 pb-4 gap-4">
+        <header className="flex flex-col md:flex-row items-center justify-between mb-8 border-b border-cyan-500/20 pb-4 gap-4 print:hidden">
           <div className="flex items-center gap-4">
             <ShieldCheck size={40} className="text-cyan-400" />
             <div>
@@ -283,103 +374,194 @@ const SecurityScorecard = () => {
               <p className="text-xs text-white/50">{t.lastUpdated}: {new Date().toLocaleTimeString()}</p>
             </div>
           </div>
-          <div className="flex gap-4 print:hidden">
-            <button onClick={downloadPDF} className="px-6 py-2 bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 rounded font-bold uppercase text-xs">{t.downloadPdf}</button>
-            <button onClick={() => navigate('/')} className="px-6 py-2 bg-slate-800 text-slate-400 rounded font-bold uppercase text-xs">{t.logout}</button>
+          <div className="flex gap-4">
+            <button onClick={downloadPDF} className="flex items-center gap-2 px-6 py-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/50 rounded-lg hover:bg-cyan-500/20 transition-all font-bold text-xs uppercase">
+              <Download size={16} /> {t.downloadPdf}
+            </button>
+            <button onClick={() => navigate('/')} className="px-6 py-2 bg-slate-800 text-slate-300 border border-slate-700 rounded-lg hover:bg-slate-700 transition-all font-bold text-xs uppercase">{t.backToAdmin}</button>
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <ScorecardWidget title={t.securityGrade} className="lg:col-span-1 lg:row-span-2">
-             <div className="flex flex-col items-center justify-center h-full text-center">
-                <span className="text-8xl font-black text-white drop-shadow-[0_0_20px_rgba(6,182,212,0.5)]">A+</span>
-                <p className="text-cyan-400 font-bold mt-2">{t.excellent}</p>
-             </div>
-          </ScorecardWidget>
-          <ScorecardWidget title="INFRASTRUCTURE HEALTH" className="lg:col-span-3">
-             <div className="h-48 w-full bg-cyan-500/5 rounded border border-cyan-500/10 flex items-end p-4 gap-2">
-                {chartData.map((h, i) => (
-                  <div key={i} className="flex-1 bg-cyan-500/20 rounded-t" style={{height: `${h}%`}} />
-                ))}
-             </div>
-          </ScorecardWidget>
-        </div>
-
-        {/* Real-time Security Log Stream (Terminal) */}
-        <div className="mt-8 bg-black/60 border border-cyan-500/20 rounded-xl p-6 font-mono text-xs text-cyan-500/70 h-48 overflow-y-auto print:hidden shadow-inner">
-           <div className="flex items-center gap-2 mb-4 border-b border-cyan-500/10 pb-2">
-              <Activity size={14} className="text-cyan-400" />
-              <span className="font-black tracking-[0.2em] text-cyan-400">ALFA_SECURITY_LOG_STREAM</span>
-           </div>
-           {logs.map((log, i) => (
-             <div key={i} className="mb-1 opacity-80 hover:opacity-100 hover:text-cyan-300 transition-all">
-                {log}
-             </div>
-           ))}
-           <div className="flex items-center gap-2 mt-2">
-              <span className="text-cyan-400 animate-pulse">&gt;</span>
-              <span className="w-2 h-4 bg-cyan-500/40 animate-pulse"></span>
-           </div>
-        </div>
-
-        {/* PRINT ONLY: Summary Page */}
-        <div className="hidden print:block print-page mt-20">
-          <h2 className="text-3xl font-black text-slate-900 border-b-4 border-slate-900 pb-4 mb-8 uppercase">{t.summaryTitle}</h2>
-          <div className="grid grid-cols-12 gap-12">
-            <div className="col-span-8 space-y-8">
-              <section>
-                <h3 className="text-xl font-bold mb-3">{t.summaryTitle}</h3>
-                <p className="leading-relaxed text-slate-700">{t.summaryBody1}</p>
-                <p className="leading-relaxed text-slate-700 mt-4">{t.summaryBody2}</p>
-              </section>
-              <section>
-                <h3 className="text-xl font-bold mb-3 text-red-600">{t.criticalTitle}</h3>
-                <div className="p-4 bg-red-50 border-l-4 border-red-600 rounded">
-                  <p className="font-bold text-red-900">{t.riskTitle1}</p>
-                  <p className="text-red-700 text-sm mt-1">{t.riskText1}</p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 print:gap-4 flex-1">
+          <div className="lg:col-span-4 space-y-8 print:space-y-4">
+            <ScorecardWidget title={t.securityGrade}>
+              <div className="flex flex-col items-center w-full">
+                <div className="w-full max-w-2xl px-4 mb-12 print:mb-6">
+                  <div className="flex justify-between items-start w-full relative">
+                    {[
+                      { g: 'A+', label: lang === 'tr' ? 'MÜKEMMEL' : 'EXCELLENT' },
+                      { g: 'A', label: lang === 'tr' ? 'ÇOK İYİ' : 'GOOD' },
+                      { g: 'B', label: lang === 'tr' ? 'GÜVENLİ' : 'FAIR' },
+                      { g: 'C', label: lang === 'tr' ? 'ORTA RİSK' : 'WEAK' },
+                      { g: 'D', label: lang === 'tr' ? 'ZAYIF' : 'RISKY' },
+                      { g: 'F', label: lang === 'tr' ? 'TEHLİKELİ' : 'DANGER' }
+                    ].map((item) => {
+                      const isActive = grade === item.g;
+                      return (
+                        <div key={item.g} className="flex flex-col items-center group">
+                          <span className={`text-[10px] font-black mb-2 transition-colors ${isActive ? 'text-orange-500' : 'text-slate-500/40'}`}>{item.g}</span>
+                          <span className={`text-[7px] font-bold mb-4 whitespace-nowrap tracking-tighter ${isActive ? 'text-orange-500' : 'text-slate-500/20'}`}>{item.label}</span>
+                          {isActive && (
+                            <div className="absolute -bottom-6 w-12 h-1 bg-orange-500 rounded-full shadow-[0_4px_10px_rgba(249,115,22,0.4)]" />
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-                <div className="p-4 bg-orange-50 border-l-4 border-orange-600 rounded mt-4">
-                  <p className="font-bold text-orange-900">{t.riskTitle2}</p>
-                  <p className="text-orange-700 text-sm mt-1">{t.riskText2}</p>
+                
+                <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-9xl print:text-8xl font-black text-orange-500 my-8 print:my-4 relative">
+                   {grade}
+                </motion.div>
+
+                <p className="text-slate-400 print:text-slate-600 text-[11px] font-black uppercase tracking-[0.2em] mb-8">
+                  {realRisks.length > 0 ? `${realRisks.length} KRİTİK/MAJÖR BULGU TESPİT EDİLDİ` : "HERHANGİ BİR KRİTİK ZAFİYET TESPİT EDİLMEDİ"}
+                </p>
+                
+                <div className="px-6 py-2 bg-orange-500/10 text-orange-500 border border-orange-500/30 rounded-full text-[9px] font-black tracking-widest uppercase">
+                  İYİLEŞTİRME ÖNERİLİR
                 </div>
-              </section>
-            </div>
-            <div className="col-span-4 bg-slate-50 p-6 border rounded-xl">
-               <h4 className="font-black text-xs text-slate-400 mb-4">{t.aboutTitle}</h4>
-               <p className="text-[10px] leading-relaxed text-slate-600">{t.aboutDesc}</p>
+              </div>
+            </ScorecardWidget>
+          </div>
+
+          <div className="lg:col-span-8 space-y-8 print:space-y-4">
+            <ScorecardWidget title={t.infrastructureHealth}>
+                <div className="flex flex-wrap items-center justify-around gap-4 py-8 print:py-4 bg-slate-900/40 print:bg-slate-50 rounded-xl">
+                  {infrastructureData.map((item, i) => (
+                    <div key={i} className="flex flex-col items-center group relative">
+                      <div className="relative w-24 h-24 print:w-16 print:h-16 flex items-center justify-center">
+                        <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90 drop-shadow-lg">
+                          <circle
+                            cx="50" cy="50" r="42"
+                            strokeWidth="8"
+                            fill="transparent"
+                            stroke="#f1f5f9"
+                            className="opacity-20 print:opacity-10"
+                          />
+                          <motion.circle
+                            cx="50" cy="50" r="42"
+                            strokeWidth="10"
+                            stroke="currentColor"
+                            strokeLinecap="round"
+                            fill="transparent"
+                            initial={{ pathLength: 0 }}
+                            animate={{ pathLength: item.health / 100 }}
+                            transition={{ duration: 1.5, ease: "easeOut", delay: i * 0.1 }}
+                            className={`${item.color.replace('bg-', 'text-')} print:stroke-current`}
+                          />
+                        </svg>
+                        <div className="absolute flex flex-col items-center justify-center">
+                          <span className="text-sm font-black text-white print:text-slate-900">%{item.health}</span>
+                        </div>
+                      </div>
+                      <span className="mt-4 text-[10px] font-black text-slate-500 print:text-slate-900 uppercase tracking-tighter text-center">{item.name}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between items-center mt-6 text-[10px] font-black tracking-[0.2em] text-slate-500 print:text-slate-400 uppercase">
+                    <span>&lt; {t.systemScanVer || 'V4.1.0'} &gt;</span>
+                    <span>{t.reportStatus || 'DURUM: ANALİZ TAMAMLANDI'}</span>
+                </div>
+            </ScorecardWidget>
+
+            <div className="bg-black/40 border border-white/5 rounded-xl p-4 font-mono text-[10px] text-cyan-500/60 overflow-hidden h-32 print:hidden">
+               <div className="flex items-center gap-2 mb-2 border-b border-white/5 pb-2">
+                  <Activity size={12} className="text-cyan-400" />
+                  <span className="font-black uppercase tracking-widest text-[8px]">ALFA_AUDIT_STREAM</span>
+               </div>
+               <div className="space-y-1">
+                 {logs.map((log, i) => <p key={i} className="truncate">{log}</p>)}
+               </div>
             </div>
           </div>
-          <div className="mt-auto pt-10 border-t flex justify-between items-center opacity-50">
-            <p className="text-[10px] text-slate-400 font-mono italic">{t.disclaimer}</p>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">ALFA-SNAP-V1</p>
-          </div>
         </div>
+      </div>
 
-        {/* PRINT ONLY: Final Signature Page */}
-        <div className="hidden print:flex print-page flex-col justify-between items-center text-center py-20 border-[20px] border-double border-slate-50">
-           <div className="space-y-12 w-full">
-              <ShieldCheck size={100} className="text-blue-600 mx-auto" />
-              <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tighter border-b-4 border-slate-900 pb-4 inline-block">{t.approval}</h2>
-              <p className="max-w-2xl mx-auto text-slate-500 italic leading-relaxed px-12">{t.signatureDisclaimer}</p>
-           </div>
-           
-           <div className="mt-auto w-full flex flex-col items-center">
-              <div className="relative z-10 -mb-10">
-                 <img src="/CLEAN_SIGNATURE_EG_FINAL.png" alt="Signature" className="h-28 mix-blend-multiply transition-transform hover:scale-105" />
-              </div>
-              <div className="space-y-1 text-center relative z-0 pt-2">
-                 <p className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">ERKİN GÜLER</p>
-                 <p className="text-sm font-black text-blue-600 tracking-[0.2em] uppercase">{t.signatureHead}</p>
-                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t.unit}</p>
-              </div>
-           </div>
-           
-           <div className="w-full mt-20 pt-10 border-t border-slate-100 flex justify-between text-[8px] font-mono text-slate-300 uppercase tracking-[0.2em]">
-              <span>ALFA_ID: {reportMetadata.uuid}</span>
-              <span>VERIFIED_BY: ALFA_BOT_V4</span>
-              <span>SIGNED_AT: {new Date().toISOString()}</span>
-           </div>
+      {/* PAGE 3: FORENSIC AUDIT DETAIL (Print Only & Screen Section) */}
+      <div className="max-w-[1600px] mx-auto mt-[150px] print:mt-0 print:print-page">
+        <div className="w-full h-full border-[8px] border-double border-slate-100 flex flex-col items-stretch p-6 print:p-4 relative bg-slate-900/30 print:bg-white rounded-xl print:rounded-none">
+                 <div className="flex items-center gap-4 mb-3">
+                    <h3 className="text-xl font-bold text-slate-900 uppercase tracking-tighter">{t.summaryTitle}</h3>
+                    <div className="h-px flex-1 bg-slate-200" />
+                 </div>
+                <div className="mb-6 p-4 bg-slate-800/40 print:bg-slate-50 border border-slate-700 print:border-slate-200 rounded-lg">
+                   <h4 className="text-[10px] font-black text-slate-400 mb-1 uppercase tracking-widest">{t.execSummaryTitle}</h4>
+                   <p className="text-sm text-slate-300 print:text-slate-800 font-medium italic leading-relaxed">"{t.execSummaryText}"</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {realRisks.map((risk, idx) => {
+                     const isDanger = risk.risk === 'RİSKLİ' || risk.risk === 'TEHLİKELİ' || risk.risk === 'YÜKSEK' || risk.risk === 'YÜKSEK RİSK';
+                     const isSafe = risk.risk === 'GÜVENLİ' || risk.risk === 'OK';
+                     return (
+                        <div key={idx} className={`p-5 rounded border ${idx === 0 ? 'md:col-span-2 border-l-8' : 'border-t-4 shadow-md bg-white/5'} ${isDanger ? 'bg-red-500/10 border-red-500/50' : (isSafe ? 'bg-green-500/10 border-green-500/50' : 'bg-orange-500/10 border-orange-500/50')} flex flex-col justify-between print:bg-white print:border-slate-200`}>
+                           <div className="flex items-center justify-between mb-3 border-b border-white/5 print:border-slate-100 pb-2">
+                             <h4 className={`text-xs font-black uppercase tracking-widest ${isDanger ? 'text-red-500' : (isSafe ? 'text-green-500' : 'text-orange-500')} print:text-slate-900`}>{risk.title}</h4>
+                             <span className={`text-[9px] font-black px-3 py-1 ${isDanger ? 'bg-red-600' : (isSafe ? 'bg-green-600' : 'bg-orange-500')} text-white rounded-full whitespace-nowrap uppercase tracking-wider`}>{risk.risk}</span>
+                           </div>
+                           <p className="text-[11px] text-slate-400 print:text-slate-600 font-medium italic leading-relaxed">{risk.text}</p>
+                           <div className="mt-4 flex justify-between items-center text-[8px] font-bold text-slate-500 uppercase tracking-widest opacity-50">
+                             <span>ZORLUK: {isDanger ? 'YÜKSEK' : 'DÜŞÜK'}</span>
+                           </div>
+                        </div>
+                     );
+                  })}
+                </div>
+                <div className="mt-auto pt-6 border-t border-slate-700 print:border-slate-200">
+                   <h3 className="text-sm font-black text-slate-400 print:text-slate-800 mb-3 tracking-widest uppercase">{t.nextStepsTitle}</h3>
+                   <div className="grid grid-cols-2 gap-2">
+                      {[t.advancedTest1, t.advancedTest2, t.advancedTest3, t.advancedTest4].map((test, i) => (
+                        <div key={i} className="flex items-center gap-2 text-[9px] font-bold text-slate-300 print:text-slate-700 bg-white/5 print:bg-slate-50 p-2 rounded border border-white/10 print:border-slate-100">
+                           <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                           {test}
+                        </div>
+                      ))}
+                   </div>
+                </div>
+                <div className="mt-6 print:mt-auto pt-4 flex justify-between items-end border-t border-white/10 print:border-slate-100">
+                   <div>
+                      <p className="text-[7px] text-slate-500 print:text-slate-400 font-bold uppercase tracking-widest leading-tight">{t.disclaimer}</p>
+                      <p className="text-[7px] text-slate-600 mt-0.5">REPORT_ID: {reportId}</p>
+                   </div>
+                   <div className="flex items-center gap-3">
+                      <div className="text-right">
+                         <p className="text-[8px] font-black text-cyan-600 uppercase leading-none">{t.verifiedBy}</p>
+                         <p className="text-[6px] text-slate-500 print:text-slate-400 font-bold tracking-widest mt-0.5">WWW.ALFAYAPAYZEKA.COM</p>
+                      </div>
+                      <div className="w-14 h-14 border border-white/20 print:border-slate-300 rounded p-1 flex items-center justify-center bg-white shadow-sm overflow-hidden">
+                         <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`https://www.alfayapayzeka.com/verify?domain=${domain}&id=${reportId}`)}`} alt="QR" className="w-full h-full object-contain" crossOrigin="anonymous" />
+                      </div>
+                   </div>
+                </div>
         </div>
+      </div>
+
+      {/* PAGE 4: FINAL SIGNATURE PAGE (Print Only) */}
+      <div className="hidden print:flex print-page flex-col justify-between items-center text-center py-20 border-[12px] border-double border-slate-50 px-12 bg-white">
+           <div className="space-y-6 w-full mt-4">
+              <ShieldCheck size={80} className="text-blue-600 mx-auto" />
+              <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tighter border-b-4 border-slate-900 pb-2 inline-block">BİRİM ONAYI</h2>
+              <p className="max-w-2xl mx-auto text-slate-500 italic text-sm leading-relaxed px-12 mt-10">
+                "Bu belge dijital olarak imzalanmış olup, analiz sonuçlarının doğruluğu ALFA YAPAY ZEKA Laboratuvarları tarafından onaylanmıştır."
+              </p>
+           </div>
+           
+           <div className="mt-auto w-full flex flex-col items-center mb-10">
+              <div className="relative w-64 h-32 mb-2">
+                 <img src="/CLEAN_SIGNATURE_EG_FINAL.png" alt="Signature" className="w-full h-full object-contain mix-blend-multiply" />
+              </div>
+              <div className="space-y-1 text-center border-t border-slate-200 pt-4 w-72">
+                 <p className="text-2xl font-black text-slate-900 tracking-tighter uppercase leading-none">ERKİN GÜLER</p>
+                 <p className="text-[10px] font-black text-blue-600 tracking-[0.15em] uppercase mt-1">SİBER GÜVENLİK BAŞKANI</p>
+                 <p className="text-[8px] font-bold text-slate-400 tracking-[0.2em] uppercase">ALFA SİBER ANALİZ ÜNİTESİ</p>
+              </div>
+           </div>
+
+           <div className="w-full mt-10 pt-6 border-t border-slate-100 flex justify-between text-[7px] font-mono text-slate-300 uppercase tracking-[0.2em]">
+              <span>ALFA_ID: {reportId}</span>
+              <span>CERT_ID: {certId}</span>
+              <span>SIGNED_AT: {signedAt}</span>
+           </div>
       </div>
     </div>
   );

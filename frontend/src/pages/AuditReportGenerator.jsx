@@ -286,6 +286,27 @@ const AuditReportGenerator = () => {
   const siteName = (siteParam || 'site.com').toUpperCase();
   const isAdmin = isAuth === 'true' || adminParam === 'true';
 
+  const [auditData, setAuditData] = React.useState(null);
+  const [isAuditLoading, setIsAuditLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchAudit = async () => {
+      try {
+        const HOST = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://api.alfayapayzeka.com';
+        const res = await fetch(`${HOST}/api/full-audit?url=${siteName.toLowerCase()}`);
+        const data = await res.json();
+        if(data.success) {
+           setAuditData(data.results);
+        }
+      } catch(e) {
+        console.error(e);
+      } finally {
+        setIsAuditLoading(false);
+      }
+    };
+    fetchAudit();
+  }, [siteName]);
+
   const t = {
     tr: {
       reportTitle: "ALFA PENETRASYON RAPOR MÜHENDİSLİĞİ",
@@ -415,6 +436,16 @@ const AuditReportGenerator = () => {
     setTimeout(() => { document.title = originalTitle; }, 1000);
   };
 
+  if (isAuditLoading) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-[#f8fafc]">
+        <Activity size={48} className="text-primary animate-spin mb-4" />
+        <h2 className="text-2xl font-black text-slate-800 tracking-widest uppercase">Motor Yükleniyor...</h2>
+        <p className="text-slate-500 font-mono mt-2 text-sm">Hedef ({siteName}) analiz ediliyor, lütfen bekleyin.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="bg-gray-100 min-h-screen py-10 print:py-0 font-sans print:bg-white text-black text-left">
       <div className="max-w-[210mm] mx-auto shadow-2xl bg-white print:shadow-none">
@@ -467,12 +498,40 @@ const AuditReportGenerator = () => {
                 <Activity size={12} /> <span>root@alfa-audit:~# tail -f /var/log/security/forensic_{pIdx}.log</span>
               </div>
               <div className="font-mono text-[8px] bg-gray-50 p-4 border rounded leading-tight h-[850px] overflow-hidden opacity-80">
-                {Array.from({length: 60}).map((_, j) => (
-                   <div key={j} className="mb-1">
-                      [{new Date().toISOString()}] [ALFA-SEC-{pIdx}-{j}] ANALYZING BLOCK... <span className={j%10===0 ? "text-red-600 font-bold":"text-blue-600"}>{j%10===0 ? "CRITICAL_FINDING":"STABLE"}</span>
-                      {j%15===0 && <div className="pl-4 text-red-500 font-bold">&gt;&gt;&gt; [!] ALERT: Potential memory corruption in endpoint 0x{j.toString(16)}</div>}
-                   </div>
-                ))}
+                {Array.from({length: 60}).map((_, j) => {
+                    if (!auditData) {
+                       return (
+                         <div key={j} className="mb-1">
+                            [{new Date().toISOString()}] [ALFA-SEC-{pIdx}-{j}] ANALYZING BLOCK... <span className="text-blue-600">STABLE</span>
+                         </div>
+                       );
+                    }
+                    
+                    let secKey = 's1';
+                    if (pIdx >= 4 && pIdx < 31) secKey = 's1';
+                    else if (pIdx >= 31 && pIdx < 81) secKey = 's2';
+                    else if (pIdx >= 81 && pIdx < 131) secKey = 's3';
+                    else if (pIdx >= 131 && pIdx < 181) secKey = 's4';
+                    else if (pIdx >= 181 && pIdx < 221) secKey = 's5';
+                    else if (pIdx >= 221 && pIdx < 250) secKey = 's6';
+                    
+                    const logs = auditData.sections[secKey]?.logs || [];
+                    let logLine = `[ALFA-SEC-${pIdx}-${j}] ANALYZING BLOCK... STABLE`;
+                    let statClass = "text-blue-600";
+                    
+                    if (logs.length > 0) {
+                        logLine = logs[(pIdx * 10 + j) % logs.length];
+                        if (logLine.includes("CRITICAL") || logLine.includes("ALERT") || logLine.includes("WARN")) {
+                            statClass = "text-red-500 font-bold";
+                        }
+                    }
+                    
+                    return (
+                       <div key={j} className="mb-1 leading-relaxed">
+                          <span className={statClass}>{logLine}</span>
+                       </div>
+                    );
+                })}
               </div>
             </Page>
           );

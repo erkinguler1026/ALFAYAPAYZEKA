@@ -17,8 +17,10 @@ import AIPentest from './pages/AIPentest';
 import ContractView from './pages/ContractView';
 import SnapReport from './pages/SnapReport';
 import SecurityScorecard from './pages/SecurityScorecard';
+import SnapReportPrint from './pages/SnapReportPrint';
 import AuditReportGenerator from './pages/AuditReportGenerator';
 import AdminDashboard from './pages/AdminDashboard';
+import FullReportPrint from './pages/FullReportPrint';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni (V1.4.0)
@@ -58,7 +60,9 @@ const App = () => {
           <Route path="snap-report" element={<SnapReport />} />
           <Route path="ai-pentest" element={<AIPentest />} />
           <Route path="scorecard" element={<SecurityScorecard />} />
+          <Route path="scorecard-print" element={<SnapReportPrint />} />
           <Route path="audit-generator" element={<AuditReportGenerator />} />
+          <Route path="full-pentest-print" element={<FullReportPrint />} />
           <Route path="admin-panel" element={<AdminDashboard />} />
           <Route path="sozlesme/:type" element={<ContractView />} />
         </Route>

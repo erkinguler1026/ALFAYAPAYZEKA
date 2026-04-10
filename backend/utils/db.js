@@ -58,7 +58,7 @@ export const saveReports = async (reports) => {
   await fs.writeFile(DB_FILE, JSON.stringify(reports, null, 2));
 };
 
-export const createReport = async (domain, email) => {
+export const createReport = async (domain, email, scanResults = null) => {
   const reports = await getReports();
   const id = crypto.randomUUID();
   const newReport = {
@@ -67,7 +67,8 @@ export const createReport = async (domain, email) => {
     email,
     clicks: 0,
     maxClicks: 3,
-    createdAt: Date.now()
+    createdAt: Date.now(),
+    scanResults // Gerçek analiz verileri burada saklanır
   };
   reports.push(newReport);
   await saveReports(reports);

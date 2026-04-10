@@ -148,7 +148,7 @@ export const apiClient = {
 };
 
 export const API_ENDPOINTS = {
-  REPORT: (token) => `/api/report/${token}`,
+  REPORT: (token, site) => `/api/report/${token}${site ? `?site=${encodeURIComponent(site)}` : ''}`,
   CONTACT: `/api/contact`,
   HEALTH: `/api/health`,
 };

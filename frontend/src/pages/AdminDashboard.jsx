@@ -90,7 +90,7 @@ const AdminDashboard = () => {
     setIsProcessing(true);
     const domain = getCleanDomain(targetUrl);
     setTimeout(() => {
-      navigate(`/audit-generator?site=${domain}&admin=true&lang=${lang}`);
+      navigate(`/full-pentest-print?site=${domain}`);
     }, 2000);
   };
 
