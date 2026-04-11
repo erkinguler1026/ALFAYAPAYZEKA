@@ -92,11 +92,11 @@ const SnapReportPrint = () => {
           ]);
 
           const allFindings = [
-            { title: lang === 'tr' ? "3.1 SERVİS GÜVENLİĞİ" : "3.1 SERVICE SECURITY", text: res.categories.service.findings.join(' '), risk: res.categories.service.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.9" },
-            { title: lang === 'tr' ? "3.2 GÜVENLİK BAŞLIKLARI" : "3.2 SECURITY HEADERS", text: res.categories.headers.findings.join(' '), risk: res.categories.headers.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.26" },
-            { title: lang === 'tr' ? "3.3 AĞ PORT GÜVENLİĞİ" : "3.3 NETWORK SECURITY", text: res.categories.network.findings.join(' '), risk: res.categories.network.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.20" },
-            { title: lang === 'tr' ? "3.4 DOMAIN & WHOIS" : "3.4 DOMAIN & WHOIS LEAK", text: res.categories.domain.findings.join(' '), risk: res.categories.domain.status, isoTag: "ISO 27001:2022 EK-A Madde A.5.7" },
-            { title: lang === 'tr' ? "3.5 YAZILIM & YAMA" : "3.5 SOFTWARE & PATCHING", text: res.categories.patching.findings.join(' '), risk: res.categories.patching.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.8" }
+            { title: lang === 'tr' ? "3.1 SERVİS GÜVENLİĞİ" : "3.1 SERVICE SECURITY", text: res.categories.service.findings.join(' '), risk: res.categories.service.status, isoTag: lang === 'tr' ? "ISO 27001:2022 EK-A Madde A.8.9" : "ISO 27001:2022 ANNEX-A Control A.8.9" },
+            { title: lang === 'tr' ? "3.2 GÜVENLİK BAŞLIKLARI" : "3.2 SECURITY HEADERS", text: res.categories.headers.findings.join(' '), risk: res.categories.headers.status, isoTag: lang === 'tr' ? "ISO 27001:2022 EK-A Madde A.8.26" : "ISO 27001:2022 ANNEX-A Control A.8.26" },
+            { title: lang === 'tr' ? "3.3 AĞ PORT GÜVENLİĞİ" : "3.3 NETWORK SECURITY", text: res.categories.network.findings.join(' '), risk: res.categories.network.status, isoTag: lang === 'tr' ? "ISO 27001:2022 EK-A Madde A.8.20" : "ISO 27001:2022 ANNEX-A Control A.8.20" },
+            { title: lang === 'tr' ? "3.4 DOMAIN & WHOIS" : "3.4 DOMAIN & WHOIS LEAK", text: res.categories.domain.findings.join(' '), risk: res.categories.domain.status, isoTag: lang === 'tr' ? "ISO 27001:2022 EK-A Madde A.5.7" : "ISO 27001:2022 ANNEX-A Control A.5.7" },
+            { title: lang === 'tr' ? "3.5 YAZILIM & YAMA" : "3.5 SOFTWARE & PATCHING", text: res.categories.patching.findings.join(' '), risk: res.categories.patching.status, isoTag: lang === 'tr' ? "ISO 27001:2022 EK-A Madde A.8.8" : "ISO 27001:2022 ANNEX-A Control A.8.8" }
           ];
           setRealRisks(allFindings);
           
