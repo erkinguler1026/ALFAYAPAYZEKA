@@ -12,15 +12,15 @@ import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
 import Offer from './pages/Offer';
 import Legal from './pages/Legal';
-import WebRisk from './pages/WebRisk';
-import AIPentest from './pages/AIPentest';
-import ContractView from './pages/ContractView';
-import SnapReport from './pages/SnapReport';
-import SnapScoreCard from './pages/SnapScoreCard';
-import SnapReportPrint from './pages/SnapReportPrint';
-import AuditReportGenerator from './pages/AuditReportGenerator';
+import WebRisk from './pages/freePages/WebRisk';
+import AIPentest from './pages/freePages/AIPentest';
+import ContractView from './pages/fullPages/ContractView';
+import SnapReport from './pages/fullPages/SnapReport';
+import SnapScoreCard from './pages/fullPages/SnapScoreCard';
+import SnapReportPrint from './pages/fullPages/SnapReportPrint';
+import AuditReportGenerator from './pages/fullPages/AuditReportGenerator';
 import AdminDashboard from './pages/AdminDashboard';
-import FullReportPrint from './pages/FullReportPrint';
+import FullReportPrint from './pages/fullPages/FullReportPrint';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni (V1.4.0)

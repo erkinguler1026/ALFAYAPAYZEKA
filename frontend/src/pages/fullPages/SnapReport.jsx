@@ -6,9 +6,9 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import MatrixRain from '../components/MatrixRain';
-import CampaignCountdown from '../components/CampaignCountdown';
-import { submitContactForm, isLocalEnvironment } from '../utils/api';
+import MatrixRain from '../../components/MatrixRain';
+import CampaignCountdown from '../../components/CampaignCountdown';
+import { submitContactForm, isLocalEnvironment } from '../../utils/api';
 
 /**
  * SnapReport Sayfası — Dijital Zırh 60 Kampanyası

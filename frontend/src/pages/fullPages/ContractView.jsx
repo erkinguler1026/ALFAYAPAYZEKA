@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Printer, ArrowLeft, ShieldCheck, Download, FileText } from 'lucide-react';
-import { contractsData } from '../data/contracts';
+import { contractsData } from '../../data/contracts';
 
 /**
  * ContractView — Profesyonel Sözleşme Sistemi (V1.4.0)

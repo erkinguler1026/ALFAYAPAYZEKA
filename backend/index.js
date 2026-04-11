@@ -24,9 +24,9 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import { createReport, getAndIncrementReport } from './utils/db.js';
-import FreePentestEngine from './utils/freePentestEngine.js';
-import { generateFullAudit } from './utils/fullPentestEngine.js';
-import { generateFullPentestReport } from './utils/realFullPentestEngine.js';
+import FreePentestEngine from './utils/freeUtils/freePentestEngine.js';
+import { generateFullAudit } from './utils/fullUtils/fullPentestEngine.js';
+import { generateFullPentestReport } from './utils/fullUtils/realFullPentestEngine.js';
 import rateLimit from 'express-rate-limit';
 
 dotenv.config();

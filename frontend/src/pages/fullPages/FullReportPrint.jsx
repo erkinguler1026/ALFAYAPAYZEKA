@@ -8,7 +8,7 @@ import {
   ExternalLink, Calendar, Wifi, Eye, Key, Cookie, 
   Terminal, SearchCode, BookOpen, AlertCircle
 } from 'lucide-react';
-import { apiClient } from '../utils/api';
+import { apiClient } from '../../utils/api';
 
 /* ─────────────────────────────────────────────
    HELPERS

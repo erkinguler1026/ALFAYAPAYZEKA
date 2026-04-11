@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { 
   ShieldCheck, ShieldAlert, Activity, Download, Timer, Clock, Lock, AlertTriangle, Loader2, ArrowLeft, Printer
 } from 'lucide-react';
-import { apiClient, API_ENDPOINTS } from '../utils/api';
+import { apiClient, API_ENDPOINTS } from '../../utils/api';
 
 const SNAP_STEPS = [
   'Hedef Sunucu IP ve Lokasyon Analizi',

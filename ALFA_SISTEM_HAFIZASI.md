@@ -31,9 +31,20 @@
 - **Onay Sayfası Tasarımı:** 4. Sayfadaki "UNIT APPROVAL" mühür kutusu; hem başlığı hem de firma URL'sini (text-lg) iki kalın daktilo çizgisi içinde barındıracak şekilde finalize edildi.
 
 ---
-**Geliştirici (Kullanıcı) Ek Notları:**
-Sistem şu an tam bir profesyonel siber güvenlik denetim aracı olgunluğuna erişmiştir. Yapılan her dil veya tasarım değişikliğinde `lang` parametresinin `searchParams` üzerinden taşındığından emin olunmalıdır. 
-İngilizce raporlardaki terminoloji (Risk Detected, Secure, Critical Findings vb.) uluslararası penetrasyon test standartlarına (NIST, OWASP) uyumlu hale getirilmiştir.
-URL temizleme mantığı: `domain.toLowerCase().replace(/^(https?:\/\/)?(www\.)?/, '').replace(/^www/, '')`
+---
 
+## 5. Mimari Yapılandırma (Tiered Organization)
+Sistem, "Free" ve "Full" katmanlarına göre kategorize edilmiştir. Bu hiyerarşik yapı korunmalı ve yeni dosyalar ilgili alt klasörlere eklenmelidir.
+
+### 5.1 Frontend (pages/)
+- **freePages/**: Ücretsiz servisler (`WebRisk.jsx`, `AIPentest.jsx`).
+- **fullPages/**: Profesyonel denetim ve raporlama araçları (`SnapScoreCard.jsx`, `SnapReportPrint.jsx`, `FullReportPrint.jsx`, `SnapReport.jsx`, `AuditReportGenerator.jsx`, `ContractView.jsx`).
+
+### 5.2 Backend (utils/)
+- **freeUtils/**: Temel analiz motorları (`freePentestEngine.js`, `pentestEngine.js`, `urlAnalyzer.js`).
+- **fullUtils/**: Gelişmiş sızma testi motorları ve kütüphaneler (`realFullPentestEngine.js`, `findingLibrary.js`, `fullPentestEngine.js`).
+
+---
+*Son Güncelleme: 11.04.2026*
+*Durum: Mimari Yeniden Yapılandırma (Tiered Folder System) Tamamlandı. Sistem Stabil.*
 

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { ShieldAlert, ChevronRight, BarChart3, Lock, Zap, CheckCircle2, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { submitContactForm } from '../utils/api';
+import { submitContactForm } from '../../utils/api';
 
 const WebRisk = () => {
   const [formData, setFormData] = useState({
