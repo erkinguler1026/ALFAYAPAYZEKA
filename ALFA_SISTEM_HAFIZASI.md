@@ -37,8 +37,8 @@
 Sistem, "Free" ve "Full" katmanlarına göre kategorize edilmiştir. Bu hiyerarşik yapı korunmalı ve yeni dosyalar ilgili alt klasörlere eklenmelidir.
 
 ### 5.1 Frontend (pages/)
-- **freePages/**: Ücretsiz servisler (`WebRisk.jsx`, `AIPentest.jsx`).
-- **fullPages/**: Profesyonel denetim ve raporlama araçları (`SnapScoreCard.jsx`, `SnapReportPrint.jsx`, `FullReportPrint.jsx`, `SnapReport.jsx`, `AuditReportGenerator.jsx`, `ContractView.jsx`).
+- **freePages/**: Ücretsiz servisler (`WebRisk.jsx`, `AIPentest.jsx`, `SnapReport.jsx`, `SnapScoreCard.jsx`, `SnapReportPrint.jsx`).
+- **fullPages/**: Profesyonel denetim ve raporlama araçları (`FullReportPrint.jsx`, `AuditReportGenerator.jsx`, `ContractView.jsx`).
 
 ### 5.2 Backend (utils/)
 - **freeUtils/**: Temel analiz motorları (`freePentestEngine.js`, `pentestEngine.js`, `urlAnalyzer.js`).
