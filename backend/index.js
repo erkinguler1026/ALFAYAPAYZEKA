@@ -54,13 +54,13 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-// Rate Limiter — Full Pentest V2.0 (9 gerçek API çağrısı yaptığı için sınırlandırıldı)
+// Rate Limiter — Full Pentest V2.0 (Geliştirme aşamasında esnetildi: 2dk'da 10 istek)
 const fullPentestLimiter = rateLimit({
   windowMs: 2 * 60 * 1000,  // 2 dakika
-  max: 2,                    // maks 2 istek (tarama ~40sn sürebilir)
+  max: 10,                   // maks 10 istek (test sürecinde esneklik için)
   standardHeaders: true,
   legacyHeaders: false,
-  message: { success: false, error: 'Her 2 dakikada en fazla 2 full-pentest isteği yapabilirsiniz. Lütfen bekleyin.' }
+  message: { success: false, error: 'Hız sınırına takıldınız. Lütfen 2 dakika içinde çok fazla tarama yapmayın.' }
 });
 
 app.get('/api/health', (req, res) => {
@@ -228,7 +228,7 @@ app.get('/api/full-pentest', fullPentestLimiter, async (req, res) => {
   }
 });
 
-// YENİ V8.1 FULL PENTEST ENDPOINT
+// YENİ V8.1 FULL PENTEST ENDPOINT — Şimdi X-RAY V2 Motoruyla Güçlendirildi
 app.get('/api/full-audit', async (req, res) => {
   try {
     const targetUrl = req.query.url;
@@ -236,9 +236,9 @@ app.get('/api/full-audit', async (req, res) => {
       return res.status(400).json({ success: false, error: 'Target URL is required.' });
     }
 
-    console.log(`[FULL-AUDIT] Starting comprehensive V8.1 audit for: ${targetUrl}`);
-    const results = await generateFullAudit(targetUrl);
-    console.log(`[FULL-AUDIT] Audit completed for: ${targetUrl}. Final Score: ${results.overallScore}`);
+    console.log(`[FULL-AUDIT] Starting high-fidelity X-RAY V2 audit: ${targetUrl}`);
+    const results = await generateFullPentestReport(targetUrl);
+    console.log(`[FULL-AUDIT] Audit completed for: ${targetUrl}. Score: ${results.overallScore}`);
     
     res.json({ success: true, results });
   } catch (error) {

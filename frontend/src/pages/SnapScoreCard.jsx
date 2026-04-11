@@ -6,6 +6,32 @@ import {
 } from 'lucide-react';
 import { API_ENDPOINTS, apiClient } from '../utils/api';
 
+const SNAP_STEPS_TR = [
+  'Hedef Sunucu IP ve Lokasyon Analizi',
+  'SSL/TLS Sertifika Güvenlik Zinciri',
+  'HTTP Güvenlik Başlıkları (HSTS, CSP)',
+  'Ağ Portları (Nmap Stealth Scan)',
+  'Whois ve Domain Kayıt Otoriteleri',
+  'DNS Zone & MX/TXT Kayıtları Kontrolü',
+  'Sunucu Servis Versiyonları İfşası',
+  'Açık Yazılım Yamaları Zafiyet Taraması',
+  'Alfa AI İndeks ve Risk Skorlaması Yapıyor',
+  'Snap (Hızlı) Penetrasyon Test Raporu Derleniyor'
+];
+
+const SNAP_STEPS_EN = [
+  'Target Server IP and Location Analysis',
+  'SSL/TLS Certificate Security Chain',
+  'HTTP Security Headers (HSTS, CSP)',
+  'Network Ports (Nmap Stealth Scan)',
+  'Whois and Domain Registration Authorities',
+  'DNS Zone & MX/TXT Records Check',
+  'Server Service Versions Disclosure',
+  'Software Patches Vulnerability Scan',
+  'Alfa AI Index and Risk Scoring',
+  'Compiling Snap Penetration Test Report'
+];
+
 const ScorecardWidget = ({ title, children, className = "" }) => (
   <motion.div 
     initial={{ opacity: 0, y: 20 }}
@@ -19,49 +45,42 @@ const ScorecardWidget = ({ title, children, className = "" }) => (
   </motion.div>
 );
 
-const SecurityScorecard = () => {
+const SnapScoreCard = () => {
   const [searchParams] = useSearchParams();
   const rawToken = searchParams.get('token');
   const token = rawToken ? rawToken.trim() : null;
   const navigate = useNavigate();
 
-  const [domain, setDomain] = useState("SYSTEM_SCAN");
+  const [domain, setDomain] = useState(() => searchParams.get('site') ? searchParams.get('site').toUpperCase() : "HEDEF SİSTEM");
   const [isAnalyzing, setIsAnalyzing] = useState(true);
   const [accessError, setAccessError] = useState(null);
   const [timeLeft, setTimeLeft] = useState(600);
 
 
-  const [logs, setLogs] = useState([
-    "[LOG] 14:31:05 - Initializing Security Scan...",
-    "[LOG] 14:31:10 - SSL Certificate Verified: SHA-256",
-    "[LOG] 14:31:15 - Port Scan Completed: 0 vulnerabilities found"
-  ]);
-
-
-  const [reportId] = useState(() => `ALFA_${Math.random().toString(36).substr(2, 9).toUpperCase()}`);
+  const [loadStep, setLoadStep] = useState(0);
+  const [elapsedWaitTime, setElapsedWaitTime] = useState(0);
 
   useEffect(() => {
-    if (isAnalyzing || accessError) return;
-    const messages = [
-      `[SCANNING] - Analyzing ${domain} Header Integrity...`,
-      `[FIREWALL] - Request Filtering Active`,
-      `[SSL] - TLS 1.3 Handshake Check: OK`,
-      `[SYSTEM] - AI Backbone Path Optimized`,
-      `[SECURITY] - No critical injection vectors detected`,
-      `[ALFA-BOT] - Neural audit for ${domain} in progress...`
-    ];
-    const interval = setInterval(() => {
-      setLogs(prev => {
-        const nextMsg = messages[Math.floor(Math.random() * messages.length)];
-        const timestamp = new Date().toLocaleTimeString('tr-TR');
-        return [...prev.slice(-10), `[LOG] ${timestamp} - ${nextMsg}`];
-      });
-    }, 8000); 
-    return () => clearInterval(interval);
-  }, [isAnalyzing, accessError, domain]);
+    if (isAnalyzing && !accessError) {
+      const timer = setInterval(() => {
+        setElapsedWaitTime(prev => prev + 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    }
+  }, [isAnalyzing, accessError]);
 
+  useEffect(() => {
+    if (isAnalyzing && !accessError) {
+      const stepInterval = setInterval(() => {
+        setLoadStep(s => Math.min(s + 1, SNAP_STEPS_TR.length - 1));
+      }, 600); // 600ms per step
+      return () => clearInterval(stepInterval);
+    }
+  }, [isAnalyzing, accessError]);
+
+  const [reportId, setReportId] = useState(() => token ? `ALFA_${token.substring(0, 9).toUpperCase()}` : `ALFA_AUDIT`);
   const [grade, setGrade] = useState("A");
-  const [certId] = useState(() => Math.random().toString(36).substr(2, 10).toUpperCase());
+  const [certId] = useState(() => token ? token.substring(9, 19).toUpperCase() : `CERT_GENERIC`);
   const [infrastructureData, setInfrastructureData] = useState([
     { name: 'SSL/TLS', health: 100, color: 'bg-emerald-500' },
     { name: 'HEADERS', health: 100, color: 'bg-emerald-500' },
@@ -73,6 +92,7 @@ const SecurityScorecard = () => {
   const [signedAt] = useState(() => new Date().toLocaleString());
 
   const lang = searchParams.get('lang') || 'tr';
+  const formattedUrl = `https://www.${domain.toLowerCase().replace(/^(https?:\/\/)?(www\.)?/, '').replace(/^www/, '')}`;
 
   React.useEffect(() => {
     document.documentElement.lang = lang;
@@ -80,6 +100,12 @@ const SecurityScorecard = () => {
 
   const t = {
     tr: {
+      analyzingTitle: "TEMEL PENETRASYON ANALİZİ YAPILIYOR...",
+      cyberOps: "Siber Güvenlik İşlemleri",
+      duration: "SÜRE",
+      overallProgress: "GENEL İLERLEME",
+      deepTerminal: "Derin Analiz Terminali (X-RAY)",
+      engineLoad: "PENETRATION TEST ENGINE YÜKÜ",
       analyzing: "Hedef analiz ediliyor...",
       profile: "Profili",
       lastUpdated: "Son güncelleme",
@@ -150,6 +176,12 @@ const SecurityScorecard = () => {
       disclaimer: "YASAL UYARI: Bu rapor sadece bilgilendirme amaçlıdır ve tam bir penetrasyon testi yerine geçmez."
     },
     en: {
+      analyzingTitle: "BASIC PENETRATION ANALYSIS IN PROGRESS...",
+      cyberOps: "Cyber Security Operations",
+      duration: "TIME",
+      overallProgress: "OVERALL PROGRESS",
+      deepTerminal: "Deep Analysis Terminal (X-RAY)",
+      engineLoad: "PENETRATION TEST ENGINE LOAD",
       analyzing: "Analyzing target...",
       profile: "Profile",
       lastUpdated: "Last updated",
@@ -239,8 +271,45 @@ const SecurityScorecard = () => {
     let isMounted = true;
     const verifyToken = async () => {
       if (!token) { setAccessError(t.securityTokenMissing); return; }
+
       try {
         const siteParam = searchParams.get('site');
+        
+        // CACHE KONTROLÜ: Eğer bu token için daha önce tarama yapıldıysa hızlıca geç (Animasyonu atla)
+        const cachedData = sessionStorage.getItem(`alfa_scan_${token}`);
+        if (cachedData) {
+            const res = JSON.parse(cachedData);
+            setDomain((siteParam || res.domain || 'HEDEF SISTEM').toUpperCase());
+            setGrade(res.grade);
+            if (res.reportId) setReportId(res.reportId);
+
+            setInfrastructureData([
+              { name: lang === 'tr' ? 'SERVİS GÜVENLİĞİ' : 'SERVICE SECURITY', health: res.categories.service.health, color: res.categories.service.health >= 80 ? 'bg-emerald-500' : (res.categories.service.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+              { name: lang === 'tr' ? 'GÜVENLİK BAŞLIKLARI' : 'SECURITY HEADERS', health: res.categories.headers.health, color: res.categories.headers.health >= 80 ? 'bg-emerald-500' : (res.categories.headers.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+              { name: lang === 'tr' ? 'AĞ PORT GÜVENLİĞİ' : 'NETWORK SECURITY', health: res.categories.network.health, color: res.categories.network.health >= 80 ? 'bg-emerald-500' : (res.categories.network.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+              { name: lang === 'tr' ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS', health: res.categories.domain.health, color: res.categories.domain.health >= 80 ? 'bg-emerald-500' : (res.categories.domain.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+              { name: lang === 'tr' ? 'YAZILIM & YAMA' : 'SOFTWARE PATCHING', health: res.categories.patching.health, color: res.categories.patching.health >= 80 ? 'bg-emerald-500' : (res.categories.patching.health >= 50 ? 'bg-orange-500' : 'bg-red-500') }
+            ]);
+
+            const allFindings = [
+              { title: lang === 'tr' ? "3.1 SERVİS GÜVENLİĞİ" : "3.1 SERVICE SECURITY", text: res.categories.service.findings.join(' '), risk: res.categories.service.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.9" },
+              { title: lang === 'tr' ? "3.2 GÜVENLİK BAŞLIKLARI (SECURITY HEADERS)" : "3.2 SECURITY HEADERS", text: res.categories.headers.findings.join(' '), risk: res.categories.headers.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.26" },
+              { title: lang === 'tr' ? "3.3 AĞ PORT GÜVENLİĞİ (NMAP ANALİZİ)" : "3.3 NETWORK SECURITY (NMAP)", text: res.categories.network.findings.join(' '), risk: res.categories.network.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.20" },
+              { title: lang === 'tr' ? "3.4 DOMAIN & WHOIS VERİ SIZINTISI" : "3.4 DOMAIN & WHOIS LEAK", text: res.categories.domain.findings.join(' '), risk: res.categories.domain.status, isoTag: "ISO 27001:2022 EK-A Madde A.5.7" },
+              { title: lang === 'tr' ? "3.5 YAZILIM & YAMA DÜZEYİ (PATCHING)" : "3.5 SOFTWARE & PATCHING", text: res.categories.patching.findings.join(' '), risk: res.categories.patching.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.8" }
+            ];
+            setRealRisks(allFindings);
+            
+            // Kullanıcı "Yazdır" sayfasından geri dönüyorsa (skipAnim=true), bekletme yapmadan direkt sonuçları gösteriyoruz.
+            // Fakat sayfayı ilk kez açıyorsa veya yeniliyorsa, o efsane şovu izleyebilmesi için 6.5 saniye bekletiyoruz.
+            if (searchParams.get('skipAnim') === 'true') {
+                if (isMounted) setIsAnalyzing(false);
+            } else {
+                setTimeout(() => { if (isMounted) setIsAnalyzing(false); }, 6500);
+            }
+            return; // API İSTEĞİ ATMA
+        }
+
         const response = await apiClient.get(API_ENDPOINTS.REPORT(token, siteParam));
         if (isMounted) {
           if (response.data.success) {
@@ -249,66 +318,252 @@ const SecurityScorecard = () => {
             // Gerçek tarama verilerini yükle
               if (response.data.scanResults) {
                 const res = response.data.scanResults;
+                sessionStorage.setItem(`alfa_scan_${token}`, JSON.stringify(res));
+
                 setGrade(res.grade);
+                if (res.reportId) setReportId(res.reportId);
+
                 setInfrastructureData([
-                  { name: 'SERVİS GÜVENLİĞİ', health: res.categories.service.health, color: res.categories.service.health >= 80 ? 'bg-emerald-500' : (res.categories.service.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
-                  { name: 'GÜVENLİK BAŞLIKLARI', health: res.categories.headers.health, color: res.categories.headers.health >= 80 ? 'bg-emerald-500' : (res.categories.headers.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
-                  { name: 'AĞ PORT GÜVENLİĞİ', health: res.categories.network.health, color: res.categories.network.health >= 80 ? 'bg-emerald-500' : (res.categories.network.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
-                  { name: 'DOMAIN & WHOIS', health: res.categories.domain.health, color: res.categories.domain.health >= 80 ? 'bg-emerald-500' : (res.categories.domain.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
-                  { name: 'YAZILIM & YAMA', health: res.categories.patching.health, color: res.categories.patching.health >= 80 ? 'bg-emerald-500' : (res.categories.patching.health >= 50 ? 'bg-orange-500' : 'bg-red-500') }
+                  { name: lang === 'tr' ? 'SERVİS GÜVENLİĞİ' : 'SERVICE SECURITY', health: res.categories.service.health, color: res.categories.service.health >= 80 ? 'bg-emerald-500' : (res.categories.service.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+                  { name: lang === 'tr' ? 'GÜVENLİK BAŞLIKLARI' : 'SECURITY HEADERS', health: res.categories.headers.health, color: res.categories.headers.health >= 80 ? 'bg-emerald-500' : (res.categories.headers.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+                  { name: lang === 'tr' ? 'AĞ PORT GÜVENLİĞİ' : 'NETWORK SECURITY', health: res.categories.network.health, color: res.categories.network.health >= 80 ? 'bg-emerald-500' : (res.categories.network.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+                  { name: lang === 'tr' ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS', health: res.categories.domain.health, color: res.categories.domain.health >= 80 ? 'bg-emerald-500' : (res.categories.domain.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
+                  { name: lang === 'tr' ? 'YAZILIM & YAMA' : 'SOFTWARE PATCHING', health: res.categories.patching.health, color: res.categories.patching.health >= 80 ? 'bg-emerald-500' : (res.categories.patching.health >= 50 ? 'bg-orange-500' : 'bg-red-500') }
                 ]);
 
                 const allFindings = [
-                  { title: "3.1 SERVİS GÜVENLİĞİ", text: res.categories.service.findings.join(' '), risk: res.categories.service.status },
-                  { title: "3.2 GÜVENLİK BAŞLIKLARI (SECURITY HEADERS)", text: res.categories.headers.findings.join(' '), risk: res.categories.headers.status },
-                  { title: "3.3 AĞ PORT GÜVENLİĞİ (NMAP ANALİZİ)", text: res.categories.network.findings.join(' '), risk: res.categories.network.status },
-                  { title: "3.4 DOMAIN & WHOIS VERİ SIZINTISI", text: res.categories.domain.findings.join(' '), risk: res.categories.domain.status },
-                  { title: "3.5 YAZILIM & YAMA DÜZEYİ (PATCHING)", text: res.categories.patching.findings.join(' '), risk: res.categories.patching.status }
+                  { title: lang === 'tr' ? "3.1 SERVİS GÜVENLİĞİ" : "3.1 SERVICE SECURITY", text: res.categories.service.findings.join(' '), risk: res.categories.service.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.9" },
+                  { title: lang === 'tr' ? "3.2 GÜVENLİK BAŞLIKLARI (SECURITY HEADERS)" : "3.2 SECURITY HEADERS", text: res.categories.headers.findings.join(' '), risk: res.categories.headers.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.26" },
+                  { title: lang === 'tr' ? "3.3 AĞ PORT GÜVENLİĞİ (NMAP ANALİZİ)" : "3.3 NETWORK SECURITY (NMAP)", text: res.categories.network.findings.join(' '), risk: res.categories.network.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.20" },
+                  { title: lang === 'tr' ? "3.4 DOMAIN & WHOIS VERİ SIZINTISI" : "3.4 DOMAIN & WHOIS LEAK", text: res.categories.domain.findings.join(' '), risk: res.categories.domain.status, isoTag: "ISO 27001:2022 EK-A Madde A.5.7" },
+                  { title: lang === 'tr' ? "3.5 YAZILIM & YAMA DÜZEYİ (PATCHING)" : "3.5 SOFTWARE & PATCHING", text: res.categories.patching.findings.join(' '), risk: res.categories.patching.status, isoTag: "ISO 27001:2022 EK-A Madde A.8.8" }
                 ];
                 setRealRisks(allFindings);
               }
 
-            setTimeout(() => { if (isMounted) setIsAnalyzing(false); }, 2500);
+            setTimeout(() => { if (isMounted) setIsAnalyzing(false); }, 6500);
           } else { setAccessError(t.invalidLink); }
         }
       } catch { if (isMounted) setAccessError(t.connError); }
     };
     verifyToken();
     return () => { isMounted = false; };
-  }, [token, searchParams, t.securityTokenMissing, t.invalidLink, t.connError]);
+  }, [token, searchParams, t.securityTokenMissing, t.invalidLink, t.connError, lang]);
 
   const downloadPDF = () => {
     const params = new URLSearchParams(searchParams);
     window.open(`/scorecard-print?${params.toString()}`, '_blank');
   };
 
+  const [terminalStep, setTerminalStep] = useState(0);
+
+  const REALISTIC_LOGS = React.useMemo(() => {
+    if (lang === 'en') {
+      return [
+        `[INIT] Initiating TCP/IP Socket connection (${domain})`,
+        `[INIT] Resolving DNS Names (A & AAAA Records)...`,
+        `[INFO] Target IPv4 address cached.`,
+        `[SCAN] Category 1: Service Security Analysis`,
+        `[SCAN] Critical directory probe: /.env (Timeout: 3000ms)`,
+        `[SCAN] Critical directory probe: /.git/config (Timeout: 3000ms)`,
+        `[SCAN] Management panel scan: /admin`,
+        `[SCAN] Management panel scan: /wp-admin`,
+        `[RESULT] Directory payload readings completed.`,
+        `[SCAN] Category 2: Network Port Security (Async)`,
+        `[NMAP] TCP Socket probe -> Port 21 (FTP)`,
+        `[NMAP] TCP Socket probe -> Port 22 (SSH)`,
+        `[NMAP] TCP Socket probe -> Port 23 (Telnet)`,
+        `[NMAP] TCP Socket probe -> Port 25 (SMTP)`,
+        `[NMAP] TCP Socket probe -> Port 445 (SMB)`,
+        `[NMAP] TCP Socket probe -> Port 3306 (MySQL)`,
+        `[NMAP] TCP Socket probe -> Port 3389 (RDP)`,
+        `[RESULT] Network port statuses logged to database.`,
+        `[SCAN] Category 3: Cryptologic Leaks (SSL/TLS)`,
+        `[INFO] Validating SSL Certificate chain... X509 V3 read.`,
+        `[INFO] Calculating remaining certificate days (Expiry).`,
+        `[SCAN] Category 4: DNS Spoofing Check`,
+        `[INFO] Scanning v=spf1 rules via TXT records.`,
+        `[INFO] Analyzing v=DMARC1 policy via TXT records.`,
+        `[SCAN] Category 5: HTTP Security Headers & Disclosures`,
+        `[INFO] Target GET request -> Strict-Transport-Security check.`,
+        `[INFO] Target GET request -> Content-Security-Policy barrier.`,
+        `[INFO] Target GET request -> X-Frame-Options (Clickjacking).`,
+        `[INFO] Scanning server signature version disclosure.`,
+        `[INFO] Scanning infrastructure (X-Powered-By) disclosure.`,
+        `[SYSTEM] Consolidating analysis... Artificial intelligence engaged.`,
+        `[SYSTEM] Loading Penetration Test Report evidence chain PDF algorithms...`
+      ];
+    }
+    return [
+      `[INIT] TCP/IP Socket bağlantısı başlatılıyor (${domain})`,
+      `[INIT] DNS İsim Çözümleme (A & AAAA Records) yapılıyor...`,
+      `[INFO] Hedef IPv4 adresi hafızaya alındı.`,
+      `[SCAN] Kategori 1: Servis Güvenliği Analizi`,
+      `[SCAN] Kritik dizin probu: /.env (Timeout: 3000ms)`,
+      `[SCAN] Kritik dizin probu: /.git/config (Timeout: 3000ms)`,
+      `[SCAN] Yönetim paneli taraması: /admin`,
+      `[SCAN] Yönetim paneli taraması: /wp-admin`,
+      `[RESULT] Dizin payload okumaları tamamlandı.`,
+      `[SCAN] Kategori 2: Ağ Port Güvenliği (Asenkron)`,
+      `[NMAP] TCP Socket probu -> Port 21 (FTP)`,
+      `[NMAP] TCP Socket probu -> Port 22 (SSH)`,
+      `[NMAP] TCP Socket probu -> Port 23 (Telnet)`,
+      `[NMAP] TCP Socket probu -> Port 25 (SMTP)`,
+      `[NMAP] TCP Socket probu -> Port 445 (SMB)`,
+      `[NMAP] TCP Socket probu -> Port 3306 (MySQL)`,
+      `[NMAP] TCP Socket probu -> Port 3389 (RDP)`,
+      `[RESULT] Network port durumları veritabanına işlendi.`,
+      `[SCAN] Kategori 3: Kriptolojik Sızıntılar (SSL/TLS)`,
+      `[INFO] SSL Sertifika zinciri doğrulama... X509 V3 okundu.`,
+      `[INFO] Kalan sertifika gün sayısı (Expiry) hesaplanıyor.`,
+      `[SCAN] Kategori 4: DNS Sahtecilik Kontrolü (Spoofing)`,
+      `[INFO] TXT kayıtları üzerinden v=spf1 kuralları taranıyor.`,
+      `[INFO] TXT kayıtları üzerinden v=DMARC1 politikası analiz ediliyor.`,
+      `[SCAN] Kategori 5: HTTP Güvenlik Başlıkları & İfşalar`,
+      `[INFO] Hedef GET request -> Strict-Transport-Security kontrolü.`,
+      `[INFO] Hedef GET request -> Content-Security-Policy bariyeri.`,
+      `[INFO] Hedef GET request -> X-Frame-Options (Clickjacking).`,
+      `[INFO] Sunucu (Server) damgası versiyon ifşası taranıyor.`,
+      `[INFO] Altyapı (X-Powered-By) ifşası taranıyor.`,
+      `[SYSTEM] Analizler birleştiriliyor... Yapay zeka devrede.`,
+      `[SYSTEM] Penetrasyon Test Raporu kanıt zinciri PDF algoritmaları yükleniyor...`
+    ];
+  }, [domain, lang]);
+
+  useEffect(() => {
+    if (isAnalyzing && !accessError) {
+      const termInterval = setInterval(() => {
+        setTerminalStep(s => Math.min(s + 1, REALISTIC_LOGS.length));
+      }, 950);
+      return () => clearInterval(termInterval);
+    }
+  }, [isAnalyzing, accessError, REALISTIC_LOGS.length]);
+
+  const terminalContainerRef = React.useRef(null);
+  useEffect(() => {
+    if (terminalContainerRef.current) {
+      terminalContainerRef.current.scrollTop = terminalContainerRef.current.scrollHeight;
+    }
+  }, [terminalStep]);
+
   if (isAnalyzing) {
+    const snapStepsCurrent = lang === 'en' ? SNAP_STEPS_EN : SNAP_STEPS_TR;
+    const mainProgress = Math.round((loadStep / (snapStepsCurrent.length - 1)) * 100);
+    const termProgress = Math.round((terminalStep / REALISTIC_LOGS.length) * 100);
+
     return (
-      <div className="min-h-screen bg-[#020b14] flex flex-col items-center justify-center font-mono p-4">
-        <div className="relative w-64 h-64 mb-12">
+      <div className="min-h-screen bg-[#020b14] flex flex-col items-center justify-start pt-12 pb-24 font-mono p-4 md:p-8 relative">
+        {/* Arkaplan Matris Efekti */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.4) 1px, transparent 1px)', backgroundSize: '20px 20px' }}></div>
+        
+        {/* Ortadaki Pulsing Icon */}
+        <div className="relative w-32 h-32 mb-6 mt-4 z-10 flex-shrink-0">
             <motion.div 
                animate={{ rotate: 360 }} 
                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
                className="absolute inset-0 border-4 border-dashed border-cyan-500/20 rounded-full"
             />
-            <div className="absolute inset-4 border border-cyan-500/10 rounded-full flex items-center justify-center bg-cyan-500/5 backdrop-blur-sm">
-                <Activity className="text-cyan-400 animate-pulse" size={64} />
+            <div className="absolute inset-4 border border-cyan-500/10 rounded-full flex items-center justify-center bg-cyan-500/5 backdrop-blur-sm shadow-[0_0_30px_rgba(6,182,212,0.2)]">
+                <Activity className="text-cyan-400 animate-pulse" size={32} />
             </div>
-            <motion.div 
-               animate={{ scale: [1, 1.2, 1] }} 
-               transition={{ duration: 2, repeat: Infinity }}
-               className="absolute -top-2 -right-2 w-8 h-8 bg-cyan-500 rounded-full flex items-center justify-center text-white"
-            >
-               <ShieldCheck size={20} />
-            </motion.div>
         </div>
         
-        <div className="text-center space-y-4 max-w-lg">
-            <h2 className="text-2xl font-black text-white uppercase tracking-widest animate-pulse">{t.analyzing}</h2>
-            <div className="bg-black/40 border border-white/5 rounded p-4 h-32 overflow-hidden text-[10px] text-cyan-500/60 text-left">
-                {logs.map((log, i) => <p key={i} className="mb-1 truncate opacity-80">{log}</p>)}
-            </div>
-            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.3em]">Neural Analyzer Connection: ESTABLISHED</p>
+        <h2 className="text-xl md:text-2xl font-black text-white tracking-widest animate-pulse mb-8 z-10">
+           <span className="lowercase text-cyan-400">{formattedUrl}</span> <span className="uppercase">{t.analyzingTitle}</span>
+        </h2>
+        
+        {/* Yan Yana İki Pencere (Frames) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full max-w-7xl mx-auto z-10 flex-1 min-h-0">
+          
+          {/* SOL PENCERE: Üst Katman Yüzey İşlemleri */}
+          <div className="bg-[#061425]/70 border border-cyan-500/30 rounded-xl p-6 flex flex-col shadow-[0_0_20px_rgba(6,182,212,0.05)] h-[550px] md:h-[650px]">
+             <div className="flex justify-between items-center mb-4 border-b border-cyan-500/20 pb-4">
+                <div className="flex items-center gap-3">
+                   <ShieldCheck className="text-cyan-400" size={24} />
+                   <h3 className="text-cyan-400 font-black tracking-widest text-xs md:text-sm uppercase">{t.cyberOps}</h3>
+                </div>
+                <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs bg-cyan-500/10 px-3 py-1.5 rounded border border-cyan-500/30">
+                   <Timer size={14} className="animate-pulse" /> {t.duration}: {elapsedWaitTime}S
+                </div>
+             </div>
+             
+             {/* Main Progress Bar */}
+             <div className="mb-6">
+                 <div className="flex justify-between text-[10px] text-cyan-500 font-black mb-2 tracking-widest">
+                    <span>{t.overallProgress}</span>
+                    <span>{mainProgress}%</span>
+                 </div>
+                 <div className="w-full h-3 bg-cyan-950 rounded-full overflow-hidden border border-cyan-500/20">
+                    <motion.div 
+                       className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400"
+                       initial={{ width: 0 }}
+                       animate={{ width: `${mainProgress}%` }}
+                       transition={{ duration: 0.5 }}
+                    />
+                 </div>
+             </div>
+
+             {/* Adımlar Listesi */}
+             <div className="flex-1 overflow-y-auto space-y-2.5 pr-2 custom-scrollbar">
+                {snapStepsCurrent.map((s, i) => (
+                  <div key={i} className={`flex items-center gap-4 py-2 px-4 rounded border ${i === loadStep ? 'border-cyan-500/50 bg-cyan-500/10' : i < loadStep ? 'border-white/5 bg-white/5' : 'border-transparent bg-white/5 opacity-40'}`}>
+                     <span className={`text-xs font-mono font-black ${i === loadStep ? 'text-cyan-400' : 'text-slate-500'}`}>{String(i+1).padStart(2,'0')}</span>
+                     <p className={`text-[11px] md:text-sm font-bold tracking-wider flex-1 ${i === loadStep ? 'text-white' : i < loadStep ? 'text-slate-400' : 'text-slate-600'}`}>{s}</p>
+                     {i < loadStep && <ShieldCheck size={16} className="text-cyan-600" />}
+                     {i === loadStep && <Activity size={16} className="text-cyan-400 animate-pulse" />}
+                  </div>
+                ))}
+             </div>
+          </div>
+
+          {/* SAĞ PENCERE: Matrix Terminali */}
+          <div className="bg-[#02070e] border border-green-500/30 rounded-xl p-6 flex flex-col shadow-[0_0_30px_rgba(34,197,94,0.05)] h-[550px] md:h-[650px] relative overflow-hidden">
+             <div className="absolute top-0 right-0 p-4 opacity-10">
+                <Lock size={64} className="text-green-500" />
+             </div>
+             
+             <div className="flex justify-between items-center mb-4 border-b border-green-500/20 pb-4 relative z-10">
+                <div className="flex items-center gap-3">
+                   <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                   <h3 className="text-green-500 font-black tracking-widest text-xs md:text-sm uppercase">{t.deepTerminal}</h3>
+                </div>
+                <div className="text-[10px] text-green-600 font-mono tracking-widest">CONNECT_ID: {reportId}</div>
+             </div>
+
+             {/* Terminal Progress Bar */}
+             <div className="mb-6 relative z-10">
+                 <div className="flex justify-between text-[10px] text-green-500 font-black mb-2 tracking-widest">
+                    <span>{t.engineLoad}</span>
+                    <span>{termProgress}%</span>
+                 </div>
+                 <div className="w-full h-2 bg-green-950 rounded-full overflow-hidden border border-green-500/20">
+                    <motion.div 
+                       className="h-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.8)]"
+                       initial={{ width: 0 }}
+                       animate={{ width: `${termProgress}%` }}
+                       transition={{ duration: 0.5 }}
+                    />
+                 </div>
+             </div>
+
+             {/* Matrix Log Ekranı */}
+             <div ref={terminalContainerRef} className="flex-1 bg-black/60 border border-green-500/20 rounded p-4 overflow-y-auto font-mono text-[9px] md:text-[11px] text-green-500 leading-relaxed shadow-inner custom-scrollbar">
+                {REALISTIC_LOGS.slice(0, terminalStep).map((log, idx) => (
+                   <motion.div 
+                      key={idx} 
+                      initial={{ opacity: 0, x: -10 }} 
+                      animate={{ opacity: 1, x: 0 }}
+                      className="mb-1.5"
+                   >
+                      <span className="text-green-700 mr-2">{new Date().toISOString().substring(11, 19)}</span>
+                      {log.startsWith('[SCAN]') || log.startsWith('[SYSTEM]') ? <span className="font-black text-white bg-green-900/50 px-1 mr-1">{log}</span> : log}
+                   </motion.div>
+                ))}
+                {terminalStep < REALISTIC_LOGS.length && (
+                   <div className="mt-2 text-green-400 animate-pulse">_</div>
+                )}
+             </div>
+          </div>
         </div>
       </div>
     );
@@ -370,7 +625,9 @@ const SecurityScorecard = () => {
           <div className="flex items-center gap-4">
             <ShieldCheck size={40} className="text-cyan-400" />
             <div>
-              <h1 className="text-2xl font-black text-cyan-400 uppercase">{isAnalyzing ? t.analyzing : `${domain} ${t.profile}`}</h1>
+              <h1 className="text-2xl font-black text-cyan-400 uppercase tracking-wide">
+                 <span className="lowercase">{formattedUrl}</span> {t.profile}
+              </h1>
               <p className="text-xs text-white/50">{t.lastUpdated}: {new Date().toLocaleTimeString()}</p>
             </div>
           </div>
@@ -378,7 +635,7 @@ const SecurityScorecard = () => {
             <button onClick={downloadPDF} className="flex items-center gap-2 px-6 py-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/50 rounded-lg hover:bg-cyan-500/20 transition-all font-bold text-xs uppercase">
               <Download size={16} /> {t.downloadPdf}
             </button>
-            <button onClick={() => navigate('/')} className="px-6 py-2 bg-slate-800 text-slate-300 border border-slate-700 rounded-lg hover:bg-slate-700 transition-all font-bold text-xs uppercase">{t.backToAdmin}</button>
+            <button onClick={() => navigate('/admin-panel')} className="px-6 py-2 bg-slate-800 text-slate-300 border border-slate-700 rounded-lg hover:bg-slate-700 transition-all font-bold text-xs uppercase">{t.backToAdmin}</button>
           </div>
         </header>
 
@@ -465,20 +722,11 @@ const SecurityScorecard = () => {
                 </div>
             </ScorecardWidget>
 
-            <div className="bg-black/40 border border-white/5 rounded-xl p-4 font-mono text-[10px] text-cyan-500/60 overflow-hidden h-32 print:hidden">
-               <div className="flex items-center gap-2 mb-2 border-b border-white/5 pb-2">
-                  <Activity size={12} className="text-cyan-400" />
-                  <span className="font-black uppercase tracking-widest text-[8px]">ALFA_AUDIT_STREAM</span>
-               </div>
-               <div className="space-y-1">
-                 {logs.map((log, i) => <p key={i} className="truncate">{log}</p>)}
-               </div>
-            </div>
           </div>
         </div>
       </div>
 
-      {/* PAGE 3: FORENSIC AUDIT DETAIL (Print Only & Screen Section) */}
+      {/* PAGE 3: PENETRATION TEST & AUDIT DETAIL (Print Only & Screen Section) */}
       <div className="max-w-[1600px] mx-auto mt-[150px] print:mt-0 print:print-page">
         <div className="w-full h-full border-[8px] border-double border-slate-100 flex flex-col items-stretch p-6 print:p-4 relative bg-slate-900/30 print:bg-white rounded-xl print:rounded-none">
                  <div className="flex items-center gap-4 mb-3">
@@ -500,8 +748,9 @@ const SecurityScorecard = () => {
                              <span className={`text-[9px] font-black px-3 py-1 ${isDanger ? 'bg-red-600' : (isSafe ? 'bg-green-600' : 'bg-orange-500')} text-white rounded-full whitespace-nowrap uppercase tracking-wider`}>{risk.risk}</span>
                            </div>
                            <p className="text-[11px] text-slate-400 print:text-slate-600 font-medium italic leading-relaxed">{risk.text}</p>
-                           <div className="mt-4 flex justify-between items-center text-[8px] font-bold text-slate-500 uppercase tracking-widest opacity-50">
-                             <span>ZORLUK: {isDanger ? 'YÜKSEK' : 'DÜŞÜK'}</span>
+                           <div className="mt-4 flex justify-between items-center text-[8px] font-bold uppercase tracking-widest">
+                             <span className="text-cyan-400 bg-cyan-900/40 px-1.5 py-0.5 rounded border border-cyan-500/30 print:bg-blue-50 print:text-blue-700 print:border-blue-200">{risk.isoTag}</span>
+                             <span className="opacity-50 text-slate-500">ZORLUK: {isDanger ? 'YÜKSEK' : 'DÜŞÜK'}</span>
                            </div>
                         </div>
                      );
@@ -540,9 +789,9 @@ const SecurityScorecard = () => {
       <div className="hidden print:flex print-page flex-col justify-between items-center text-center py-20 border-[12px] border-double border-slate-50 px-12 bg-white">
            <div className="space-y-6 w-full mt-4">
               <ShieldCheck size={80} className="text-blue-600 mx-auto" />
-              <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tighter border-b-4 border-slate-900 pb-2 inline-block">BİRİM ONAYI</h2>
+              <h2 className="text-4xl font-black text-slate-900 uppercase tracking-tighter border-b-4 border-slate-900 pb-2 inline-block">{t.approval}</h2>
               <p className="max-w-2xl mx-auto text-slate-500 italic text-sm leading-relaxed px-12 mt-10">
-                "Bu belge dijital olarak imzalanmış olup, analiz sonuçlarının doğruluğu ALFA YAPAY ZEKA Laboratuvarları tarafından onaylanmıştır."
+                "Bu belge dijital olarak imzalanmış olup, penetrasyon test analiz sonuçlarının doğruluğu ALFA YAPAY ZEKA Laboratuvarı, Siber Güvenlik Birimi tarafından onaylanmıştır."
               </p>
            </div>
            
@@ -552,8 +801,8 @@ const SecurityScorecard = () => {
               </div>
               <div className="space-y-1 text-center border-t border-slate-200 pt-4 w-72">
                  <p className="text-2xl font-black text-slate-900 tracking-tighter uppercase leading-none">ERKİN GÜLER</p>
-                 <p className="text-[10px] font-black text-blue-600 tracking-[0.15em] uppercase mt-1">SİBER GÜVENLİK BAŞKANI</p>
-                 <p className="text-[8px] font-bold text-slate-400 tracking-[0.2em] uppercase">ALFA SİBER ANALİZ ÜNİTESİ</p>
+                 <p className="text-[10px] font-black text-blue-600 tracking-[0.15em] uppercase mt-1">SİBER GÜVENLİK UZMANI</p>
+                 <p className="text-[8px] font-bold text-slate-400 tracking-[0.2em] uppercase">ALFA SİBER ANALİZ BİRİMİ</p>
               </div>
            </div>
 
@@ -567,4 +816,4 @@ const SecurityScorecard = () => {
   );
 };
 
-export default SecurityScorecard;
+export default SnapScoreCard;

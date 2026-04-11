@@ -32,7 +32,7 @@ src/
 │   ├── Home.jsx         # Ana sayfa (Hero, Özellikler, Kampanya CTA)
 │   ├── Offer.jsx        # "Dijital Zırh 60" kampanya sayfası
 │   ├── SnapReport.jsx   # Snap Report başvuru formu (B2C lead-gen)
-│   ├── SecurityScorecard.jsx  # Token tabanlı güvenlik skor kartı + PDF
+│   ├── SnapScoreCard.jsx  # Token tabanlı güvenlik skor kartı + PDF
 │   ├── AuditReportGenerator.jsx # 250 sayfalık Full Audit rapor motoru
 │   ├── AdminDashboard.jsx      # Admin panel (yalnızca local)
 │   ├── AIPentest.jsx    # AI-PENTEST hizmet tanıtım sayfası
@@ -85,7 +85,7 @@ src/
 
 | Bileşen | Route | Açıklama |
 |---|---|---|
-| `SecurityScorecard.jsx` | `/scorecard?token=...` | Magic Link doğrulama, Snap Report görüntüleme, PDF çıktısı |
+| `SnapScoreCard.jsx` | `/scorecard?token=...` | Magic Link doğrulama, Snap Report görüntüleme, PDF çıktısı |
 | `AuditReportGenerator.jsx` | `/audit-generator?site=...` | 250 sayfalık Full Audit rapor motoru, baskı optimizasyonu |
 | `AdminDashboard.jsx` | `/admin-panel` | Domain URL girişi, Snap/Full rapor seçimi (**Yalnızca Local**) |
 

@@ -21,7 +21,7 @@ Kullanıcının yönlendirildiği ayrı router görünümlerinin (view) bileşen
 | `WebRisk.jsx` | `/web-risk-raporu` | Herkese açık | Web risk analiz bilgi sayfası |
 | `Legal.jsx` | `/privacy`, `/terms`, `/kvkk`, `/cookie` | Herkese açık | Yasal metinler (çok amaçlı) |
 | `ContractView.jsx` | `/sozlesme/:type` | Herkese açık | Dinamik sözleşme görüntüleyici |
-| `SecurityScorecard.jsx` | `/scorecard` | Token ile erişim | **ALFA SNAP** rapor görüntüleyici (Magic Link) |
+| `SnapScoreCard.jsx` | `/scorecard` | Token ile erişim | **ALFA SNAP** rapor görüntüleyici (Magic Link) |
 | `AuditReportGenerator.jsx` | `/audit-generator` | Admin + Token | **ALFA FULL** 250-sayfa pentest raporu |
 | `AdminDashboard.jsx` | `/admin-panel` | **Yalnızca Local** | Rapor mühendislik paneli |
 
@@ -40,7 +40,7 @@ Kullanıcının yönlendirildiği ayrı router görünümlerinin (view) bileşen
 7. Ücretsiz email engeli (gmail, yahoo vb. reddedilir)
 8. Güven Skoru UI (canlı animasyonlu progress bar)
 
-### `SecurityScorecard.jsx` — ALFA SNAP Raporu
+### `SnapScoreCard.jsx` — ALFA SNAP Raporu
 - Token: `ALFA_JOKER_ADMIN_777` = sonsuz admin erişimi
 - Token: UUID = 3 görüntüleme hakkı, 10 dakika oturum
 - PDF dosya adı: `ALFA_SNAP_PENETRASYON_RAPORU_DOMAIN_TARIH`

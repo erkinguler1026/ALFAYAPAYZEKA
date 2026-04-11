@@ -16,7 +16,7 @@ import WebRisk from './pages/WebRisk';
 import AIPentest from './pages/AIPentest';
 import ContractView from './pages/ContractView';
 import SnapReport from './pages/SnapReport';
-import SecurityScorecard from './pages/SecurityScorecard';
+import SnapScoreCard from './pages/SnapScoreCard';
 import SnapReportPrint from './pages/SnapReportPrint';
 import AuditReportGenerator from './pages/AuditReportGenerator';
 import AdminDashboard from './pages/AdminDashboard';
@@ -59,7 +59,7 @@ const App = () => {
           <Route path="web-risk-raporu" element={<WebRisk />} />
           <Route path="snap-report" element={<SnapReport />} />
           <Route path="ai-pentest" element={<AIPentest />} />
-          <Route path="scorecard" element={<SecurityScorecard />} />
+          <Route path="scorecard" element={<SnapScoreCard />} />
           <Route path="scorecard-print" element={<SnapReportPrint />} />
           <Route path="audit-generator" element={<AuditReportGenerator />} />
           <Route path="full-pentest-print" element={<FullReportPrint />} />

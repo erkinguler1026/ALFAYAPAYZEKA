@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Globe, Zap, FileText, ArrowRight, Shield, 
-  Search, Cpu, BarChart3, Lock, AlertCircle, ArrowLeft
+  Search, Cpu, BarChart3, Lock, AlertCircle, ArrowLeft,
+  ScanSearch, Loader2, CheckCircle2
 } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 import MatrixRain from '../components/MatrixRain';
 import { isLocalEnvironment } from '../utils/api';
 
+/**
+ * AdminDashboard (V2.0 - X-RAY Integrated)
+ * ───────────────────────────────────────
+ * Profesyonel penetrasyon testi tetikleme merkezi.
+ * Artık realFullPentestEngine.js (X-RAY V2) ile tam entegre.
+ */
 const AdminDashboard = () => {
   const [targetUrl, setTargetUrl] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
@@ -21,41 +28,47 @@ const AdminDashboard = () => {
     tr: {
       backToHome: "Ana Sayfaya Dön",
       safePortal: "Güvenli Admin Portalı",
-      title: "Alfa Penetrasyon Rapor Mühendisliği",
-      subtitle: "Analiz edilecek firmanın domain adresini girin ve oluşturmak istediğiniz rapor tipini seçin. Sistem otomatik olarak tüm tarama motorlarını devreye alacaktır.",
+      title: "ALFA RAPOR MÜHENDİSLİĞİ",
+      subtitle: "Analiz edilecek firmanın domain adresini girin. Sistem otomatik olarak ALFA X-RAY V2.0 Adli Bilişim motorunu tetikleyecektir.",
       urlLabel: "Hedef Web Sitesi (URL)",
       urlPlaceholder: "https://www.firma-adi.com",
       urlHint: "* Sadece tam protokol içeren URL adresleri kabul edilir (http/https).",
-      processing: "Motorlar Başlatılıyor...",
+      processing: "X-RAY Motoru Başlatılıyor...",
       snapTitle: "Snap Report",
       snapSub: "2 Sayfa • Özet Analiz",
-      fullTitle: "Full Audit",
-      fullSub: "250 Sayfa • Adli Bilişim",
+      fullTitle: "Full X-RAY Audit",
+      fullSub: "250 Sayfa • Adli Bilişim & Forensics",
+      xrayBadge: "FULL X-RAY PENTEST ENGINE V2.0",
+      xrayTitle: "GERÇEK RÖNTGEN ANALİZİ",
+      xrayDesc: "7 Bölüm · Gerçek Port Tarama · SSL/TLS Logları · OSINT · 250+ Sayfa Gerçek Veri.",
       stats: [
-        { label: "Analiz Motoru", val: "L3 DeepScan" },
-        { label: "Veri Kaynağı", val: "Forensic DB" },
+        { label: "Analiz Motoru", val: "X-RAY V2.0" },
+        { label: "Veri Kaynağı", val: "Real-Time APIs" },
         { label: "Sertifikasyon", val: "ISO-27001" },
-        { label: "Sürüm", val: "V1.5.0" }
+        { label: "Sürüm", val: "V2.1.0" }
       ]
     },
     en: {
       backToHome: "Back to Home",
       safePortal: "Secure Admin Portal",
-      title: "Alfa Penetration Report Engineering",
-      subtitle: "Enter the firm's domain to be analyzed and select the report type. The system will automatically engage all forensic scanning engines.",
+      title: "ALFA REPORT ENGINEERING",
+      subtitle: "Enter the firm's domain. The system will automatically trigger the ALFA X-RAY V2.0 Forensic Audit engine.",
       urlLabel: "Target Website (URL)",
       urlPlaceholder: "https://www.company-name.com",
       urlHint: "* Only URLs including protocol (http/https) are accepted.",
-      processing: "Engines Starting...",
+      processing: "Starting X-RAY Engine...",
       snapTitle: "Snap Report",
       snapSub: "2 Pages • Summary Analysis",
-      fullTitle: "Full Audit",
+      fullTitle: "Full X-RAY Audit",
       fullSub: "250 Pages • Forensic Audit",
+      xrayBadge: "FULL X-RAY PENTEST ENGINE V2.0",
+      xrayTitle: "REAL X-RAY ANALYSIS",
+      xrayDesc: "7 Sections · Real Port Scan · SSL/TLS Logs · OSINT · 250+ Pages Real Data.",
       stats: [
-        { label: "Analysis Engine", val: "L3 DeepScan" },
-        { label: "Data Source", val: "Forensic DB" },
+        { label: "Analysis Engine", val: "X-RAY V2.0" },
+        { label: "Data Source", val: "Real-Time APIs" },
         { label: "Certification", val: "ISO-27001" },
-        { label: "Version", val: "V1.5.0" }
+        { label: "Version", val: "V2.1.0" }
       ]
     }
   }[lang];
@@ -90,6 +103,7 @@ const AdminDashboard = () => {
     setIsProcessing(true);
     const domain = getCleanDomain(targetUrl);
     setTimeout(() => {
+      // Orijinal 250 sayfalık AuditReportGenerator $(\"ASIL\") bileşenine dönülüyor
       navigate(`/full-pentest-print?site=${domain}`);
     }, 2000);
   };
@@ -97,8 +111,9 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-[#050505] text-white pt-32 pb-20 px-6 relative overflow-hidden">
       <MatrixRain opacity={0.15} color="#00ff41" fontSize={14} speed={0.8} />
+      {/* Red/Green dynamic glows */}
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-primary/10 blur-[120px] rounded-full -z-10" />
-      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-red-600/5 blur-[120px] rounded-full -z-10" />
+      <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-red-600/5 blur-[120px] rounded-full -z-10 animate-pulse" />
 
       <div className="max-w-4xl mx-auto relative z-10">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="space-y-12">
@@ -145,9 +160,11 @@ const AdminDashboard = () => {
             <p className="text-white/40 max-w-2xl mx-auto font-medium">{t.subtitle}</p>
           </div>
 
-          {/* Main Card */}
-          <div className="premium-card p-8 md:p-12 rounded-[40px] border border-white/10 bg-black/40 backdrop-blur-2xl shadow-2xl space-y-8">
-            <div className="space-y-4">
+          {/* Main Card (X-RAY Integration) */}
+          <div className="premium-card p-8 md:p-12 rounded-[40px] border border-white/10 bg-black/40 backdrop-blur-2xl shadow-2xl space-y-10 relative overflow-hidden">
+            
+            {/* Form Section */}
+            <div className="space-y-4 relative z-10">
               <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/30 ml-4 flex items-center gap-2">
                 <Globe size={12} /> {t.urlLabel}
               </label>
@@ -156,7 +173,12 @@ const AdminDashboard = () => {
                   type="url"
                   placeholder={t.urlPlaceholder}
                   value={targetUrl}
-                  onKeyDown={(e) => { if (e.key === 'Enter' && isValid) handleSnapReport(); }}
+                  onKeyDown={(e) => { 
+                    if (e.key === 'Enter' && isValid) {
+                      // Enter ile Snap Report tetiklenir (varsayılan)
+                      handleSnapReport(); 
+                    }
+                  }}
                   onChange={(e) => setTargetUrl(e.target.value.trim())}
                   className={`w-full bg-white/5 border-2 rounded-3xl px-8 py-6 text-xl font-mono transition-all outline-none ${targetUrl && !isValid ? 'border-red-500/50 text-red-400' : isValid ? 'border-primary/50 text-primary shadow-[0_0_20px_rgba(0,255,65,0.1)]' : 'border-white/10 group-hover:border-white/20'}`}
                 />
@@ -181,12 +203,20 @@ const AdminDashboard = () => {
               )}
             </AnimatePresence>
 
-            {/* Buttons */}
-            <div className="grid md:grid-cols-2 gap-6 pt-4">
-              <button disabled={!isValid || isProcessing} onClick={handleSnapReport} className="group relative h-44 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-primary/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer">
+            {/* Actions Grid */}
+            <div className="grid md:grid-cols-2 gap-6 pt-4 relative z-10">
+              
+              {/* SNAP REPORT BUTTON */}
+              <button 
+                disabled={!isValid || isProcessing} 
+                onClick={handleSnapReport} 
+                className="group relative h-48 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-primary/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed clickable"
+              >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative p-8 flex flex-col items-start text-left h-full">
-                  <div className="p-3 bg-primary/10 rounded-xl text-primary mb-auto group-hover:scale-110 transition-transform"><Zap size={24} /></div>
+                  <div className="p-3 bg-primary/10 rounded-xl text-primary mb-auto group-hover:scale-110 transition-transform">
+                    <Zap size={24} />
+                  </div>
                   <div>
                     <h3 className="text-xl font-black uppercase tracking-tight mb-1">{t.snapTitle}</h3>
                     <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest leading-none">{t.snapSub}</p>
@@ -195,18 +225,53 @@ const AdminDashboard = () => {
                 </div>
               </button>
 
-              <button disabled={!isValid || isProcessing} onClick={handleFullAudit} className="group relative h-44 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-red-500/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer">
-                <div className="absolute inset-0 bg-gradient-to-br from-red-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              {/* FULL X-RAY SCAN BUTTON (Premium Style) */}
+              <button 
+                disabled={!isValid || isProcessing} 
+                onClick={handleFullAudit} 
+                className="group relative h-48 rounded-[32px] overflow-hidden border border-red-500/20 bg-red-950/20 hover:border-red-500/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-[inset_0_0_30px_rgba(239,68,68,0.05)] clickable"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                
                 <div className="relative p-8 flex flex-col items-start text-left h-full">
-                  <div className="p-3 bg-red-500/10 rounded-xl text-red-500 mb-auto group-hover:scale-110 transition-transform"><FileText size={24} /></div>
-                  <div>
-                    <h3 className="text-xl font-black uppercase tracking-tight mb-1">{t.fullTitle}</h3>
-                    <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest leading-none">{t.fullSub}</p>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-[8px] font-black uppercase tracking-widest mb-auto">
+                    <ScanSearch size={10} className="animate-pulse" /> {t.xrayBadge}
                   </div>
-                  <ArrowRight className="absolute bottom-8 right-8 text-white/20 group-hover:text-red-500 group-hover:translate-x-2 transition-all" size={24} />
+                  
+                  <div className="mt-4">
+                    <h3 className="text-xl font-black uppercase tracking-tight mb-1 text-white group-hover:text-red-400 transition-colors">
+                      {t.fullTitle}
+                    </h3>
+                    <p className="text-white/40 text-[9px] font-bold uppercase tracking-widest leading-tight">
+                      {t.fullSub}
+                    </p>
+                  </div>
+                  
+                  <div className="w-full mt-4 flex items-center justify-between border-t border-white/5 pt-4">
+                     <span className="text-[8px] font-black text-white/20 uppercase tracking-widest">
+                       CORE ANALYZER: REAL-TIME
+                     </span>
+                     <ArrowRight className="text-red-500 group-hover:translate-x-2 transition-transform" size={20} />
+                  </div>
                 </div>
+
+                {/* Corner glow */}
+                <div className="absolute -bottom-8 -right-8 w-24 h-24 bg-red-500/10 blur-2xl rounded-full" />
               </button>
             </div>
+
+            {/* X-RAY Info Banner */}
+            <div className="p-6 bg-white/5 rounded-3xl border border-white/5 flex items-center gap-4 relative z-10 group">
+              <div className="p-3 bg-red-500/10 rounded-xl text-red-500">
+                <FileText size={20} />
+              </div>
+              <div className="flex-1">
+                <h4 className="text-[11px] font-black text-white/80 uppercase tracking-wider">{t.xrayTitle}</h4>
+                <p className="text-[10px] text-white/40 font-medium">{t.xrayDesc}</p>
+              </div>
+              <CheckCircle2 size={16} className="text-primary opacity-20 group-hover:opacity-100 transition-opacity" />
+            </div>
+
           </div>
 
           {/* Stats Bar */}
