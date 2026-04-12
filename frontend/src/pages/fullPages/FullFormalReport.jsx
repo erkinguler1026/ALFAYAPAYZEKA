@@ -4,7 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 /**
- * AuditReportGenerator — Ultra-Dense 48-Page A4 Engine (V2 - Professional Edition)
+ * AuditReportGenerator — Ultra-Dense 48-Page A4 Engine (V2 - Professional Edition) - Formal Document View
  */
 
 const CVSSBadge = ({ score }) => {
@@ -110,8 +110,8 @@ const CoverPage = ({ siteName, t }) => {
              <div className="border-l-2 border-slate-100 pl-4">
                 <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest mb-1">{t.analysisDate}</p>
                 <div className="flex items-center gap-[15px]">
-                  <p className="text-sm font-mono font-bold text-slate-700">{dateStr}</p>
-                  <p className="text-sm font-mono font-bold text-slate-700">{timeStr}</p>
+                   <p className="text-sm font-mono font-bold text-slate-700">{dateStr}</p>
+                   <p className="text-sm font-mono font-bold text-slate-700">{timeStr}</p>
                 </div>
              </div>
              <div className="border-l-2 border-red-100 pl-4">
@@ -270,7 +270,7 @@ const FinalPage = ({ t, pageNum }) => (
   </Page>
 );
 
-const AuditReportGenerator = () => {
+const FullFormalReport = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const lang = searchParams.get('lang') || 'tr';
@@ -280,11 +280,9 @@ const AuditReportGenerator = () => {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const adminParam = searchParams.get('admin');
-  const isAuth = sessionStorage.getItem('admin_auth');
 
   const siteName = (siteParam || 'site.com').toUpperCase();
-  const isAdmin = isAuth === 'true' || adminParam === 'true';
+  // const isAdmin = isAuth === 'true' || adminParam === 'true';
 
   const [auditData, setAuditData] = React.useState(null);
   const [isAuditLoading, setIsAuditLoading] = React.useState(true);
@@ -312,7 +310,7 @@ const AuditReportGenerator = () => {
       reportTitle: "ALFA PENETRASYON RAPOR MÜHENDİSLİĞİ",
       reportVariant: "PENETRASYON",
       reportSuffix: "Rapor mühendisliği",
-      forensicAudit: "Adli Bilişim ve Siber Denetim",
+      forensicAudit: "Penetrasyon Analizi ve Siber Denetim",
       analysisDate: "Analiz tarihi",
       reportNo: "Rapor no",
       classification: "Gizlilik derecesi",
@@ -370,9 +368,9 @@ const AuditReportGenerator = () => {
       reportTitle: "ALFA PENETRATION REPORT ENGINEERING",
       reportVariant: "PENETRATION",
       reportSuffix: "Report engineering",
-      forensicAudit: "Forensic Audit & Cyber Inspection",
+      forensicAudit: "Penetration Analysis & Cyber Inspection",
       analysisDate: "Analysis date",
-      reportNo: "Report no",
+      reportNo: "Rapor no",
       classification: "Classification",
       confidential: "Top secret / Proprietary",
       status: "Status",
@@ -427,13 +425,8 @@ const AuditReportGenerator = () => {
   }[lang];
 
   const handlePrint = () => {
-    const now = new Date();
-    const timestamp = `${now.getDate().toString().padStart(2, '0')}_${(now.getMonth() + 1).toString().padStart(2, '0')}_${now.getFullYear()}_${now.getHours().toString().padStart(2, '0')}_${now.getMinutes().toString().padStart(2, '0')}_${now.getSeconds().toString().padStart(2, '0')}`;
-    const fileName = `ALFA_FULL_PENETRASYON_RAPORU_${siteName.replace(/\s/g, '_')}_${timestamp}`;
-    const originalTitle = document.title;
-    document.title = fileName;
-    window.print();
-    setTimeout(() => { document.title = originalTitle; }, 1000);
+    // Anayasa gereği dedicated print sayfasına yönlendirme yapılır.
+    window.open(`/full-report-print?site=${siteName.toLowerCase()}&lang=${lang}`, '_blank');
   };
 
   if (isAuditLoading) {
@@ -549,15 +542,13 @@ const AuditReportGenerator = () => {
         </div>
       </div>
 
-      {isAdmin && (
-        <div className="fixed top-32 left-8 print:hidden z-[100]">
-          <button onClick={() => navigate('/admin-panel')} className="px-6 py-3 bg-white/80 backdrop-blur-md border rounded-xl font-bold text-sm shadow-xl hover:bg-gray-900 hover:text-white transition-all flex items-center gap-2">
-            <ArrowLeft size={18} /> {t.backToAdmin}
-          </button>
-        </div>
-      )}
+      <div className="fixed top-32 left-8 print:hidden z-[100]">
+        <button onClick={() => navigate(-1)} className="px-6 py-3 bg-white/80 backdrop-blur-md border rounded-xl font-bold text-sm shadow-xl hover:bg-gray-900 hover:text-white transition-all flex items-center gap-2">
+          <ArrowLeft size={18} /> {t.backToAdmin}
+        </button>
+      </div>
     </div>
   );
 };
 
-export default AuditReportGenerator;
+export default FullFormalReport;

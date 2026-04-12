@@ -43,12 +43,10 @@ const PageFooter = ({ reportId, domain, pageNum, totalPages }) => (
 ───────────────────────────────────────────── */
 const CoverPage = ({ reportId, target, timestamp, totalPages }) => (
   <div className="a4-page bg-white p-0 relative overflow-hidden">
-    {/* Dış Çerçeve (Double Border Style) */}
     <div className="absolute inset-[10mm] border-2 border-slate-900" />
     <div className="absolute inset-[11mm] border border-slate-900" />
     
     <div className="relative h-full flex flex-col items-center justify-between py-24 px-16 text-center">
-      {/* Üst Kısım: Logo ve Kırmızı Uyarı */}
       <div className="space-y-10 w-full flex flex-col items-center">
         <ShieldCheck size={70} className="text-slate-900" strokeWidth={1.5} />
         
@@ -67,10 +65,8 @@ const CoverPage = ({ reportId, target, timestamp, totalPages }) => (
         </div>
       </div>
 
-      {/* Orta Kısım: Hedef Alanı */}
       <div className="w-full space-y-8">
         <div className="w-full h-px bg-slate-900 mx-auto" />
-        
         <div className="space-y-1">
           <p className="text-[10px] font-bold text-slate-300 tracking-[0.4em] uppercase mb-4">
             HEDEF KURULUŞ / DOMAIN
@@ -82,11 +78,9 @@ const CoverPage = ({ reportId, target, timestamp, totalPages }) => (
             IP: {reportId ? '104.21.12.108' : 'TARANIYOR...'}
           </p>
         </div>
-
         <div className="w-full h-px bg-slate-900 mx-auto" />
       </div>
 
-      {/* Alt Kısım: Adli Tablo Verileri */}
       <div className="w-full max-w-2xl px-4">
         <div className="grid grid-cols-4 gap-4 text-left">
           <div className="space-y-1">
@@ -108,7 +102,6 @@ const CoverPage = ({ reportId, target, timestamp, totalPages }) => (
         </div>
       </div>
 
-      {/* Alt Bilgi */}
       <div className="absolute bottom-16 w-full text-center">
         <p className="text-[8px] font-bold text-slate-300 tracking-[0.3em] uppercase">
           ALFA YAPAY ZEKA — ALFA-XRAY FULL PENTEST ENGINE V3.0
@@ -124,16 +117,13 @@ const CoverPage = ({ reportId, target, timestamp, totalPages }) => (
 /* ─────────────────────────────────────────────
    V3.0 PENETRATION TEST DOSSIER COMPONENT
 ───────────────────────────────────────────── */
-
 const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPages }) => {
   if (!finding) return null;
 
   return (
     <>
-      {/* DOSYA SAYFA 1: Genel Bakış & Teknik Detay */}
       <div className="a4-page border-t-[12px] border-slate-900">
         <PageHeader pageNum={pageBase} totalPages={totalPages} section={`ZAFİYET DOSYASI: ${finding.id?.toUpperCase()}`} icon={Terminal} />
-        
         <div className="flex-1 space-y-8">
           <div className="p-6 bg-slate-900 text-white rounded-[32px] relative overflow-hidden">
              <div className="absolute top-0 right-0 p-4 opacity-10"><ShieldAlert size={80} /></div>
@@ -150,7 +140,6 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
                 </div>
              </div>
           </div>
-
           <div className="grid grid-cols-1 gap-6">
             <section className="space-y-2">
                <h4 className="text-[10px] font-black text-slate-900 border-b border-slate-200 pb-1 uppercase flex items-center gap-2">
@@ -158,7 +147,6 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
                </h4>
                <p className="text-[11px] text-slate-600 leading-relaxed font-medium">{finding.description}</p>
             </section>
-
             <section className="space-y-2">
                <h4 className="text-[10px] font-black text-slate-900 border-b border-slate-200 pb-1 uppercase flex items-center gap-2">
                  <SearchCode size={12} /> II. TEKNİK BULGULAR (PENTEST DATA)
@@ -172,9 +160,8 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
         <PageFooter reportId={reportId} domain={domain} pageNum={pageBase} totalPages={totalPages} />
       </div>
 
-      {/* DOSYA SAYFA 2: Saldırı Senaryosu & Etki */}
       <div className="a4-page border-t-[12px] border-red-600">
-        <PageHeader pageNum={pageBase + 1} totalPages={totalPages} section="ADLİ ANALİZ: ETKİ VE SENARYO" icon={Activity} />
+        <PageHeader pageNum={pageBase + 1} totalPages={totalPages} section="TEKNİK ANALİZ: ETKİ VE SENARYO" icon={Activity} />
         <div className="flex-1 space-y-10">
            <section className="space-y-3">
               <h4 className="text-sm font-black text-red-600 uppercase tracking-tighter">⚠️ OLASI SALDIRI SENARYOSU</h4>
@@ -182,7 +169,6 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
                  <p className="text-[11px] text-red-900 font-bold leading-relaxed">{finding.attack}</p>
               </div>
            </section>
-
            <div className="grid grid-cols-2 gap-6">
               <section className="space-y-3">
                  <h4 className="text-[10px] font-black text-slate-800 uppercase border-b border-slate-100 pb-1">GÜVENLİK ETKİSİ</h4>
@@ -193,7 +179,6 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
                  <p className="text-[11px] text-slate-500 font-medium leading-relaxed">{finding.businessImpact}</p>
               </section>
            </div>
-
            <div className="p-6 bg-slate-50 rounded-[32px] border border-dashed border-slate-300">
               <h5 className="text-[9px] font-black text-slate-400 uppercase mb-4">KRİTİK UYARI</h5>
               <p className="text-[10px] text-slate-500 italic font-medium">Bu zafiyetin sömürülmesi durumunda, kurumun ISO 27001 BGYS standartları ve KVKK veri güvenliği maddeleri doğrudan ihlal edilmiş sayılacaktır.</p>
@@ -202,7 +187,6 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
         <PageFooter reportId={reportId} domain={domain} pageNum={pageBase + 1} totalPages={totalPages} />
       </div>
 
-      {/* DOSYA SAYFA 3: Çözüm & Referanslar */}
       <div className="a4-page border-t-[12px] border-emerald-500">
         <PageHeader pageNum={pageBase + 2} totalPages={totalPages} section="İYİLEŞTİRME VE DÜZELTME PLANI" icon={CheckCircle} />
         <div className="flex-1 space-y-10">
@@ -214,7 +198,6 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
                  </pre>
               </div>
            </section>
-
            <section className="space-y-4">
               <h4 className="text-[10px] font-black text-slate-800 uppercase border-b border-slate-100 pb-1">TEKNİK KAYNAKLAR & REFERANSLAR</h4>
               <div className="space-y-2">
@@ -238,14 +221,12 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
 ───────────────────────────────────────────── */
 const ToolkitPage = ({ reportId, domain, totalPages }) => (
   <div className="a4-page border-t-[16px] border-slate-900 bg-[#fdfdfd]">
-    <PageHeader pageNum={2} totalPages={totalPages} section="PENETRASYON TEST METODOLOJİSİ VE PENETRASYON ARAÇLARI" icon={Terminal} />
-    
+    <PageHeader pageNum={2} totalPages={totalPages} section="PENETRASYON TEST METODOLOJİSİ VE ANALİZ ARAÇLARI" icon={Terminal} />
     <div className="flex-1 font-mono text-[10px] leading-tight text-slate-800 space-y-6">
        <div className="p-4 border-2 border-dashed border-slate-300 rounded-lg bg-slate-50 italic">
           <p>BU SAYFA, ALFA X-RAY V3.0 MOTORUNUN KULLANDIĞI TEKNİK ARAÇ SETİNİ LİSTELEMEKTEDİR.</p>
           <p>TÜM VERİLER GERÇEK ZAMANLI SONDALAR VE GÜVENLİ API KATMANLARI ÜZERİNDEN ELDE EDİLMİŞTİR.</p>
        </div>
-
        <div className="space-y-4">
           <h3 className="text-[12px] font-black uppercase text-slate-900 border-b-2 border-slate-900 pb-1">
              [GRUP 1: FreePentestTools - TEMEL ÇEKİRDEK]
@@ -261,7 +242,6 @@ S7  | SSL & Robots           | HTTPS / robots.txt     | Temel URL Sağlığı
 S8  | Path Bruteforce        | Axios GET Probe        | Hassas Dosya Tespiti (.env, .git)`}
           </pre>
        </div>
-
        <div className="space-y-4">
           <h3 className="text-[12px] font-black uppercase text-red-700 border-b-2 border-red-700 pb-1">
              [GRUP 2: FullPentestTools - İLERİ DÜZEY X-RAY]
@@ -280,7 +260,6 @@ N8  | IP Reputation Check    | AlienVault OTX         | Tehdit İstihbaratı (Za
 N9  | Sitemap Inventory      | XML/Sitemap Parser     | Varlık Yönetimi`}
           </pre>
        </div>
-
        <div className="pt-10 space-y-2 opacity-60">
           <p className="font-black">PENETRASYON TEST & DENETİM STANDARTLARI:</p>
           <ul className="list-inside list-disc">
@@ -297,7 +276,6 @@ N9  | Sitemap Inventory      | XML/Sitemap Parser     | Varlık Yönetimi`}
 /* ─────────────────────────────────────────────
    MAIN COMPONENT — FullReportPrint V3.0
 ───────────────────────────────────────────── */
-
 const SCAN_STEPS = [
   'DNS & IP Çözümleniyor...',
   'Port Taraması Yapılıyor...',
@@ -307,14 +285,13 @@ const SCAN_STEPS = [
   'Zafiyet Sondajları Başlatılıyor (Active)...',
   'XSS & SQLi Testleri Yürütülüyor...',
   'Finding Library Entegrasyonu...',
-  'ADLİ DOSYALAR OLUŞTURULUYOR...',
+  'PENETRASYON DOSYALARI OLUŞTURULUYOR...',
   'Rapor Derleniyor...',
 ];
 
 const FullReportPrint = () => {
   const [searchParams] = useSearchParams();
   const siteParam = searchParams.get('site') || 'hedef.com';
-
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError]         = useState(null);
   const [report, setReport]       = useState(null);
@@ -334,7 +311,6 @@ const FullReportPrint = () => {
         stepInterval = setInterval(() => {
           setLoadStep(s => Math.min(s + 1, SCAN_STEPS.length - 1));
         }, 4000);
-
         const res = await apiClient.get(`/api/full-pentest?url=${encodeURIComponent(siteParam)}`);
         clearInterval(stepInterval);
         if (res.data.success) {
@@ -391,7 +367,6 @@ const FullReportPrint = () => {
     );
   }
 
-  // 🔴 YENİ: KARARLILIK DENETİMİ (RELIABILITY CHECK)
   if (report.auditStatus === 'INCOMPLETE') {
     return (
       <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center font-mono gap-6 text-white p-6">
@@ -422,21 +397,18 @@ const FullReportPrint = () => {
 
   const { reportId, target, timestamp, score, subdomainList, findings } = report;
   const domain = target?.toUpperCase();
-
   const subDomainChunks = chunkArray(subdomainList || [], 18);
-  const totalPages = 1 + 1 + 1 + subDomainChunks.length + (findings.length * 3) + 1; // Cover, Toolkit, Risk, Subdomains, Findings, Glossary
+  const totalPages = 1 + 1 + 1 + subDomainChunks.length + (findings.length * 3) + 1; 
 
   return (
     <div className="bg-slate-100 min-h-screen py-10 print:py-0">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=IBM+Plex+Mono:wght@400;500;700&display=swap');
-        
         @media print {
           @page { size: 210mm 297mm; margin: 0; }
           .a4-page { width: 210mm; height: 297mm; margin: 0; border: none; box-shadow: none; break-after: page; }
           .no-print { display: none !important; }
         }
-
         .a4-page {
           width: 210mm; height: 297mm; background: white;
           margin: 0 auto 24px auto; padding: 15mm 18mm;
@@ -444,19 +416,9 @@ const FullReportPrint = () => {
           box-shadow: 0 10px 40px rgba(0,0,0,0.1);
           font-family: 'Plus Jakarta Sans', sans-serif;
         }
-
-        /* IBM Plex Mono Entegrasyonu */
-        .font-mono {
-          font-family: 'IBM Plex Mono', monospace !important;
-        }
-
-        /* Tüm raporun daha 'daktilo' hissettirmesi için teknik alanlara zorunlu ata */
-        .technical-font {
-          font-family: 'IBM Plex Mono', monospace;
-        }
+        .font-mono { font-family: 'IBM Plex Mono', monospace !important; }
       `}</style>
 
-      {/* PRINT TOOLBAR */}
       <div className="no-print sticky top-4 z-50 flex justify-center mb-8 px-4">
         <div className="bg-slate-900/90 backdrop-blur-xl px-8 py-4 rounded-3xl border border-white/20 shadow-2xl flex items-center gap-8">
            <div className="flex items-center gap-3">
@@ -475,16 +437,11 @@ const FullReportPrint = () => {
       </div>
 
       <CoverPage reportId={reportId} target={target} timestamp={timestamp} totalPages={totalPages} />
-      
-      {/* 🛠 2. TOOLKIT PAGE (DAKTİLO) */}
       <ToolkitPage reportId={reportId} domain={domain} totalPages={totalPages} />
 
-      {/* 📊 3. GÜVENLİK DERECESİ & HEALTH METRICS */}
       <div className="a4-page">
         <PageHeader pageNum={3} totalPages={totalPages} section="GÜVENLİK DERECESİ & RİSK PUANLAMASI" icon={Activity} />
-        
         <div className="flex-1 flex flex-col items-center justify-between py-10">
-          {/* Grade Scale */}
           <div className="flex justify-between w-full max-w-2xl px-1 relative">
             {[
               { g: 'A+', l: 'MÜKEMMEL', min: 9.5 },
@@ -494,43 +451,30 @@ const FullReportPrint = () => {
               { g: 'D', l: 'ZAYIF', min: 2.5 },
               { g: 'F', l: 'TEHLİKELİ', min: 0 }
             ].map((item) => {
-              // Precise mapping for the current visual 'C' case
               const isCurrentGrade = (item.g === 'C' && score < 6.5 && score >= 4.5) || 
                                      (item.g === 'B' && score < 8.5 && score >= 6.5) ||
                                      (item.g === 'A' && score < 9.5 && score >= 8.5) ||
                                      (item.g === 'A+' && score >= 9.5) ||
                                      (item.g === 'D' && score < 4.5 && score >= 2.5) ||
                                      (item.g === 'F' && score < 2.5);
-
               return (
                 <div key={item.g} className="flex flex-col items-center">
                   <span className={`text-[12px] font-black mb-1 ${isCurrentGrade ? 'text-orange-500' : 'text-slate-300'}`}>{item.g}</span>
-                  <span className={`text-[7px] font-bold mb-2 tracking-tighter transition-colors ${isCurrentGrade ? 'text-orange-500' : 'text-slate-300/40'}`}>
-                    {item.l}
-                  </span>
+                  <span className={`text-[7px] font-bold mb-2 tracking-tighter transition-colors ${isCurrentGrade ? 'text-orange-500' : 'text-slate-300/40'}`}>{item.l}</span>
                   {isCurrentGrade && <div className="w-8 h-1 bg-orange-500 rounded-full" />}
                 </div>
               );
             })}
           </div>
-
-          {/* Big Grade Letter */}
           <div className="relative">
             <span className="text-[180px] font-black text-orange-500 leading-none tracking-tighter">
               {score >= 9.5 ? 'A+' : score >= 8.5 ? 'A' : score >= 6.5 ? 'B' : score >= 4.5 ? 'C' : score >= 2.5 ? 'D' : 'F'}
             </span>
           </div>
-
           <div className="space-y-4">
-             <p className="text-slate-400 text-sm font-black uppercase tracking-[0.3em]">
-               {findings.length} KRİTİK/MAJÖR BULGU TESPİT EDİLDİ
-             </p>
-             <div className="px-12 py-3 bg-orange-500 text-white rounded-full font-black text-[10px] tracking-widest uppercase shadow-lg shadow-orange-200">
-               İYİLEŞTİRME ÖNERİLİR
-             </div>
+             <p className="text-slate-400 text-sm font-black uppercase tracking-[0.3em]">{findings.length} KRİTİK/MAJÖR BULGU TESPİT EDİLDİ</p>
+             <div className="px-12 py-3 bg-orange-500 text-white rounded-full font-black text-[10px] tracking-widest uppercase shadow-lg shadow-orange-200">İYİLEŞTİRME ÖNERİLİR</div>
           </div>
-
-          {/* Attack Surface Health Section */}
           <div className="w-full bg-slate-50/50 rounded-[40px] p-10 border border-slate-100">
              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-10">ATTACK SURFACE HEALTH (ANALİZ)</p>
              <div className="flex justify-between items-end px-4">
@@ -545,11 +489,7 @@ const FullReportPrint = () => {
                       <div className="relative w-24 h-24">
                          <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
                             <circle cx="50" cy="50" r="40" stroke="#eee" strokeWidth="12" fill="transparent" />
-                            <circle 
-                              cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="12" fill="transparent" 
-                              className={item.color} strokeLinecap="round" strokeDasharray="251.2"
-                              strokeDashoffset={251.2 - (251.2 * item.val) / 100}
-                            />
+                            <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="12" fill="transparent" className={item.color} strokeLinecap="round" strokeDasharray="251.2" strokeDashoffset={251.2 - (251.2 * item.val) / 100} />
                          </svg>
                          <div className="absolute inset-0 flex items-center justify-center text-xs font-black">%{item.val}</div>
                       </div>
@@ -562,79 +502,49 @@ const FullReportPrint = () => {
         <PageFooter reportId={reportId} domain={domain} pageNum={3} totalPages={totalPages} />
       </div>
 
-      {/* 🔍 4. SUBDOMAİNS */}
-      {subDomainChunks.map((chunk, idx) => {
-        const currentPage = 4 + idx;
-        return (
-          <div key={idx} className="a4-page">
-             <PageHeader pageNum={currentPage} totalPages={totalPages} section="SUBDOMAIN ENUMERATION (ADLİ KAYITLAR)" icon={Network} />
-           <div className="flex-1 space-y-4">
-              <p className="text-[10px] text-slate-500 font-medium">crt.sh Certificate Transparency veritabanından çekilen gerçek dijital varlık listesidir:</p>
-              <table className="w-full border-collapse">
-                 <thead>
-                    <tr className="bg-slate-900 text-white text-[8px] font-black uppercase tracking-widest text-left">
-                       <th className="p-2">#</th>
-                       <th className="p-2">SUBDOMAIN</th>
-                       <th className="p-2">SSL ISSUER</th>
-                       <th className="p-2">TESPİT TARİHİ</th>
-                    </tr>
-                 </thead>
-                 <tbody>
-                    {chunk.map((s, i) => (
-                       <tr key={i} className="border-b border-slate-100 italic">
-                          <td className="p-2 text-[8px] font-black text-slate-300">{idx * 18 + i + 1}</td>
-                          <td className="p-2 text-[9px] font-bold text-slate-800">{s.subdomain}</td>
-                          <td className="p-2 text-[8px] text-slate-500">{s.issuer?.substring(0, 30)}</td>
-                          <td className="p-2 text-[8px] text-slate-500">{new Date(s.loggedAt).toLocaleDateString()}</td>
-                       </tr>
-                    ))}
-                 </tbody>
-              </table>
-           </div>
-             <PageFooter reportId={reportId} domain={domain} pageNum={currentPage} totalPages={totalPages} />
+      {subDomainChunks.map((chunk, idx) => (
+        <div key={idx} className="a4-page">
+          <PageHeader pageNum={4 + idx} totalPages={totalPages} section="SUBDOMAIN ENUMERATION (PENETRASYON KAYITLARI)" icon={Network} />
+          <div className="flex-1 space-y-4">
+            <table className="w-full border-collapse text-left">
+               <thead>
+                  <tr className="bg-slate-900 text-white text-[8px] font-black uppercase tracking-widest">
+                     <th className="p-2">#</th><th className="p-2">SUBDOMAIN</th><th className="p-2">SSL ISSUER</th><th className="p-2">TESPİT TARİHİ</th>
+                  </tr>
+               </thead>
+               <tbody className="italic text-slate-800">
+                  {chunk.map((s, i) => (
+                     <tr key={i} className="border-b border-slate-100">
+                        <td className="p-2 text-[8px] font-black text-slate-300">{idx * 18 + i + 1}</td>
+                        <td className="p-2 text-[9px] font-bold">{s.subdomain}</td>
+                        <td className="p-2 text-[8px] text-slate-500">{s.issuer?.substring(0, 30)}</td>
+                        <td className="p-2 text-[8px] text-slate-500">{new Date(s.loggedAt).toLocaleDateString()}</td>
+                     </tr>
+                  ))}
+               </tbody>
+            </table>
           </div>
-        );
-      })}
+          <PageFooter reportId={reportId} domain={domain} pageNum={4 + idx} totalPages={totalPages} />
+        </div>
+      ))}
 
-      {/* 🔥🔥🔥 4+. PENETRATION TEST FINDING DOSSIERS (THE CORE) 🔥🔥🔥 */}
       {findings.map((finding, index) => {
          const findingPageBase = 4 + subDomainChunks.length + (index * 3);
-         return (
-           <TechnicalFindingDossier 
-              key={finding.id} 
-              finding={finding} 
-              reportId={reportId} 
-              domain={domain} 
-              pageBase={findingPageBase}
-              totalPages={totalPages}
-           />
-         );
+         return <TechnicalFindingDossier key={finding.id} finding={finding} reportId={reportId} domain={domain} pageBase={findingPageBase} totalPages={totalPages} />
       })}
 
-      {/* G - TERMS GLOSSARY */}
       <div className="a4-page">
-         <PageHeader pageNum={totalPages} totalPages={totalPages} section="ADLİ BİLİŞİM SERTİFİKASYON VE ONAY" icon={ShieldCheck} />
+         <PageHeader pageNum={totalPages} totalPages={totalPages} section="SİBER GÜVENLİK SERTİFİKASYON VE ONAY" icon={ShieldCheck} />
          <div className="flex-1 flex flex-col items-center justify-center text-center space-y-10">
-            <div className="w-32 h-32 bg-slate-50 rounded-full flex items-center justify-center">
-               <ShieldCheck size={64} className="text-emerald-500" />
-            </div>
+            <div className="w-32 h-32 bg-slate-50 rounded-full flex items-center justify-center"><ShieldCheck size={64} className="text-emerald-500" /></div>
             <div className="space-y-4 max-w-md">
                <h3 className="text-xl font-black text-slate-900 uppercase">DİJİTAL ONAY</h3>
-               <p className="text-xs text-slate-500 font-medium leading-relaxed">
-                  Bu rapor, ALFA YAPAY ZEKA X-RAY V3.0 motoru tarafından otomatik olarak derlenmiş, 
-                  gerçek ağ trafiği ve sertifika kayıtları ile doğrulanmıştır. Paylaşılan veriler 
-                  adli bilişim standartlarında "Kanıt" niteliği taşımaktadır.
-               </p>
+               <p className="text-xs text-slate-500 font-medium leading-relaxed">Bu rapor, ALFA YAPAY ZEKA X-RAY V3.0 motoru tarafından otomatik olarak derlenmiş olup, paylaşılan veriler siber güvenlik standartlarında "Teknik Kanıt" niteliği taşımaktadır.</p>
             </div>
-            <div className="pt-20">
-               <div className="w-48 h-0.5 bg-slate-900 mx-auto mb-4" />
-               <p className="text-[10px] font-black text-slate-900">ALFA-AI CYBER COMMAND</p>
-               <p className="text-[8px] font-bold text-slate-400">CERTIFIED SECURITY AUDITOR</p>
-            </div>
+            <div className="pt-20"><div className="w-48 h-0.5 bg-slate-900 mx-auto mb-4" /><p className="text-[10px] font-black text-slate-900 uppercase">ALFA-AI CYBER COMMAND</p><p className="text-[8px] font-bold text-slate-400">CERTIFIED SECURITY AUDITOR</p></div>
          </div>
          <PageFooter reportId={reportId} domain={domain} pageNum={totalPages} totalPages={totalPages} />
       </div>
-
     </div>
   );
 };

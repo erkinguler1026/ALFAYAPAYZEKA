@@ -18,7 +18,9 @@ import ContractView from './pages/fullPages/ContractView';
 import SnapReport from './pages/freePages/SnapReport';
 import SnapScoreCard from './pages/freePages/SnapScoreCard';
 import SnapReportPrint from './pages/freePages/SnapReportPrint';
-import AuditReportGenerator from './pages/fullPages/AuditReportGenerator';
+import FullScoreCard from './pages/fullPages/FullScoreCard';
+import FullReport from './pages/fullPages/FullReport';
+import FullFormalReport from './pages/fullPages/FullFormalReport';
 import AdminDashboard from './pages/AdminDashboard';
 import FullReportPrint from './pages/fullPages/FullReportPrint';
 
@@ -61,8 +63,10 @@ const App = () => {
           <Route path="ai-pentest" element={<AIPentest />} />
           <Route path="scorecard" element={<SnapScoreCard />} />
           <Route path="scorecard-print" element={<SnapReportPrint />} />
-          <Route path="audit-generator" element={<AuditReportGenerator />} />
-          <Route path="full-pentest-print" element={<FullReportPrint />} />
+          <Route path="full-scorecard" element={<FullScoreCard />} />
+          <Route path="full-report" element={<FullReport />} />
+          <Route path="full-formal-report" element={<FullFormalReport />} />
+          <Route path="full-report-print" element={<FullReportPrint />} />
           <Route path="admin-panel" element={<AdminDashboard />} />
           <Route path="sozlesme/:type" element={<ContractView />} />
         </Route>

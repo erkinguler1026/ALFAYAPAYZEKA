@@ -28,16 +28,17 @@ const AdminDashboard = () => {
     tr: {
       backToHome: "Ana Sayfaya Dön",
       safePortal: "Güvenli Admin Portalı",
-      title: "ALFA RAPOR MÜHENDİSLİĞİ",
-      subtitle: "Analiz edilecek firmanın domain adresini girin. Sistem otomatik olarak ALFA X-RAY V2.0 Adli Bilişim motorunu tetikleyecektir.",
+      title: "ALFA PENETRASYON RAPORLARI",
+      subtitle: "Analiz edilecek firmanın domain adresini girin. Sistem otomatik olarak ALFA X-RAY V2.0 Penetrasyon Testi motorunu tetikleyecektir.",
       urlLabel: "Hedef Web Sitesi (URL)",
       urlPlaceholder: "https://www.firma-adi.com",
       urlHint: "* Sadece tam protokol içeren URL adresleri kabul edilir (http/https).",
       processing: "X-RAY Motoru Başlatılıyor...",
-      snapTitle: "Snap Report",
-      snapSub: "2 Sayfa • Özet Analiz",
-      fullTitle: "Full X-RAY Audit",
-      fullSub: "250 Sayfa • Adli Bilişim & Forensics",
+      snapBadge: "SNAP CORE ENGINE V1.0",
+      snapTitle: "Snap Penetrasyon Raporu",
+      snapSub: "4 Sayfa • Özet Analiz",
+      fullTitle: "Full X-RAY Penetrasyon Raporu",
+      fullSub: "250 Sayfa • Penetrasyon Testi & Forensics",
       xrayBadge: "FULL X-RAY PENTEST ENGINE V2.0",
       xrayTitle: "GERÇEK RÖNTGEN ANALİZİ",
       xrayDesc: "7 Bölüm · Gerçek Port Tarama · SSL/TLS Logları · OSINT · 250+ Sayfa Gerçek Veri.",
@@ -51,16 +52,17 @@ const AdminDashboard = () => {
     en: {
       backToHome: "Back to Home",
       safePortal: "Secure Admin Portal",
-      title: "ALFA REPORT ENGINEERING",
-      subtitle: "Enter the firm's domain. The system will automatically trigger the ALFA X-RAY V2.0 Forensic Audit engine.",
+      title: "ALFA PENETRATION REPORTS",
+      subtitle: "Enter the firm's domain. The system will automatically trigger the ALFA X-RAY V2.0 Penetration Test engine.",
       urlLabel: "Target Website (URL)",
       urlPlaceholder: "https://www.company-name.com",
       urlHint: "* Only URLs including protocol (http/https) are accepted.",
       processing: "Starting X-RAY Engine...",
-      snapTitle: "Snap Report",
-      snapSub: "2 Pages • Summary Analysis",
-      fullTitle: "Full X-RAY Audit",
-      fullSub: "250 Pages • Forensic Audit",
+      snapBadge: "SNAP CORE ENGINE V1.0",
+      snapTitle: "Snap Penetration Report",
+      snapSub: "4 Pages • Summary Analysis",
+      fullTitle: "Full X-RAY Penetration Report",
+      fullSub: "250 Pages • Penetration Test & Forensics",
       xrayBadge: "FULL X-RAY PENTEST ENGINE V2.0",
       xrayTitle: "REAL X-RAY ANALYSIS",
       xrayDesc: "7 Sections · Real Port Scan · SSL/TLS Logs · OSINT · 250+ Pages Real Data.",
@@ -103,8 +105,8 @@ const AdminDashboard = () => {
     setIsProcessing(true);
     const domain = getCleanDomain(targetUrl);
     setTimeout(() => {
-      // Orijinal 250 sayfalık AuditReportGenerator $(\"ASIL\") bileşenine dönülüyor
-      navigate(`/full-pentest-print?site=${domain}`);
+      // Yeni Full X-RAY Analiz Şovu (ScoreCard) başlatılıyor.
+      navigate(`/full-scorecard?site=${domain}&lang=${lang}&admin=true`);
     }, 2000);
   };
 
@@ -174,9 +176,8 @@ const AdminDashboard = () => {
                   placeholder={t.urlPlaceholder}
                   value={targetUrl}
                   onKeyDown={(e) => { 
-                    if (e.key === 'Enter' && isValid) {
-                      // Enter ile Snap Report tetiklenir (varsayılan)
-                      handleSnapReport(); 
+                    if (e.key === 'Enter') {
+                      e.preventDefault(); // Enter tuşunun varsayılan tetikleme yapmasını engelliyoruz.
                     }
                   }}
                   onChange={(e) => setTargetUrl(e.target.value.trim())}
@@ -210,14 +211,14 @@ const AdminDashboard = () => {
               <button 
                 disabled={!isValid || isProcessing} 
                 onClick={handleSnapReport} 
-                className="group relative h-48 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-primary/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed clickable"
+                className="group relative h-48 rounded-[32px] overflow-hidden border border-white/10 bg-white/5 hover:border-primary/50 hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer shadow-[0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_40px_rgba(0,255,65,0.15)]"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <div className="relative p-8 flex flex-col items-start text-left h-full">
-                  <div className="p-3 bg-primary/10 rounded-xl text-primary mb-auto group-hover:scale-110 transition-transform">
-                    <Zap size={24} />
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[8px] font-black uppercase tracking-widest mb-auto">
+                    <Zap size={10} className="animate-pulse" /> {t.snapBadge}
                   </div>
-                  <div>
+                  <div className="mt-4">
                     <h3 className="text-xl font-black uppercase tracking-tight mb-1">{t.snapTitle}</h3>
                     <p className="text-white/40 text-[10px] font-bold uppercase tracking-widest leading-none">{t.snapSub}</p>
                   </div>
@@ -229,7 +230,7 @@ const AdminDashboard = () => {
               <button 
                 disabled={!isValid || isProcessing} 
                 onClick={handleFullAudit} 
-                className="group relative h-48 rounded-[32px] overflow-hidden border border-red-500/20 bg-red-950/20 hover:border-red-500/50 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-[inset_0_0_30px_rgba(239,68,68,0.05)] clickable"
+                className="group relative h-48 rounded-[32px] overflow-hidden border border-red-500/20 bg-red-950/20 hover:border-red-500/50 hover:scale-[1.02] active:scale-95 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer shadow-[inset_0_0_30px_rgba(239,68,68,0.05),0_0_20px_rgba(0,0,0,0.3)] hover:shadow-[inset_0_0_40px_rgba(239,68,68,0.1),0_15px_40px_rgba(239,68,68,0.1)]"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 
