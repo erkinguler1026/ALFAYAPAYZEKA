@@ -1,8 +1,8 @@
 # 🛡️ ALFA YAPAY ZEKA — Kurumsal Siber Güvenlik ve AI Ajansı Web Portalı
 
-> **Sürüm:** V1.4.0 | **Tarih:** Mart 2026 | **Durum:** 🟢 Aktif / Production
+> **Sürüm:** V1.5.0 | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
 >
-> **Son Güncelleme:** 31.03.2026 — Admin şifresi onay modalı, ALFA SNAP & ALFA FULL rapor isimlendirmesi, `.com.tr` domain parse düzeltmesi, cursor-pointer iyileştirmeleri.
+> **Son Güncelleme:** 15.04.2026 — Full Pentest Scorecard UI (Light-Gray Tema) entegrasyonu, sahte/mock verilerin %100 gerçek X-RAY engine verileriyle değiştirilmesi, ISO27001 ve Whois veri eşleştirmeleri.
 
 **ALFA YAPAY ZEKA**, kurumsal işletmelere yönelik yapay zeka tabanlı siber güvenlik hizmetleri sunan profesyonel bir web platformudur. Müşteri iletişiminden otomatik güvenlik raporu üretimine kadar tüm iş akışlarını kapsar.
 

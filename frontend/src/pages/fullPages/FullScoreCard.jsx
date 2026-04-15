@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ShieldAlert, Activity, Cpu, Terminal, Lock, Globe, Zap, Search, ShieldCheck, Timer, ArrowRight, AlertCircle
+  ShieldAlert, Activity, Cpu, Terminal, Lock, Globe, Zap, Search, ShieldCheck, Timer, ArrowRight, AlertCircle, LayoutDashboard
 } from 'lucide-react';
 
 /**
@@ -60,6 +60,7 @@ const FullScoreCard = () => {
 
   const steps = lang === 'en' ? FULL_STEPS_EN : FULL_STEPS_TR;
   const formattedUrl = `https://www.${site.toLowerCase().replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '')}`;
+  const startTime = useMemo(() => new Date(), []);
 
   // Loglar: realFullPentestEngine.js mantığına göre kurgulanmış profesyonel terminal çıktıları
   const logs = useMemo(() => {
@@ -171,7 +172,8 @@ const FullScoreCard = () => {
       view: "SCORECARD GÖRÜNTÜLE",
       duration: "SÜRE",
       load: "CPU YÜKÜ",
-      target: "HEDEF"
+      target: "HEDEF",
+      admin: "ADMİN PANEL"
     },
     en: {
       title: "FULL X-RAY CYBER SECURITY AUDIT",
@@ -182,15 +184,27 @@ const FullScoreCard = () => {
       view: "VIEW SCORECARD",
       duration: "TIME",
       load: "CPU LOAD",
-      target: "TARGET"
+      target: "TARGET",
+      admin: "ADMIN PANEL"
     }
   }[lang];
 
   return (
-    <div className="min-h-screen bg-[#050000] text-red-500 font-mono flex flex-col items-center justify-start py-12 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#000500] text-green-500 font-mono flex flex-col items-center justify-start py-12 px-4 relative overflow-hidden">
+      
+      {/* ADMIN PANEL Button */}
+      <div className="absolute top-6 right-6 z-50">
+        <button 
+          onClick={() => navigate('/admin-panel')}
+          className="group flex items-center gap-2 px-5 py-2.5 bg-green-950/40 border border-green-800/50 hover:bg-green-900/60 hover:border-green-500 text-green-500 hover:text-green-300 rounded-lg font-bold text-xs uppercase tracking-widest transition-all shadow-[0_0_15px_rgba(34,197,94,0.1)] hover:shadow-[0_0_20px_rgba(34,197,94,0.3)] backdrop-blur-sm"
+        >
+          <LayoutDashboard size={16} className="group-hover:scale-110 transition-transform" /> {t.admin}
+        </button>
+      </div>
+
       {/* Background Matrix-like Overlay */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'linear-gradient(rgba(220, 38, 38, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(220, 38, 38, 0.4) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+           style={{ backgroundImage: 'linear-gradient(rgba(34, 197, 94, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 197, 94, 0.4) 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
       
       {/* Header Scan Icon */}
       <motion.div 
@@ -198,17 +212,17 @@ const FullScoreCard = () => {
         transition={{ duration: 2, repeat: Infinity }}
         className="w-24 h-24 mb-6 relative z-10"
       >
-        <div className="absolute inset-0 border-2 border-red-600/30 rounded-full animate-spin-slow" />
-        <div className="absolute inset-2 border-2 border-red-600/50 rounded-full flex items-center justify-center bg-red-600/5 shadow-[0_0_30px_rgba(220,38,38,0.3)]">
-           <ShieldAlert size={40} className="text-red-600" />
+        <div className="absolute inset-0 border-2 border-green-600/30 rounded-full animate-spin-slow" />
+        <div className="absolute inset-2 border-2 border-green-600/50 rounded-full flex items-center justify-center bg-green-600/5 shadow-[0_0_30px_rgba(34,197,94,0.3)]">
+           <ShieldAlert size={40} className="text-green-600" />
         </div>
       </motion.div>
 
       <h1 className="text-2xl md:text-3xl font-black text-white tracking-widest uppercase mb-2 z-10 text-center">
         {t.title}
       </h1>
-      <p className="text-red-600 font-black text-xs md:text-sm tracking-[0.5em] mb-12 z-10 text-center flex items-center justify-center gap-3">
-        <span className="w-2 h-2 bg-red-600 animate-pulse rounded-full" /> {t.target}: {formattedUrl}
+      <p className="text-green-600 font-black text-xs md:text-sm tracking-[0.5em] mb-12 z-10 text-center flex items-center justify-center gap-3">
+        <span className="w-2 h-2 bg-green-600 animate-pulse rounded-full" /> {t.target}: {formattedUrl}
       </p>
 
       {/* Main Dual Windows */}
@@ -218,15 +232,15 @@ const FullScoreCard = () => {
         <motion.div 
           initial={{ x: -50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          className="bg-black/80 border-2 border-red-900/40 rounded-xl overflow-hidden shadow-2xl flex flex-col h-[1175px]"
+          className="bg-black/80 border-2 border-green-900/40 rounded-xl overflow-hidden shadow-2xl flex flex-col h-[1175px]"
         >
-          <div className="bg-red-950/20 px-6 py-4 border-b border-red-900/40 flex justify-between items-center">
+          <div className="bg-green-950/20 px-6 py-4 border-b border-green-900/40 flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <Zap size={20} className="text-red-600" />
-              <h2 className="font-black text-sm tracking-widest text-red-100 uppercase">{t.ops}</h2>
+              <Zap size={20} className="text-green-600" />
+              <h2 className="font-black text-sm tracking-widest text-green-100 uppercase">{t.ops}</h2>
             </div>
             <div className="flex gap-4">
-              <div className="text-[10px] flex items-center gap-1.5 font-bold px-2 py-1 bg-red-950/40 border border-red-900/40 rounded text-red-400">
+              <div className="text-[10px] flex items-center gap-1.5 font-bold px-2 py-1 bg-green-950/40 border border-green-900/40 rounded text-green-400">
                 <Timer size={12} /> {t.duration}: {elapsedTime}S
               </div>
             </div>
@@ -238,25 +252,25 @@ const FullScoreCard = () => {
                 key={idx}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: idx <= loadStep ? 1 : 0.2 }}
-                className={`flex items-center gap-4 py-3 px-4 border rounded transition-all ${idx === loadStep ? 'border-red-600 bg-red-600/10 shadow-[0_0_15px_rgba(220,38,38,0.2)]' : 'border-red-950/30'}`}
+                className={`flex items-center gap-4 py-3 px-4 border rounded transition-all ${idx === loadStep ? 'border-green-600 bg-green-600/10 shadow-[0_0_15px_rgba(34,197,94,0.2)]' : 'border-green-950/30'}`}
               >
-                <div className={`w-8 font-black text-xs ${idx === loadStep ? 'text-white' : 'text-red-900'}`}>{(idx + 1).toString().padStart(2, '0')}</div>
-                <div className={`text-[12px] md:text-sm font-bold flex-1 tracking-wider ${idx === loadStep ? 'text-white' : (idx < loadStep ? 'text-red-700' : 'text-red-950')}`}>
+                <div className={`w-8 font-black text-xs ${idx === loadStep ? 'text-white' : 'text-green-900'}`}>{(idx + 1).toString().padStart(2, '0')}</div>
+                <div className={`text-[12px] md:text-sm font-bold flex-1 tracking-wider ${idx === loadStep ? 'text-white' : (idx < loadStep ? 'text-green-700' : 'text-green-950')}`}>
                   {step}
                 </div>
-                {idx < loadStep && <ShieldCheck size={18} className="text-red-600" />}
-                {idx === loadStep && <Activity size={18} className="animate-pulse text-red-500" />}
+                {idx < loadStep && <ShieldCheck size={18} className="text-green-600" />}
+                {idx === loadStep && <Activity size={18} className="animate-pulse text-green-500" />}
               </motion.div>
             ))}
           </div>
 
-          <div className="p-6 border-t border-red-900/40 bg-black">
-             <div className="flex justify-between text-[10px] font-black mb-2 tracking-widest text-red-500 uppercase">
+          <div className="p-6 border-t border-green-900/40 bg-black">
+             <div className="flex justify-between text-[10px] font-black mb-2 tracking-widest text-green-500 uppercase">
                 <span>SYSTEM PROGRESS</span>
                 <span>{progress}%</span>
              </div>
-             <div className="w-full h-2 bg-red-950/20 rounded-full overflow-hidden border border-red-900/40">
-                <motion.div className="h-full bg-red-600 shadow-[0_0_10px_rgba(220,38,38,0.8)]" initial={{ width: 0 }} animate={{ width: `${progress}%` }} />
+             <div className="w-full h-2 bg-green-950/20 rounded-full overflow-hidden border border-green-900/40">
+                <motion.div className="h-full bg-green-600 shadow-[0_0_10px_rgba(34,197,94,0.8)]" initial={{ width: 0 }} animate={{ width: `${progress}%` }} />
              </div>
           </div>
         </motion.div>
@@ -265,35 +279,35 @@ const FullScoreCard = () => {
         <motion.div 
           initial={{ x: 50, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
-          className="bg-black/90 border-2 border-red-900/40 rounded-xl overflow-hidden shadow-2xl flex flex-col h-[1175px] relative"
+          className="bg-black/90 border-2 border-green-900/40 rounded-xl overflow-hidden shadow-2xl flex flex-col h-[1175px] relative"
         >
-          <div className="bg-red-950/20 px-6 py-4 border-b border-red-900/40 flex justify-between items-center">
+          <div className="bg-green-950/20 px-6 py-4 border-b border-green-900/40 flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <Terminal size={20} className="text-red-600" />
-              <h2 className="font-black text-sm tracking-widest text-red-100 uppercase">{t.terminal}</h2>
+              <Terminal size={20} className="text-green-600" />
+              <h2 className="font-black text-sm tracking-widest text-green-100 uppercase">{t.terminal}</h2>
             </div>
-            <div className="text-[10px] font-bold text-red-800">AUTH: ALFA-SEC-V4</div>
+            <div className="text-[10px] font-bold text-green-800">AUTH: ALFA-SEC-V4</div>
           </div>
 
-          <div ref={terminalRef} className="flex-1 p-6 font-mono text-[10px] md:text-[12px] text-red-600 leading-relaxed overflow-y-auto custom-scrollbar bg-[rgba(10,0,0,0.8)]">
+          <div ref={terminalRef} className="flex-1 p-6 font-mono text-[10px] md:text-[12px] text-green-600 leading-relaxed overflow-y-auto custom-scrollbar bg-[rgba(0,10,0,0.8)]">
             {logs.slice(0, terminalStep).map((log, idx) => (
               <div key={idx} className="mb-2 flex gap-4">
-                <span className="text-red-950 opacity-50 shrink-0">[{new Date().toLocaleTimeString()}]</span>
-                <span className={log.startsWith('[SYSTEM]') ? 'text-white font-black bg-red-900/40 px-1' : (log.startsWith('[S3]') || log.startsWith('[N1]') ? 'text-red-400 font-bold' : '')}>
+                <span className="text-green-600/80 shrink-0">[{new Date(startTime.getTime() + idx * 1200).toLocaleTimeString()}]</span>
+                <span className={log.startsWith('[SYSTEM]') ? 'text-white font-black bg-green-900/40 px-1' : (log.startsWith('[S3]') || log.startsWith('[N1]') ? 'text-green-400 font-bold' : '')}>
                   {log}
                 </span>
               </div>
             ))}
             {terminalStep < logs.length && (
               <div className="animate-pulse flex items-center">
-                <span className="w-1.5 h-4 bg-red-600" />
+                <span className="w-1.5 h-4 bg-green-600" />
               </div>
             )}
           </div>
 
           {!complete ? (
-            <div className="p-6 border-t border-red-900/40 bg-black/50 text-center">
-               <div className="flex items-center justify-center gap-2 text-[10px] font-black text-red-800 animate-pulse uppercase tracking-[0.2em]">
+            <div className="p-6 border-t border-green-900/40 bg-black/50 text-center">
+               <div className="flex items-center justify-center gap-2 text-[10px] font-black text-green-800 animate-pulse uppercase tracking-[0.2em]">
                   <Cpu size={14} /> X-RAY CORE IS PROCESSING COMPLEX DATA STRINGS...
                </div>
             </div>
@@ -301,12 +315,12 @@ const FullScoreCard = () => {
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="p-8 border-t border-red-900/40 bg-red-950/20 text-center flex flex-col items-center gap-4"
+              className="p-8 border-t border-green-900/40 bg-green-950/20 text-center flex flex-col items-center gap-4"
             >
                <h3 className="text-xl font-black text-white tracking-widest">{t.ready}</h3>
                <button 
                 onClick={() => navigate(`/full-report?site=${site}&lang=${lang}&admin=true`)}
-                className="group flex items-center gap-3 bg-red-600 hover:bg-white text-white hover:text-black transition-all px-12 py-4 rounded-xl font-black text-lg shadow-[0_0_40px_rgba(220,38,38,0.4)]"
+                className="group flex items-center gap-3 bg-green-600 hover:bg-white text-white hover:text-black transition-all px-12 py-4 rounded-xl font-black text-lg shadow-[0_0_40px_rgba(34,197,94,0.4)]"
                >
                  {t.view} <ArrowRight className="group-hover:translate-x-2 transition-transform" />
                </button>
@@ -331,7 +345,7 @@ const FullScoreCard = () => {
                initial={{ scale: 0.8, opacity: 0 }}
                animate={{ scale: [0.8, 1.2, 1], opacity: [0, 0.5, 0] }}
                transition={{ duration: 1.5 }}
-               className="w-[800px] h-[800px] border-[20px] border-red-600/20 rounded-full"
+               className="w-[800px] h-[800px] border-[20px] border-green-600/20 rounded-full"
              />
           </motion.div>
         )}
@@ -341,8 +355,8 @@ const FullScoreCard = () => {
       <style>{`
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: #450a0a; border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #991b1b; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #052e16; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #166534; }
         @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         .animate-spin-slow { animation: spin-slow 12s linear infinite; }
       `}</style>
