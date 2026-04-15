@@ -289,7 +289,7 @@ const SCAN_STEPS = [
   'Rapor Derleniyor...',
 ];
 
-const FullReportPrint = () => {
+const FullScoreCardPrint = () => {
   const [searchParams] = useSearchParams();
   const siteParam = searchParams.get('site') || 'hedef.com';
   const [isLoading, setIsLoading] = useState(true);
@@ -549,4 +549,4 @@ const FullReportPrint = () => {
   );
 };
 
-export default FullReportPrint;
+export default FullScoreCardPrint;

@@ -105,8 +105,8 @@ const AdminDashboard = () => {
     setIsProcessing(true);
     const domain = getCleanDomain(targetUrl);
     setTimeout(() => {
-      // Yeni Full X-RAY Analiz Şovu (ScoreCard) başlatılıyor.
-      navigate(`/full-scorecard?site=${domain}&lang=${lang}&admin=true`);
+      // Yeni Full X-RAY Analiz Şovu (Technical Audit/Logs) başlatılıyor.
+      navigate(`/full-technical-audit?site=${domain}&lang=${lang}&admin=true`);
     }, 2000);
   };
 

@@ -36,9 +36,10 @@ const ScorecardWidget = ({ title, children, className = "" }) => (
   <motion.div 
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
-    className={`bg-[#061425]/80 print:bg-white backdrop-blur-md print:backdrop-blur-none border border-cyan-500/20 print:border-slate-200 rounded-xl p-6 shadow-[0_4px_20px_rgba(6,182,212,0.1)] print:shadow-none hover:border-cyan-500/40 transition-colors ${className}`}
+    className={`bg-white print:bg-white border border-gray-200 print:border-slate-200 rounded-2xl p-6 shadow-sm print:shadow-none hover:border-emerald-400/40 print:hover:border-slate-200 transition-colors ${className}`}
   >
-    <h3 className="text-white/80 print:text-slate-600 font-medium text-sm mb-4 tracking-wider uppercase flex items-center gap-2">
+    <h3 className="text-slate-500 font-black text-sm mb-4 tracking-[0.2em] uppercase flex items-center gap-2">
+      <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse print:hidden" />
       {title}
     </h3>
     {children}
@@ -284,11 +285,11 @@ const SnapScoreCard = () => {
             if (res.reportId) setReportId(res.reportId);
 
             setInfrastructureData([
-              { name: lang === 'tr' ? 'SERVİS GÜVENLİĞİ' : 'SERVICE SECURITY', health: res.categories.service.health, color: res.categories.service.health >= 80 ? 'bg-emerald-500' : (res.categories.service.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
-              { name: lang === 'tr' ? 'GÜVENLİK BAŞLIKLARI' : 'SECURITY HEADERS', health: res.categories.headers.health, color: res.categories.headers.health >= 80 ? 'bg-emerald-500' : (res.categories.headers.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
-              { name: lang === 'tr' ? 'AĞ PORT GÜVENLİĞİ' : 'NETWORK SECURITY', health: res.categories.network.health, color: res.categories.network.health >= 80 ? 'bg-emerald-500' : (res.categories.network.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
-              { name: lang === 'tr' ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS', health: res.categories.domain.health, color: res.categories.domain.health >= 80 ? 'bg-emerald-500' : (res.categories.domain.health >= 50 ? 'bg-orange-500' : 'bg-red-500') },
-              { name: lang === 'tr' ? 'YAZILIM & YAMA' : 'SOFTWARE PATCHING', health: res.categories.patching.health, color: res.categories.patching.health >= 80 ? 'bg-emerald-500' : (res.categories.patching.health >= 50 ? 'bg-orange-500' : 'bg-red-500') }
+              { name: lang === 'tr' ? 'SERVİS GÜVENLİĞİ' : 'SERVICE SECURITY', health: res.categories.service.health, color: res.categories.service.health >= 80 ? 'text-emerald-400' : (res.categories.service.health >= 50 ? 'text-amber-400' : 'text-rose-500') },
+              { name: lang === 'tr' ? 'GÜVENLİK BAŞLIKLARI' : 'SECURITY HEADERS', health: res.categories.headers.health, color: res.categories.headers.health >= 80 ? 'text-emerald-400' : (res.categories.headers.health >= 50 ? 'text-amber-400' : 'text-rose-500') },
+              { name: lang === 'tr' ? 'AĞ PORT GÜVENLİĞİ' : 'NETWORK SECURITY', health: res.categories.network.health, color: res.categories.network.health >= 80 ? 'text-emerald-400' : (res.categories.network.health >= 50 ? 'text-amber-400' : 'text-rose-500') },
+              { name: lang === 'tr' ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS', health: res.categories.domain.health, color: res.categories.domain.health >= 80 ? 'text-emerald-400' : (res.categories.domain.health >= 50 ? 'text-amber-400' : 'text-rose-500') },
+              { name: lang === 'tr' ? 'YAZILIM & YAMA' : 'SOFTWARE PATCHING', health: res.categories.patching.health, color: res.categories.patching.health >= 80 ? 'text-emerald-400' : (res.categories.patching.health >= 50 ? 'text-amber-400' : 'text-rose-500') }
             ]);
 
             const allFindings = [
@@ -583,7 +584,10 @@ const SnapScoreCard = () => {
   }
 
   return (
-    <div className="min-h-screen print:min-h-0 bg-[#020b14] print:bg-white text-white print:text-slate-800 p-4 md:p-8 font-mono relative overflow-hidden print:overflow-visible">
+    <div className="min-h-screen print:min-h-0 bg-gray-100 print:bg-white text-slate-800 p-4 md:p-8 font-mono relative overflow-hidden print:overflow-visible">
+      {/* Decorative Background Elements */}
+      <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-gray-200/50 to-transparent pointer-events-none print:hidden" />
+      <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-white blur-[120px] rounded-full print:hidden pointer-events-none" />
       <style>{`
         @media print { 
           @page { size: A4; margin: 0; } 
@@ -620,29 +624,33 @@ const SnapScoreCard = () => {
       </div>
 
       {/* PAGE 2: DASHBOARD OVERVIEW (Print & Screen) */}
-      <div id="scorecard-content" className="max-w-[1600px] mx-auto print:print-page">
-        <header className="flex flex-col md:flex-row items-center justify-between mb-8 border-b border-cyan-500/20 pb-4 gap-4 print:hidden">
-          <div className="flex items-center gap-4">
-            <ShieldCheck size={40} className="text-cyan-400" />
+      <div id="scorecard-content" className="max-w-[1600px] mx-auto relative z-10 print:print-page">
+        <header className="flex flex-col lg:flex-row items-center justify-between mb-12 border-b border-gray-300 pb-8 gap-6 print:hidden">
+          <div className="flex items-center gap-6">
+            <div className="w-16 h-16 bg-white border border-gray-200 rounded-2xl flex items-center justify-center shadow-sm">
+              <ShieldCheck size={36} className="text-emerald-500" />
+            </div>
             <div>
-              <h1 className="text-2xl font-black text-cyan-400 uppercase tracking-wide">
-                 <span className="lowercase">{formattedUrl}</span> {t.profile}
+              <h1 className="text-3xl font-black text-slate-800 tracking-tighter uppercase flex items-center gap-3">
+                 <span className="text-emerald-600 lowercase">{formattedUrl}</span> {t.profile}
               </h1>
-              <p className="text-xs text-white/50">{t.lastUpdated}: {new Date().toLocaleTimeString()}</p>
+              <p className="text-slate-500 text-sm mt-1">{t.lastUpdated}: {new Date().toLocaleTimeString()}</p>
             </div>
           </div>
           <div className="flex gap-4">
-            <button onClick={downloadPDF} className="flex items-center gap-2 px-6 py-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/50 rounded-lg hover:bg-cyan-500/20 transition-all font-bold text-xs uppercase">
+            <button onClick={downloadPDF} className="flex items-center gap-2 px-6 py-2 bg-emerald-600 text-white rounded-xl hover:bg-emerald-500 transition-all font-black text-xs uppercase tracking-widest shadow-md">
               <Download size={16} /> {t.downloadPdf}
             </button>
-            <button onClick={() => navigate('/admin-panel')} className="px-6 py-2 bg-slate-800 text-slate-300 border border-slate-700 rounded-lg hover:bg-slate-700 transition-all font-bold text-xs uppercase">{t.backToAdmin}</button>
+            <button onClick={() => navigate('/admin-panel')} className="px-6 py-2 bg-white border border-gray-300 text-slate-600 rounded-xl hover:bg-gray-50 transition-all font-black text-xs uppercase tracking-widest shadow-sm">
+              {t.backToAdmin}
+            </button>
           </div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 print:gap-4 flex-1">
           <div className="lg:col-span-4 space-y-8 print:space-y-4">
             <ScorecardWidget title={t.securityGrade}>
-              <div className="flex flex-col items-center w-full">
+              <div className="flex flex-col items-center py-10 print:py-6 w-full">
                 <div className="w-full max-w-2xl px-4 mb-12 print:mb-6">
                   <div className="flex justify-between items-start w-full relative">
                     {[
@@ -656,10 +664,10 @@ const SnapScoreCard = () => {
                       const isActive = grade === item.g;
                       return (
                         <div key={item.g} className="flex flex-col items-center group">
-                          <span className={`text-[10px] font-black mb-2 transition-colors ${isActive ? 'text-orange-500' : 'text-slate-500/40'}`}>{item.g}</span>
-                          <span className={`text-[7px] font-bold mb-4 whitespace-nowrap tracking-tighter ${isActive ? 'text-orange-500' : 'text-slate-500/20'}`}>{item.label}</span>
+                          <span className={`text-[10px] font-black mb-2 transition-colors ${isActive ? (grade.includes('A') || grade.includes('B') ? 'text-emerald-500' : 'text-amber-500') : 'text-gray-300'}`}>{item.g}</span>
+                          <span className={`text-[7px] font-bold mb-4 whitespace-nowrap tracking-tighter ${isActive ? (grade.includes('A') || grade.includes('B') ? 'text-emerald-500' : 'text-amber-500') : 'text-gray-300'}`}>{item.label}</span>
                           {isActive && (
-                            <div className="absolute -bottom-6 w-12 h-1 bg-orange-500 rounded-full shadow-[0_4px_10px_rgba(249,115,22,0.4)]" />
+                            <div className={`absolute -bottom-6 w-12 h-1 rounded-full shadow-sm ${grade.includes('A') || grade.includes('B') ? 'bg-emerald-500' : 'bg-amber-500'}`} />
                           )}
                         </div>
                       );
@@ -667,16 +675,18 @@ const SnapScoreCard = () => {
                   </div>
                 </div>
                 
-                <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="text-9xl print:text-8xl font-black text-orange-500 my-8 print:my-4 relative">
-                   {grade}
-                </motion.div>
+                <div className="relative mb-8">
+                  <motion.div initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className={`text-[140px] print:text-[80px] font-black leading-none drop-shadow-sm my-8 print:my-4 relative ${grade.includes('A') || grade.includes('B') ? 'text-emerald-500' : 'text-amber-500'}`}>
+                     {grade}
+                  </motion.div>
+                </div>
 
-                <p className="text-slate-400 print:text-slate-600 text-[11px] font-black uppercase tracking-[0.2em] mb-8">
+                <p className="text-slate-500 text-[11px] font-black uppercase tracking-[0.2em] mb-8">
                   {realRisks.length > 0 ? `${realRisks.length} KRİTİK/MAJÖR BULGU TESPİT EDİLDİ` : "HERHANGİ BİR KRİTİK ZAFİYET TESPİT EDİLMEDİ"}
                 </p>
                 
-                <div className="px-6 py-2 bg-orange-500/10 text-orange-500 border border-orange-500/30 rounded-full text-[9px] font-black tracking-widest uppercase">
-                  İYİLEŞTİRME ÖNERİLİR
+                <div className={`px-4 py-1 text-white font-black text-[10px] uppercase tracking-[0.3em] whitespace-nowrap rounded ${grade.includes('A') || grade.includes('B') ? 'bg-emerald-600' : 'bg-slate-800'}`}>
+                  {grade.includes('A') || grade.includes('B') ? 'ALFA CERTIFIED' : 'ACTION REQUIRED'}
                 </div>
               </div>
             </ScorecardWidget>
@@ -684,32 +694,32 @@ const SnapScoreCard = () => {
 
           <div className="lg:col-span-8 space-y-8 print:space-y-4">
             <ScorecardWidget title={t.infrastructureHealth}>
-                <div className="flex flex-wrap items-center justify-around gap-4 py-8 print:py-4 bg-slate-900/40 print:bg-slate-50 rounded-xl">
+                <div className="flex flex-wrap items-center justify-around gap-4 py-8 print:py-4 bg-white print:bg-slate-50 rounded-xl">
                   {infrastructureData.map((item, i) => (
                     <div key={i} className="flex flex-col items-center group relative">
                       <div className="relative w-24 h-24 print:w-16 print:h-16 flex items-center justify-center">
-                        <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90 drop-shadow-lg">
+                        <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90 drop-shadow-sm">
                           <circle
                             cx="50" cy="50" r="42"
-                            strokeWidth="8"
+                            strokeWidth="6"
                             fill="transparent"
-                            stroke="#f1f5f9"
-                            className="opacity-20 print:opacity-10"
+                            stroke="currentColor"
+                            className="text-gray-200"
                           />
                           <motion.circle
                             cx="50" cy="50" r="42"
-                            strokeWidth="10"
+                            strokeWidth="8"
                             stroke="currentColor"
                             strokeLinecap="round"
                             fill="transparent"
                             initial={{ pathLength: 0 }}
                             animate={{ pathLength: item.health / 100 }}
                             transition={{ duration: 1.5, ease: "easeOut", delay: i * 0.1 }}
-                            className={`${item.color.replace('bg-', 'text-')} print:stroke-current`}
+                            className={`${item.color} print:stroke-current`}
                           />
                         </svg>
                         <div className="absolute flex flex-col items-center justify-center">
-                          <span className="text-sm font-black text-white print:text-slate-900">%{item.health}</span>
+                          <span className="text-sm font-black text-slate-700 print:text-slate-900">%{item.health}</span>
                         </div>
                       </div>
                       <span className="mt-4 text-[10px] font-black text-slate-500 print:text-slate-900 uppercase tracking-tighter text-center">{item.name}</span>
@@ -727,57 +737,62 @@ const SnapScoreCard = () => {
       </div>
 
       {/* PAGE 3: PENETRATION TEST & AUDIT DETAIL (Print Only & Screen Section) */}
-      <div className="max-w-[1600px] mx-auto mt-[150px] print:mt-0 print:print-page">
-        <div className="w-full h-full border-[8px] border-double border-slate-100 flex flex-col items-stretch p-6 print:p-4 relative bg-slate-900/30 print:bg-white rounded-xl print:rounded-none">
+      <div className="max-w-[1600px] mx-auto mt-[100px] print:mt-0 print:print-page relative z-10">
+        <div className="w-full h-full border-[8px] border-double border-gray-200 flex flex-col items-stretch p-6 print:p-4 relative bg-white rounded-2xl print:rounded-none shadow-sm print:shadow-none">
                  <div className="flex items-center gap-4 mb-3">
-                    <h3 className="text-xl font-bold text-slate-900 uppercase tracking-tighter">{t.summaryTitle}</h3>
-                    <div className="h-px flex-1 bg-slate-200" />
+                    <h3 className="text-xl font-bold text-slate-800 uppercase tracking-tighter">{t.summaryTitle}</h3>
+                    <div className="h-px flex-1 bg-gray-200" />
                  </div>
-                <div className="mb-6 p-4 bg-slate-800/40 print:bg-slate-50 border border-slate-700 print:border-slate-200 rounded-lg">
-                   <h4 className="text-[10px] font-black text-slate-400 mb-1 uppercase tracking-widest">{t.execSummaryTitle}</h4>
-                   <p className="text-sm text-slate-300 print:text-slate-800 font-medium italic leading-relaxed">"{t.execSummaryText}"</p>
+                <div className="mb-6 p-6 bg-emerald-50/50 print:bg-slate-50 border border-emerald-100 print:border-slate-200 rounded-xl">
+                   <h4 className="text-[10px] font-black text-slate-500 mb-1 uppercase tracking-widest">{t.execSummaryTitle}</h4>
+                   <p className="text-sm text-slate-600 print:text-slate-800 font-medium italic leading-relaxed">"{t.execSummaryText}"</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {realRisks.map((risk, idx) => {
                      const isDanger = risk.risk === 'RİSKLİ' || risk.risk === 'TEHLİKELİ' || risk.risk === 'YÜKSEK' || risk.risk === 'YÜKSEK RİSK';
                      const isSafe = risk.risk === 'GÜVENLİ' || risk.risk === 'OK';
                      return (
-                        <div key={idx} className={`p-5 rounded border ${idx === 0 ? 'md:col-span-2 border-l-8' : 'border-t-4 shadow-md bg-white/5'} ${isDanger ? 'bg-red-500/10 border-red-500/50' : (isSafe ? 'bg-green-500/10 border-green-500/50' : 'bg-orange-500/10 border-orange-500/50')} flex flex-col justify-between print:bg-white print:border-slate-200`}>
-                           <div className="flex items-center justify-between mb-3 border-b border-white/5 print:border-slate-100 pb-2">
-                             <h4 className={`text-xs font-black uppercase tracking-widest ${isDanger ? 'text-red-500' : (isSafe ? 'text-green-500' : 'text-orange-500')} print:text-slate-900`}>{risk.title}</h4>
-                             <span className={`text-[9px] font-black px-3 py-1 ${isDanger ? 'bg-red-600' : (isSafe ? 'bg-green-600' : 'bg-orange-500')} text-white rounded-full whitespace-nowrap uppercase tracking-wider`}>{risk.risk}</span>
+                        <div key={idx} className={`p-5 rounded-2xl border ${idx === 0 ? 'md:col-span-2' : ''} ${isDanger ? 'bg-amber-50/50 border-amber-200' : (isSafe ? 'bg-emerald-50/50 border-emerald-200' : 'bg-orange-50/50 border-orange-200')} flex flex-col justify-between print:bg-white print:border-slate-200 shadow-sm print:shadow-none`}>
+                           <div className="flex items-center justify-between mb-3 border-b border-gray-200 print:border-slate-100 pb-2">
+                             <div className="flex items-center gap-3">
+                               <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isDanger ? 'bg-amber-100 text-amber-600' : (isSafe ? 'bg-emerald-100 text-emerald-600' : 'bg-orange-100 text-orange-600')}`}>
+                                 {isDanger ? <AlertTriangle size={14} /> : <ShieldCheck size={14} />}
+                               </div>
+                               <h4 className="text-xs font-black uppercase tracking-widest text-slate-800 print:text-slate-900">{risk.title}</h4>
+                             </div>
+                             <span className={`text-[8px] font-black px-2 py-0.5 rounded uppercase tracking-wider ${isDanger ? 'bg-amber-100 text-amber-700' : (isSafe ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-orange-700')}`}>{risk.risk}</span>
                            </div>
-                           <p className="text-[11px] text-slate-400 print:text-slate-600 font-medium italic leading-relaxed">{risk.text}</p>
-                           <div className="mt-4 flex justify-between items-center text-[8px] font-bold uppercase tracking-widest">
-                             <span className="text-cyan-400 bg-cyan-900/40 px-1.5 py-0.5 rounded border border-cyan-500/30 print:bg-blue-50 print:text-blue-700 print:border-blue-200">{risk.isoTag}</span>
-                             <span className="opacity-50 text-slate-500">ZORLUK: {isDanger ? 'YÜKSEK' : 'DÜŞÜK'}</span>
+                           <p className="text-[11px] text-slate-500 print:text-slate-600 font-medium italic leading-relaxed">{risk.text}</p>
+                           <div className="mt-4 flex justify-between items-center text-[8px] font-bold uppercase tracking-widest border-t border-gray-100 pt-3">
+                             <span className="text-emerald-700 bg-emerald-100/50 px-1.5 py-0.5 rounded border border-emerald-200 print:bg-blue-50 print:text-blue-700 print:border-blue-200">{risk.isoTag}</span>
+                             <span className="text-slate-400">ZORLUK: {isDanger ? 'YÜKSEK' : 'DÜŞÜK'}</span>
                            </div>
                         </div>
                      );
                   })}
                 </div>
-                <div className="mt-auto pt-6 border-t border-slate-700 print:border-slate-200">
-                   <h3 className="text-sm font-black text-slate-400 print:text-slate-800 mb-3 tracking-widest uppercase">{t.nextStepsTitle}</h3>
+                <div className="mt-auto pt-6 border-t border-gray-200 print:border-slate-200">
+                   <h3 className="text-sm font-black text-slate-500 print:text-slate-800 mb-3 tracking-widest uppercase">{t.nextStepsTitle}</h3>
                    <div className="grid grid-cols-2 gap-2">
                       {[t.advancedTest1, t.advancedTest2, t.advancedTest3, t.advancedTest4].map((test, i) => (
-                        <div key={i} className="flex items-center gap-2 text-[9px] font-bold text-slate-300 print:text-slate-700 bg-white/5 print:bg-slate-50 p-2 rounded border border-white/10 print:border-slate-100">
-                           <div className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
+                        <div key={i} className="flex items-center gap-2 text-[9px] font-bold text-slate-600 print:text-slate-700 bg-gray-50 print:bg-slate-50 p-2 rounded-lg border border-gray-200 print:border-slate-100">
+                           <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                            {test}
                         </div>
                       ))}
                    </div>
                 </div>
-                <div className="mt-6 print:mt-auto pt-4 flex justify-between items-end border-t border-white/10 print:border-slate-100">
+                <div className="mt-6 print:mt-auto pt-4 flex justify-between items-end border-t border-gray-200 print:border-slate-100">
                    <div>
-                      <p className="text-[7px] text-slate-500 print:text-slate-400 font-bold uppercase tracking-widest leading-tight">{t.disclaimer}</p>
-                      <p className="text-[7px] text-slate-600 mt-0.5">REPORT_ID: {reportId}</p>
+                      <p className="text-[7px] text-slate-600 print:text-slate-400 font-bold uppercase tracking-widest leading-tight">{t.disclaimer}</p>
+                      <p className="text-[7px] text-slate-500 mt-0.5">REPORT_ID: {reportId}</p>
                    </div>
                    <div className="flex items-center gap-3">
                       <div className="text-right">
-                         <p className="text-[8px] font-black text-cyan-600 uppercase leading-none">{t.verifiedBy}</p>
-                         <p className="text-[6px] text-slate-500 print:text-slate-400 font-bold tracking-widest mt-0.5">WWW.ALFAYAPAYZEKA.COM</p>
+                         <p className="text-[8px] font-black text-emerald-600 uppercase leading-none">{t.verifiedBy}</p>
+                         <p className="text-[6px] text-slate-400 print:text-slate-400 font-bold tracking-widest mt-0.5">WWW.ALFAYAPAYZEKA.COM</p>
                       </div>
-                      <div className="w-14 h-14 border border-white/20 print:border-slate-300 rounded p-1 flex items-center justify-center bg-white shadow-sm overflow-hidden">
+                      <div className="w-14 h-14 border border-gray-300 print:border-slate-300 rounded p-1 flex items-center justify-center bg-white shadow-sm overflow-hidden">
                          <img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(`https://www.alfayapayzeka.com/verify?domain=${domain}&id=${reportId}`)}`} alt="QR" className="w-full h-full object-contain" crossOrigin="anonymous" />
                       </div>
                    </div>

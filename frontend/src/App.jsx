@@ -18,11 +18,11 @@ import ContractView from './pages/fullPages/ContractView';
 import SnapReport from './pages/freePages/SnapReport';
 import SnapScoreCard from './pages/freePages/SnapScoreCard';
 import SnapReportPrint from './pages/freePages/SnapReportPrint';
+import FullTechnicalAudit from './pages/fullPages/FullTechnicalAudit';
 import FullScoreCard from './pages/fullPages/FullScoreCard';
-import FullReport from './pages/fullPages/FullReport';
 import FullFormalReport from './pages/fullPages/FullFormalReport';
 import AdminDashboard from './pages/AdminDashboard';
-import FullReportPrint from './pages/fullPages/FullReportPrint';
+import FullScoreCardPrint from './pages/fullPages/FullScoreCardPrint';
 
 /**
  * App Bileşeni — Uygulamanın Kök Bileşeni (V1.4.0)
@@ -63,10 +63,10 @@ const App = () => {
           <Route path="ai-pentest" element={<AIPentest />} />
           <Route path="scorecard" element={<SnapScoreCard />} />
           <Route path="scorecard-print" element={<SnapReportPrint />} />
+          <Route path="full-technical-audit" element={<FullTechnicalAudit />} />
           <Route path="full-scorecard" element={<FullScoreCard />} />
-          <Route path="full-report" element={<FullReport />} />
           <Route path="full-formal-report" element={<FullFormalReport />} />
-          <Route path="full-report-print" element={<FullReportPrint />} />
+          <Route path="full-scorecard-print" element={<FullScoreCardPrint />} />
           <Route path="admin-panel" element={<AdminDashboard />} />
           <Route path="sozlesme/:type" element={<ContractView />} />
         </Route>

@@ -426,7 +426,7 @@ const FullFormalReport = () => {
 
   const handlePrint = () => {
     // Anayasa gereği dedicated print sayfasına yönlendirme yapılır.
-    window.open(`/full-report-print?site=${siteName.toLowerCase()}&lang=${lang}`, '_blank');
+    window.open(`/full-scorecard-print?site=${siteName.toLowerCase()}&lang=${lang}`, '_blank');
   };
 
   if (isAuditLoading) {
