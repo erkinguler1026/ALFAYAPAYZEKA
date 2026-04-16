@@ -6,7 +6,7 @@ import {
 } from 'lucide-react';
 
 /**
- * FullScoreCard — X-RAY Audit Dual-Window Loading Engine (V4.2.0 - Forensic Edition)
+ * FullScoreCard — X-RAY Audit Dual-Window Loading Engine (V4.2.0 - Penetration Edition)
  * 
  * Bu bileşen, Admin Panelinden tetiklenen Full X-RAY Pentest'in 
  * "Görsel Şovu" ve gerçek zamanlı analiz adımlarını yönetir.
@@ -88,7 +88,7 @@ const FullTechnicalAudit = () => {
         `[N9] Parsing sitemap.xml... Found 142 valid entry points.`,
         `[SYSTEM] Correlating data points into ISO 27001:2022 security controls.`,
         `[SYSTEM] Mapping findings to Annex A.8.x (Technical Controls).`,
-        `[SYSTEM] Rendering 250-page Forensic Audit PDF Document...`,
+        `[SYSTEM] Rendering 250-page Penetration Audit PDF Document...`,
         `[SYSTEM] X-RAY Analysis concluded. System Ready.`
     ] : [
         `[INIT] X-RAY S-CORE Başlatıldı: ${formattedUrl}`,

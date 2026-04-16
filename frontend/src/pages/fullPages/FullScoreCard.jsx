@@ -52,6 +52,68 @@ const FullScoreCard = () => {
 
   const formattedUrl = `https://www.${domain.replace(/^(https?:\/\/)?(www\.)?/, '')}`;
 
+  // DİNAMİK ÖZET MOTORU (Gerçek Veri Tabanlı Özet Üretici)
+  const getDynamicDescription = (catId, data, currentLang) => {
+    if (!data) return "";
+    const isTr = currentLang === 'tr';
+
+    switch (catId) {
+      case 'service': {
+        const hasCrit = data.sensitiveData?.hasCritical;
+        if (hasCrit) {
+          return isTr 
+            ? `Kritik yapılandırma dosyaları (.env, .git) dışa açık durumda tespit edildi. Bu durum veritabanı şifreleri ve API anahtarlarının sızmasına neden olabilir. Dizin listeleme özellikleri üzerinden hassas sistem dosyalarına doğrudan erişim sağlandığı dökümante edilmiştir.`
+            : `Critical configuration files (.env, .git) were detected as publicly exposed. This could lead to leaks of database passwords and API keys. Direct access to sensitive system files through directory listing has been documented.`;
+        }
+        return isTr
+          ? `Derinlemesine yapılan dizin taraması sonucunda kritik yapılandırma dosyalarına (.env, .git/config) doğrudan erişim saptanmadı. Sistem, hassas dizin yollarını yetkisiz erişime karşı korumalı (403/Forbidden) olarak yapılandırmıştır.`
+          : `Deep directory scanning conducted on the target did not reveal direct access to critical configuration files (.env, .git/config). The system has configured sensitive directory paths as protected against unauthorized access.`;
+      }
+
+      case 'headers': {
+        const missing = (data.findings || []).filter(f => ['hsts', 'csp', 'x-frame-options'].includes(f.id));
+        if (missing.length > 0) {
+          const names = missing.map(m => m.id.toUpperCase()).join(', ');
+          return isTr
+            ? `Yapılan HTTP başlık analizinde ${names} gibi modern savunma katmanlarının eksik olduğu tespit edildi. Bu durum, tarayıcı tabanlı XSS ve Clickjacking saldırılarına karşı koruma derinliğini zayıflatmaktadır.`
+            : `HTTP header analysis revealed that modern defense layers such as ${names} are missing. This weakens the defense-in-depth against browser-based XSS and Clickjacking attacks.`;
+        }
+        return isTr
+          ? `HTTP güvenlik başlıkları (HSTS, CSP, X-Frame) endüstri standartlarına uygun olarak yapılandırılmış. Sunucu, modern tarayıcı saldırılarına karşı aktif bir koruma kalkanı sağlamaktadır.`
+          : `HTTP security headers (HSTS, CSP, X-Frame) are configured in accordance with industry standards. The server provides an active defense shield against modern browser attacks.`;
+      }
+
+      case 'network': {
+        const openPorts = data.network?.ports || [];
+        if (openPorts.length > 0) {
+          const portStr = openPorts.map(p => p.port).join(', ');
+          return isTr
+            ? `${data.ipAddress} adresi üzerinde ${openPorts.length} adet açık servis (Port: ${portStr}) tespit edildi. Bu servislerin internete açık olması, kaba kuvvet ve servis sömürü saldırılarına zemin hazırlamaktadır.`
+            : `${openPorts.length} open services (Ports: ${portStr}) were detected on ${data.ipAddress}. These services being exposed to the internet creates a surface for brute-force and service exploitation attacks.`;
+        }
+        return isTr
+          ? `Yapılan TCP port taramasında dış şebekeye açık herhangi bir kritik servis girişi tespit edilmedi. Ağ izolasyonu ve firewall kuralları, yetkisiz erişim denemelerini etkili bir şekilde engellemektedir.`
+          : `TCP port scanning did not detect any critical service entry points exposed to the external network. Network isolation and firewall rules effectively block unauthorized access attempts.`;
+      }
+
+      case 'domain': {
+        const ssl = data.sslGrade?.grade || 'N/A';
+        const isp = data.ipGeo?.isp || 'Bilinmiyor';
+        return isTr
+          ? `Sertifikasyon analizinde ${ssl} seviyesinde güvenlik skoru saptandı. Sunucu altyapısı ${isp} üzerinden hizmet vermekte olup, DNS katmanındaki güvenlik kayıtları (SPF/DMARC) ve WHOIS verileri potansiyel sızıntı vektörü olarak değerlendirilmiştir.`
+          : `Certification analysis revealed a ${ssl} grade security score. The infrastructure is served via ${isp}, and DNS security records (SPF/DMARC) along with WHOIS data have been evaluated as potential leak vectors.`;
+      }
+
+      case 'patching': {
+        const techs = (data.technologies || []).map(t => t.name).slice(0, 3).join(', ');
+        return isTr
+          ? `Sistem üzerinde ${techs} gibi teknolojilerin aktif olduğu saptandı. Sunucu yanıt başlıklarında versiyon bilgilerinin ifşa edilmesi, bilinen zafiyetlerin (CVE) hedefli olarak aranmasını kolaylaştırmaktadır.`
+          : `Technologies such as ${techs} were detected active on the system. Disclosure of version information in server response headers facilitates targeted searches for known vulnerabilities (CVE).`;
+      }
+      default: return "";
+    }
+  };
+
   // TEKNİK ANALİZ VERİSİ (3.x Yapısı)
   const forensicCategories = useMemo(() => {
     if (!auditData) return [];
@@ -67,10 +129,7 @@ const FullScoreCard = () => {
           tr: 'ISO 27001:2022 A.8.9 Konfigürasyon Yönetimi standardı',
           en: 'ISO 27001:2022 A.8.9 Configuration Management standard'
         }[langLabel],
-        desc: {
-          tr: 'Hedef sistem üzerinde gerçekleştirilen derinlemesine servis taraması neticesinde dış şebekeye açık kritik yönetim portları, gizli konfigürasyon dosyaları, veritabanı bağlantı dizgeleri ve sızıntıya sebebiyet verebilecek hassas dizin yolları analiz edilir. Alfa X-RAY motoru, brute-force risklerini ve servis zafiyetlerini (CVE) gerçek zamanlı olarak denetler.',
-          en: 'A deep service probe is conducted on the target system to analyze critical management ports, hidden configuration files, database connection strings, and sensitive directory paths. The Alfa X-RAY engine continuously audits for brute-force risks and documented CVE vulnerabilities.'
-        }[langLabel]
+        desc: getDynamicDescription('service', auditData, langLabel)
       },
       {
         id: 'headers',
@@ -82,10 +141,7 @@ const FullScoreCard = () => {
           tr: 'ISO 27001:2022 A.8.26 Uygulama Güvenliği gereksinimleri',
           en: 'ISO 27001:2022 A.8.26 Application Security requirements'
         }[langLabel],
-        desc: {
-          tr: 'Sunucu tarafında uygulanan HTTP savunma koordinasyonları, HSTS, CSP, X-Frame-Options ve Referrer-Policy yapılandırmaları denetlenir. Eksik parametrelerin sebep olabileceği XSS, Man-in-the-Middle (MitM) ve Clickjacking saldırılarına karşı savunma derinliği ölçülmekte ve adli kanıtlar sunulmaktadır.',
-          en: 'HTTP-level defensive policies such as HSTS, CSP, X-Frame-Options, and Referrer-Policy are audited. The defense-in-depth against XSS, MitM, and Clickjacking attacks caused by missing parameters is measured and documented with forensic evidence.'
-        }[langLabel]
+        desc: getDynamicDescription('headers', auditData, langLabel)
       },
       {
         id: 'network',
@@ -97,10 +153,7 @@ const FullScoreCard = () => {
           tr: 'ISO 27001:2022 A.8.20 Ağ Güvenliği kontrolü',
           en: 'ISO 27001:2022 A.8.20 Network Security control'
         }[langLabel],
-        desc: {
-          tr: 'Entegre Nmap Engine tabanlı asenkron tarama modülü kullanılarak hedef sunucunun tüm TCP/UDP giriş kapıları sorgulanır. Yetkisiz servislere veya WAN\'a açık kalmış kritik protokoller (SSH, SMB, RDP, Database Core) tespit edilerek sızma testleri gerçekleştirilir. Tespit edilen açık portlar, kurumsal ağ izolasyonu ve firewall kuralları açısından değerlendirilir.',
-          en: 'The Nmap-based asynchronous scanning module probes all TCP/UDP entrance gates of the target server. Unauthorized services or legacy protocols (SSH, SMB, RDP, DB Core) exposed to the WAN are identified for penetration testing. Results are evaluated against corporate network isolation standards.'
-        }[langLabel]
+        desc: getDynamicDescription('network', auditData, langLabel)
       },
       {
         id: 'domain',
@@ -112,10 +165,7 @@ const FullScoreCard = () => {
           tr: 'ISO 27001:2022 A.5.7 Tehdit İstihbaratı metodolojisi',
           en: 'ISO 27001:2022 A.5.7 Threat Intelligence methodology'
         }[langLabel],
-        desc: {
-          tr: 'Alan adı kayıt otoritesi (WHOIS) ve DNS kayıtları üzerinden gerçekleştirilen OSINT çalışmalarıyla; idari personel iletişim verileri, teknik altyapı detayları ve DNS sahtecilik (Spoofing) korumaları analiz edilir. Veri sızıntılarının sosyal mühendislik ve gelişmiş hedefli saldırılar (Spear Phishing) için oluşturabileceği riskler raporlanır.',
-          en: 'OSINT activities via WHOIS and DNS records analyze administrative contact data, infrastructure details, and DNS spoofing protections. Risks associated with data leaks potentially fueling social engineering and advanced targeted attacks (Spear Phishing) are thoroughly reported.'
-        }[langLabel]
+        desc: getDynamicDescription('domain', auditData, langLabel)
       },
       {
         id: 'patching',
@@ -127,10 +177,7 @@ const FullScoreCard = () => {
           tr: 'ISO 27001:2022 A.8.8 Teknik Zafiyetlerin Yönetimi standartları',
           en: 'ISO 27001:2022 A.8.8 Technical Vulnerability Management standards'
         }[langLabel],
-        desc: {
-          tr: 'Sunucu yazılımları, Framework sürümleri ve entegre kütüphanelerin güncelliği adli tıp yöntemleriyle taranır. \'Banner Grabbing\' teknikleri ile sızdırılan versiyon bilgileri üzerinden bilinen zafiyet veritabanları (CVE/NVD) taranarak, sistemin yama düzeyi ve zafiyet maruziyeti dökümante edilir.',
-          en: 'Server software, framework versions, and integrated library patch levels are forensically audited. Version disclosures via \'Banner Grabbing\' are matched against CVE/NVD databases to document the system\'s patch level and zero-day exposure risks.'
-        }[langLabel]
+        desc: getDynamicDescription('patching', auditData, langLabel)
       }
     ];
 

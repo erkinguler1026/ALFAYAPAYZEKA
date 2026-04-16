@@ -1,8 +1,8 @@
 # 🛡️ ALFA YAPAY ZEKA — Kurumsal Siber Güvenlik ve AI Ajansı Web Portalı
 
-> **Sürüm:** V1.5.0 | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
+> **Sürüm:** V1.6.0 | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
 >
-> **Son Güncelleme:** 15.04.2026 — Full Pentest Scorecard UI (Light-Gray Tema) entegrasyonu, sahte/mock verilerin %100 gerçek X-RAY engine verileriyle değiştirilmesi, ISO27001 ve Whois veri eşleştirmeleri.
+> **Son Güncelleme:** 16.04.2026 — Full Formal Report (250 sayfalık PDF) %100 gerçek zamanlı canlı veriye bağlandı. Hardcoded sahte SSL verileri API gerçek verileriyle değiştirildi, eksik GeoIP ISP sayfası listeye (N2 Bölümü) eklendi ve kullanılmayan değişken (no-unused-vars) hataları giderildi.
 
 **ALFA YAPAY ZEKA**, kurumsal işletmelere yönelik yapay zeka tabanlı siber güvenlik hizmetleri sunan profesyonel bir web platformudur. Müşteri iletişiminden otomatik güvenlik raporu üretimine kadar tüm iş akışlarını kapsar.
 
@@ -55,7 +55,9 @@ ALFAYAPAYZEKA/
 | `/about` | `About.jsx` | Herkese açık |
 | `/contact` | `Contact.jsx` | Herkese açık |
 | `/snap-report` | `SnapReport.jsx` | Herkese açık (Kampanya formu) |
-| `/scorecard` | `SecurityScorecard.jsx` | Token ile erişim (Magic Link) |
+| `/scorecard` | `SnapScoreCard.jsx` | Token ile erişim (Snap Tier) |
+| `/full-scorecard` | `FullScoreCard.jsx` | Admin / Token (Full Tier) |
+| `/full-technical-audit` | `FullTechnicalAudit.jsx`| Admin |
 | `/audit-generator` | `AuditReportGenerator.jsx` | Admin + Token |
 | `/admin-panel` | `AdminDashboard.jsx` | **Yalnızca Local** |
 | `/sozlesme/:type` | `ContractView.jsx` | Herkese açık |
