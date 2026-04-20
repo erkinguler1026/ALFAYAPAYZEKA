@@ -142,7 +142,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
           Raporun en son sayfasıdır. Burada denetim doğrulaması, QR Kod ve resmî imza yer alır.
       */}
       <Page pageNum={250} totalPages={totalPages} title={t.items?.final} t={t}>
-        <div className="h-full flex flex-col justify-between py-12">
+        <div className="h-full flex flex-col justify-between pt-12 pb-6">
            <div className="space-y-[40px]">
               {/* 
                   DİNAMİK METİNLER (Translation Object):
@@ -188,7 +188,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
                Sayfa taşmasını önlemek için 'pt-4' (padding-top) kullanılarak yukarı çekilmiştir. 
                Görselliği bozan eski 'STAMP' (Damga) yapısı buradan kaldırılmıştır.
            */}
-           <div className="flex justify-end -mt-16 pr-12">
+           <div className="flex justify-end -mt-24 pr-12">
               <div className="text-right flex flex-col items-end">
                  <div className="relative inline-block z-10 -mb-12 mr-6">
                     <img src="/CLEAN_SIGNATURE_EG_FINAL.png" alt="Signature" className="h-[120px] mix-blend-multiply brightness-90 contrast-125" />
@@ -201,7 +201,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
               </div>
            </div>
            
-           <div className="border-t border-slate-100 pt-6 flex justify-between items-end">
+           <div className="pt-4 flex justify-between items-end">
               <div className="space-y-1 text-left">
                  <p className="text-[8px] text-slate-300 font-mono uppercase tracking-[0.2em]">DOSS_ID: {metadata.dossierId}</p>
                  <p className="text-[8px] text-slate-300 font-mono uppercase tracking-[0.2em]">SYS_NODE: ALFA-PRIMARY-XRAY-TX-CORE</p>
