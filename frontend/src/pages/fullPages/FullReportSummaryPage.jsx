@@ -123,6 +123,9 @@ export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
                            strokeDashoffset={dashoffset} 
                          />
                        </svg>
+                       <span className="absolute inset-0 flex items-center justify-center text-[11px] font-black text-slate-700">
+                         %{cat.val}
+                       </span>
                      </div>
                      <span className="text-[8px] font-black text-slate-800 tracking-[0.1em] text-center uppercase leading-tight w-20">
                        {cat.name}
