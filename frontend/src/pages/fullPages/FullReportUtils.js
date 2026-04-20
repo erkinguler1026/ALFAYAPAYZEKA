@@ -22,41 +22,46 @@ export const chunkArray = (arr, size) => {
  *   layout.total
  */
 export function calculatePageLayout(auditData) {
-  const subdomains   = auditData?.subdomainList || [];
+  const subdomains = auditData?.subdomainList || [];
+  const sitemap    = auditData?.sitemapData?.urls || [];
+  const dumpText   = JSON.stringify(auditData || {}, null, 2);
 
-
-  // Kaç "chunk" sayfası oluşacağını hesapla
-  const subdChunks = Math.max(1, Math.ceil(subdomains.length / 22));
-  // Subdomain 0 ise yine de 1 sayfa (no-data sayfası) render edilecek
+  // Chunk Page Counts (Forensic Edition: Higher Density)
+  const subdChunks = Math.max(1, Math.ceil(subdomains.length / 28));
+  const siteChunks = Math.max(1, Math.ceil(sitemap.length / 32));
+  const dumpChunks = Math.max(5, Math.ceil(dumpText.length / 1200)); // 1200 char per page for forensic granularity
 
   let p = 0;
   const layout = {};
 
-  layout.cover  = ++p; // 1  — Kapak Sayfası
-  layout.toc    = ++p; // 2  — İçindekiler
-  layout.cert   = ++p; // 3  — Güvenlik Sertifikasyon Beyanı
-  layout.summary= ++p; // 4  — Risk Score & ALFA YAPAY ZEKA Özeti
-  layout.summary2= ++p; // 5 — Executive Summary Findings List
-  layout.s1     = ++p; // 6  — IP Çözümleme
-  layout.s2     = ++p; // 5  — Port Tarama
-  layout.s3     = ++p; // 6  — HTTP Başlıkları
-  layout.s4     = ++p; // 7  — SSL/TLS Analizi
-  layout.s5     = ++p; // 8  — Sunucu Bilgi İfşası
-  layout.s6     = ++p; // 9  — DNS E-Posta Güvenliği (SPF/DMARC)
-  layout.s7     = ++p; // 10 — Hassas Dosya Tarama
-  layout.s8     = ++p; // 11 — Subdomain (ilk chunk)
-  p += subdChunks - 1; //    — Kalan subdomain chunk'ları
-  layout.s9     = ++p; //    — SSL Labs
-  layout.s10    = ++p; //    — WHOIS / RDAP
-  layout.s11    = ++p; //    — Cookie Güvenliği
-  layout.s12    = ++p; //    — CORS
-  layout.s13    = ++p; //    — Teknoloji Tespiti
-  layout.s14    = ++p; //    — Geo-IP
-  layout.s15    = ++p; //    — IP İtibar
-  layout.s16    = ++p; //    — Sitemap Analizi
+  layout.cover  = ++p; // 1
+  layout.toc    = ++p; // 2
+  layout.cert   = ++p; // 3
+  layout.summary= ++p; // 4
+  layout.summary2= ++p; // 5
+  layout.s1     = ++p; // 6
+  layout.s2     = ++p; 
+  layout.s3     = ++p; 
+  layout.s4     = ++p; 
+  layout.s5     = ++p; 
+  layout.s6     = ++p; 
+  layout.s7     = ++p; 
+  layout.s8     = ++p; // Subdomains Start
+  p += subdChunks - 1; // Subdomain Overflow
+  layout.s9     = ++p; 
+  layout.s10    = ++p; 
+  layout.s11    = ++p; 
+  layout.s12    = ++p; 
+  layout.s13    = ++p; 
+  layout.s14    = ++p; 
+  layout.s15    = ++p; 
+  layout.s16    = ++p; // Sitemap Start
+  p += siteChunks - 1; // Sitemap Overflow
 
-  layout.dump1  = ++p; //     — JSON Dump Part 1
-  layout.dump2  = ++p; //     — JSON Dump Part 2
+  layout.dump1  = ++p; // JSON Dump Start
+  p += dumpChunks - 1; 
+
+
   layout.legal  = ++p; //     — Yasal Bilgilendirme
   layout.final  = ++p; //     — Resmi Onay & İmza
 

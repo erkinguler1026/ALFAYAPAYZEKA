@@ -53,27 +53,24 @@ export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
         <div className="flex flex-col items-center justify-between h-full pt-4 pb-4">
           
           {/* SNAP UI CUSTOM HEADER */}
-          <div className="w-full text-left mb-6">
-            <h2 className="text-[14px] font-black tracking-widest uppercase text-slate-500 mb-4 ml-6">SECURITY GRADE</h2>
-            <div className="w-full h-[1px] bg-slate-200" />
+          <div className="w-full text-left mb-6 px-6">
+            <h2 className="text-[11px] font-black tracking-[0.3em] uppercase text-primary mb-4">SECURITY PERFORMANCE BENCHMARK</h2>
+            <div className="w-full h-px bg-slate-100" />
           </div>
 
           {/* YATAY HARF CETVELİ */}
-          <div className="w-full max-w-3xl px-8 py-4 mb-2 mt-4">
+          <div className="w-full max-w-3xl px-8 py-4 mb-2 mt-4 bg-slate-50/50 rounded-[2rem] border border-slate-100">
             <div className="flex justify-between items-start w-full relative">
               {grades.map((item) => {
                 const isCurrent = currentGrade === item.g;
                 return (
                   <div key={item.g} className="flex flex-col items-center relative w-16">
-                    <span className={`text-[13px] font-black mb-2 transition-colors ${isCurrent ? 'text-orange-500 scale-110' : 'text-slate-300'}`}>
+                    <span className={`text-[12px] font-black mb-1 transition-colors ${isCurrent ? 'text-primary scale-125' : 'text-slate-300'}`}>
                        {item.g}
                     </span>
-                    <span className={`text-[8px] font-black tracking-widest uppercase ${isCurrent ? 'text-orange-500' : 'text-slate-300/50'}`}>
+                    <span className={`text-[7px] font-black tracking-widest uppercase ${isCurrent ? 'text-primary' : 'text-slate-300/50'}`}>
                        {item.label}
                     </span>
-                    {isCurrent && (
-                      <div className="absolute -bottom-4 w-10 h-1.5 bg-orange-500 rounded-full" />
-                    )}
                   </div>
                 );
               })}

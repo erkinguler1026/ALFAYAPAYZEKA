@@ -44,14 +44,14 @@ export const TableOfContents = ({ t, layout }) => {
             {t.tocDesc}
           </p>
 
-          <div className="grid grid-cols-1 gap-3 px-4 text-left mt-[-10px]">
+          <div className="grid grid-cols-1 gap-2 px-4 text-left mt-[-10px]">
             {items.map((item, idx) => (
-              <div key={idx} className="flex items-center group">
-                <span className="font-black tracking-tighter text-slate-700 uppercase group-hover:text-primary transition-colors">
+              <div key={idx} className="flex items-center group py-0.5">
+                <span className="font-bold tracking-tight text-slate-600 uppercase group-hover:text-primary transition-colors text-[11px]">
                   {item.title}
                 </span>
                 <div className="flex-1 mx-4 border-b border-dotted border-slate-200" />
-                <span className="font-mono font-black text-slate-400 group-hover:text-slate-900 transition-colors text-right">
+                <span className="font-mono font-black text-slate-400 group-hover:text-slate-900 transition-colors text-right text-[10px]">
                   PAG. {fmt(item.page)}
                 </span>
               </div>

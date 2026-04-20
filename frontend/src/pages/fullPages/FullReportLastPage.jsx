@@ -6,72 +6,47 @@ import { Page, DataItem } from './FullReportComponents';
 
 export const LastPages = ({ auditData, t, layout, totalPages, siteName, metadata }) => {
 
-  const sslLabs = auditData.sslGrade || {};
-  const ports = auditData.network?.ports || [];
-  const techs = auditData.technologies || [];
-  const geoData = auditData.ipGeo || {};
   const clauses = auditData.disclaimer?.clauses || [];
+
+  const dumpText = JSON.stringify(auditData || {}, null, 2);
+  const dumpChunks = Array.from({ length: Math.ceil(dumpText.length / 1200) }, (_, i) =>
+    dumpText.slice(i * 1200, i * 1200 + 1200)
+  );
 
   return (
     <>
 
 
-      {/* TECHNICAL DUMP - PART 1 */}
-      <Page pageNum={layout?.dump1} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 1" t={t}>
-         <div className="space-y-6">
-            <div className="bg-red-900/5 border-2 border-red-900/10 p-6 rounded-[2.5rem] mb-4">
-               <div className="flex items-center gap-4 mb-4">
-                  <Database size={32} className="text-red-900" />
-                  <h4 className="text-xl font-black text-red-900 uppercase tracking-tighter">HAM TEKNİK KANITLAR (TECHNICAL PROOF GALLERY)</h4>
-               </div>
-               <p className="text-[10px] font-bold text-red-900/60 leading-relaxed uppercase tracking-widest">
-                  AŞAĞIDAKİ VERİLER, DENETİM SIRASINDA DOĞRUDAN SOURCE-API ÜZERİNDEN ALINAN 77.000 BYTELIK HAM VERİ SETİNİ TEMSİL ETMEKTEDİR.
-               </p>
-            </div>
-
-            <div className="space-y-8">
-               <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                     <Terminal size={100} className="text-blue-600" />
+      {/* DYNAMIC TECHNICAL DUMP CHUNKS */}
+      {dumpChunks.map((chunk, idx) => (
+         <Page key={`dump-${idx}`} pageNum={(layout?.dump1 ?? 30) + idx} totalPages={totalPages} title={`TEKNİK KANIT VE VERİ DUMPU — PART ${idx + 1}`} t={t}>
+            <div className="space-y-6">
+               {idx === 0 && (
+                  <div className="bg-blue-50 border-2 border-blue-100 p-6 rounded-[2.5rem] mb-4">
+                     <div className="flex items-center gap-4 mb-4">
+                        <Database size={32} className="text-blue-900" />
+                        <h4 className="text-xl font-black text-blue-900 uppercase tracking-tighter">HAM TEKNİK KANITLAR (FORENSIC DUMP)</h4>
+                     </div>
+                     <p className="text-[10px] font-bold text-blue-900/60 leading-relaxed uppercase tracking-widest">
+                        AŞAĞIDAKİ VERİLER, ADLİ ANALİZİ YAPILAN SİSTEMİN TÜM JSON ÇIKTILARINI VE RAW-API YANITLARINI İÇERMEKTEDİR.
+                     </p>
                   </div>
-                  <h5 className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">DUMP: INFRASTRUCTURE_SNAPSHOT.JSON</h5>
-                  <pre className="font-mono text-[8px] text-slate-500 leading-tight max-h-[460px] overflow-hidden text-left">
-                     {JSON.stringify({
-                        target: siteName.toLowerCase(),
-                        timestamp: metadata.isoDate,
-                        vnode: "ALFA-XRAY-3-0",
-                        geo_context: geoData,
-                        network_edges: ports,
-                        infrastructure_layer: techs.slice(0, 5)
-                     }, null, 2)}
-                  </pre>
-               </section>
-            </div>
-         </div>
-      </Page>
+               )}
 
-      {/* TECHNICAL DUMP - PART 2 */}
-      <Page pageNum={layout?.dump2} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 2" t={t}>
-         <div className="space-y-8">
-            <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 shadow-sm relative overflow-hidden group">
-               <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-                  <Database size={100} className="text-emerald-600" />
+               <div className="space-y-8">
+                  <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 shadow-sm relative overflow-hidden group">
+                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                        <Terminal size={100} className="text-blue-600" />
+                     </div>
+                     <h5 className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">DUMP PART_{idx + 1}.LOG</h5>
+                     <pre className="font-mono text-[7px] text-slate-500 leading-tight max-h-[750px] overflow-hidden text-left whitespace-pre-wrap break-all">
+                        {chunk}
+                     </pre>
+                  </section>
                </div>
-               <h5 className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-4">DUMP: SSL_HANDSHAKE_EVIDENCE.LOG</h5>
-               <pre className="font-mono text-[8px] text-slate-500 leading-tight max-h-[600px] overflow-hidden text-left">
-                  {JSON.stringify({
-                     grade: sslLabs.grade,
-                     cert_issuer: sslLabs.cert?.issuer,
-                     protocols: sslLabs.protocols,
-                     cert_days_until_expiry: sslLabs.cert?.daysUntilExpiry || null,
-                     key_strength: sslLabs.cert?.keyStrength ? (sslLabs.cert.keyStrength + '-bit ' + sslLabs.cert.keyAlg) : null,
-                     vulnerabilities: sslLabs.vulnerabilities || {},
-                     forward_secrecy: sslLabs.forwardSecrecy || null
-                  }, null, 2)}
-               </pre>
-            </section>
-         </div>
-      </Page>
+            </div>
+         </Page>
+      ))}
 
       {/* LEGAL PAGE */}
       <Page pageNum={layout?.legal} totalPages={totalPages} title="YASAL BİLGİLENDİRME VE SORUMLULUK" t={t}>

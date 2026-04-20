@@ -9,7 +9,12 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
   const techs = auditData.technologies || [];
   const geoData = auditData.ipGeo || {};
   const ipReputation = auditData.ipReputation || {};
-  const sitemap = auditData.sitemapData || {};
+  const sitemapData = auditData.sitemapData || {};
+  const sitemapUrls = sitemapData.urls || [];
+  
+  const sitemapChunks = sitemapUrls.length > 0 ? Array.from({ length: Math.ceil(sitemapUrls.length / 32) }, (_, i) =>
+    sitemapUrls.slice(i * 32, i * 32 + 32)
+  ) : [[]];
 
   return (
     <>
@@ -17,16 +22,16 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s10} totalPages={totalPages} title={t.sections.s10} t={t}>
          <div className="space-y-10">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
-               <div className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 font-mono text-[10px] leading-relaxed relative overflow-hidden group shadow-sm">
+               <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
+               <div className="bg-blue-50/30 border border-blue-100/50 rounded-[2.5rem] p-8 font-mono text-[10px] leading-relaxed relative overflow-hidden group shadow-sm">
                   <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
                      <Database size={100} className="text-slate-900" />
                   </div>
                   <div className="space-y-4 text-slate-700">
-                     <div className="grid grid-cols-3 gap-4 border-b border-slate-200 pb-4">
+                     <div className="grid grid-cols-3 gap-4 border-b border-blue-100/50 pb-4">
                         <div>
                            <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">REGISTRAR</p>
-                           <p className="text-blue-600 font-black uppercase text-[11px] truncate">{whois.registrar || 'GİZLİ'}</p>
+                           <p className="text-blue-700 font-black uppercase text-[11px] truncate">{whois.registrar || 'GİZLİ / KORUMALI'}</p>
                         </div>
                         <div>
                            <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">KAYIT TARİHİ</p>
@@ -41,7 +46,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                         <p className="text-slate-400 uppercase tracking-widest text-[8px]">DNS NAMESERVERS (NS)</p>
                         <div className="flex flex-wrap gap-2 pt-1">
                            {(whois.nameservers || []).map((ns, i) => (
-                              <span key={i} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-slate-600 font-bold text-[9px] lowercase">{ns}</span>
+                              <span key={i} className="px-3 py-1 bg-white border border-blue-100 rounded-full text-blue-600 font-bold text-[9px] lowercase">{ns}</span>
                            ))}
                         </div>
                      </div>
@@ -211,42 +216,40 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          </div>
       </Page>
 
-      {/* S16: SITEMAP & ASSETS */}
-      <Page pageNum={layout?.s16} totalPages={totalPages} title={t.sections.s16} t={t}>
-         <div className="space-y-8">
-            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">SİTE HARİTASI VE MİMARİ ENVANTER</h4>
-            <div className={`p-8 rounded-[2rem] border-2 shadow-sm ${sitemap.found ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200'}`}>
-               <div className="flex justify-between items-center mb-6 border-b pb-4">
-                  <div>
-                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">DURUM</p>
-                     <p className={`text-xl font-black ${sitemap.found ? 'text-blue-700' : 'text-slate-600'}`}>{sitemap.found ? 'SITEMAP.XML TESPİT EDİLDİ' : 'SİTE HARİTASI BULUNAMADI'}</p>
-                  </div>
-                  <div className="text-right">
-                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">URL SAYISI</p>
-                     <p className="text-3xl font-black text-slate-900">{sitemap.urlCount || 0}</p>
-                  </div>
-               </div>
-               
-               {sitemap.found && sitemap.urls?.length > 0 && (
-                  <div>
-                     <h5 className="font-black text-[10px] uppercase text-slate-400 mb-3 tracking-widest">Örnek URL Yapıları</h5>
-                     <div className="grid grid-cols-1 gap-2 max-h-60 overflow-hidden relative">
-                        {sitemap.urls.slice(0, 10).map((url, idx) => (
-                           <div key={idx} className="p-2 bg-white border rounded font-mono text-[9px] text-slate-600 truncate">
-                              {url}
-                           </div>
+      {/* S16: SITEMAP ANALİZİ (DYNAMIK MULTI-PAGE) */}
+      {sitemapChunks.map((chunk, idx) => (
+         <Page key={`sitemap-${idx}`} pageNum={(layout?.s16 ?? 25) + idx} totalPages={totalPages} title={`BÖLÜM XVI: SITEMAP & URL INDEX — PART ${idx + 1}`} t={t}>
+            <div className="space-y-8">
+               <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary">SITEMAP URL ENVANTERİ</h4>
+               <div className="bg-white border-2 border-slate-100 rounded-[2.5rem] overflow-hidden shadow-sm">
+                  <table className="w-full text-[10px]">
+                     <thead className="bg-slate-50 text-slate-400 font-black uppercase tracking-widest">
+                        <tr>
+                           <th className="px-5 py-4 text-left border-b border-slate-100 w-12">#</th>
+                           <th className="px-5 py-4 text-left border-b border-slate-100">TARGET URL</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        {chunk.map((item, i) => (
+                           <tr key={i} className="border-b border-slate-50 transition-colors hover:bg-slate-50/50">
+                              <td className="px-5 py-2 font-mono text-slate-300">{(idx * 25) + i + 1}</td>
+                              <td className="px-5 py-2 font-mono text-blue-600 truncate max-w-[600px]">{typeof item === 'string' ? item : item.url || item.subdomain}</td>
+                           </tr>
                         ))}
-                        {sitemap.urls.length > 10 && (
-                           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-blue-50 to-transparent flex items-end justify-center pb-2">
-                              <span className="text-[10px] font-bold text-blue-800">...ve {sitemap.urls.length - 10} adet daha</span>
-                           </div>
+                        {chunk.length === 0 && (
+                           <tr><td colSpan="2" className="p-12 text-center text-slate-300 italic">Sitemap verisi bulunamadı veya erişilemez durumda.</td></tr>
                         )}
-                     </div>
-                  </div>
+                     </tbody>
+                  </table>
+               </div>
+               {idx === sitemapChunks.length - 1 && sitemapUrls.length > 64 && (
+                  <p className="text-center text-[9px] text-slate-400 font-bold italic uppercase tracking-widest mt-4">
+                     NOT: Toplam {sitemapUrls.length} link tespit edilmiştir. Listenin tamamı "JSON DUMP" bölümünde dijital kanıt olarak sunulmaktadır.
+                  </p>
                )}
             </div>
-         </div>
-      </Page>
+         </Page>
+      ))}
     </>
   );
 };

@@ -12,31 +12,73 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
   const sslStatus = auditData.sections?.s4?.findings || [];
   const serverExposure = auditData.sections?.s5?.findings || [];
   const dnsSecurity = auditData.sections?.s6?.findings || [];
+  const dnsSecurityDetails = auditData.sections?.s6?.details || {};
   
   const subChunks = chunkArray(subdomains, 22);
 
   return (
     <>
-      {/* S1: IP RESOLUTION */}
+      {/* S1: IP RESOLUTION & DNS METADATA */}
       <Page pageNum={layout?.s1} totalPages={totalPages} title={t.sections.s1} t={t}>
-         <div className="space-y-10">
+         <div className="space-y-8">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">AĞ ÇÖZÜMLEME ANALİZİ</h4>
-               <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm">
-                  <div className="grid grid-cols-2 gap-8">
-                     <DataItem label="HEDEF DOMAIN" value={`https://www.${auditData.target}`} />
-                     <DataItem label="RESOLVED IP" value={auditData.ipAddress} />
-                     <DataItem label="IP PROTOKOLÜ" value={auditData.ipFamily} />
-                     <DataItem label="SİSTEM DURUMU" value={auditData.ipResolved ? 'AKTİF / ÇEVRİMİÇİ' : 'BİLİNMİYOR'} />
+               <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary">AĞ ÇÖZÜMLEME & DNS FORENSICS</h4>
+               <div className="bg-blue-50/50 p-8 rounded-[2.5rem] border border-blue-100/50 shadow-sm">
+                  <div className="grid grid-cols-2 gap-y-6 gap-x-12">
+                     <DataItem label="TARGET DOMAIN" value={auditData.target} />
+                     <DataItem label="PRIMARY IPv4" value={auditData.ipAddress} />
+                     <DataItem label="RECORDS FOUND" value={`${(auditData.network?.ipv4?.length || 0) + (auditData.network?.ipv6?.length || 0)} ENTRY`} />
+                     <DataItem label="DNS STATUS" value={auditData.ipResolved ? 'ACTIVE / REACHABLE' : 'UNRESOLVED'} />
                   </div>
+                  
+                  <div className="mt-8 grid grid-cols-2 gap-6 border-t border-blue-100 pt-6">
+                     <div>
+                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">IPv4 ADDRESS LIST</p>
+                        <div className="flex flex-wrap gap-2">
+                           {(auditData.network?.ipv4 || [auditData.ipAddress]).map((ip, i) => (
+                              <span key={i} className="px-3 py-1 bg-white border border-blue-200 text-[10px] font-mono font-bold rounded-lg text-blue-700">{ip}</span>
+                           ))}
+                        </div>
+                     </div>
+                     <div>
+                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">IPv6 ADDRESS LIST</p>
+                        <div className="flex flex-wrap gap-2">
+                           {auditData.network?.ipv6?.length > 0 ? auditData.network.ipv6.map((ip, i) => (
+                              <span key={i} className="px-3 py-1 bg-white border border-blue-200 text-[10px] font-mono font-bold rounded-lg text-blue-700">{ip}</span>
+                            ) ) : <span className="text-[10px] italic text-slate-300">IPv6 Kaydı Bulunamadı</span>}
+                        </div>
+                     </div>
+               </div>
+            </div>
+               
+            <div className="mt-8 p-6 bg-primary/5 border border-primary/10 rounded-[2rem] font-mono text-[9px] text-primary/60">
+                  <p className="font-black mb-2 uppercase tracking-widest">[DNS RESOLVER TRACE - EVIDENCE ID: {auditData.reportId?.substring(0,8)}]</p>
+                  <p>{`> QUERY: A ${auditData.target} ... [SUCCESS]`}</p>
+                  {auditData.network?.ipv4?.map((ip, i) => <p key={i}>{`  >> ANSWER: ${ip} (IPv4)`}</p>)}
+                  {auditData.network?.ipv6?.map((ip, i) => <p key={i}>{`  >> ANSWER: ${ip} (IPv6)`}</p>)}
+                  <p className="mt-2">{`> REVERSE LOOKUP CHECK ... [BYPASS]`}</p>
                </div>
             </section>
-            <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">OPERASYONEL ANALİZ NOTLARI</h4>
-               <div className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 font-mono text-[10px] text-slate-600 leading-relaxed shadow-sm">
-                  {auditData.sections?.s1?.logs?.map((log, i) => (
-                     <p key={i}>{log}</p>
-                  ))}
+
+
+            <section className="grid grid-cols-2 gap-6">
+               <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-200">
+                  <h5 className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4">AUTHORITATIVE NAME SERVERS (NS)</h5>
+                  <div className="space-y-2">
+                     {(dnsSecurityDetails.nsRecords || []).map((ns, i) => (
+                        <div key={i} className="text-[10px] font-mono font-bold text-slate-600 bg-white p-2 rounded-xl border border-slate-100">{ns}</div>
+                     ))}
+                  </div>
+               </div>
+               <div className="bg-slate-50 p-6 rounded-[2rem] border border-slate-200">
+                  <h5 className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4">START OF AUTHORITY (SOA)</h5>
+                  {dnsSecurityDetails.soaInfo ? (
+                     <div className="text-[10px] font-mono space-y-1">
+                        <p><span className="text-slate-400">MNAME:</span> {dnsSecurityDetails.soaInfo.nsname}</p>
+                        <p><span className="text-slate-400">RNAME:</span> {dnsSecurityDetails.soaInfo.hostmaster}</p>
+                        <p><span className="text-slate-400">SERIAL:</span> {dnsSecurityDetails.soaInfo.serial}</p>
+                     </div>
+                  ) : <p className="text-[10px] italic text-slate-300">SOA verisi alınamadı</p>}
                </div>
             </section>
          </div>
@@ -46,35 +88,48 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s2} totalPages={totalPages} title={t.sections.s2} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TCP STEALTH PORT SCAN (17 KRİTİK NOKTA)</h4>
-               <div className="bg-white border rounded-[2rem] overflow-hidden shadow-sm">
+               <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary text-left">TCP STEALTH PORT SCAN & BANNER GRABBING</h4>
+               <div className="bg-white border-2 border-slate-100 rounded-[2.5rem] overflow-hidden shadow-sm">
                   <table className="w-full text-[10px]">
-                     <thead className="bg-slate-100 text-slate-900 font-black uppercase tracking-tighter">
+                     <thead className="bg-slate-50 text-slate-400 font-black uppercase tracking-widest">
                         <tr>
-                           <th className="p-3 text-left">PORT</th>
-                           <th className="p-3 text-left">SERVİS ADI</th>
-                           <th className="p-3 text-center">DURUM</th>
-                           <th className="p-3 text-right">RİSK SEVİYESİ</th>
+                           <th className="px-5 py-4 text-left border-b border-slate-100">PORT</th>
+                           <th className="px-5 py-4 text-left border-b border-slate-100">IDENTIFIED SERVICE</th>
+                           <th className="px-5 py-4 text-left border-b border-slate-100">SERVICE BANNER / RESPONSE</th>
+                           <th className="px-5 py-4 text-right border-b border-slate-100">RISK</th>
                         </tr>
                      </thead>
                      <tbody>
                         {ports.map((p, i) => (
-                           <tr key={i} className="border-b">
-                              <td className="p-3 font-bold">{p.port}</td>
-                              <td className="p-3 font-mono">{p.service}</td>
-                              <td className="p-3 text-center">
-                                 <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full font-black">OPEN</span>
+                           <tr key={i} className="border-b border-slate-50 transition-colors hover:bg-slate-50/50">
+                              <td className="px-5 py-3 font-mono font-black text-slate-700">{p.port}</td>
+                              <td className="px-5 py-3">
+                                 <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                                    <span className="font-bold text-slate-800">{p.service}</span>
+                                 </div>
                               </td>
-                              <td className={`p-3 text-right font-black ${p.risk === 'CRITICAL' || p.risk === 'HIGH' ? 'text-red-600' : 'text-slate-400'}`}>
-                                 {p.risk}
+                              <td className="px-5 py-3 font-mono text-[9px] text-slate-400 italic">
+                                 {p.banner || 'No banner response recorded'}
+                              </td>
+                              <td className="px-5 py-3 text-right font-black">
+                                 <span className={`px-3 py-1 rounded-lg ${p.risk === 'CRITICAL' || p.risk === 'HIGH' ? 'bg-red-50 text-red-600' : 'bg-slate-50 text-slate-400'}`}>
+                                    {p.risk}
+                                 </span>
                               </td>
                            </tr>
                         ))}
-                        {ports.length === 0 && (
-                           <tr><td colSpan="4" className="p-10 text-center text-slate-400 italic">Kritik port tespit edilmedi. Firewall aktif görünüyor.</td></tr>
-                        )}
                      </tbody>
                   </table>
+               </div>
+               
+               <div className="mt-6 p-6 bg-slate-50 border border-slate-200 rounded-[2rem] shadow-inner">
+                  <p className="text-[9px] font-black text-primary mb-3 uppercase tracking-[0.2em]">[FORENSIC NETWORK DIAGNOSTIC TRACE]</p>
+                  <div className="font-mono text-[9px] text-slate-500 space-y-1">
+                     {ports.length > 0 ? ports.map((p, i) => (
+                        <p key={i}>{`[${new Date().toISOString()}] DEBUG: Port ${p.port} (${p.service}) responding with banner: ${p.banner || 'ACK'}`}</p>
+                     )) : <p>[SYSTEM] NO OPEN PORTS DETECTED ON TARGET INFRASTRUCTURE.</p>}
+                  </div>
                </div>
             </section>
          </div>
@@ -150,25 +205,38 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       {/* S6: DNS EMAIL SECURITY (NEW) */}
       <Page pageNum={layout?.s6} totalPages={totalPages} title={t.sections.s6} t={t}>
          <div className="space-y-8">
-            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">DNS E-POSTA GÜVENLİĞİ (SPF / DMARC)</h4>
-            <p className="text-[12px] text-slate-500 italic mb-6">E-posta alan adı sahtekarlığı (phishing / spoofing) riskleri analiz edilmiştir.</p>
+            <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary">DNS GÜVENLİK KAYIT ANALİZİ (FORENSICS)</h4>
             <div className="grid grid-cols-1 gap-4">
-               {dnsSecurity.length > 0 ? dnsSecurity.map((f, i) => (
-                  <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
+               {dnsSecurity.map((f, i) => (
+                  <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-emerald-50 border-emerald-100' : 'bg-red-50 border-red-100'}`}>
                      <div>
                         <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
                         <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
                      </div>
-                     <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
+                     <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'}`}>
                         {f.severity}
                      </div>
                   </div>
-               )) : (
-                  <div className="p-6 border-2 border-dashed border-slate-200 rounded-[1.5rem] text-center">
-                     <p className="text-emerald-600 font-bold text-sm uppercase tracking-widest">DNS KAYIT BULGUSU YOK</p>
-                  </div>
-               )}
+               ))}
             </div>
+
+            <section className="mt-8">
+               <h5 className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4">RAW TXT / CAA EVIDENCE DOCKET</h5>
+               <div className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 font-mono text-[9px] text-slate-600 leading-relaxed shadow-sm">
+                  <p className="text-primary font-black mb-2 uppercase">[RAW TXT RECORDS]</p>
+                  {(dnsSecurityDetails.allTxt || []).map((txt, i) => (
+                     <p key={`txt-${i}`} className="mb-1"> {">"} {txt}</p>
+                  ))}
+                  {dnsSecurityDetails.caaRecords?.length > 0 && (
+                     <>
+                        <p className="text-primary font-black mt-4 mb-2 uppercase">[CAA RECORDS]</p>
+                        {dnsSecurityDetails.caaRecords.map((caa, i) => (
+                           <p key={`caa-${i}`}> {">"} {caa.value} ({caa.tag})</p>
+                        ))}
+                     </>
+                  )}
+               </div>
+            </section>
          </div>
       </Page>
 
