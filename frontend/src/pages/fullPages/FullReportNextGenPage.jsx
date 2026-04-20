@@ -1,6 +1,7 @@
 import React from 'react';
 import { Database, Shield, ShieldAlert, ShieldCheck, Cpu } from 'lucide-react';
-import { Page, DataItem } from './FullReportComponents';
+import { Page, DataItem, IsoBadge } from './FullReportComponents';
+import { GLOBAL_ISO_MAPPING } from './FullReportUtils';
 
 export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
   const whois = auditData.whoisData || {};
@@ -22,7 +23,10 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s10} totalPages={totalPages} title={t.sections.s10} t={t}>
          <div className="space-y-10">
             <section>
-               <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
+               <div className="flex justify-between items-start border-b-2 border-primary/20 pb-2 mb-4">
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n4?.id} isoName={GLOBAL_ISO_MAPPING.n4?.name} />
+               </div>
                <div className="bg-blue-50/30 border border-blue-100/50 rounded-[2.5rem] p-8 font-mono text-[10px] leading-relaxed relative overflow-hidden group shadow-sm">
                   <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
                      <Database size={100} className="text-slate-900" />
@@ -60,7 +64,10 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s11} totalPages={totalPages} title={t.sections.s11} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">COOKIE (ÇEREZ) GÜVENLİK ANALİZİ</h4>
+               <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">COOKIE (ÇEREZ) GÜVENLİK ANALİZİ</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n5?.id} isoName={GLOBAL_ISO_MAPPING.n5?.name} />
+               </div>
                <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 flex items-center justify-between mb-6 shadow-sm">
                   <div>
                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">TESPİT EDİLEN ÇEREZ SAYISI</p>
@@ -103,7 +110,10 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s12} totalPages={totalPages} title={t.sections.s12} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">CORS POLİTİKASI VE API GÜVENLİĞİ</h4>
+               <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">CORS POLİTİKASI VE API GÜVENLİK ANALİZİ</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n6?.id} isoName={GLOBAL_ISO_MAPPING.n6?.name} />
+               </div>
                <div className="p-8 bg-slate-50 rounded-[2rem] border border-slate-200 relative overflow-hidden group shadow-sm">
                   <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none group-hover:rotate-12 transition-transform duration-700">
                      <Shield size={120} className="text-slate-900" />
@@ -128,7 +138,10 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       {/* S13: TECH STACK */}
       <Page pageNum={layout?.s13} totalPages={totalPages} title={t.sections.s13} t={t}>
          <div className="space-y-8">
-            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TEKNOLOJİ PARMAK İZİ TESPİTİ (TECH STACK)</h4>
+            <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">TEKNOLOJİ PARMAK İZİ TESPİTİ (TECH STACK)</h4>
+               <IsoBadge isoId={GLOBAL_ISO_MAPPING.n7?.id} isoName={GLOBAL_ISO_MAPPING.n7?.name} />
+            </div>
             <div className="grid grid-cols-1 gap-4">
                {techs.map((tech, i) => (
                   <div key={i} className="flex items-center gap-6 p-6 bg-slate-50 border border-slate-100 rounded-[2rem] hover:border-primary transition-all group shadow-sm">
@@ -155,7 +168,10 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s14} totalPages={totalPages} title={t.sections.s14} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">IP ADRESİ COĞRAFİ KONUM VE ALTYAPI ANALİZİ</h4>
+               <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">COĞRAFİ KONUM VE ALTYAPI ANALİZİ</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n2?.id} isoName={GLOBAL_ISO_MAPPING.n2?.name} />
+               </div>
                <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm">
                   <div className="grid grid-cols-2 gap-8">
                      <DataItem label="IP ADRESİ" value={geoData.ip} />
@@ -193,8 +209,11 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s15} totalPages={totalPages} title={t.sections.s15} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">ALIENVAULT OTX — IP REPUTATION CHECK</h4>
-                <div className={`p-8 rounded-[2rem] border-2 shadow-sm ${ipReputation.isMalicious ? 'bg-red-50 border-red-200' : 'bg-green-50/50 border-green-100'}`}>
+               <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">ALIENVAULT OTX — IP REPUTATION CHECK</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n8?.id} isoName={GLOBAL_ISO_MAPPING.n8?.name} />
+               </div>
+               <div className={`p-8 rounded-[2rem] border-2 shadow-sm ${ipReputation.isMalicious ? 'bg-red-50 border-red-200' : 'bg-green-50/50 border-green-100'}`}>
                    <div className="flex items-center gap-6">
                       <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm border ${ipReputation.isMalicious ? 'bg-red-100 text-red-600 border-red-200' : 'bg-green-100 text-green-600 border-green-200'}`}>
                          {ipReputation.isMalicious ? <ShieldAlert size={32} /> : <ShieldCheck size={32} />}
@@ -220,7 +239,10 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       {sitemapChunks.map((chunk, idx) => (
          <Page key={`sitemap-${idx}`} pageNum={(layout?.s16 ?? 25) + idx} totalPages={totalPages} title={`BÖLÜM XVI: SITEMAP & URL INDEX — PART ${idx + 1}`} t={t}>
             <div className="space-y-8">
-               <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary">SITEMAP URL ENVANTERİ</h4>
+               <div className="flex justify-between items-start border-b-2 border-primary/20 pb-2 mb-4">
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">SITEMAP URL ENVANTERİ</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n9?.id} isoName={GLOBAL_ISO_MAPPING.n9?.name} />
+               </div>
                <div className="bg-white border-2 border-slate-100 rounded-[2.5rem] overflow-hidden shadow-sm">
                   <table className="w-full text-[10px]">
                      <thead className="bg-slate-50 text-slate-400 font-black uppercase tracking-widest">

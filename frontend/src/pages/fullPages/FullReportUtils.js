@@ -63,9 +63,30 @@ export function calculatePageLayout(auditData) {
 
 
   layout.legal  = ++p; //     — Yasal Bilgilendirme
+  layout.isoMapping = ++p; //     — ISO 27001 Mapping Table (NEW)
   layout.final  = ++p; //     — Resmi Onay & İmza
 
   layout.total  = p;   // GERÇEK TOPLAM SAYFA
 
   return layout;
 }
+
+// ── ISO 27001:2022 GLOBAL MAPPING ──
+export const GLOBAL_ISO_MAPPING = {
+  s1:  { id: "A.8.20", name: "Ağ güvenliği" },
+  s2:  { id: "A.8.21", name: "Ağ hizmetlerinin güvenliği" },
+  s3:  { id: "A.8.26", name: "Uygulama güvenliği gereksinimleri" },
+  s4:  { id: "A.8.24", name: "Hizmetlerin kullanımı (Kriptografi)" },
+  s5:  { id: "A.8.8",  name: "Teknik zafiyet yönetimi" },
+  s6:  { id: "A.8.21", name: "Ağ hizmetlerinin güvenliği" },
+  s7:  { id: "A.8.26", name: "Uygulama güvenliği gereksinimleri" },
+  s8:  { id: "A.8.20", name: "Ağ güvenliği" },
+  s9:  { id: "A.8.24", name: "Hizmetlerin kullanımı (Kriptografi)" },
+  s10: { id: "A.5.9",  name: "Bilgi envanteri ve diğer ilişkili varlıklar" },
+  s11: { id: "A.8.26", name: "Uygulama güvenliği gereksinimleri" },
+  s12: { id: "A.8.26", name: "Uygulama güvenliği gereksinimleri" },
+  s13: { id: "A.8.8",  name: "Teknik zafiyet yönetimi" },
+  s14: { id: "A.5.7",  name: "Tehdit istihbaratı" },
+  s15: { id: "A.5.7",  name: "Tehdit istihbaratı" },
+  s16: { id: "A.5.9",  name: "Bilgi envanteri ve diğer ilişkili varlıklar" }
+};

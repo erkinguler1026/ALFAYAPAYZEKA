@@ -1,6 +1,21 @@
 import React from 'react';
 import { Shield, ShieldCheck, ShieldAlert } from 'lucide-react';
 
+export const IsoBadge = ({ isoId, isoName }) => {
+  if (!isoId) return null;
+  return (
+    <div className="flex items-center gap-2 bg-[#f0fdf4] border border-emerald-100/50 px-3 py-1.5 rounded-xl shadow-sm group hover:shadow-md transition-all">
+      <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
+        <Shield size={14} strokeWidth={2.5} />
+      </div>
+      <div className="flex flex-col">
+        <div className="text-[9px] font-black text-emerald-800 leading-none mb-0.5">{isoId}</div>
+        <div className="text-[7px] font-black text-emerald-600/60 uppercase tracking-tighter leading-none whitespace-nowrap">{isoName}</div>
+      </div>
+    </div>
+  );
+};
+
 export const CVSSBadge = ({ score }) => {
   const getColor = (s) => {
     if (s >= 9.0) return 'bg-red-600 text-white';

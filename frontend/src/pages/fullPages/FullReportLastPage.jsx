@@ -2,9 +2,11 @@ import React from 'react';
 import { Database, Shield, ShieldCheck, Terminal, QrCode, CheckCircle } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Page, DataItem } from './FullReportComponents';
+import { GLOBAL_ISO_MAPPING } from './FullReportUtils';
 
 
 export const LastPages = ({ auditData, t, layout, totalPages, siteName, metadata }) => {
+   const isoMapping = GLOBAL_ISO_MAPPING;
 
   const clauses = auditData.disclaimer?.clauses || [];
 
@@ -60,6 +62,45 @@ export const LastPages = ({ auditData, t, layout, totalPages, siteName, metadata
             <div className="mt-12 p-8 bg-slate-50 rounded-[2rem] border border-slate-100 italic text-[10px] text-slate-400 font-bold leading-relaxed">
                "Bu rapor ALFA YAPAY ZEKA Teknolojileri tarafından AI destekli olarak gerçek şartlarda üretilmiştir. Herhangi bir düzenleme veya manipülasyon raporun kurguladığı dijital hash imzasını (Integrity Hash) geçersiz kılar. Raporun tüm sayfaları dijital olarak şifrelenmiştir."
             </div>
+         </div>
+      </Page>
+
+      {/* ISO MAPPING PAGE (NEW) */}
+      <Page pageNum={layout?.isoMapping} totalPages={totalPages} title="İLAVE BİLGİ: ISO 27001:2022 COMPLIANCE MAPPING" t={t}>
+         <div className="space-y-8">
+            <div className="bg-emerald-50/50 border border-emerald-100 p-8 rounded-[2.5rem] mb-4">
+               <div className="flex items-center gap-4 mb-4">
+                  <Shield size={32} className="text-emerald-900" />
+                  <h4 className="text-xl font-black text-emerald-900 uppercase tracking-tighter">STANDART UYUMLULUK MATRİSİ</h4>
+               </div>
+               <p className="text-[10px] font-bold text-emerald-900/60 leading-relaxed uppercase tracking-widest">
+                  ALFA X-RAY V3 TARAFINDAN GERÇEKLEŞTİRİLEN TÜM DENETİM MODÜLLERİNİN ISO/IEC 27001:2022 EK-A KONTROLLERİ İLE TEKNİK EŞLEŞTİRMESİ AŞAĞIDADIR.
+               </p>
+            </div>
+
+            <div className="bg-white border-2 border-slate-100 rounded-[2.5rem] overflow-hidden shadow-sm">
+               <table className="w-full text-[8.5px]">
+                  <thead className="bg-slate-50 text-slate-900 font-black uppercase tracking-widest">
+                     <tr>
+                        <th className="px-5 py-2.5 text-left border-b border-slate-100">ALFA MODULE</th>
+                        <th className="px-5 py-2.5 text-left border-b border-slate-100">ISO CONTROL</th>
+                        <th className="px-5 py-2.5 text-left border-b border-slate-100">FULL NAME (DESCRIPTION)</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {Object.entries(isoMapping || {}).map(([key, value], i) => (
+                        <tr key={key} className={`border-b ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/30'}`}>
+                           <td className="px-5 py-1.5 font-black text-slate-800 uppercase tracking-tighter">{key.toUpperCase()}</td>
+                           <td className="px-5 py-1.5 font-mono font-black text-emerald-700">{value.id}</td>
+                           <td className="px-5 py-1.5 font-bold text-slate-500 uppercase text-[8px] leading-tight">{value.name}</td>
+                        </tr>
+                     ))}
+                  </tbody>
+               </table>
+            </div>
+            <p className="text-[9px] text-slate-400 italic text-center font-bold uppercase tracking-widest">
+               * BU TABLO PROPOSED MAPPING TABLE OLARAK DÜZENLENMİŞTİR VE ISO 27001:2022 ANNEX A STANDARTLARINI BAZ ALIR.
+            </p>
          </div>
       </Page>
 

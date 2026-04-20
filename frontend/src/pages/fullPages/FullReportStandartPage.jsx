@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShieldAlert, Search, Shield, Cpu } from 'lucide-react';
-import { Page, DataItem } from './FullReportComponents';
-import { chunkArray } from './FullReportUtils';
+import { Page, DataItem, IsoBadge } from './FullReportComponents';
+import { chunkArray, GLOBAL_ISO_MAPPING } from './FullReportUtils';
 
 export const StandartPages = ({ auditData, t, layout, totalPages }) => {
   const subdomains = auditData.subdomainList || [];
@@ -22,7 +22,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s1} totalPages={totalPages} title={t.sections.s1} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary">AĞ ÇÖZÜMLEME & DNS FORENSICS</h4>
+               <div className="flex justify-between items-start border-b-2 border-primary/20 pb-2 mb-4">
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">AĞ ÇÖZÜMLEME & DNS FORENSICS</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.s1?.id} isoName={GLOBAL_ISO_MAPPING.s1?.name} />
+               </div>
                <div className="bg-blue-50/50 p-8 rounded-[2.5rem] border border-blue-100/50 shadow-sm">
                   <div className="grid grid-cols-2 gap-y-6 gap-x-12">
                      <DataItem label="TARGET DOMAIN" value={auditData.target} />
@@ -88,7 +91,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s2} totalPages={totalPages} title={t.sections.s2} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary text-left">TCP STEALTH PORT SCAN & BANNER GRABBING</h4>
+               <div className="flex justify-between items-start border-b-2 border-primary/20 pb-2 mb-4">
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary text-left">TCP STEALTH PORT SCAN & BANNER GRABBING</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.s2?.id} isoName={GLOBAL_ISO_MAPPING.s2?.name} />
+               </div>
                <div className="bg-white border-2 border-slate-100 rounded-[2.5rem] overflow-hidden shadow-sm">
                   <table className="w-full text-[10px]">
                      <thead className="bg-slate-50 text-slate-400 font-black uppercase tracking-widest">
@@ -138,7 +144,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       {/* S3: HEADERS */}
       <Page pageNum={layout?.s3} totalPages={totalPages} title={t.sections.s3} t={t}>
          <div className="space-y-8">
-            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HTTP RESPONSE HEADER AUDIT</h4>
+            <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">HTTP RESPONSE HEADER AUDIT</h4>
+               <IsoBadge isoId={GLOBAL_ISO_MAPPING.s3?.id} isoName={GLOBAL_ISO_MAPPING.s3?.name} />
+            </div>
             <p className="text-[12px] text-slate-500 italic mb-6">Sunucu tarafından gönderilen güvenlik başlıklarının varlığı ve konfigürasyon doğruluğu denetlenmiştir.</p>
             <div className="grid grid-cols-1 gap-4">
                {headersAnalytic.map((f, i) => (
@@ -159,7 +168,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       {/* S4: SSL / HTTPS STATUS (NEW) */}
       <Page pageNum={layout?.s4} totalPages={totalPages} title={t.sections.s4} t={t}>
          <div className="space-y-8">
-            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">SSL/TLS & HTTPS STATUS DURUM ANALİZİ</h4>
+            <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">SSL/TLS & HTTPS STATUS DURUM ANALİZİ</h4>
+               <IsoBadge isoId={GLOBAL_ISO_MAPPING.s4?.id} isoName={GLOBAL_ISO_MAPPING.s4?.name} />
+            </div>
             <p className="text-[12px] text-slate-500 italic mb-6">Sunucu sertifikaları, HSTS zinciri ve robots.txt güvenlik durumları incelenmiştir.</p>
             <div className="grid grid-cols-1 gap-4">
                {sslStatus.map((f, i) => (
@@ -180,7 +192,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       {/* S5: SERVER EXPOSURE (NEW) */}
       <Page pageNum={layout?.s5} totalPages={totalPages} title={t.sections.s5} t={t}>
          <div className="space-y-8">
-            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">SUNUCU BİLGİ İFŞA ANALİZİ (SERVER EXPOSURE)</h4>
+            <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">SUNUCU BİLGİ İFŞA ANALİZİ (SERVER EXPOSURE)</h4>
+               <IsoBadge isoId={GLOBAL_ISO_MAPPING.s5?.id} isoName={GLOBAL_ISO_MAPPING.s5?.name} />
+            </div>
             <p className="text-[12px] text-slate-500 italic mb-6">Sunucu imza sızıntıları, teknoloji ifşası ve hedeflenmiş versiyon taraması yapılmıştır.</p>
             <div className="grid grid-cols-1 gap-4">
                {serverExposure.length > 0 ? serverExposure.map((f, i) => (
@@ -205,7 +220,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       {/* S6: DNS EMAIL SECURITY (NEW) */}
       <Page pageNum={layout?.s6} totalPages={totalPages} title={t.sections.s6} t={t}>
          <div className="space-y-8">
-            <h4 className="text-[11px] font-black border-b-2 border-primary/20 pb-2 mb-4 uppercase tracking-[0.2em] text-primary">DNS GÜVENLİK KAYIT ANALİZİ (FORENSICS)</h4>
+            <div className="flex justify-between items-start border-b-2 border-primary/20 pb-2 mb-4">
+               <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">DNS GÜVENLİK KAYIT ANALİZİ (FORENSICS)</h4>
+               <IsoBadge isoId={GLOBAL_ISO_MAPPING.s6?.id} isoName={GLOBAL_ISO_MAPPING.s6?.name} />
+            </div>
             <div className="grid grid-cols-1 gap-4">
                {dnsSecurity.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-emerald-50 border-emerald-100' : 'bg-red-50 border-red-100'}`}>
@@ -244,7 +262,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s7} totalPages={totalPages} title={t.sections.s7} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HASSAS DOSYA VE DİZİN İFŞA TARAMASI</h4>
+               <div className="flex justify-between items-start border-b-2 border-primary mb-4">
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">HASSAS DOSYA VE DİZİN İFŞA TARAMASI</h4>
+                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.s8?.id} isoName={GLOBAL_ISO_MAPPING.s8?.name} />
+               </div>
                <div className="p-10 bg-red-50/30 border-2 border-red-100 rounded-[3rem] shadow-sm relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-8 opacity-5 print:!opacity-5" style={{ opacity: 0.05 }}>
                      <Search size={105} className="text-red-900 print:text-red-200" strokeWidth={1} />
@@ -279,6 +300,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       {subChunks.slice(0, 40).map((chunk, idx) => (
          <Page key={`sub-${idx}`} pageNum={(layout?.s8 ?? 11) + idx} totalPages={totalPages} title={`BÖLÜM VIII: ALT ALAN ADI KEŞİF DÖKÜMÜ — PART ${idx + 1}`} t={t}>
             <div className="space-y-4">
+               <div className="flex justify-between items-start border-b-2 border-primary/20 pb-2 mb-4">
+                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary leading-none py-2">SUBDOMAIN ENUMERATION & CT LOGS</p>
+                  {idx === 0 && <IsoBadge isoId={GLOBAL_ISO_MAPPING.n1?.id} isoName={GLOBAL_ISO_MAPPING.n1?.name} />}
+               </div>
                <div className="bg-slate-50 p-4 border-l-4 border-primary rounded-r-2xl">
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.verified}</p>
                   <p className="text-[9px] text-slate-400 italic">Kaynak: crt.sh (Certificate Transparency Logs) — Global Infrastructure Mapping</p>
@@ -316,7 +341,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                   {sslLabs.grade || 'N/A'}
                </div>
                <div className="flex-1 max-w-full relative z-10">
-                  <h3 className="text-xl font-black tracking-tight leading-tight md:text-2xl break-words">QUALYS SSL LABS — GLOBAL GRADE</h3>
+                  <div className="flex justify-between items-start border-b border-white/20 pb-2 mb-2">
+                     <h3 className="text-xl font-black tracking-tight leading-tight md:text-2xl break-words">QUALYS SSL LABS — GLOBAL GRADE</h3>
+                     <IsoBadge isoId={GLOBAL_ISO_MAPPING.n3?.id} isoName={GLOBAL_ISO_MAPPING.n3?.name} />
+                  </div>
                   <p className="text-[9px] md:text-xs font-bold text-slate-400 uppercase tracking-widest mt-2 break-words">Sertifika Zinciri, Protokol Desteği ve El Sıkışma Analizi</p>
                </div>
             </div>
