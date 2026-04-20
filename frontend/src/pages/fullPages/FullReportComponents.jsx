@@ -47,7 +47,9 @@ export const CVSSBadge = ({ score }) => {
 
 export const DataItem = ({ label, value, inverted }) => (
   <div className={`flex flex-col border-l-2 ${inverted ? 'border-white/20' : 'border-primary'} pl-4 py-1`}>
-    <span className={`text-[9px] font-bold ${inverted ? 'text-white/40' : 'text-slate-400'} uppercase tracking-widest`}>{label}</span>
+    <span className={`text-[9px] font-bold ${inverted ? 'text-white/40' : 'text-slate-400'} tracking-widest`}>
+      {String(label || '').toLocaleUpperCase('en-US')}
+    </span>
     <span className={`text-[13px] font-black ${inverted ? 'text-white' : 'text-slate-900'} tracking-tight`}>{value || 'N/A'}</span>
   </div>
 );

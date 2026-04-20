@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShieldAlert, Search, Shield, Cpu } from 'lucide-react';
 import { Page, DataItem, IsoBadge } from './FullReportComponents';
-import { chunkArray, GLOBAL_ISO_MAPPING } from './FullReportUtils';
+import { chunkArray, GLOBAL_ISO_MAPPING, safeUpper } from './FullReportUtils';
 
 export const StandartPages = ({ auditData, t, layout, totalPages }) => {
   const subdomains = auditData.subdomainList || [];
@@ -99,10 +99,10 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                   <table className="w-full text-[10px]">
                      <thead className="bg-slate-50 text-slate-400 font-black uppercase tracking-widest">
                         <tr>
-                           <th className="px-5 py-4 text-left border-b border-slate-100">PORT</th>
-                           <th className="px-5 py-4 text-left border-b border-slate-100">IDENTIFIED SERVICE</th>
-                           <th className="px-5 py-4 text-left border-b border-slate-100">SERVICE BANNER / RESPONSE</th>
-                           <th className="px-5 py-4 text-right border-b border-slate-100">RISK</th>
+                           <th className="px-5 py-4 text-left border-b border-slate-100">{safeUpper('PORT')}</th>
+                           <th className="px-5 py-4 text-left border-b border-slate-100">{safeUpper('IDENTIFIED SERVICE')}</th>
+                           <th className="px-5 py-4 text-left border-b border-slate-100">{safeUpper('SERVICE BANNER / RESPONSE')}</th>
+                           <th className="px-5 py-4 text-right border-b border-slate-100">{safeUpper('RISK')}</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -120,7 +120,7 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                               </td>
                               <td className="px-5 py-3 text-right font-black">
                                  <span className={`px-3 py-1 rounded-lg ${p.risk === 'CRITICAL' || p.risk === 'HIGH' ? 'bg-red-50 text-red-600' : 'bg-slate-50 text-slate-400'}`}>
-                                    {p.risk}
+                                    {safeUpper(p.risk)}
                                  </span>
                               </td>
                            </tr>
@@ -153,8 +153,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                {headersAnalytic.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
                      <div>
-                        <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
-                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
+                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(f.item)}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {safeUpper(f.status)}</p>
                      </div>
                      <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
                         {f.severity}
@@ -177,8 +177,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                {sslStatus.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' || f.severity === 'INFO' ? 'bg-green-50 border-green-100' : 'bg-orange-50 border-orange-100'}`}>
                      <div>
-                        <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
-                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
+                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(f.item)}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {safeUpper(f.status)}</p>
                      </div>
                      <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' || f.severity === 'INFO' ? 'bg-green-600 text-white' : 'bg-orange-600 text-white'}`}>
                         {f.severity}
@@ -201,8 +201,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                {serverExposure.length > 0 ? serverExposure.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
                      <div>
-                        <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
-                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
+                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(f.item)}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {safeUpper(f.status)}</p>
                      </div>
                      <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
                         {f.severity}
@@ -228,8 +228,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                {dnsSecurity.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-emerald-50 border-emerald-100' : 'bg-red-50 border-red-100'}`}>
                      <div>
-                        <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
-                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
+                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(f.item)}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {safeUpper(f.status)}</p>
                      </div>
                      <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'}`}>
                         {f.severity}
@@ -366,8 +366,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                      ))}
                   </div>
                   <div className="mt-4 space-y-2 border-t pt-4">
-                     <p className={`text-[10px] font-black ${sslLabs.vulnerabilities?.heartbleed ? 'text-red-600' : 'text-green-600'}`}>HEARTBLEED: {sslLabs.vulnerabilities?.heartbleed ? 'VULNERABLE' : 'GÜVENLİ'}</p>
-                     <p className={`text-[10px] font-black ${sslLabs.vulnerabilities?.poodle ? 'text-red-600' : 'text-green-600'}`}>POODLE: {sslLabs.vulnerabilities?.poodle ? 'VULNERABLE' : 'GÜVENLİ'}</p>
+                     <p className={`text-[10px] font-black ${sslLabs.vulnerabilities?.heartbleed ? 'text-red-600' : 'text-green-600'}`}>{safeUpper('HEARTBLEED')}: {sslLabs.vulnerabilities?.heartbleed ? safeUpper('VULNERABLE') : safeUpper('GÜVENLİ')}</p>
+                     <p className={`text-[10px] font-black ${sslLabs.vulnerabilities?.poodle ? 'text-red-600' : 'text-green-600'}`}>{safeUpper('POODLE')}: {sslLabs.vulnerabilities?.poodle ? safeUpper('VULNERABLE') : safeUpper('GÜVENLİ')}</p>
                   </div>
                </div>
             </div>

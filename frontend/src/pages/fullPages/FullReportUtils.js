@@ -18,6 +18,16 @@ export const chunkArray = (arr, size) => {
 };
 
 /**
+ * @function safeUpper
+ * @description İngilizce teknik terimleri güvenli bir şekilde büyük harfe dönüştürür.
+ * 
+ * Tarayıcı 'lang=tr' modundayken '.toUpperCase()' fonksiyonu 'i' harfini 'İ' yapar.
+ * Bu fonksiyon '.toLocaleUpperCase('en-US')' kullanarak 'STRICT', 'SECURITY' gibi 
+ * terimlerin doğru (noktasız) görünmesini sağlar.
+ */
+export const safeUpper = (str) => (str || '').toLocaleUpperCase('en-US');
+
+/**
  * calculatePageLayout(auditData)
  *
  * Gerçek veriye göre her bölümün hangi sayfaya düşeceğini ve

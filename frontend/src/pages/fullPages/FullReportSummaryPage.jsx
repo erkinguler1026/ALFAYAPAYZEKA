@@ -1,6 +1,7 @@
 import React from 'react';
 import { Page } from './FullReportComponents';
 import { ShieldCheck, ShieldAlert } from 'lucide-react';
+import { safeUpper } from './FullReportUtils';
 
 /**
  * @component SummaryPage
@@ -42,11 +43,11 @@ export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
   ];
 
   const categories = [
-    { name: isTr ? 'SERVICE SECURITY' : 'SERVICE SECURITY', val: categoricalHealth?.service ?? 100, iso: 'A.8.26' },
-    { name: isTr ? 'SECURITY HEADERS' : 'SECURITY HEADERS', val: categoricalHealth?.headers ?? 100, iso: 'A.8.26' },
-    { name: isTr ? 'NETWORK SECURITY' : 'NETWORK SECURITY', val: categoricalHealth?.network ?? 100, iso: 'A.8.20' },
-    { name: isTr ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS',   val: categoricalHealth?.domain ?? 100,  iso: 'A.5.9' },
-    { name: isTr ? 'SOFTWARE PATCHING': 'SOFTWARE PATCHING',val: categoricalHealth?.patching ?? 100, iso: 'A.8.8' }
+    { name: isTr ? safeUpper('SERVICE SECURITY') : 'SERVICE SECURITY', val: categoricalHealth?.service ?? 100, iso: 'A.8.26' },
+    { name: isTr ? safeUpper('SECURITY HEADERS') : 'SECURITY HEADERS', val: categoricalHealth?.headers ?? 100, iso: 'A.8.26' },
+    { name: isTr ? safeUpper('NETWORK SECURITY') : 'NETWORK SECURITY', val: categoricalHealth?.network ?? 100, iso: 'A.8.20' },
+    { name: isTr ? safeUpper('DOMAIN & WHOIS') : 'DOMAIN & WHOIS',   val: categoricalHealth?.domain ?? 100,  iso: 'A.5.9' },
+    { name: isTr ? safeUpper('SOFTWARE PATCHING'): 'SOFTWARE PATCHING',val: categoricalHealth?.patching ?? 100, iso: 'A.8.8' }
   ];
 
   // Filtrelenmiş yüksek riskli bulgular
@@ -154,7 +155,7 @@ export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
                          %{cat.val}
                        </span>
                      </div>
-                     <span className="text-[8px] font-black text-slate-800 tracking-[0.1em] text-center uppercase leading-tight w-20">
+                     <span className="text-[8px] font-black text-slate-800 tracking-[0.1em] text-center leading-tight w-20">
                        {cat.name}
                      </span>
                      <span className="text-[11px] font-black text-emerald-600/80 tracking-widest mt-1">

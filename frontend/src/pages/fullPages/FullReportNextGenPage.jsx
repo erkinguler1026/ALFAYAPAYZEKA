@@ -1,7 +1,7 @@
 import React from 'react';
 import { Database, Shield, ShieldAlert, ShieldCheck, Cpu } from 'lucide-react';
 import { Page, DataItem, IsoBadge } from './FullReportComponents';
-import { GLOBAL_ISO_MAPPING } from './FullReportUtils';
+import { GLOBAL_ISO_MAPPING, safeUpper } from './FullReportUtils';
 
 export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
   const whois = auditData.whoisData || {};
@@ -34,8 +34,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                   <div className="space-y-4 text-slate-700">
                      <div className="grid grid-cols-3 gap-4 border-b border-blue-100/50 pb-4">
                         <div>
-                           <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">REGISTRAR</p>
-                           <p className="text-blue-700 font-black uppercase text-[11px] truncate">{whois.registrar || 'GİZLİ / KORUMALI'}</p>
+                           <p className="text-slate-400 mb-1 tracking-widest text-[8px]">{safeUpper('REGISTRAR')}</p>
+                           <p className="text-blue-700 font-black text-[11px] truncate">{safeUpper(whois.registrar) || 'GİZLİ / KORUMALI'}</p>
                         </div>
                         <div>
                            <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">KAYIT TARİHİ</p>
@@ -82,12 +82,12 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                </div>
                <div className="bg-white border rounded-[2rem] overflow-hidden shadow-sm">
                   <table className="w-full text-[10px]">
-                     <thead className="bg-slate-100 text-slate-900 font-black uppercase tracking-tighter">
+                     <thead className="bg-slate-100 text-slate-900 font-black tracking-tighter">
                         <tr>
-                           <th className="p-4 text-left">ÇEREZ ADI (COOKIE NAME)</th>
-                           <th className="p-4 text-center">HTTPONLY</th>
-                           <th className="p-4 text-center">SECURE</th>
-                           <th className="p-4 text-center">SAMESITE</th>
+                           <th className="p-4 text-left">{safeUpper('ÇEREZ ADI (COOKIE NAME)')}</th>
+                           <th className="p-4 text-center">{safeUpper('HTTPONLY')}</th>
+                           <th className="p-4 text-center">{safeUpper('SECURE')}</th>
+                           <th className="p-4 text-center">{safeUpper('SAMESITE')}</th>
                         </tr>
                      </thead>
                      <tbody>
