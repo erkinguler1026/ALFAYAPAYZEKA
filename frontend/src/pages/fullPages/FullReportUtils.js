@@ -1,7 +1,15 @@
 /**
- * ALFA Forensic Report Utilities
+ * @file FullReportUtils.js
+ * @description ALFA X-RAY V3 Raporlama Sistemi için yardımcı fonksiyonlar ve sabit veriler.
+ * 
+ * Bu dosya, raporun dinamik sayfalama (pagination) mantığını, veri parçalama (chunking) işlemlerini
+ * ve ISO 27001:2022 kontrol maddeleriyle olan merkezi eşleştirmeyi (mapping) barındırır.
  */
 
+/**
+ * @function chunkArray
+ * @description Bir diziyi belirtilen boyutlarda parçalara ayırır. Sayfalama işlemlerinde kullanılır.
+ */
 export const chunkArray = (arr, size) => {
   const result = [];
   if (!arr) return result;

@@ -1,6 +1,21 @@
+/**
+ * @file FullReportComponents.jsx
+ * @description ALFA X-RAY V3 "Forensic Edition" Görsel Sistem Bileşenleri.
+ * 
+ * Bu dosya, raporun tüm bölümlerinde kullanılan atomik UI bileşenlerini içerir.
+ * Tasarım Prensipleri:
+ *  - Pastel Kurumsal Renk Paleti (Mint, Blue, Slate).
+ *  - Print-Ready: PDF çıktıları için optimize edilmiş CSS ve layout.
+ *  - Premium Tipografi: Yüksek yoğunluklu teknik veri sunumu.
+ */
+
 import React from 'react';
 import { Shield, ShieldCheck, ShieldAlert } from 'lucide-react';
 
+/**
+ * @component IsoBadge
+ * @description Bölüm başlıklarında ve bulgu kutularında kullanılan ISO 27001 uyumluluk rozeti.
+ */
 export const IsoBadge = ({ isoId, isoName }) => {
   if (!isoId) return null;
   return (

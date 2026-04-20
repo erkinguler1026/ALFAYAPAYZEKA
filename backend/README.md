@@ -1,10 +1,32 @@
 # 🖥️ ALFA YAPAY ZEKA — Backend API Sunucusu
 
-> **Sürüm:** V1.4.0 | **Platform:** Node.js + Express | **Port:** 5000 (dev) / 8080 (prod)
+> **Sürüm:** V1.7.0 "Forensic Edition" | **Platform:** Node.js + Express
 >
-> **Son Güncelleme:** 31.03.2026 — Magic Link host tespiti iyileştirildi, Adaptive Port stratejisi belgenlendi.
+> **Son Güncelleme:** 21.04.2026 — X-RAY V2 Motoru ve ISO 27001 Mapping Entegrasyonu.
 
-ALFA YAPAY ZEKA platformunun sunucu tarafı katmanıdır. İletişim formlarından gelen müşteri taleplerini e-posta ile iletir, Snap Report için güvenli Magic Link (token) oluşturur ve token tabanlı rapor erişim kontrolü sağlar.
+ALFA YAPAY ZEKA platformunun sunucu tarafı katmanıdır. V1.7.0 ile birlikte "Gerçek Röntgen" (X-RAY) siber güvenlik denetim motoru V2.0 seviyesine yükseltilmiştir.
+
+---
+
+## 🛡️ X-RAY V2.0 Analiz Motoru
+
+Yeni nesil analiz motoru, hedef sistemler üzerinde 8 aşamalı derinlemesine denetim yapar:
+1. **OSINT & Recon**: DNS, IP ve Alan adı istihbaratı.
+2. **Network Audit**: 17 kritik port üzerinde gerçek zamanlı TCP tarama.
+3. **AppSec Analysis**: HTTP güvenlik başlıkları, sunucu imzaları ve yazılım ifşası.
+4. **SSL/TLS Audit**: Sertifika zinciri, şifreleme gücü ve SSL Labs benchmark.
+5. **DNS Security**: SPF, DMARC, MX ve e-posta sahteciliği koruması.
+6. **Next-Gen X-RAY**: Subdomain keşfi, IP Repütasyon (OTX), CORS ve Whois.
+7. **Forensic Probe**: Hassas dosya (.env, .git) ve dizin keşfi.
+8. **Compliance Mapping**: Tüm bulguların ISO/IEC 27001:2022 maddeleriyle eşleştirilmesi.
+
+---
+
+## 📡 API Endpoint Referansı (Yeni)
+
+### `GET /api/full-audit?url=hedef.com`
+V3 "Auditor-Ready" raporu için gereken tüm ham ve işlenmiş veriyi üretir.
+- **Dönüş**: 250 sayfalık raporu besleyecek kapsamlı JSON (ISO Mapping, CVSS Skorları, Kategorik Sağlık).
 
 ---
 

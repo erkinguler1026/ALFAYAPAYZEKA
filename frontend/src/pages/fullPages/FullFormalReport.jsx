@@ -12,7 +12,15 @@ import { SummaryPage } from './FullReportSummaryPage';
 import { calculatePageLayout } from './FullReportUtils';
 
 /**
- * FullFormalReport — Modular Orchestrator (V3 - Forensic Edition)
+ * @component FullFormalReport
+ * @description ALFA X-RAY V3 "Forensic Edition" Rapor Orkestratörü.
+ * 
+ * Bu bileşen, 250+ sayfalık profesyonel sızma testi raporunun hiyerarşisini ve veri akışını yönetir.
+ * Temel Sorumluluklar:
+ *  1. Backend (X-RAY Motoru) üzerinden gerçek zamanlı güvenlik verilerini çekmek.
+ *  2. "Forensic Edition" görsel diline (Pastel Mint/Blue) uygun sayfalama (pagination) yapmak.
+ *  3. Çok dilli (TR/EN) içerik yönetimini (i18n) 't' objesi üzerinden sağlamak.
+ *  4. ISO/IEC 27001:2022 maddelerinin başlıklara enjeksiyonunu yönetmek.
  */
 const FullFormalReport = () => {
   const navigate = useNavigate();
@@ -20,11 +28,18 @@ const FullFormalReport = () => {
   const lang = searchParams.get('lang') || 'tr';
   const siteParam = searchParams.get('site');
 
+  /**
+   * Sayfa dilini HTML root düzeyinde ayarlar.
+   */
   React.useEffect(() => {
     document.documentElement.lang = lang;
     window.scrollTo(0, 0);
   }, [lang]);
 
+  /**
+   * Raporun benzersiz üst verilerini (Dossier ID, Integrity Hash) üretir.
+   * Bu veriler adli bilişim (Forensic) dokümantasyon standartları için kritiktir.
+   */
   const metadata = React.useMemo(() => {
     const now = new Date();
     return {

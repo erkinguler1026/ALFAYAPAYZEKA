@@ -2,11 +2,24 @@ import React from 'react';
 import { Page } from './FullReportComponents';
 import { ShieldCheck, ShieldAlert } from 'lucide-react';
 
+/**
+ * @component SummaryPage
+ * @description Raporun yönetici özeti (Executive Summary) ve "Security Scorecard" sayfası.
+ * 
+ * Bu sayfa, teknik bulguları üst düzey bir güvenlik skoruna (A-F) ve kategörik "Sağlık" donutlarına (0-100) dönüştürür.
+ * Özellikler:
+ *  - Global Güvenlik Notu (X-RAY Benchmark).
+ *  - 5 Ana Kategoride Güvenlik Sağlığı (ISO 27001 bazlı).
+ *  - "En Kritik 4 Bulgu" Çerçeveleri: Her bir bulgu ISO maddesiyle dinamik olarak eşleştirilir.
+ *  - Teknik Terim Koruması: 'en-US' locale transform ile gramer hataları (İ/i sorunu) önlenir.
+ */
 export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
   const { grade, categoricalHealth, findings } = auditData;
   const isTr = t.classification === 'GİZLİ' || true; // Fallback to TR
 
-  // Harf Renkleri
+  /**
+   * Puan Cetveli Renk Kodları (Snap UI Standartları)
+   */
   const gradeColors = {
     'A+': 'text-emerald-500',
     'A': 'text-emerald-500',
@@ -29,14 +42,31 @@ export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
   ];
 
   const categories = [
-    { name: isTr ? 'SERVICE SECURITY' : 'SERVICE SECURITY', val: categoricalHealth?.service ?? 100 },
-    { name: isTr ? 'SECURITY HEADERS' : 'SECURITY HEADERS', val: categoricalHealth?.headers ?? 100 },
-    { name: isTr ? 'NETWORK SECURITY' : 'NETWORK SECURITY', val: categoricalHealth?.network ?? 100 },
-    { name: isTr ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS',   val: categoricalHealth?.domain ?? 100 },
-    { name: isTr ? 'SOFTWARE PATCHING': 'SOFTWARE PATCHING',val: categoricalHealth?.patching ?? 100 }
+    { name: isTr ? 'SERVICE SECURITY' : 'SERVICE SECURITY', val: categoricalHealth?.service ?? 100, iso: 'A.8.26' },
+    { name: isTr ? 'SECURITY HEADERS' : 'SECURITY HEADERS', val: categoricalHealth?.headers ?? 100, iso: 'A.8.26' },
+    { name: isTr ? 'NETWORK SECURITY' : 'NETWORK SECURITY', val: categoricalHealth?.network ?? 100, iso: 'A.8.20' },
+    { name: isTr ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS',   val: categoricalHealth?.domain ?? 100,  iso: 'A.5.9' },
+    { name: isTr ? 'SOFTWARE PATCHING': 'SOFTWARE PATCHING',val: categoricalHealth?.patching ?? 100, iso: 'A.8.8' }
   ];
 
   // Filtrelenmiş yüksek riskli bulgular
+  const FINDING_ISO_MAP = {
+    'hsts': 'A.8.26',
+    'csp': 'A.8.26',
+    'x-frame-options': 'A.8.26',
+    'dmarc_missing': 'A.8.21',
+    'spf_missing': 'A.8.21',
+    'insecure_http': 'A.8.24',
+    'ssl_grade_f': 'A.8.24',
+    'open_database': 'A.8.21',
+    'insecure_ftp': 'A.8.21',
+    'ip_reputation_low': 'A.5.7',
+    'insecure_cookies': 'A.8.26',
+    'cors_misconfiguration': 'A.8.26',
+    'technology_exposure': 'A.8.8',
+    'exposed_sensitive_files': 'A.8.26'
+  };
+
   const displayFindings = findings?.filter(f => {
     const s = f.severity?.toUpperCase();
     return s === 'CRITICAL' || s === 'HIGH' || s === 'MEDIUM';
@@ -127,6 +157,9 @@ export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
                      <span className="text-[8px] font-black text-slate-800 tracking-[0.1em] text-center uppercase leading-tight w-20">
                        {cat.name}
                      </span>
+                     <span className="text-[11px] font-black text-emerald-600/80 tracking-widest mt-1">
+                       {cat.iso}
+                     </span>
                    </div>
                  );
                })}
@@ -162,11 +195,20 @@ export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-3">
                         <ShieldAlert size={16} className={f.severity === 'CRITICAL' ? 'text-rose-600' : 'text-orange-500'} />
-                        <span className="font-black text-sm text-slate-800 uppercase tracking-tighter">{f.id.replace(/_/g, ' ')}</span>
+                        <span className="font-black text-sm text-slate-800 tracking-tighter">
+                          {String(f.id).replace(/_/g, ' ').toLocaleUpperCase('en-US')}
+                        </span>
                       </div>
-                      <span className={`px-3 py-1 rounded text-[9px] font-black tracking-widest text-white ${f.severity === 'CRITICAL' ? 'bg-rose-600' : f.severity === 'HIGH' ? 'bg-orange-600' : 'bg-amber-500'}`}>
-                        CVSS: {f.cvss || 'N/A'} - {f.severity}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        {FINDING_ISO_MAP[f.id] && (
+                           <span className="px-2 py-1 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded text-[8px] font-black tracking-widest uppercase">
+                             {FINDING_ISO_MAP[f.id]}
+                           </span>
+                        )}
+                        <span className={`px-3 py-1 rounded text-[9px] font-black tracking-widest text-white ${f.severity === 'CRITICAL' ? 'bg-rose-600' : f.severity === 'HIGH' ? 'bg-orange-600' : 'bg-amber-500'}`}>
+                          CVSS: {f.cvss || 'N/A'} - {f.severity}
+                        </span>
+                      </div>
                     </div>
                     <p className="text-[11px] text-slate-600 font-medium leading-relaxed">
                       {f.title || 'Tespit Edilen Güvenlik Konfigürasyon Hatası'} durum tespit edilmiştir. İlgili güvenlik kontrolü, sistemin genel güvenlik bütünlüğünü sağlamak adına detaylandırılmış risk değerlendirmesi kapsamındadır.

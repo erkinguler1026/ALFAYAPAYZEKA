@@ -1,10 +1,10 @@
 # 🛡️ ALFA YAPAY ZEKA — Kurumsal Siber Güvenlik ve AI Ajansı Web Portalı
 
-> **Sürüm:** V1.6.0 | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
+> **Sürüm:** V1.7.0 "Forensic Edition" | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
 >
-> **Son Güncelleme:** 16.04.2026 — Full Formal Report (250 sayfalık PDF) %100 gerçek zamanlı canlı veriye bağlandı. Hardcoded sahte SSL verileri API gerçek verileriyle değiştirildi, eksik GeoIP ISP sayfası listeye (N2 Bölümü) eklendi ve kullanılmayan değişken (no-unused-vars) hataları giderildi.
+> **Son Güncelleme:** 21.04.2026 — ALFA X-RAY V3: Forensic Edition yayına alındı. ISO/IEC 27001:2022 Ek-A uyumluluk haritalaması, 8 aşamalı siber güvenlik denetim motoru (V2.0) ve auditor-ready profesyonel raporlama standartları entegre edildi.
 
-**ALFA YAPAY ZEKA**, kurumsal işletmelere yönelik yapay zeka tabanlı siber güvenlik hizmetleri sunan profesyonel bir web platformudur. Müşteri iletişiminden otomatik güvenlik raporu üretimine kadar tüm iş akışlarını kapsar.
+**ALFA YAPAY ZEKA**, kurumsal işletmelere yönelik yapay zeka tabanlı siber güvenlik hizmetleri sunan profesyonel bir web platformudur. V1.7.0 sürümü ile birlikte sunulan "Forensic Edition", sızma testi sonuçlarını uluslararası ISO standartlarıyla eşleştirerek denetçilere hazır (Auditor-Ready) dökümantasyon sunar.
 
 ---
 
@@ -37,6 +37,8 @@ ALFAYAPAYZEKA/
 | 🔒 **Admin Şifreli Giriş** | `eg941965` şifre modalı; onay sonrası `/admin-panel` yönlendirir |
 | 📊 **Security Scorecard** | Token tabanlı güvenlik skor kartı (ALFA SNAP PDF çıktısı) |
 | 📄 **Full Audit Generator** | 250 sayfalık profesyonel pentest raporu (ALFA FULL PDF) |
+| 🛡️ **Forensic Audit Engine** | 8 aşamalı derinlemesine denetim ve gerçek zamanlı analiz (X-RAY V2) |
+| 📁 **ISO 27001 Mapping** | Tüm teknik bulguların ISO/IEC 27001:2022 maddeleriyle eşleşmesi |
 | 📨 **E-posta Sistemi** | Brevo SMTP (local) + Web3Forms (production) çift-kanal desteği |
 | ⚖️ **Sözleşme Sistemi** | PDF uyumlu hukuki metinler (`/sozlesme/:type`) |
 | 🎨 **Matrix Arayüz** | Canvas tabanlı Matrix animasyonu, Glassmorphism, Dark Mode |

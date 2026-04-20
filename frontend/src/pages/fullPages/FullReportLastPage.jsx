@@ -5,7 +5,21 @@ import { Page, DataItem } from './FullReportComponents';
 import { GLOBAL_ISO_MAPPING } from './FullReportUtils';
 
 
+/**
+ * @component LastPages
+ * @description Raporun teknik kanıt (Evidence), uyumluluk (Compliance) ve yasal sayfalarını yönetir.
+ * 
+ * Bu bileşen "Forensic Evidence Dossier" standartlarını karşılamak için tasarlanmıştır.
+ * İçerik:
+ *  1. Ham Teknik Veri (Forensic Dump): Tüm JSON çıktıları şeffaflık ve adli analiz için basılır.
+ *  2. ISO 27001:2022 Uyumluluk Matrisi: ALFA modüllerinin standart maddeleriyle eşleştiği ana tablo.
+ *  3. Yasal Bilgilendirme ve Sorumluluk Reddi (Disclaimer).
+ *  4. Adli Mühür ve QR Kod: Rapor doğrulama ve veri bütünlüğü (Integrity) sayfası.
+ */
 export const LastPages = ({ auditData, t, layout, totalPages, siteName, metadata }) => {
+   /**
+    * GLOBAL_ISO_MAPPING üzerinden standart uyumluluk verilerini çeker.
+    */
    const isoMapping = GLOBAL_ISO_MAPPING;
 
   const clauses = auditData.disclaimer?.clauses || [];
@@ -88,13 +102,20 @@ export const LastPages = ({ auditData, t, layout, totalPages, siteName, metadata
                      </tr>
                   </thead>
                   <tbody>
-                     {Object.entries(isoMapping || {}).map(([key, value], i) => (
-                        <tr key={key} className={`border-b ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/30'}`}>
-                           <td className="px-5 py-1.5 font-black text-slate-800 uppercase tracking-tighter">{key.toUpperCase()}</td>
-                           <td className="px-5 py-1.5 font-mono font-black text-emerald-700">{value.id}</td>
-                           <td className="px-5 py-1.5 font-bold text-slate-500 uppercase text-[8px] leading-tight">{value.name}</td>
-                        </tr>
-                     ))}
+                     {Object.entries(isoMapping || {}).map(([key, value], i) => {
+                        const sectionTitle = t.sections?.[key] || '';
+                        const sectionNum = sectionTitle.indexOf(':') !== -1 ? sectionTitle.split(':')[0].trim() : sectionTitle;
+                        
+                        return (
+                           <tr key={key} className={`border-b ${i % 2 === 0 ? 'bg-white' : 'bg-slate-50/30'}`}>
+                              <td className="px-5 py-1.5 font-black text-slate-800 uppercase tracking-tighter whitespace-nowrap">
+                                 {key.toUpperCase()} <span className="ml-1 text-slate-400 font-bold text-[7px]">({sectionNum})</span>
+                              </td>
+                              <td className="px-5 py-1.5 font-mono font-black text-emerald-700">{value.id}</td>
+                              <td className="px-5 py-1.5 font-bold text-slate-500 uppercase text-[8px] leading-tight">{value.name}</td>
+                           </tr>
+                        );
+                     })}
                   </tbody>
                </table>
             </div>
