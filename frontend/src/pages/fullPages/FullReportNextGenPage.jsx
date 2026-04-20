@@ -17,30 +17,30 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
          <div className="space-y-10">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
-               <div className="bg-slate-900 border-2 border-slate-800 rounded-[2rem] p-8 font-mono text-[10px] leading-relaxed relative overflow-hidden group shadow-2xl">
+               <div className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 font-mono text-[10px] leading-relaxed relative overflow-hidden group shadow-sm">
                   <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
-                     <Database size={100} className="text-white" />
+                     <Database size={100} className="text-slate-900" />
                   </div>
-                  <div className="space-y-4 text-white">
-                     <div className="grid grid-cols-3 gap-4 border-b border-white/10 pb-4">
+                  <div className="space-y-4 text-slate-700">
+                     <div className="grid grid-cols-3 gap-4 border-b border-slate-200 pb-4">
                         <div>
-                           <p className="text-white/40 mb-1">REGISTRAR</p>
-                           <p className="text-blue-400 font-black uppercase text-[11px] truncate">{whois.registrar || 'GİZLİ'}</p>
+                           <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">REGISTRAR</p>
+                           <p className="text-blue-600 font-black uppercase text-[11px] truncate">{whois.registrar || 'GİZLİ'}</p>
                         </div>
                         <div>
-                           <p className="text-white/40 mb-1">KAYIT TARİHİ</p>
-                           <p className="text-white font-black text-[11px]">{whois.createdDate ? new Date(whois.createdDate).toLocaleDateString() : 'N/A'}</p>
+                           <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">KAYIT TARİHİ</p>
+                           <p className="text-slate-900 font-black text-[11px]">{whois.createdDate ? new Date(whois.createdDate).toLocaleDateString() : 'N/A'}</p>
                         </div>
                         <div>
-                           <p className="text-white/40 mb-1">BİTİŞ TARİHİ</p>
-                           <p className="text-red-400 font-black text-[11px]">{whois.expiryDate ? new Date(whois.expiryDate).toLocaleDateString() : 'N/A'}</p>
+                           <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">BİTİŞ TARİHİ</p>
+                           <p className="text-red-500 font-black text-[11px]">{whois.expiryDate ? new Date(whois.expiryDate).toLocaleDateString() : 'N/A'}</p>
                         </div>
                      </div>
                      <div className="space-y-2">
-                        <p className="text-white/40 uppercase tracking-widest text-[8px]">DNS NAMESERVERS (NS)</p>
+                        <p className="text-slate-400 uppercase tracking-widest text-[8px]">DNS NAMESERVERS (NS)</p>
                         <div className="flex flex-wrap gap-2 pt-1">
                            {(whois.nameservers || []).map((ns, i) => (
-                              <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-white/80 font-bold text-[9px] lowercase">{ns}</span>
+                              <span key={i} className="px-3 py-1 bg-white border border-slate-200 rounded-full text-slate-600 font-bold text-[9px] lowercase">{ns}</span>
                            ))}
                         </div>
                      </div>
@@ -69,7 +69,7 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
                </div>
                <div className="bg-white border rounded-[2rem] overflow-hidden shadow-sm">
                   <table className="w-full text-[10px]">
-                     <thead className="bg-slate-900 text-white font-black uppercase tracking-tighter">
+                     <thead className="bg-slate-100 text-slate-900 font-black uppercase tracking-tighter">
                         <tr>
                            <th className="p-4 text-left">ÇEREZ ADI (COOKIE NAME)</th>
                            <th className="p-4 text-center">HTTPONLY</th>
@@ -98,15 +98,15 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">CORS POLİTİKASI VE API GÜVENLİĞİ</h4>
-               <div className="p-8 bg-slate-800 rounded-[2rem] border-2 border-white/5 relative overflow-hidden group shadow-2xl">
-                  <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none group-hover:rotate-12 transition-transform duration-700">
-                     <Shield size={120} className="text-white" />
+               <div className="p-8 bg-slate-50 rounded-[2rem] border border-slate-200 relative overflow-hidden group shadow-sm">
+                  <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none group-hover:rotate-12 transition-transform duration-700">
+                     <Shield size={120} className="text-slate-900" />
                   </div>
                   <div className="grid grid-cols-2 gap-8 relative z-10">
-                     <DataItem label="CONTROL-ALLOW-ORIGIN" value={cors.allowOrigin || 'Kısıtlı'} inverted />
-                     <DataItem label="CONTROL-ALLOW-METHODS" value={cors.allowMethods || 'Varsayılan'} inverted />
-                     <DataItem label="ALLOW-CREDENTIALS" value={cors.allowCredentials ? 'EVET' : 'HAYIR'} inverted />
-                     <DataItem label="POLİTİKA GÜVENLİK DURUMU" value={cors.isWildcard ? 'KRİTİK / WILDCARD (*)' : 'GÜVENLİ / KISITLI'} inverted />
+                     <DataItem label="CONTROL-ALLOW-ORIGIN" value={cors.allowOrigin || 'Kısıtlı'} />
+                     <DataItem label="CONTROL-ALLOW-METHODS" value={cors.allowMethods || 'Varsayılan'} />
+                     <DataItem label="ALLOW-CREDENTIALS" value={cors.allowCredentials ? 'EVET' : 'HAYIR'} />
+                     <DataItem label="POLİTİKA GÜVENLİK DURUMU" value={cors.isWildcard ? 'KRİTİK / WILDCARD (*)' : 'GÜVENLİ / KISITLI'} />
                   </div>
                   {cors.isWildcard && (
                      <div className="mt-6 p-4 bg-red-600/20 border border-red-600/40 rounded-2xl flex items-center gap-4 animate-pulse">
@@ -166,14 +166,14 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-6 uppercase tracking-widest">ALTYAPI RİSK GÖSTERGELERİ</h4>
                <div className="grid grid-cols-3 gap-6">
-                  <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isProxy ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
-                     <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">PROXY / VPN</p>
-                     <p className={`text-xl font-black ${ geoData.isProxy ? 'text-red-700' : 'text-green-700'}`}>{geoData.isProxy ? 'TESPİT EDİLDİ' : 'TEMİZ'}</p>
-                  </div>
-                  <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isHosting ? 'bg-amber-50 border-amber-200' : 'bg-green-50 border-green-200'}`}>
-                     <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">HOSTING / DATACENTER</p>
-                     <p className={`text-xl font-black ${ geoData.isHosting ? 'text-amber-700' : 'text-green-700'}`}>{geoData.isHosting ? 'EVET' : 'HAYIR'}</p>
-                  </div>
+                   <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isProxy ? 'bg-red-50 border-red-200' : 'bg-green-50/50 border-green-100'}`}>
+                      <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">PROXY / VPN</p>
+                      <p className={`text-xl font-black ${ geoData.isProxy ? 'text-red-700' : 'text-green-600'}`}>{geoData.isProxy ? 'TESPİT EDİLDİ' : 'TEMİZ'}</p>
+                   </div>
+                   <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isHosting ? 'bg-amber-50 border-amber-200' : 'bg-green-50/50 border-green-100'}`}>
+                      <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">HOSTING / DATACENTER</p>
+                      <p className={`text-xl font-black ${ geoData.isHosting ? 'text-amber-700' : 'text-green-600'}`}>{geoData.isHosting ? 'EVET' : 'HAYIR'}</p>
+                   </div>
                   <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isMobile ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200'}`}>
                      <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">MOBİL AĞ</p>
                      <p className={`text-xl font-black ${ geoData.isMobile ? 'text-blue-700' : 'text-slate-700'}`}>{geoData.isMobile ? 'EVET' : 'HAYIR'}</p>
@@ -188,18 +188,18 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">ALİENVAULT OTX — IP REPUTATION CHECK</h4>
-               <div className={`p-8 rounded-[2rem] border-2 shadow-sm ${ipReputation.isMalicious ? 'bg-red-50 border-red-200' : 'bg-green-50 border-green-200'}`}>
-                  <div className="flex items-center gap-6">
-                     <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-md ${ipReputation.isMalicious ? 'bg-red-600 text-white' : 'bg-green-600 text-white'}`}>
-                        {ipReputation.isMalicious ? <ShieldAlert size={32} /> : <ShieldCheck size={32} />}
-                     </div>
-                     <div className="flex-1">
-                        <h5 className={`text-xl font-black uppercase tracking-tight ${ipReputation.isMalicious ? 'text-red-700' : 'text-green-700'}`}>
-                           {ipReputation.isMalicious ? 'TEHLİKELİ / MALICIOUS IP TESPİT EDİLDİ' : 'TEMİZ / GÜVENLİ IP REPUTASYONU'}
-                        </h5>
-                        <p className="text-xs font-bold text-slate-500 mt-1">İstihbarat Kaynağı: AlienVault Open Threat Exchange (OTX) API v1</p>
-                     </div>
-                  </div>
+                <div className={`p-8 rounded-[2rem] border-2 shadow-sm ${ipReputation.isMalicious ? 'bg-red-50 border-red-200' : 'bg-green-50/50 border-green-100'}`}>
+                   <div className="flex items-center gap-6">
+                      <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm border ${ipReputation.isMalicious ? 'bg-red-100 text-red-600 border-red-200' : 'bg-green-100 text-green-600 border-green-200'}`}>
+                         {ipReputation.isMalicious ? <ShieldAlert size={32} /> : <ShieldCheck size={32} />}
+                      </div>
+                      <div className="flex-1">
+                         <h5 className={`text-xl font-black uppercase tracking-tight ${ipReputation.isMalicious ? 'text-red-700' : 'text-green-600'}`}>
+                            {ipReputation.isMalicious ? 'TEHLİKELİ / MALICIOUS IP TESPİT EDİLDİ' : 'TEMİZ / GÜVENLİ IP REPUTASYONU'}
+                         </h5>
+                         <p className="text-xs font-bold text-slate-400 mt-1">İstihbarat Kaynağı: AlienVault Open Threat Exchange (OTX) API v1</p>
+                      </div>
+                   </div>
                   <div className="grid grid-cols-3 gap-6 mt-8">
                      <DataItem label="AKTİF PULSE SAYISI" value={ipReputation.pulseCount || 0} />
                      <DataItem label="MALWARE ÖRNEKLERİ" value={ipReputation.malwareCount || 0} />

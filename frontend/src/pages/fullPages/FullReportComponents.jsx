@@ -39,9 +39,9 @@ export const Page = ({ children, pageNum, title, isCover, t }) => (
         * Kapak sayfasında çerçeve (border) kenardan 15mm içeride durur (Snap Report ile uyum).
         * İçerik sayfalarında ise daha ferah bir okuma için 20mm boşluk bırakılır.
   */
-  <div className={`bg-white border-b border-gray-100 relative w-[210mm] h-[297mm] min-h-[297mm] max-h-[297mm] overflow-hidden flex flex-col print:border-none print:p-0 print:mb-0 ${isCover ? 'p-[15mm]' : 'p-[20mm]'}`} style={{ breakAfter: 'page', pageBreakAfter: 'always' }}>
+  <div className={`bg-white border-b border-gray-100 relative w-[210mm] h-[297mm] min-h-[297mm] max-h-[297mm] overflow-hidden flex flex-col print:border-none print:p-[20mm] print:mb-0 ${isCover ? 'p-[15mm]' : 'p-[20mm]'}`} style={{ breakAfter: 'page', pageBreakAfter: 'always' }}>
     {!isCover && (
-      <div className="absolute top-[8mm] left-0 right-0 flex justify-center opacity-10 pointer-events-none select-none text-center">
+      <div className="absolute top-[7mm] left-0 right-0 flex justify-center opacity-10 pointer-events-none select-none text-center">
          <span className="text-[12px] font-black tracking-[12px] uppercase">{t?.classificationLabel || 'TİCARİ SIR — KİŞİYE ÖZEL GİZLİ'}</span>
       </div>
     )}

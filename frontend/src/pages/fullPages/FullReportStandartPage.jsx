@@ -30,7 +30,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
             </section>
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">OPERASYONEL ANALİZ NOTLARI</h4>
-               <div className="bg-slate-900 border-2 border-slate-800 rounded-[2rem] p-8 font-mono text-[10px] text-white/70 leading-relaxed">
+               <div className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 font-mono text-[10px] text-slate-600 leading-relaxed shadow-sm">
                   {auditData.sections?.s1?.logs?.map((log, i) => (
                      <p key={i}>{log}</p>
                   ))}
@@ -46,7 +46,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TCP STEALTH PORT SCAN (17 KRİTİK NOKTA)</h4>
                <div className="bg-white border rounded-[2rem] overflow-hidden shadow-sm">
                   <table className="w-full text-[10px]">
-                     <thead className="bg-slate-900 text-white font-black uppercase tracking-tighter">
+                     <thead className="bg-slate-100 text-slate-900 font-black uppercase tracking-tighter">
                         <tr>
                            <th className="p-3 text-left">PORT</th>
                            <th className="p-3 text-left">SERVİS ADI</th>
@@ -103,12 +103,12 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HASSAS DOSYA VE DİZİN İFŞA TARAMASI</h4>
-               <div className="p-10 bg-slate-900 border-2 border-red-900/20 rounded-[3rem] shadow-2xl relative overflow-hidden">
+               <div className="p-10 bg-red-50/30 border-2 border-red-100 rounded-[3rem] shadow-sm relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-8 opacity-5">
-                     <Search size={150} className="text-white" />
+                     <Search size={150} className="text-red-900" />
                   </div>
                   <div className="relative z-10 space-y-6">
-                     <h5 className="text-white text-xl font-black uppercase tracking-tighter">V3.0 PATH BRUTEFORCE SONUÇLARI</h5>
+                     <h5 className="text-slate-900 text-xl font-black uppercase tracking-tighter">V3.0 PATH BRUTEFORCE SONUÇLARI</h5>
                      <div className="space-y-4">
                         {sensitive.findings && sensitive.findings.length > 0 ? (
                            sensitive.findings.map((f, i) => (
@@ -143,7 +143,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
                </div>
                <table className="w-full border-collapse text-[10px]">
                   <thead>
-                     <tr className="bg-slate-800 text-white font-black uppercase tracking-tighter">
+                     <tr className="bg-slate-100 text-slate-900 font-black uppercase tracking-tighter">
                         <th className="p-2 border border-slate-700 w-12 text-center">#</th>
                         <th className="p-2 border border-slate-700 text-left">TECHNICAL HOSTNAME / DOMAIN</th>
                         <th className="p-2 border border-slate-700 text-right">CERTIFICATE ISSUER</th>
@@ -166,14 +166,14 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
       {/* S6: SSL LABS */}
       <Page pageNum={115} totalPages={totalPages} title={t.sections.n2} t={t}>
          <div className="space-y-8">
-            <div className="flex items-center gap-6 p-10 bg-slate-900 text-white rounded-[3rem] shadow-2xl relative overflow-hidden">
-               <div className="absolute top-0 right-0 p-4 opacity-10">
+            <div className="flex items-center gap-6 p-10 bg-slate-50 border border-slate-100 text-slate-800 rounded-[3rem] shadow-sm relative overflow-hidden">
+               <div className="absolute top-0 right-0 p-4 opacity-5">
                   <Shield size={120} />
                </div>
-               <div className="text-6xl font-black text-blue-400">{sslLabs.grade || 'T'}</div>
+               <div className="text-6xl font-black text-blue-600">{sslLabs.grade || 'T'}</div>
                <div>
                   <h3 className="text-2xl font-black">QUALYS SSL LABS — GLOBAL GRADE</h3>
-                  <p className="text-xs font-bold text-white/40 uppercase tracking-widest">Sertifika Zinciri, Protokol Desteği ve El Sıkışma Analizi</p>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sertifika Zinciri, Protokol Desteği ve El Sıkışma Analizi</p>
                </div>
             </div>
 

@@ -53,11 +53,11 @@ export const TableOfContents = ({ t, totalPages }) => {
         </div>
 
         {/* Sertifikasyon Vurgu Kartı: Güven mesajı verir */}
-        <div className="mt-20 p-10 bg-slate-900 rounded-[3rem] relative overflow-hidden shadow-2xl animate-in fade-in zoom-in duration-700">
-           <ShieldCheck className="absolute -top-4 -right-4 text-white opacity-10" size={160} />
+        <div className="mt-20 p-10 bg-slate-50 border border-slate-200 rounded-[3rem] relative overflow-hidden shadow-sm animate-in fade-in zoom-in duration-700">
+           <ShieldCheck className="absolute -top-4 -right-4 text-primary opacity-5" size={160} />
            <div className="relative z-10 text-left">
-              <h4 className="text-white text-2xl font-black mb-4 uppercase tracking-tighter">GÜVENLİK SERTİFİKASYONU VE BÜTÜNLÜK</h4>
-              <p className="text-white/70 text-sm leading-relaxed font-bold italic pr-20">
+              <h4 className="text-slate-900 text-2xl font-black mb-4 uppercase tracking-tighter">GÜVENLİK SERTİFİKASYONU VE BÜTÜNLÜK</h4>
+              <p className="text-slate-500 text-sm leading-relaxed font-bold italic pr-20">
                  Bu rapor, ALFA XRAY-V3 motoru tarafından üretilmiş olup, uluslararası sızma testi standartlarına (OWASP, NIST, ISO 27001) tam uyumluluk göstermektedir. Dijital hash imzası ile bütünüyle korunmaktadır.
               </p>
            </div>

@@ -21,8 +21,8 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
             <div className="space-y-12">
                {chunk.map((m, i) => (
                   <div key={i} className="space-y-8 animate-in fade-in slide-in-from-left-4">
-                     <div className="flex items-center gap-6 border-b-4 border-slate-900 pb-6">
-                        <div className="w-20 h-20 bg-slate-900 text-white flex items-center justify-center rounded-[2rem] text-4xl font-black shadow-2xl italic">
+                     <div className="flex items-center gap-6 border-b-4 border-slate-100 pb-6">
+                        <div className="w-20 h-20 bg-slate-50 text-blue-600 border border-slate-200 flex items-center justify-center rounded-[2rem] text-4xl font-black shadow-sm italic">
                            {idx + 1}
                         </div>
                         <div>
@@ -73,8 +73,8 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
          </Page>
       ))}
 
-      {/* TECHNICAL DUMP */}
-      <Page pageNum={235} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP)" t={t}>
+      {/* TECHNICAL DUMP - PART 1 */}
+      <Page pageNum={235} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 1" t={t}>
          <div className="space-y-6">
             <div className="bg-red-900/5 border-2 border-red-900/10 p-8 rounded-[2.5rem] mb-8">
                <div className="flex items-center gap-4 mb-4">
@@ -87,12 +87,12 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
             </div>
 
             <div className="space-y-8">
-               <section className="bg-slate-900 rounded-[2rem] p-8 shadow-2xl relative overflow-hidden group">
-                  <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-20 transition-opacity">
-                     <Terminal size={100} className="text-white" />
+               <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 shadow-sm relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                     <Terminal size={100} className="text-blue-600" />
                   </div>
-                  <h5 className="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-4">DUMP: INFRASTRUCTURE_SNAPSHOT.JSON</h5>
-                  <pre className="font-mono text-[8px] text-white/50 leading-tight max-h-[300px] overflow-hidden text-left">
+                  <h5 className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">DUMP: INFRASTRUCTURE_SNAPSHOT.JSON</h5>
+                  <pre className="font-mono text-[8px] text-slate-500 leading-tight max-h-[500px] overflow-hidden text-left">
                      {JSON.stringify({
                         target: siteName.toLowerCase(),
                         timestamp: metadata.isoDate,
@@ -103,22 +103,30 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
                      }, null, 2)}
                   </pre>
                </section>
-
-               <section className="bg-slate-900 rounded-[2rem] p-8 shadow-2xl">
-                  <h5 className="text-[10px] font-black text-emerald-400 uppercase tracking-widest mb-4">DUMP: SSL_HANDSHAKE_EVIDENCE.LOG</h5>
-                  <pre className="font-mono text-[8px] text-white/50 leading-tight max-h-[300px] overflow-hidden text-left">
-                     {JSON.stringify({
-                        grade: sslLabs.grade,
-                        cert_issuer: sslLabs.cert?.issuer,
-                        protocols: sslLabs.protocols,
-                         cert_days_until_expiry: sslLabs.cert?.daysUntilExpiry || null,
-                         key_strength: sslLabs.cert?.keyStrength ? (sslLabs.cert.keyStrength + '-bit ' + sslLabs.cert.keyAlg) : null,
-                         vulnerabilities: sslLabs.vulnerabilities || {},
-                         forward_secrecy: sslLabs.forwardSecrecy || null
-                     }, null, 2)}
-                  </pre>
-               </section>
             </div>
+         </div>
+      </Page>
+
+      {/* TECHNICAL DUMP - PART 2 */}
+      <Page pageNum={236} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 2" t={t}>
+         <div className="space-y-8">
+            <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 shadow-sm relative overflow-hidden group">
+               <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                  <Database size={100} className="text-emerald-600" />
+               </div>
+               <h5 className="text-[10px] font-black text-emerald-600 uppercase tracking-widest mb-4">DUMP: SSL_HANDSHAKE_EVIDENCE.LOG</h5>
+               <pre className="font-mono text-[8px] text-slate-500 leading-tight max-h-[600px] overflow-hidden text-left">
+                  {JSON.stringify({
+                     grade: sslLabs.grade,
+                     cert_issuer: sslLabs.cert?.issuer,
+                     protocols: sslLabs.protocols,
+                     cert_days_until_expiry: sslLabs.cert?.daysUntilExpiry || null,
+                     key_strength: sslLabs.cert?.keyStrength ? (sslLabs.cert.keyStrength + '-bit ' + sslLabs.cert.keyAlg) : null,
+                     vulnerabilities: sslLabs.vulnerabilities || {},
+                     forward_secrecy: sslLabs.forwardSecrecy || null
+                  }, null, 2)}
+               </pre>
+            </section>
          </div>
       </Page>
 
@@ -172,7 +180,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
                      QRCodeSVG bileşeni raporun dijital doğrulama linkini ve özet verilerini 
                      içeren karekodun teknik olarak üretildiği yerdir.
                  */}
-                 <div className="bg-white border-2 border-slate-900 p-4 rounded-[1.5rem] shadow-xl flex items-center justify-center relative group">
+                 <div className="bg-white border-2 border-slate-200 p-4 rounded-[1.5rem] shadow-sm flex items-center justify-center relative group">
                     <QRCodeSVG 
                       value={`TGT: www.${siteName.toLowerCase()}\nHASH: ${metadata.integrityHash.slice(0, 20)}...\nDATE: ${metadata.isoDate}`}
                       size={120}
