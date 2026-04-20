@@ -1,104 +1,139 @@
 import React from 'react';
-import { ShieldAlert, ShieldCheck, Activity, Target } from 'lucide-react';
-import { Page, CVSSBadge } from './FullReportComponents';
+import { Page } from './FullReportComponents';
 
 export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
-  const { score, grade, categoricalHealth, findings } = auditData;
+  const { grade, categoricalHealth, findings } = auditData;
+  const isTr = t.classification === 'GİZLİ' || true; // Varsayılan TR kabul edelim, fallback.
 
-  const getGradeColor = (g) => {
-    if (g === 'A+' || g === 'A') return 'text-green-500';
-    if (g === 'B') return 'text-blue-500';
-    if (g === 'C') return 'text-yellow-500';
-    return 'text-red-500';
+  // Dinamik renkler
+  const gradeColors = {
+    'A+': 'text-emerald-500',
+    'A': 'text-emerald-500',
+    'B': 'text-emerald-400',
+    'C': 'text-orange-500',
+    'D': 'text-rose-500',
+    'F': 'text-rose-600'
   };
 
-  const getScoreColor = (s) => {
-    if (s >= 9.0) return 'text-green-500';
-    if (s >= 7.0) return 'text-blue-500';
-    if (s >= 4.0) return 'text-yellow-500';
-    return 'text-red-500';
-  };
+  const currentGrade = grade || 'A';
+  const currentGradeColor = gradeColors[currentGrade] || 'text-emerald-500';
 
-  const categories = [
-    { name: 'Sistem Servisleri', val: categoricalHealth?.service ?? 100 },
-    { name: 'Ağ Analizi',        val: categoricalHealth?.network ?? 100 },
-    { name: 'Alan Adı ve DNS',   val: categoricalHealth?.domain ?? 100 },
-    { name: 'Güvenlik Başlıkları',val: categoricalHealth?.headers ?? 100 },
-    { name: 'Yazılım ve Yama',   val: categoricalHealth?.patching ?? 100 }
+  const grades = [
+    { g: 'A+', label: isTr ? 'Mükemmel' : 'Excellent' },
+    { g: 'A', label: isTr ? 'Sıkı İst.' : 'Hardened' },
+    { g: 'B', label: isTr ? 'Güvenli' : 'Fair' },
+    { g: 'C', label: isTr ? 'Orta Risk' : 'Weak' },
+    { g: 'D', label: isTr ? 'Zayıf' : 'Risky' },
+    { g: 'F', label: isTr ? 'Tehlikeli' : 'Danger' }
   ];
 
+  const categories = [
+    { name: isTr ? 'SERVICE SECURITY' : 'SERVICE SECURITY', val: categoricalHealth?.service ?? 100 },
+    { name: isTr ? 'SECURITY HEADERS' : 'SECURITY HEADERS', val: categoricalHealth?.headers ?? 100 },
+    { name: isTr ? 'NETWORK SECURITY' : 'NETWORK SECURITY', val: categoricalHealth?.network ?? 100 },
+    { name: isTr ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS',   val: categoricalHealth?.domain ?? 100 },
+    { name: isTr ? 'SOFTWARE PATCHING': 'SOFTWARE PATCHING',val: categoricalHealth?.patching ?? 100 }
+  ];
+
+  // Sadece yüksek önemdeki (major/kritik) bulguları hesaba katalım
+  const displayFindings = findings?.filter(f => {
+    const s = f.severity?.toUpperCase();
+    return s === 'CRITICAL' || s === 'HIGH' || s === 'MEDIUM';
+  }) || [];
+
+  const findingCountText = isTr 
+    ? `${displayFindings.length} KRİTİK/MAJÖR BULGU TESPİT EDİLDİ` 
+    : `${displayFindings.length} CRITICAL/MAJOR FINDINGS DETECTED`;
+
   return (
-    <Page pageNum={layout?.summary} totalPages={totalPages} title="YÖNETİCİ ÖZETİ: RİSK SKORU & ALFA YAPAY ZEKA" t={t}>
-      <div className="space-y-12">
-        {/* UPPER SECTION: SCORE & GRADE */}
-        <div className="flex gap-8">
-          <div className="w-1/3 bg-slate-50 border-2 border-slate-200 rounded-[2rem] p-8 flex flex-col items-center justify-center shadow-inner relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Activity size={120} className={getScoreColor((score||10))} />
-            </div>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest relative z-10">ALFA CVSS SKORU</p>
-            <div className={`text-[6rem] font-black leading-none tracking-tighter ${getScoreColor((score||10))} relative z-10`}>{(score || 10).toFixed(1)}<span className="text-3xl text-slate-300">/10</span></div>
-            <div className="mt-4 relative z-10">
-               <CVSSBadge score={score || 10} />
-            </div>
-          </div>
+    <Page pageNum={layout?.summary} totalPages={totalPages} title="" t={t}>
+      <div className="flex flex-col items-center justify-between h-full pt-4 pb-4">
+        
+        {/* SNAP UI CUSTOM HEADER */}
+        <div className="w-full text-left mb-6">
+          <h2 className="text-[14px] font-black tracking-widest uppercase text-slate-500 mb-4 ml-6">SECURITY GRADE</h2>
+          <div className="w-full h-[1px] bg-slate-200" />
+        </div>
 
-          <div className="w-1/3 bg-slate-50 border-2 border-slate-200 rounded-[2rem] p-8 flex flex-col items-center justify-center shadow-inner relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
-              <Target size={120} className={getGradeColor(grade || 'A')} />
-            </div>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest relative z-10">GÜVENLİK NOTU</p>
-            <div className={`text-[7rem] font-black leading-none tracking-tighter ${getGradeColor(grade || 'A')} relative z-10`}>{grade || 'A'}</div>
-          </div>
-
-           <div className="w-1/3 bg-slate-900 border-2 border-slate-800 rounded-[2rem] p-8 flex flex-col shadow-xl">
-            <p className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em] mb-6 border-b border-white/10 pb-4">KATEGORİK SAĞLIK</p>
-            <div className="space-y-4">
-              {categories.map((cat, i) => (
-                <div key={i} className="space-y-1">
-                  <div className="flex justify-between text-[10px] font-bold text-slate-300">
-                    <span className="uppercase">{cat.name}</span>
-                    <span>{cat.val}%</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-                    <div className="h-full bg-blue-500 rounded-full" style={{ width: `${cat.val}%` }} />
-                  </div>
+        {/* YATAY HARF CETVELİ */}
+        <div className="w-full max-w-3xl px-8 py-6 mb-16 mt-2">
+          <div className="flex justify-between items-start w-full relative">
+            {grades.map((item) => {
+              const isCurrent = currentGrade === item.g;
+              return (
+                <div key={item.g} className="flex flex-col items-center relative w-16">
+                  <span className={`text-[13px] font-black mb-2 ${isCurrent ? 'text-orange-500' : 'text-slate-300'}`}>
+                     {item.g}
+                  </span>
+                  <span className={`text-[8px] font-black tracking-widest uppercase ${isCurrent ? 'text-orange-500' : 'text-slate-300/50'}`}>
+                     {item.label}
+                  </span>
+                  {isCurrent && (
+                    <div className="absolute -bottom-4 w-10 h-1.5 bg-orange-500 rounded-full" />
+                  )}
                 </div>
-              ))}
-            </div>
+              );
+            })}
           </div>
         </div>
 
-        {/* LOWER SECTION: EXECUTIVE SUMMARY TEXT */}
-        <div className="bg-blue-50/50 border-l-4 border-blue-500 p-8 rounded-r-[2rem]">
-          <div className="flex items-center gap-4 mb-4">
-            <ShieldCheck size={24} className="text-blue-600" />
-            <h4 className="text-sm font-black text-slate-800 uppercase tracking-widest">ALFA YAPAY ZEKA DEĞERLENDİRMESİ</h4>
+        {/* DEV HARF / MERKEZ GÖRSELİ */}
+        <div className="flex-1 flex flex-col items-center justify-center -mt-12">
+          <div className={`text-[280px] font-black leading-none ${currentGradeColor} tracking-tighter`}>
+            {currentGrade}
           </div>
-          <p className="text-xs leading-relaxed text-slate-600 font-medium text-justify">
-            Hedef sistem üzerinde gerçekleştirilen geniş çaplı zafiyet tarama ve sızma testi sonuçlarına göre hesaplanan genel güvenlik durumu yukarıda özetlenmiştir. 
-            Mevcut skor, dışarıdan gelebilecek karmaşık saldırılara, yapılandırma hatalarına ve teknoloji ifşalarına karşı varlıklarınızın genel direncini ifade eder. 
-            Aşağıdaki "Teknik Kanıtlar ve Bulgular" listesi, müdahale gerektiren riskleri içermektedir.
-          </p>
         </div>
 
-        {/* FINDINGS LIST */}
-        {findings && findings.length > 0 && (
-          <div className="space-y-4">
-            <h4 className="text-sm font-black text-slate-800 uppercase tracking-widest border-b-2 border-slate-200 pb-2">ÖNCELİKLİ BULGULAR LİSTESİ</h4>
-            <div className="space-y-3">
-              {findings.map((f, idx) => (
-                <div key={idx} className="flex flex-col border border-slate-200 rounded-xl p-4 bg-white shadow-sm border-l-4 border-l-orange-500">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-black text-xs text-slate-800 uppercase tracking-tighter">{f.id.replace(/_/g, ' ')}</span>
-                    <span className="px-2 py-0.5 rounded text-[8px] font-black bg-orange-100 text-orange-700 tracking-widest">CVSS: {f.cvss || 'N/A'}</span>
-                  </div>
-                  <p className="text-[10px] text-slate-500">{f.title || 'Tespit Edilen Güvenlik Konfigürasyon Hatası'} risk değerlendirmesi kapsamında tanımlanmıştır.</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {/* BULGU ÖZETİ VE BUTON */}
+        <div className="flex flex-col items-center space-y-8 mb-24">
+           <p className="text-slate-400 font-bold tracking-[0.2em] uppercase text-[14px]">
+             {findingCountText}
+           </p>
+           <div className={`px-12 py-4 rounded-[2rem] text-white text-[12px] font-black tracking-widest uppercase shadow-lg ${displayFindings.length > 0 ? 'bg-orange-500 shadow-orange-500/20' : 'bg-emerald-500 shadow-emerald-500/20'}`}>
+             {displayFindings.length > 0 ? (isTr ? 'İYİLEŞTİRME ÖNERİLİR' : 'REMEDIATION SUGGESTED') : (isTr ? 'SİSTEM GÜVENLİ' : 'SYSTEM SECURE')}
+           </div>
+        </div>
+
+        {/* DONUT SAĞLIK KARTLARI (EN ALT BÖLÜM) */}
+        <div className="w-full bg-slate-50/70 border border-slate-100 rounded-[2.5rem] p-12 mt-auto">
+           <div className="text-center mb-10">
+              <span className="text-[11px] font-black text-slate-400 tracking-[0.3em] uppercase">
+                 ATTACK SURFACE HEALTH (ANALYSIS)
+              </span>
+           </div>
+           
+           <div className="grid grid-cols-5 gap-6">
+             {categories.map((cat, i) => {
+               // Sağlık yüzdesine göre renk tespiti
+               const colorClass = cat.val >= 80 ? 'text-emerald-500' : (cat.val >= 50 ? 'text-orange-500' : 'text-rose-500');
+               
+               // SVG Donut matematiği
+               const radius = 42;
+               const circumference = 2 * Math.PI * radius; 
+               const dashoffset = circumference - (cat.val / 100) * circumference;
+
+               return (
+                 <div key={i} className="flex flex-col items-center">
+                   <div className="relative w-28 h-28 flex items-center justify-center mb-6">
+                     <svg viewBox="0 0 100 100" className="w-full h-full transform -rotate-90">
+                       <circle cx="50" cy="50" r="42" strokeWidth="8" fill="transparent" stroke="currentColor" className="text-gray-200/60" />
+                       <circle 
+                         cx="50" cy="50" r="42" strokeWidth="8" stroke="currentColor" strokeLinecap="round" fill="transparent" 
+                         className={colorClass}
+                         strokeDasharray={circumference}
+                         strokeDashoffset={dashoffset} 
+                       />
+                     </svg>
+                   </div>
+                   <span className="text-[9px] font-black text-slate-800 tracking-[0.1em] text-center uppercase leading-tight w-24">
+                     {cat.name}
+                   </span>
+                 </div>
+               );
+             })}
+           </div>
+        </div>
+
       </div>
     </Page>
   );
