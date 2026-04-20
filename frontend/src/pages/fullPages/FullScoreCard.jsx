@@ -32,7 +32,15 @@ const FullScoreCard = () => {
   const [auditData, setAuditData] = useState(null);
 
   useEffect(() => {
-    document.title = `Full X-RAY Scorecard | ${domain.toUpperCase()}`;
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}_${hours}_${minutes}_`;
+    
+    document.title = `ALFA_FULL_REPORT_${domain.toLowerCase()}_${formattedDate}`;
     const fetchAudit = async () => {
       try {
         const HOST = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://api.alfayapayzeka.com';
@@ -121,8 +129,8 @@ const FullScoreCard = () => {
     const data = [
       {
         id: 'service',
-        index: '3.1',
-        name: lang === 'tr' ? 'SERVİS GÜVENLİĞİ' : 'SERVICE SECURITY',
+        index: 'S4',
+        name: lang === 'tr' ? 'BÖLÜM IV: HASSAS DOSYA ANALİZİ (S4)' : 'SECTION IV: SENSITIVE FILE AUDIT (S4)',
         iso: 'A.8.9',
         health: auditData.categoricalHealth?.service ?? 100,
         isoTitle: {
@@ -133,8 +141,8 @@ const FullScoreCard = () => {
       },
       {
         id: 'headers',
-        index: '3.2',
-        name: lang === 'tr' ? 'GÜVENLİK BAŞLIKLARI' : 'SECURITY HEADERS',
+        index: 'S3',
+        name: lang === 'tr' ? 'BÖLÜM III: GÜVENLİK BAŞLIKLARI (S3)' : 'SECTION III: SECURITY HEADERS (S3)',
         iso: 'A.8.26',
         health: auditData.categoricalHealth?.headers ?? 100,
         isoTitle: {
@@ -145,8 +153,8 @@ const FullScoreCard = () => {
       },
       {
         id: 'network',
-        index: '3.3',
-        name: lang === 'tr' ? 'AĞ PORT GÜVENLİĞİ' : 'NETWORK SECURITY',
+        index: 'S2',
+        name: lang === 'tr' ? 'BÖLÜM II: AĞ VE PORT GÜVENLİĞİ (S2)' : 'SECTION II: NETWORK & PORT SECURITY (S2)',
         iso: 'A.8.20',
         health: auditData.categoricalHealth?.network ?? 100,
         isoTitle: {
@@ -157,8 +165,8 @@ const FullScoreCard = () => {
       },
       {
         id: 'domain',
-        index: '3.4',
-        name: lang === 'tr' ? 'DOMAIN & WHOIS' : 'DOMAIN & WHOIS',
+        index: 'S6',
+        name: lang === 'tr' ? 'BÖLÜM VI: SSL LABS GÜVENLİK (S6)' : 'SECTION VI: SSL LABS SECURITY (S6)',
         iso: 'A.5.7',
         health: auditData.categoricalHealth?.domain ?? 100,
         isoTitle: {
@@ -169,8 +177,8 @@ const FullScoreCard = () => {
       },
       {
         id: 'patching',
-        index: '3.5',
-        name: lang === 'tr' ? 'YAZILIM & YAMA' : 'SOFTWARE PATCHING',
+        index: 'S10',
+        name: lang === 'tr' ? 'BÖLÜM X: YAZILIM VE YAMA (S10)' : 'SECTION X: SOFTWARE PATCHING (S10)',
         iso: 'A.8.8',
         health: auditData.categoricalHealth?.patching ?? 100,
         isoTitle: {
@@ -231,7 +239,7 @@ const FullScoreCard = () => {
 
   const aiSummaryText = lang === 'en' 
     ? `"Based on full penetration test analysis, the target system achieved a security score of ${auditData.overallScore}/10. ${displayFindings.length > 0 ? 'Various vulnerabilities were identified and mapped to international standards.' : 'No critical vulnerabilities detected.'}"`
-    : `"Hedef sistem üzerinde gerçekleştirilen full penetration test analiz neticesinde, sistem güvenlik skoru 10 üzerinden ${auditData.overallScore} olarak hesaplanmıştır. ${displayFindings.length > 0 ? 'Tespit edilen zafiyetler ISO27001:2022 BGYS standardıyla eşleştirilmiştir.' : 'Kritik seviye zafiyet tespit edilmemiştir, altyapı ALFA Güvenlik Birimi & ISO27001:2022 BGYS standardıyla uyumludur.'}"`;
+    : `"Hedef sistem üzerinde gerçekleştirilen full penetration test analiz neticesinde, sistem güvenlik skoru 10 üzerinden ${auditData.overallScore} olarak hesaplanmıştır. ${displayFindings.length > 0 ? 'Tespit edilen zafiyetler ISO 27001:2022 BGYS standardıyla eşleştirilmiştir.' : 'Kritik seviye zafiyet tespit edilmemiştir, altyapı ALFA Güvenlik Birimi & ISO 27001:2022 BGYS standardıyla uyumludur.'}"`;
 
   return (
     <div className="min-h-screen bg-gray-100 text-slate-800 p-6 md:p-12 font-mono relative overflow-hidden">
@@ -394,7 +402,7 @@ const FullScoreCard = () => {
                           </div>
                           <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-slate-400">
                              <div className="flex items-center gap-1">
-                               <span className="bg-gray-200 px-2 py-0.5 rounded text-slate-600">ISO27001:2022</span>
+                               <span className="bg-gray-200 px-2 py-0.5 rounded text-slate-600">ISO 27001:2022</span>
                                <span className="bg-slate-200 px-2 py-0.5 rounded text-slate-800">{cat.iso}</span>
                              </div>
                              <span className={`px-2 py-0.5 rounded font-bold ${cat.color} bg-white border border-gray-100 shadow-sm`}>{cat.status}</span>

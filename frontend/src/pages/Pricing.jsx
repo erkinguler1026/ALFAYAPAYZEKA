@@ -354,7 +354,7 @@ const Pricing = () => {
                 </div>
                 <div className="text-left">
                     <h4 className="font-bold text-xl mb-1">Güvenli Altyapı</h4>
-                    <p className="text-white/50 text-base">ISO27001:2022 ISMS kapsamında veri güvenliği ve bakım.</p>
+                    <p className="text-white/50 text-base">ISO 27001:2022 ISMS kapsamında veri güvenliği ve bakım.</p>
                 </div>
             </div>
         </div>

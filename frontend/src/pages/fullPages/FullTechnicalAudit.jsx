@@ -25,7 +25,7 @@ const FULL_STEPS_TR = [
   'Asset Inventory: Sitemap ve Robots.txt Taraması [N9]',
   'Sensitive Data: Dizin ve Dosya Sızıntısı Taraması [S8]',
   'İtibar ve Tehdit İstihbaratı Sorgusu (AlienVault OTX) [N8]',
-  'Zafiyet İlişkilendirme ve ISO 27001 Uyumluluk Eşleme',
+  'Zafiyet İlişkilendirme ve ISO 27001:2022 Uyumluluk Eşleme',
   'Penetrasyon Testi Kanıt Zinciri PDF Raporu Hazırlanıyor'
 ];
 
@@ -42,7 +42,7 @@ const FULL_STEPS_EN = [
   'Asset Inventory: Sitemap & Robots.txt Scan [N9]',
   'Sensitive Data: Path & File Exposure Probe [S8]',
   'Reputation & Threat Intelligence (AlienVault OTX) [N8]',
-  'Vulnerability Correlation & ISO 27001 Compliance Mapping',
+  'Vulnerability Correlation & ISO 27001:2022 Compliance Mapping',
   'Compiling Penetration Test Proof-of-Concept PDF Report'
 ];
 

@@ -63,14 +63,14 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
       <div className="a4-page">
         <PageHeader pageNum={pageBase} totalPages={totalPages} section="TEKNİK BULGU DOSYASI (ANALİZ)" icon={ShieldAlert} />
         <div className="flex-1 space-y-6">
-           <div className="p-6 bg-slate-900 text-white rounded-3xl space-y-2 shadow-xl border-l-[12px] border-red-600">
+           <div className="p-6 bg-slate-50 border border-slate-100 text-slate-900 rounded-3xl space-y-2 shadow-sm border-l-[12px] border-red-600">
               <div className="flex justify-between items-start">
-                 <h3 className="text-2xl font-black uppercase tracking-tighter">{finding.title}</h3>
+                 <h3 className="text-2xl font-black tracking-tighter">{finding.title ? finding.title.toUpperCase() : ''}</h3>
                  <span className={`px-4 py-1 rounded-full text-[10px] font-black ${finding.severity === 'CRITICAL' ? 'bg-red-600' : 'bg-orange-500'}`}>
                     {finding.severity}
                  </span>
               </div>
-              <p className="text-slate-400 font-mono text-[10px]">CVE_ID: {finding.cve || 'N/A'} | CWE: {finding.cwe || 'N/A'}</p>
+              <p className="text-slate-500 font-mono text-[10px] font-bold">CVE_ID: {finding.cve || 'N/A'} | CWE: {finding.cwe || 'N/A'}</p>
            </div>
            
            <section className="space-y-4 pt-4">
@@ -101,12 +101,12 @@ const TechnicalFindingDossier = ({ finding, reportId, domain, pageBase, totalPag
       <div className="a4-page">
         <PageHeader pageNum={pageBase + 1} totalPages={totalPages} section="TEKNİK BULGU — KANIT VE REFERANSLAR" icon={Terminal} />
         <div className="flex-1 space-y-8">
-           <section className="bg-slate-900 border-2 border-slate-800 p-8 rounded-3xl font-mono relative overflow-hidden">
-              <Database className="absolute bottom-[-20px] right-[-20px] text-white/5" size={150} />
-              <h4 className="text-[10px] font-black uppercase text-emerald-400 tracking-widest mb-4 flex items-center gap-2">
+           <section className="bg-slate-50 border-2 border-slate-100 p-8 rounded-3xl font-mono relative overflow-hidden shadow-sm">
+              <Database className="absolute bottom-[-20px] right-[-20px] text-slate-200/20" size={150} />
+              <h4 className="text-[10px] font-black uppercase text-emerald-600 tracking-widest mb-4 flex items-center gap-2">
                  <Activity size={12} /> RAW EVIDENCE / PAYLOAD (TEKNİK KANIT)
               </h4>
-              <pre className="text-[10px] text-emerald-500/80 whitespace-pre-wrap leading-tight break-all relative z-10">
+              <pre className="text-[10px] text-slate-700 font-bold whitespace-pre-wrap leading-tight break-all relative z-10 bg-white/50 p-4 rounded-xl border border-slate-100">
 {`HTTP/1.1 200 OK
 Server: ALFA-XRAY-V3 (Security Engine)
 Evidence-Signature: ${finding.id?.substring(0,12).toUpperCase() || 'ALFA-SIG-VALID'}
@@ -141,43 +141,46 @@ ${JSON.stringify(finding.details || {}, null, 2)}
 };
 
 const CoverPage = ({ reportId, target, timestamp, totalPages }) => (
-  <div className="a4-page flex flex-col justify-between items-center py-20 bg-[#fdfdfd] relative overflow-hidden">
-    <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-slate-100 rounded-full blur-[100px]" />
-    <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-red-50 rounded-full blur-[100px]" />
-
-    <div className="relative z-10 flex flex-col items-center text-center">
-       <div className="w-32 h-32 bg-slate-900 rounded-3xl flex items-center justify-center mb-10 shadow-2xl shadow-slate-200">
-          <ShieldCheck size={72} className="text-white" />
+  <div className="a4-page">
+    <div className="w-full h-full border-[10px] border-double border-slate-100 flex flex-col items-center justify-between p-12">
+       <div className="text-center space-y-4">
+          <ShieldCheck size={80} className="text-blue-600 mx-auto" />
+          <h1 className="text-4xl font-black text-slate-900 uppercase tracking-tighter leading-none">ALFA PENETRASYON FULL X-RAY RAPORU</h1>
+          <p className="text-base font-bold text-slate-400 tracking-[0.4em] uppercase">KAPSAMLI GÜVENLİK DENETİMİ & PENTEST</p>
        </div>
-       <h1 className="text-5xl font-black text-slate-900 tracking-tighter mb-2">ALFA X-RAY V3</h1>
-       <h2 className="text-2xl font-black text-slate-400 uppercase tracking-[0.3em]">Forensic Audit Report</h2>
-       <div className="w-20 h-2 bg-red-600 mt-6" />
-       <p className="mt-4 text-[10px] font-mono font-bold text-slate-400 uppercase tracking-widest">Comprehensive Technical Security Dossier — {totalPages} Pages</p>
-    </div>
+       
+       <div className="w-full text-center space-y-6">
+          <div className="py-8 border-y border-slate-200">
+             <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-2">HEDEF KURULUŞ / DOMAIN</p>
+             <p className="text-3xl font-black text-slate-900 font-serif lowercase tracking-tighter">https://{target.replace(/^www\./, 'www.')}</p>
+          </div>
+          <div className="grid grid-cols-2 gap-12 text-left max-w-md mx-auto">
+             <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase">RAPOR NO</p>
+                <p className="text-xs font-bold text-slate-800 italic">#{reportId}</p>
+             </div>
+             <div>
+                <p className="text-[10px] font-black text-slate-400 uppercase">ANALİZ TARİHİ</p>
+                <p className="text-xs font-bold text-slate-800">{timestamp}</p>
+             </div>
+          </div>
 
-    <div className="w-full max-w-lg space-y-12 relative z-10">
-       <div className="space-y-2 text-center">
-          <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Target Infrastructure / Domain</p>
-          <div className="py-6 border-2 border-slate-900 rounded-[2rem] bg-white shadow-xl">
-             <h3 className="text-3xl font-black text-slate-900 lowercase break-all px-8">{target}</h3>
+          <div className="grid grid-cols-2 gap-12 text-left max-w-md mx-auto pt-4">
+             <div className="border-l-4 border-red-200 pl-4 bg-red-50/30 py-2 rounded-r-2xl">
+                <p className="text-[10px] font-black text-red-400 uppercase tracking-widest">SINIFLANDIRMA</p>
+                <p className="text-xs font-black text-red-600 uppercase mt-0.5">KİŞİYE ÖZEL / GİZLİ</p>
+             </div>
+             <div className="border-l-4 border-blue-200 pl-4 bg-blue-50/30 py-2 rounded-r-2xl">
+                <p className="text-[10px] font-black text-blue-400 uppercase tracking-widest">DENETİM DURUMU</p>
+                <p className="text-xs font-black text-blue-600 uppercase mt-0.5">TAMAMLANDI</p>
+             </div>
           </div>
        </div>
 
-       <div className="grid grid-cols-2 gap-10 px-4">
-          <div className="space-y-1">
-             <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest">Report Identifier</p>
-             <p className="text-sm font-mono font-bold text-slate-800">#{reportId || 'ALFA-7700X'}</p>
-          </div>
-          <div className="space-y-1">
-             <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest">Generation Date</p>
-             <p className="text-sm font-mono font-bold text-slate-800 uppercase">{timestamp}</p>
-          </div>
+       <div className="text-center">
+          <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.3em] mb-2">ALFA AI PENETRATION TEST ENGINE V4.1</p>
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded inline-block">SAYFA 1 / {totalPages}</p>
        </div>
-    </div>
-
-    <div className="flex flex-col items-center space-y-4">
-       <div className="px-8 py-3 bg-red-600 text-white rounded-full font-black text-xs uppercase tracking-widest">Official Audit Document</div>
-       <p className="text-[9px] font-black text-slate-400 tracking-widest uppercase">Certified by ALFA SEC-UNIT — 2026</p>
     </div>
   </div>
 );
@@ -198,11 +201,11 @@ const ToolkitPage = ({ reportId, domain, totalPages }) => (
 {`KOD | ARAÇ ADI               | MODEL / API            | TİP / KATEGORİ
 ----|------------------------|------------------------|---------------------------
 S1  | IP Resolver            | Native DNS Lookup      | Ağ İstihbaratı
-S3  | Nmap Engine            | TCP/Socket Stealth     | Port & Servis Tarama
-S5  | Nikto Logic            | HTTP Header Audit      | Web Güvenlik Başlıkları
-S6  | Server Exposure        | Banner Grabbing        | Yazılım Sürüm & Yama
-S7  | SSL & Robots           | HTTPS / robots.txt     | Temel URL Sağlığı
-S8  | Path Bruteforce        | Axios GET Probe        | Hassas Dosya Tespiti (.env, .git)`}
+S2  | Nmap Engine            | TCP/Socket Stealth     | Port & Servis Tarama
+S3  | Http Header Audit      | Axios Response Probe   | Güvenlik Başlıkları
+S4  | Path Bruteforce        | Fuzzing Logic          | Hassas Dosya Tespiti
+S5  | Subdomain Discovery    | crt.sh OSINT           | Alan Adı Keşfi
+S6  | SSL Labs Security      | api.ssllabs.com        | Derin SSL Analizi`}
           </pre>
        </div>
        <div className="space-y-4">
@@ -212,15 +215,12 @@ S8  | Path Bruteforce        | Axios GET Probe        | Hassas Dosya Tespiti (.e
           <pre className="whitespace-pre-wrap p-2 bg-white border border-red-100 shadow-sm text-slate-900">
 {`KOD | ARAÇ ADI               | MODEL / API            | TİP / KATEGORİ
 ----|------------------------|------------------------|---------------------------
-N1  | Subdomain Discovery    | crt.sh (Cert Transp.)  | OSINT (Alan Adı Keşfi)
-N2  | Geo-IP Tracer          | ip-api.com API         | Coğrafi Konum Analizi
-N3  | SSL Labs Security      | api.ssllabs.com        | Derinlemesine SSL/TLS Denetimi
-N4  | WHOIS / RDAP Explorer  | rdap.org               | Alan Adı Sahiplik Analizi
-N5  | Cookie Security Probe  | HTTP Cookie Analysis   | Oturum Güvenliği
-N6  | CORS Policy Auditor    | Burp/Nikto Emulation   | API Erişim Kontrolü
-N7  | Tech Fingerprinter     | Pattern Matching       | Yazılım İfşası (Wappalyzer)
-N8  | IP Reputation Check    | AlienVault OTX         | Tehdit İstihbaratı (Zararlı IP)
-N9  | Sitemap Inventory      | XML/Sitemap Parser     | Varlık Yönetimi`}
+S7  | WHOIS / RDAP Explorer  | rdap.org               | Sahiplik Analizi
+S8  | Cookie Security Probe  | Session Audit          | Çerez Güvenliği
+S9  | CORS Policy Auditor    | Header Inspection      | API Politikaları
+S10 | Tech Fingerprinter     | Pattern Matching       | Yazılım İfşası
+S11 | Geo-IP Tracer          | ip-api.com             | Konum Analizi
+S12 | IP Reputation Check    | AlienVault OTX         | Tehdit İstihbaratı`}
           </pre>
        </div>
     </div>
@@ -252,6 +252,23 @@ const FullScoreCardPrint = () => {
       }
     };
     fetchData();
+  }, [domain]);
+
+  useEffect(() => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}_${hours}_${minutes}_`;
+    
+    const originalTitle = document.title;
+    document.title = `ALFA_FULL_REPORT_${domain.toLowerCase()}_${formattedDate}`;
+    
+    return () => {
+      document.title = originalTitle;
+    };
   }, [domain]);
 
   if (loading || !reportData) {
@@ -289,7 +306,7 @@ const FullScoreCardPrint = () => {
         }
         .a4-page {
           width: 210mm; height: 297mm; background: white;
-          margin: 0 auto 24px auto; padding: 15mm 18mm;
+          margin: 0 auto 24px auto; padding: 15mm;
           display: flex; flex-direction: column; position: relative;
           box-shadow: 0 10px 40px rgba(0,0,0,0.1);
           font-family: 'Plus Jakarta Sans', sans-serif;
@@ -307,7 +324,7 @@ const FullScoreCardPrint = () => {
               </div>
            </div>
            <button onClick={() => window.print()}
-              className="px-8 py-3 bg-red-600 text-white text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-red-500 transition-all active:scale-95 shadow-lg shadow-red-600/30 flex items-center gap-2">
+              className="px-8 py-3 bg-[#A37B5B] text-white text-xs font-black uppercase tracking-widest rounded-2xl hover:bg-[#8B6546] transition-all active:scale-95 shadow-lg shadow-[#A37B5B]/30 flex items-center gap-2">
               <FileText size={16} /> PDF KAYDET (CTRL+P)
            </button>
            <div className="text-white/40 text-[10px] font-bold">TOPLAM BULGU: {findings.length}</div>
@@ -357,11 +374,11 @@ const FullScoreCardPrint = () => {
              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.4em] mb-10 text-center">ATTACK SURFACE HEALTH (ANALİZ)</p>
              <div className="flex justify-between items-end px-4">
                 {[
-                  { name: 'SSL/TLS', val: 85, color: 'text-emerald-500' },
-                  { name: 'HEADERS', val: 32, color: 'text-red-500' },
-                  { name: 'NETWORK', val: 48, color: 'text-orange-500' },
-                  { name: 'DOMAIN', val: 65, color: 'text-yellow-500' },
-                  { name: 'SOFTWARE', val: 42, color: 'text-orange-500' }
+                  { name: 'S1-IP RES', val: 85, color: 'text-emerald-500' },
+                  { name: 'S2-NMAP', val: 32, color: 'text-red-500' },
+                  { name: 'S3-HTTP', val: 48, color: 'text-orange-500' },
+                  { name: 'S6-SSL', val: 65, color: 'text-yellow-500' },
+                  { name: 'S10-TECH', val: 42, color: 'text-orange-500' }
                 ].map((item, i) => (
                   <div key={i} className="flex flex-col items-center gap-3">
                       <div className="relative w-20 h-20">
@@ -386,7 +403,7 @@ const FullScoreCardPrint = () => {
           <div className="flex-1 space-y-4">
             <table className="w-full border-collapse text-left">
                <thead>
-                  <tr className="bg-slate-900 text-white text-[8px] font-black uppercase tracking-widest">
+                  <tr className="bg-slate-50 border-b-2 border-slate-900 text-slate-900 text-[8px] font-black uppercase tracking-widest">
                      <th className="p-2 w-10 text-center">#</th>
                      <th className="p-2">SUBDOMAIN</th>
                      <th className="p-2">SSL ISSUER</th>

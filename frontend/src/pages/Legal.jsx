@@ -182,7 +182,7 @@ const Legal = () => {
                 </section>
                 <section>
                   <h2 className="text-white font-bold text-2xl mb-4">6. Veri Güvenliği</h2>
-                  <p>ISO/IEC 27001 standartlarına uyumlu siber güvenlik önlemleri ile verilerinizin gizliliği ve bütünlüğü en üst seviyede korunmaktadır.</p>
+                  <p>ISO/IEC 27001:2022 standartlarına uyumlu siber güvenlik önlemleri ile verilerinizin gizliliği ve bütünlüğü en üst seviyede korunmaktadır.</p>
                 </section>
               </>
             )}

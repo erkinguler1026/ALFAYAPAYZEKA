@@ -42,7 +42,7 @@ export const contractsData = {
       {
         id: 5,
         title: "VERİ GÜVENLİĞİ VE YEDEKLEME",
-        content: `5.1. Operasyon: Hizmet Sağlayıcı, ISO 27001 standartları çerçevesinde makul ticari özenle yedekleme yapar. Mücbir sebepler ve üçüncü taraf saldırılarında sorumluluk, sistemin mevcut son başarılı yedeği ile sınırlıdır.\n5.2. KVKK: Kişisel veriler, Müşteri'nin web sitesindeki [KVKK Aydınlatma Metni] uyarınca işlenir.`
+        content: `5.1. Operasyon: Hizmet Sağlayıcı, ISO 27001:2022 standartları çerçevesinde makul ticari özenle yedekleme yapar. Mücbir sebepler ve üçüncü taraf saldırılarında sorumluluk, sistemin mevcut son başarılı yedeği ile sınırlıdır.\n5.2. KVKK: Kişisel veriler, Müşteri'nin web sitesindeki [KVKK Aydınlatma Metni] uyarınca işlenir.`
       },
       {
         id: 6,
@@ -82,8 +82,8 @@ export const contractsData = {
       },
       {
         id: 5,
-        title: "VERİ GÜVENLİĞİ VE ISO 27001",
-        content: `5.1. Gizlilik: Tüm bulgular ISO 27001 BGYS standartlarında "Çok Gizli" olarak işlenir. Müşteri verileri harici ortamlarda saklanmaz.\n5.2. KVKK: Siber güvenlik analizleri sırasında işlenen kurumsal veriler, Müşteri'nin gizlilik politikasına uygun olarak yönetilir.`
+        title: "VERİ GÜVENLİĞİ VE ISO 27001:2022",
+        content: `5.1. Gizlilik: Tüm bulgular ISO 27001:2022 BGYS standartlarında "Çok Gizli" olarak işlenir. Müşteri verileri harici ortamlarda saklanmaz.\n5.2. KVKK: Siber güvenlik analizleri sırasında işlenen kurumsal veriler, Müşteri'nin gizlilik politikasına uygun olarak yönetilir.`
       },
       {
         id: 6,
@@ -93,7 +93,7 @@ export const contractsData = {
       {
         id: 1,
         title: "SİGORTA VE ÜÇÜNCÜ TARAFLAR",
-        content: `7.1. Sigorta Sorumluluğu: Siber suç sigortası ancak sigorta şirketlerince tanzim edilir. Hizmet Sağlayıcı sadece ISO 27001 uyumlu teknik veri ve risk analizi sunar; sigorta poliçesinin tarafı değildir.\n7.2. Yönlendirme: İş ortağı sigorta acenteleri ile olan yönlendirme ilişkisi Hizmet Sağlayıcı ile Üçüncü Taraf arasındaki protokol ile mahfuzdur.`
+        content: `7.1. Sigorta Sorumluluğu: Siber suç sigortası ancak sigorta şirketlerince tanzim edilir. Hizmet Sağlayıcı sadece ISO 27001:2022 uyumlu teknik veri ve risk analizi sunar; sigorta poliçesinin tarafı değildir.\n7.2. Yönlendirme: İş ortağı sigorta acenteleri ile olan yönlendirme ilişkisi Hizmet Sağlayıcı ile Üçüncü Taraf arasındaki protokol ile mahfuzdur.`
       }
     ]
   }

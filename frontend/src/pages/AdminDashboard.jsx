@@ -45,7 +45,7 @@ const AdminDashboard = () => {
       stats: [
         { label: "Analiz Motoru", val: "X-RAY V2.0" },
         { label: "Veri Kaynağı", val: "Real-Time APIs" },
-        { label: "Sertifikasyon", val: "ISO-27001" },
+        { label: "Sertifikasyon", val: "ISO 27001:2022" },
         { label: "Sürüm", val: "V2.1.0" }
       ]
     },
@@ -69,7 +69,7 @@ const AdminDashboard = () => {
       stats: [
         { label: "Analysis Engine", val: "X-RAY V2.0" },
         { label: "Data Source", val: "Real-Time APIs" },
-        { label: "Certification", val: "ISO-27001" },
+        { label: "Certification", val: "ISO 27001:2022" },
         { label: "Version", val: "V2.1.0" }
       ]
     }

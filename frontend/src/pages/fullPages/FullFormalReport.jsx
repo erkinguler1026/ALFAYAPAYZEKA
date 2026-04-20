@@ -76,64 +76,54 @@ const Page = ({ children, pageNum, title, isCover, t }) => (
   </div>
 );
 
-const CoverPage = ({ siteName, t, metadata }) => {
+const CoverPage = ({ siteName, t, metadata, totalPages }) => {
   return (
-    <Page pageNum={1} isCover t={t}>
-       <div className="h-full flex flex-col items-center justify-between py-24 relative overflow-hidden bg-[#fcfcfc]">
-          <div className="absolute top-[-5%] left-[-5%] w-[50%] h-[40%] bg-blue-100/30 rounded-full blur-[100px]" />
-          <div className="absolute bottom-[-5%] right-[-5%] w-[50%] h-[40%] bg-primary/10 rounded-full blur-[100px]" />
-          
+    <Page pageNum={1} totalPages={totalPages} isCover t={t}>
+       <div className="h-full flex flex-col items-center justify-between py-20 relative bg-white">
           <div className="relative z-10 flex flex-col items-center">
-             <div className="w-40 h-40 bg-white rounded-[2.5rem] shadow-2xl shadow-blue-500/10 flex items-center justify-center mb-12 border border-blue-50 relative">
-                <div className="absolute inset-0 bg-blue-500/5 animate-pulse rounded-[2.5rem]" />
-                <div className="relative">
-                   <Shield size={80} className="text-primary fill-blue-50/50" />
-                   <CheckCircle2 size={32} className="text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white rounded-full p-1" />
-                </div>
+             <div className="mb-10">
+                <ShieldCheck size={100} className="text-blue-600" />
              </div>
              
-             <div className="text-center space-y-3">
-                <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-none uppercase">ALFA YAPAY ZEKA</h1>
-                <h2 className="text-3xl font-black text-primary tracking-tighter leading-none uppercase">{t.reportVariant}</h2>
-                <h3 className="text-6xl font-black text-primary tracking-tighter leading-none uppercase">{t.reportSuffix}</h3>
+             <div className="text-center space-y-4">
+                <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-none uppercase">
+                   ALFA PENETRASYON FULL X-RAY RAPORU
+                </h1>
+                <p className="text-[14px] font-bold text-slate-400 tracking-[0.4em] uppercase">
+                   KAPSAMLI GÜVENLİK DENETİMİ & PENTEST
+                </p>
              </div>
-             
-             <div className="w-32 h-2 bg-primary mx-auto mt-10 rounded-full" />
-             <p className="mt-10 mb-[20px] text-slate-500 font-black tracking-[0.5em] uppercase text-xs">{t.pentestAudit}</p>
           </div>
   
-          <div className="relative z-10 w-full max-w-4xl px-16">
-             <div className="bg-white border-2 border-slate-900 px-16 py-12 rounded-[3.5rem] shadow-2xl text-center relative">
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-8 py-2 text-[10px] font-black uppercase tracking-[5px] rounded-full">
-                  OFFICIAL AUDIT TARGET
-                </div>
-                <p className="text-[12px] font-black text-slate-300 uppercase tracking-[6px] mb-6">KURULUŞ / DOMAIN</p>
-                <h4 className="font-black text-slate-900 tracking-tighter leading-none break-all" 
-                     style={{ fontSize: (siteName.length > 20 ? '24px' : '48px') }}>
+          <div className="relative z-10 w-full max-w-4xl px-16 space-y-12">
+             <div className="w-full h-px bg-slate-200/60" />
+             <div className="text-center py-4">
+                <p className="text-[11px] font-black text-slate-300 uppercase tracking-[4px] mb-6">HEDEF KURULUŞ / DOMAIN</p>
+                <h4 className="font-serif font-black text-slate-900 tracking-[-0.02em] leading-none text-center px-4 whitespace-nowrap" 
+                     style={{ fontSize: (siteName.length > 20 ? '2.2rem' : '3.1rem') }}>
                     https://www.{siteName.toLowerCase()}
                  </h4>
              </div>
+             <div className="w-full h-px bg-slate-200/60" />
           </div>
   
           <div className="relative z-10 w-full max-w-3xl px-12 grid grid-cols-2 gap-x-16 gap-y-12 mb-10">
-             <div className="border-l-4 border-slate-100 pl-6 space-y-1">
-                <p className="text-[11px] font-black text-slate-300 uppercase tracking-widest">{t.reportNo}</p>
-                <p className="text-lg font-mono font-black text-slate-800">#ALFA-XRAY-V3-FULL</p>
+             <div className="space-y-1">
+                <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">{t.reportNo}</p>
+                <p className="text-sm font-mono font-black text-slate-800 tracking-tighter">#ALFA-XRAY-V3-FULL</p>
              </div>
-             <div className="border-l-4 border-slate-100 pl-6 space-y-1">
-                <p className="text-[11px] font-black text-slate-300 uppercase tracking-widest">{t.analysisDate}</p>
-                <div className="flex items-center gap-4">
-                   <p className="text-lg font-mono font-black text-slate-800 uppercase">{metadata.dateStr}</p>
-                   <p className="text-lg font-mono font-black text-slate-800">{metadata.timeStr}</p>
-                </div>
+             <div className="space-y-1 text-right">
+                <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">{t.analysisDate}</p>
+                <p className="text-sm font-mono font-black text-slate-800">{metadata.dateStr} {metadata.timeStr}</p>
              </div>
-             <div className="border-l-4 border-red-200 pl-6 space-y-1 bg-red-50/30 py-2 rounded-r-2xl">
-                <p className="text-[11px] font-black text-red-400 uppercase tracking-widest">{t.classification}</p>
-                <p className="text-sm font-black text-red-600 uppercase mt-1">{t.confidential}</p>
+             
+             <div className="border-l-4 border-red-500 pl-4 bg-red-50/40 py-2 rounded-r-xl">
+                <p className="text-[9px] font-black text-red-500 uppercase tracking-widest">{t.classification}</p>
+                <p className="text-xs font-black text-red-700 uppercase">{t.confidential}</p>
              </div>
-             <div className="border-l-4 border-blue-200 pl-6 space-y-1 bg-blue-50/30 py-2 rounded-r-2xl">
-                <p className="text-[11px] font-black text-blue-400 uppercase tracking-widest">{t.status}</p>
-                <p className="text-sm font-black text-blue-600 uppercase mt-1">{t.completed}</p>
+             <div className="border-l-4 border-blue-500 pl-4 bg-blue-50/40 py-2 rounded-r-xl">
+                <p className="text-[9px] font-black text-blue-500 uppercase tracking-widest">{t.status}</p>
+                <p className="text-xs font-black text-blue-700 uppercase">{t.completed}</p>
              </div>
           </div>
        </div>
@@ -141,8 +131,9 @@ const CoverPage = ({ siteName, t, metadata }) => {
   );
 };
 
-const TableOfContents = ({ t }) => (
-  <Page pageNum={2} title={t.tocTitle} t={t}>
+const TableOfContents = ({ t, totalPages }) => {
+  return (
+  <Page pageNum={2} totalPages={totalPages} title={t.tocTitle} t={t}>
     <div className="space-y-12">
       <p className="text-gray-500 italic text-base leading-relaxed bg-slate-50 p-8 rounded-[2.5rem] border-l-8 border-primary shadow-sm">
         {t.tocDesc}
@@ -150,22 +141,19 @@ const TableOfContents = ({ t }) => (
       
       <div className="grid grid-cols-1 gap-4 px-4">
         {[
-          { id: "S1", title: t.sections.s1, page: "003" },
-          { id: "S3", title: t.sections.s3, page: "005" },
-          { id: "S5", title: t.sections.s5, page: "007" },
-          { id: "S6", title: t.sections.s6, page: "009" },
-          { id: "S7", title: t.sections.s7, page: "010" },
-          { id: "S8", title: t.sections.s8, page: "012" },
-          { id: "N1", title: t.sections.n1, page: "015" },
-          { id: "N2", title: t.sections.n2, page: "115" },
-          { id: "N3", title: t.sections.n3, page: "116" },
-          { id: "N4", title: t.sections.n4, page: "117" },
-          { id: "N5", title: t.sections.n5, page: "118" },
-          { id: "N6", title: t.sections.n6, page: "120" },
-          { id: "N7", title: t.sections.n7, page: "125" },
-          { id: "N8", title: t.sections.n8, page: "210" },
-          { id: "N9", title: t.sections.n9, page: "212" },
-          { id: "DUMP", title: "TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP)", page: "220" },
+          { id: "S1", title: t.sections.s1, page: "010" },
+          { id: "S2", title: t.sections.s3, page: "025" },
+          { id: "S3", title: t.sections.s5, page: "040" },
+          { id: "S4", title: t.sections.s8, page: "055" },
+          { id: "S5", title: t.sections.n1, page: "070" },
+          { id: "S6", title: t.sections.n2, page: "115" },
+          { id: "S7", title: t.sections.n3, page: "130" },
+          { id: "S8", title: t.sections.n4, page: "145" },
+          { id: "S9", title: t.sections.n5, page: "160" },
+          { id: "S10", title: t.sections.n6, page: "175" },
+          { id: "S11", title: t.sections.n7, page: "190" },
+          { id: "S12", title: t.sections.n8, page: "210" },
+          { id: "DUMP", title: "TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP)", page: "235" },
           { id: "LEGAL", title: "YASAL BİLGİLENDİRME VE SORUMLULUK", page: "248" },
           { id: "LAST", title: t.items?.final || "RESMİ ONAY VE DİJİTAL İMZA", page: "250" },
         ].map((item) => (
@@ -189,7 +177,8 @@ const TableOfContents = ({ t }) => (
       </div>
     </div>
   </Page>
-);
+  );
+};
 
 const DataItem = ({ label, value }) => (
   <div className="flex flex-col border-l-2 border-primary pl-4 py-1">
@@ -205,8 +194,8 @@ const chunkArray = (arr, size) => {
   return result;
 };
 
-const FinalPage = ({ t, pageNum, siteName, metadata }) => (
-  <Page pageNum={pageNum} title={t.items.final} t={t}>
+const FinalPage = ({ t, pageNum, totalPages, siteName, metadata }) => (
+  <Page pageNum={pageNum} totalPages={totalPages} title={t.items.final} t={t}>
     <div className="h-full flex flex-col justify-between py-12">
        <div className="space-y-[40px]">
           <div className="flex items-center gap-4 border-b-4 border-primary pb-4">
@@ -248,7 +237,7 @@ const FinalPage = ({ t, pageNum, siteName, metadata }) => (
                    <QrCode size={16} />
                 </div>
                 <QRCodeSVG 
-                  value={`AUDIT_ID: ALFA-XRAY-V3\nTARGET: ${siteName}\nDATE: ${metadata.dateStr}\nLEAD: Erkin GULER`}
+                  value={`TGT: www.${siteName.toLowerCase()}\nHASH: ${metadata.integrityHash.slice(0, 20)}...\nDATE: ${metadata.isoDate}`}
                   size={120}
                   level={"H"}
                   includeMargin={true}
@@ -355,23 +344,20 @@ const FullFormalReport = () => {
       signatureDisclaimer: "Bu belge dijital olarak imzalanmış olup, teknik bulguların doğruluğu ALFA YAPAY ZEKA laboratuvarları tarafından onaylanmıştır.",
       sections: {
         s1: "BÖLÜM I: IP ÇÖZÜMLEME VE AĞ İSTİHBARATI (S1)",
-        s3: "BÖLÜM II: PORT TARAMA VE SERVİS ANALİZİ (S3)",
-        s5: "BÖLÜM III: HTTP GÜVENLİK BAŞLIKLARI (S5)",
-        s6: "BÖLÜM IV: SUNUCU VE YAZILIM İFŞA ANALİZİ (S6)",
-        s7: "BÖLÜM V: SSL VE ROBOTS.TXT DURUMU (S7)",
-        s8: "BÖLÜM VI: HASSAS DOSYA VE YOL TARAMASI (S8)",
-        n1: "BÖLÜM VII: SUBDOMAIN / ALT ALAN ADI KEŞFİ (N1)",
-        n2: "BÖLÜM VIII: GEO-IP KONUM VE ISP ANALİZİ (N2)",
-        n3: "BÖLÜM IX: SSL LABS DERİNLİK ANALİZİ (N3)",
-        n4: "BÖLÜM X: WHOIS VE RDAP SAHİPLİK BİLGİSİ (N4)",
-        n5: "BÖLÜM XI: ÇEREZ (COOKIE) GÜVENLİK ANALİZİ (N5)",
-        n6: "BÖLÜM XII: CORS POLİTİKASI VE API GÜVENLİĞİ (N6)",
-        n7: "BÖLÜM XIII: TEKNOLOJİ PARMAK İZİ TESPİTİ (N7)",
-        n8: "BÖLÜM XIV: IP VE DOMAİN İTİBAR KONTROLÜ (N8)",
-        n9: "BÖLÜM XV: SİTEMAP VE VARLIK ENVANTERİ (N9)"
+        s3: "BÖLÜM II: PORT TARAMA VE SERVİS ANALİZİ (S2)",
+        s5: "BÖLÜM III: HTTP GÜVENLİK BAŞLIKLARI (S3)",
+        s8: "BÖLÜM IV: HASSAS DOSYA VE YOL TARAMASI (S4)",
+        n1: "BÖLÜM V: SUBDOMAIN / ALT ALAN ADI KEŞFİ (S5)",
+        n2: "BÖLÜM VI: SSL LABS GÜVENLİK DERECESİ (S6)",
+        n3: "BÖLÜM VII: WHOIS VE RDAP SAHİPLİK BİLGİSİ (S7)",
+        n4: "BÖLÜM VIII: ÇEREZ (COOKIE) GÜVENLİK ANALİZİ (S8)",
+        n5: "BÖLÜM IX: CORS POLİTİKASI VE API GÜVENLİĞİ (S9)",
+        n6: "BÖLÜM X: TEKNOLOJİ PARMAK İZİ TESPİTİ (S10)",
+        n7: "BÖLÜM XI: GEO-IP KONUM VE ISP ANALİZİ (S11)",
+        n8: "BÖLÜM XII: IP VE DOMAİN İTİBAR KONTROLÜ (S12)"
       },
       footer: {
-        meta: `www.${siteName.toLowerCase()} — TEKNİK DENETİM DOSYASI — ALFA-V3`,
+        meta: `www.${siteName.toLowerCase()} — ADLİ BİLİŞİM DENETİM DOSYASI — ALFA-V3`,
         copyright: "© 2026 ALFA YAPAY ZEKA SEC-UNIT"
       },
       items: {
@@ -405,13 +391,18 @@ const FullFormalReport = () => {
       signatureName: "Erkin GULER",
       signatureDisclaimer: "This document is digitally signed, and the accuracy of technical findings has been approved by ALFA AI labs.",
       sections: {
-        s1: "Section I: Introduction & OSINT Intelligence",
-        s2: "Section II: Network Port & Service Security",
-        s3: "Section III: Web Application & Header Analysis",
-        s4: "Section IV: SSL/TLS & Certificate Audit",
-        s5: "Section V: Server & Software Leak Analysis",
-        s6: "Section VI: Email & DNS Security",
-        s7: "Section VII: Risk Score & Certification"
+        s1: "Section I: IP Resolution & Network OSINT (S1)",
+        s3: "Section II: Port Scan & Service Analysis (S2)",
+        s5: "Section III: HTTP Security Headers (S3)",
+        s8: "Section IV: Sensitive File & Path Brute (S4)",
+        n1: "Section V: Subdomain Discovery (S5)",
+        n2: "Section VI: Qualys SSL Labs Grade (S6)",
+        n3: "Section VII: WHOIS & RDAP Ownership (S7)",
+        n4: "Section VIII: Cookie Security Analysis (S8)",
+        n5: "Section IX: CORS Policy & API Security (S9)",
+        n6: "Section X: Technology Fingerprint (S10)",
+        n7: "Section XI: Geo-IP & ISP Analysis (S11)",
+        n8: "Section XII: IP & Domain Reputation (S12)"
       },
       footer: {
         meta: `www.${siteName.toLowerCase()} — TECHNICAL AUDIT DOSSIER — ALFA-V3`,
@@ -451,14 +442,16 @@ const FullFormalReport = () => {
   const sensitive = auditData.sensitiveData || {};
   const headersAnalytic = auditData.sections?.s3?.findings || []; // S5 mapping
 
+  const totalPages = 250;
+
   return (
     <div className="bg-gray-200 min-h-screen py-12 print:py-0 font-sans print:bg-white text-black text-left overflow-x-hidden transition-all">
       <div className="max-w-[210mm] mx-auto shadow-[0_50px_100px_rgba(0,0,0,0.15)] bg-white print:shadow-none">
         
-        <CoverPage siteName={siteName} t={t} metadata={metadata} />
-        <TableOfContents t={t} />
+        <CoverPage siteName={siteName} t={t} metadata={metadata} totalPages={totalPages} />
+        <TableOfContents t={t} totalPages={totalPages} />
 
-        <Page pageNum={3} title={t.sections.s1} t={t}>
+        <Page pageNum={10} totalPages={totalPages} title={t.sections.s1} t={t}>
            <div className="space-y-10">
               <section>
                  <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">AĞ ÇÖZÜMLEME ANALİZİ</h4>
@@ -482,7 +475,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={5} title={t.sections.s3} t={t}>
+        <Page pageNum={25} totalPages={totalPages} title={t.sections.s3} t={t}>
            <div className="space-y-8">
               <section>
                  <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TCP STEALTH PORT SCAN (17 KRİTİK NOKTA)</h4>
@@ -519,7 +512,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={7} title={t.sections.s5} t={t}>
+        <Page pageNum={40} totalPages={totalPages} title={t.sections.s5} t={t}>
            <div className="space-y-8">
               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HTTP RESPONSE HEADER AUDIT</h4>
               <p className="text-[12px] text-slate-500 italic mb-6">Sunucu tarafından gönderilen güvenlik başlıklarının varlığı ve konfigürasyon doğruluğu denetlenmiştir.</p>
@@ -539,7 +532,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={12} title={t.sections.s8} t={t}>
+        <Page pageNum={55} totalPages={totalPages} title={t.sections.s8} t={t}>
            <div className="space-y-8">
               <section>
                  <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HASSAS DOSYA VE DİZİN İFŞA TARAMASI</h4>
@@ -574,7 +567,37 @@ const FullFormalReport = () => {
         </Page>
 
 
-        <Page pageNum={10} title={t.sections.s4} t={t}>
+        {subChunks.slice(0, 40).map((chunk, idx) => (
+           <Page key={`sub-${idx}`} pageNum={70 + idx} totalPages={totalPages} title={`BÖLÜM V: ALT ALAN ADI KEŞİF DÖKÜMÜ — PART ${idx + 1}`} t={t}>
+              <div className="space-y-4">
+                 <div className="bg-slate-50 p-4 border-l-4 border-primary rounded-r-2xl">
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">OSINT — ALAN ADI KEŞİF VERİSİ</p>
+                    <p className="text-[9px] text-slate-400 italic">Kaynak: crt.sh (Certificate Transparency Logs) — Global Infrastructure Mapping</p>
+                 </div>
+                 <table className="w-full border-collapse text-[10px]">
+                    <thead>
+                       <tr className="bg-slate-800 text-white font-black uppercase tracking-tighter">
+                          <th className="p-2 border border-slate-700 w-12 text-center">#</th>
+                          <th className="p-2 border border-slate-700 text-left">TECHNICAL HOSTNAME / DOMAIN</th>
+                          <th className="p-2 border border-slate-700 text-right">CERTIFICATE ISSUER</th>
+                       </tr>
+                    </thead>
+                    <tbody>
+                       {chunk.map((s, i) => (
+                          <tr key={i} className="border-b hover:bg-slate-50/50 transition-colors">
+                             <td className="p-2 border text-center text-[8px] text-slate-400 font-mono">{(idx * 22) + i + 1}</td>
+                             <td className="p-2 border font-mono font-bold text-blue-600 truncate max-w-[300px]">{s.subdomain}</td>
+                             <td className="p-2 border text-right text-[8px] font-medium text-slate-500">{s.issuer?.split(',')[0]}</td>
+                          </tr>
+                       ))}
+                    </tbody>
+                 </table>
+              </div>
+           </Page>
+        ))}
+
+
+        <Page pageNum={115} totalPages={totalPages} title={t.sections.n2} t={t}>
            <div className="space-y-8">
               <div className="flex items-center gap-6 p-10 bg-slate-900 text-white rounded-[3rem] shadow-2xl relative overflow-hidden">
                  <div className="absolute top-0 right-0 p-4 opacity-10">
@@ -612,86 +635,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={11} title={t.sections.s3} t={t}>
-           <div className="space-y-8">
-              <section>
-                 <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">COOKIE (ÇEREZ) GÜVENLİK ANALİZİ</h4>
-                 <table className="w-full text-[9px]">
-                    <thead>
-                       <tr className="bg-slate-100 font-black">
-                          <th className="p-3 border text-left">ÇEREZ ADI</th>
-                          <th className="p-3 border">HTTPONLY</th>
-                          <th className="p-3 border">SECURE</th>
-                          <th className="p-3 border">SAMESITE</th>
-                          <th className="p-3 border text-right">RİSK</th>
-                       </tr>
-                    </thead>
-                    <tbody>
-                       {cookies.map((c, i) => (
-                          <tr key={i} className="border-b">
-                             <td className="p-3 border font-bold text-blue-600">{c.name}</td>
-                             <td className="p-3 border text-center font-black">{c.httpOnly ? '✅' : '❌'}</td>
-                             <td className="p-3 border text-center font-black">{c.secure ? '✅' : '❌'}</td>
-                             <td className="p-3 border text-center">{c.sameSite}</td>
-                             <td className={`p-3 border text-right font-black ${c.overallRisk === 'OK' ? 'text-green-600' : 'text-red-600'}`}>{c.overallRisk}</td>
-                          </tr>
-                       ))}
-                    </tbody>
-                 </table>
-              </section>
-
-              <section>
-                 <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">CORS POLICY AUDITOR</h4>
-                 <div className="bg-slate-50 border p-8 rounded-3xl">
-                    <div className="flex justify-between items-center mb-6">
-                       <DataItem label="ALLOWED ORIGIN" value={cors.allowOrigin || '* (TÜMÜ)'} />
-                       <span className={`px-4 py-1 rounded-full text-[10px] font-black ${cors.overallRisk === 'OK' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                          {cors.overallRisk} RISK DETECTED
-                       </span>
-                    </div>
-                    <div className="space-y-3">
-                       {cors.findings && cors.findings.map((f, i) => (
-                          <div key={i} className="flex gap-3 items-start p-3 bg-white border rounded-xl">
-                             <AlertTriangle size={14} className={f.severity === 'CRITICAL' || f.severity === 'HIGH' ? 'text-red-500' : 'text-amber-500'} />
-                             <p className="text-[10px] font-medium"><span className="font-black uppercase">{f.issue}:</span> {f.detail}</p>
-                          </div>
-                       ))}
-                    </div>
-                 </div>
-              </section>
-           </div>
-        </Page>
-
-        {subChunks.slice(0, 40).map((chunk, idx) => (
-           <Page key={`sub-${idx}`} pageNum={15 + idx} title={`ALT ALAN ADI KEŞİF DÖKÜMÜ — PART ${idx + 1}`} t={t}>
-              <div className="space-y-4">
-                 <div className="bg-slate-50 p-4 border-l-4 border-primary rounded-r-2xl">
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">OSINT — ALAN ADI KEŞİF VERİSİ</p>
-                    <p className="text-[9px] text-slate-400 italic">Kaynak: crt.sh (Certificate Transparency Logs) — Global Infrastructure Mapping</p>
-                 </div>
-                 <table className="w-full border-collapse text-[10px]">
-                    <thead>
-                       <tr className="bg-slate-800 text-white font-black uppercase tracking-tighter">
-                          <th className="p-2 border border-slate-700 w-12 text-center">#</th>
-                          <th className="p-2 border border-slate-700 text-left">TECHNICAL HOSTNAME / DOMAIN</th>
-                          <th className="p-2 border border-slate-700 text-right">CERTIFICATE ISSUER</th>
-                       </tr>
-                    </thead>
-                    <tbody>
-                       {chunk.map((s, i) => (
-                          <tr key={i} className="border-b hover:bg-slate-50/50 transition-colors">
-                             <td className="p-2 border text-center text-[8px] text-slate-400 font-mono">{(idx * 22) + i + 1}</td>
-                             <td className="p-2 border font-mono font-bold text-blue-600 truncate max-w-[300px]">{s.subdomain}</td>
-                             <td className="p-2 border text-right text-[8px] font-medium text-slate-500">{s.issuer?.split(',')[0]}</td>
-                          </tr>
-                       ))}
-                    </tbody>
-                 </table>
-              </div>
-           </Page>
-        ))}
-
-        <Page pageNum={117} title={t.sections.n4} t={t}>
+        <Page pageNum={130} totalPages={totalPages} title={t.sections.n3} t={t}>
            <div className="space-y-10">
               <section>
                  <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
@@ -728,7 +672,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={118} title={t.sections.n5} t={t}>
+        <Page pageNum={145} totalPages={totalPages} title={t.sections.n4} t={t}>
            <div className="space-y-8">
               <section>
                  <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">COOKIE (ÇEREZ) GÜVENLİK ANALİZİ</h4>
@@ -770,7 +714,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={120} title={t.sections.n6} t={t}>
+        <Page pageNum={160} totalPages={totalPages} title={t.sections.n5} t={t}>
            <div className="space-y-8">
               <section>
                  <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">CORS POLİTİKASI VE API GÜVENLİĞİ</h4>
@@ -795,7 +739,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={125} title={t.sections.n7} t={t}>
+        <Page pageNum={175} totalPages={totalPages} title={t.sections.n6} t={t}>
            <div className="space-y-8">
               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TEKNOLOJİ PARMAK İZİ TESPİTİ (TECH STACK)</h4>
               <div className="grid grid-cols-1 gap-4">
@@ -820,7 +764,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={115} title={t.sections.n2 || 'BÖLÜM VIII: GEO-IP KONUM VE ISP ANALİZİ (N2)'} t={t}>
+        <Page pageNum={190} totalPages={totalPages} title={t.sections.n7} t={t}>
            <div className="space-y-8">
               <section>
                  <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">IP ADRESİ COĞRAFİ KONUM VE ALTYAPI ANALİZİ</h4>
@@ -857,7 +801,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={210} title={t.sections.n8} t={t}>
+        <Page pageNum={210} totalPages={totalPages} title={t.sections.n8} t={t}>
            <div className="space-y-8">
               <section>
                  <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">ALİENVAULT OTX — IP REPUTATION CHECK</h4>
@@ -885,7 +829,7 @@ const FullFormalReport = () => {
 
 
         {methodologyChunks.map((chunk, idx) => (
-           <Page key={`meth-${idx}`} pageNum={150 + idx} title={`METODOLOJİ — DENETİM PROSEKÜRÜ #${idx + 1}`} t={t}>
+           <Page key={`meth-${idx}`} pageNum={220 + idx} totalPages={totalPages} title={`METODOLOJİ — DENETİM PROSEDÜRÜ #${idx + 1}`} t={t}>
               <div className="space-y-12">
                  {chunk.map((m, i) => (
                     <div key={i} className="space-y-8 animate-in fade-in slide-in-from-left-4">
@@ -941,7 +885,7 @@ const FullFormalReport = () => {
            </Page>
         ))}
 
-        <Page pageNum={220} title="BÖLÜM VIII: TEKNİK BULGU VE KANIT DOSYASI" t={t}>
+        <Page pageNum={235} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP)" t={t}>
            <div className="space-y-6">
               <div className="bg-red-900/5 border-2 border-red-900/10 p-8 rounded-[2.5rem] mb-8">
                  <div className="flex items-center gap-4 mb-4">
@@ -989,7 +933,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <Page pageNum={248} title="YASAL BİLGİLENDİRME VE SORUMLULUK" t={t}>
+        <Page pageNum={248} totalPages={totalPages} title="YASAL BİLGİLENDİRME VE SORUMLULUK" t={t}>
            <div className="space-y-6">
               {clauses.map((c, i) => (
                  <div key={i} className="border-b border-slate-100 pb-4">
@@ -1003,7 +947,7 @@ const FullFormalReport = () => {
            </div>
         </Page>
 
-        <FinalPage pageNum={250} t={t} siteName={siteName} metadata={metadata} />
+        <FinalPage pageNum={250} totalPages={totalPages} t={t} siteName={siteName} metadata={metadata} />
 
       </div>
 
