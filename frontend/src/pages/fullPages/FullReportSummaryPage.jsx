@@ -3,7 +3,7 @@ import { Page } from './FullReportComponents';
 import { ShieldCheck, ShieldAlert } from 'lucide-react';
 
 export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
-  const { grade, categoricalHealth, findings, score } = auditData;
+  const { grade, categoricalHealth, findings } = auditData;
   const isTr = t.classification === 'GİZLİ' || true; // Fallback to TR
 
   // Harf Renkleri
