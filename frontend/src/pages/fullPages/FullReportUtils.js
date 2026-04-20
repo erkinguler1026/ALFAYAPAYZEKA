@@ -35,7 +35,8 @@ export function calculatePageLayout(auditData) {
   layout.cover  = ++p; // 1  — Kapak Sayfası
   layout.toc    = ++p; // 2  — İçindekiler
   layout.cert   = ++p; // 3  — Güvenlik Sertifikasyon Beyanı
-  layout.s1     = ++p; // 4  — IP Çözümleme
+  layout.summary= ++p; // 4  — Risk Score & ALFA YAPAY ZEKA Özeti
+  layout.s1     = ++p; // 5  — IP Çözümleme
   layout.s2     = ++p; // 5  — Port Tarama
   layout.s3     = ++p; // 6  — HTTP Başlıkları
   layout.s4     = ++p; // 7  — SSL/TLS Analizi

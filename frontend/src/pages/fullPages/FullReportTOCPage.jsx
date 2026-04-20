@@ -13,6 +13,7 @@ export const TableOfContents = ({ t, layout }) => {
   const fmt = (n) => String(n ?? '?').padStart(3, '0');
 
   const items = [
+    { title: "YÖNETİCİ ÖZETİ: RISK SCORE & ALFA YAPAY ZEKA", page: layout?.summary },
     { title: t.sections.s1,           page: layout?.s1 },
     { title: t.sections.s2,           page: layout?.s2 },
     { title: t.sections.s3,           page: layout?.s3 },

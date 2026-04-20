@@ -8,6 +8,7 @@ import { TableOfContents } from './FullReportTOCPage';
 import { StandartPages } from './FullReportStandartPage';
 import { NextGenPages } from './FullReportNextGenPage';
 import { LastPages } from './FullReportLastPage';
+import { SummaryPage } from './FullReportSummaryPage';
 import { calculatePageLayout } from './FullReportUtils';
 
 /**
@@ -205,6 +206,9 @@ const FullFormalReport = () => {
           {/* PART 1: FIRST IMPRESSIONS */}
           <CoverPage siteName={siteName} t={t} metadata={metadata} totalPages={totalPages} />
           <TableOfContents t={t} layout={layout} />
+
+          {/* PART 1.5: EXECUTIVE SUMMARY */}
+          <SummaryPage auditData={auditData} layout={layout} t={t} totalPages={totalPages} />
 
           {/* PART 2: STANDART FORENSIC (S1-S6) */}
           <StandartPages auditData={auditData} t={t} layout={layout} totalPages={totalPages} />
