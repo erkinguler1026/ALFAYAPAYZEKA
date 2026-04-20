@@ -39,12 +39,12 @@ export const TableOfContents = ({ t, layout }) => {
     <>
       {/* PAGE 2: İÇİNDEKİLER LİSTESİ */}
       <Page pageNum={layout?.toc} totalPages={totalPages} title={t.tocTitle} t={t}>
-        <div className="space-y-12">
-          <p className="text-gray-500 italic text-base leading-relaxed bg-slate-50 p-8 rounded-[2.5rem] border-l-8 border-primary shadow-sm text-left">
+        <div className="space-y-6">
+          <p className="text-gray-500 italic text-[15px] leading-relaxed bg-slate-50 px-8 py-5 rounded-[2.5rem] border-l-8 border-primary shadow-sm text-left">
             {t.tocDesc}
           </p>
 
-          <div className="grid grid-cols-1 gap-4 px-4 text-left">
+          <div className="grid grid-cols-1 gap-3 px-4 text-left mt-[-10px]">
             {items.map((item, idx) => (
               <div key={idx} className="flex items-center group">
                 <span className="font-black tracking-tighter text-slate-700 uppercase group-hover:text-primary transition-colors">
