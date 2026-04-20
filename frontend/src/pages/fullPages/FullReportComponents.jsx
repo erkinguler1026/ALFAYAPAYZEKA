@@ -73,8 +73,8 @@ export const Page = ({ children, pageNum, title, isCover, t }) => (
     </div>
 
     {!isCover && (
-      <div className="absolute bottom-[10mm] left-[20mm] right-[20mm] border-t border-gray-200 pt-3 flex justify-between items-center text-[8px] text-gray-400 font-bold uppercase tracking-widest">
-        <span>{t.footer?.meta}</span>
+      <div className="absolute bottom-[10mm] left-[20mm] right-[20mm] border-t border-gray-200 pt-3 flex justify-between items-center text-[8px] text-slate-300 font-bold">
+        <span className="tracking-widest">{t.footer?.meta}</span>
         <div className="flex items-center gap-2">
            <ShieldCheck size={12} className="text-primary" />
            <span>{t.footer?.copyright}</span>
