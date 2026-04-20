@@ -46,7 +46,6 @@ export const TableOfContents = ({ t, totalPages }) => {
               { id: "LAST", title: t.items?.final || "RESMİ ONAY VE DİJİTAL İMZA", page: "250" },
             ].map((item) => (
               <div key={item.id} className="flex items-center group">
-                <span className="font-mono text-primary font-black opacity-40 group-hover:opacity-100 transition-opacity w-12">{item.id}</span>
                 <span className="font-black tracking-tighter text-slate-700 uppercase group-hover:text-primary transition-colors">{item.title}</span>
                 <div className="flex-1 mx-4 border-b border-dotted border-slate-200" />
                 <span className="font-mono font-black text-slate-400 group-hover:text-slate-900 transition-colors text-right">PAG. {item.page}</span>
@@ -60,7 +59,7 @@ export const TableOfContents = ({ t, totalPages }) => {
       <Page pageNum={3} totalPages={totalPages} title="GÜVENLİK SERTİFİKASYONU BEYANI" t={t}>
         <div className="flex items-center justify-center h-full pb-[150px]">
           <div className="p-10 bg-slate-50 border border-slate-200 rounded-[3rem] relative overflow-hidden shadow-sm animate-in fade-in zoom-in duration-700 w-full">
-             <ShieldCheck className="absolute -top-4 -right-4 text-primary opacity-5" size={160} />
+             <ShieldCheck className="absolute -top-4 -right-4 text-primary opacity-5 print:!opacity-5 print:text-slate-200" style={{ opacity: 0.05 }} size={110} strokeWidth={1} />
              <div className="relative z-10 text-left">
                 <h4 className="text-slate-900 text-2xl font-black mb-4 uppercase tracking-tighter">GÜVENLİK SERTİFİKASYONU VE BÜTÜNLÜK</h4>
                 <p className="text-slate-500 text-sm leading-relaxed font-bold italic pr-20">

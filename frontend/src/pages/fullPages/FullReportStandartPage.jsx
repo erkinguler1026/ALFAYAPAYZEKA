@@ -104,8 +104,8 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HASSAS DOSYA VE DİZİN İFŞA TARAMASI</h4>
                <div className="p-10 bg-red-50/30 border-2 border-red-100 rounded-[3rem] shadow-sm relative overflow-hidden">
-                  <div className="absolute top-0 right-0 p-8 opacity-5">
-                     <Search size={150} className="text-red-900" />
+                  <div className="absolute top-0 right-0 p-8 opacity-5 print:!opacity-5" style={{ opacity: 0.05 }}>
+                     <Search size={105} className="text-red-900 print:text-red-200" strokeWidth={1} />
                   </div>
                   <div className="relative z-10 space-y-6">
                      <h5 className="text-slate-900 text-xl font-black uppercase tracking-tighter">V3.0 PATH BRUTEFORCE SONUÇLARI</h5>
@@ -167,8 +167,8 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
       <Page pageNum={115} totalPages={totalPages} title={t.sections.n2} t={t}>
          <div className="space-y-8">
             <div className="flex items-center gap-6 p-10 bg-slate-50 border border-slate-100 text-slate-800 rounded-[3rem] shadow-sm relative overflow-hidden">
-               <div className="absolute top-0 right-0 p-4 opacity-5">
-                  <Shield size={120} />
+               <div className="absolute top-0 right-0 p-4 opacity-5 print:!opacity-5" style={{ opacity: 0.05 }}>
+                  <Shield size={85} className="text-slate-500 print:text-slate-200" strokeWidth={1} />
                </div>
                <div className="text-6xl font-black text-blue-600">{sslLabs.grade || 'T'}</div>
                <div>
