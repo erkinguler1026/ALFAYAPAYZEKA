@@ -80,9 +80,18 @@ Sistemde tekrarlayan görevleri hızlandırmak için aşağıdaki komut kalıpla
   4. Kullanıcıya her şeyin güvene alındığına dair bitirme onayı verir.
 
 ---
-*Son Güncelleme: 16.04.2026*
-*Durum: %100 Senkronize Dinamik Pentest Raporlama Sistemi Tamamlandı. Full Formal PDF raporunda hardcoded tüm simülasyon verileri iptal edilerek, API'den gelen canlı veriler (N2 GeoIP ve SSL Handshake Logs dahil) sisteme entegre edildi. Lint hataları temizlendi.*
+---
+*Son Güncelleme: 20.04.2026*
 
+## 9. REVİZYON 10 (20 Nisan 2026) - Mizanpaj, Tipografi ve Adli Bilişim Düzeltmeleri
+1. **CSS Uppercase & Türkçe Karakter (İ/I) Optimizasyonları:** İngilizce teknik terimlerin (Örn: *SECURITY INTELLIGENCE, DOMAIN*) CSS üzerinde hatalı (noktalı) `İ` ve `ı` harfiyle render edilmesini engellemek için tüm bu terimler doğrudan JS içinde BÜYÜK HARFLE hardcode edilmiştir. Yasal uyarıdaki `Hash Cracking` -> `HASH CRACKING` gibi.
+2. **Yasal Metin (Legal Disclaimer) Revizyonları:** Rapor son sayfasındaki yasal mühür metni adli formata uygun olarak *"Raporun tüm sayfaları dijital olarak şifrelenmiştir"* şeklinde değiştirildi.
+3. **TOC (İçindekiler) A4 Formatı Taşma Koruması:** `FullReportTOCPage.jsx` sayfasındaki son çerçeve ("Güvenlik Sertifikasyonu") sayfa limitini aştığı için `Sayfa 003` olarak ayrı ve özel bir konuma merkeze alınarak taşınmıştır. Standardizasyon ismi `ISO 27001:2022 BGYS` şeklinde profesyonelleştirildi.
+4. **Target URL (Dinamik Format):** IP Çözümleme bölümündeki çıplak domain adı, `https://www.ornek.com` şeklinde (Dinamik URL) formatlanmıştır.
+5. **JSON Dump (Sayfa 235) Taşma Çözümü:** Sayfa altında footer sınırını ihlal eden `<pre>` Terminal çerçevesinin dış/iç boşlukları (`mb`, `p`) kısılarak ve `max-h-[460px]` seviyesine çekilerek tam bir milimetrik mizanpaj sağlanmıştır.
+6. **Güvenli Arşivleme:** Numaralandırma kontrolünden önce `YEDEK_R10_20042026.zip` isimli projenin `node_modules` ve `.git` barındırmayan %100 sağlıklı tam arşiv backup'u alınmıştır.
 
-MGK (MÜŞTERİ GÖZÜYLE KONTROL) İLKESİ: 
+---
+
+**MGK (MÜŞTERİ GÖZÜYLE KONTROL) İLKESİ:** 
 UI, CSS ve içerik düzenlemeleri yaparken her zaman "müşteri/son kullanıcı bunu nasıl görür?" vizyonuyla hareket et. Kullanıcının uyarısını beklemeden; dil/karakter çeviri hatalarını (örneğin CSS uppercase kaynaklı 'i' -> 'İ' sorunları), hizalama kaçıklıklarını veya okunaksız renk seçimlerini proaktif analiz et ve baştan mükemmelleştir. Müşteri "olmamış" demeden sen işi parlat.
