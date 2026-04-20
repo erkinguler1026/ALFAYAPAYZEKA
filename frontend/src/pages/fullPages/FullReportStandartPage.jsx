@@ -3,7 +3,7 @@ import { ShieldAlert, Search, Shield, Cpu } from 'lucide-react';
 import { Page, DataItem } from './FullReportComponents';
 import { chunkArray } from './FullReportUtils';
 
-export const StandartPages = ({ auditData, t, totalPages }) => {
+export const StandartPages = ({ auditData, t, layout, totalPages }) => {
   const subdomains = auditData.subdomainList || [];
   const ports = auditData.network?.ports || [];
   const sensitive = auditData.sensitiveData || {};
@@ -15,7 +15,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
   return (
     <>
       {/* S1: IP RESOLUTION */}
-      <Page pageNum={10} totalPages={totalPages} title={t.sections.s1} t={t}>
+      <Page pageNum={layout?.s1} totalPages={totalPages} title={t.sections.s1} t={t}>
          <div className="space-y-10">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">AĞ ÇÖZÜMLEME ANALİZİ</h4>
@@ -40,7 +40,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
       </Page>
 
       {/* S2: PORT SCAN */}
-      <Page pageNum={25} totalPages={totalPages} title={t.sections.s3} t={t}>
+      <Page pageNum={layout?.s2} totalPages={totalPages} title={t.sections.s3} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TCP STEALTH PORT SCAN (17 KRİTİK NOKTA)</h4>
@@ -78,7 +78,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
       </Page>
 
       {/* S3: HEADERS */}
-      <Page pageNum={40} totalPages={totalPages} title={t.sections.s5} t={t}>
+      <Page pageNum={layout?.s3} totalPages={totalPages} title={t.sections.s5} t={t}>
          <div className="space-y-8">
             <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HTTP RESPONSE HEADER AUDIT</h4>
             <p className="text-[12px] text-slate-500 italic mb-6">Sunucu tarafından gönderilen güvenlik başlıklarının varlığı ve konfigürasyon doğruluğu denetlenmiştir.</p>
@@ -99,7 +99,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
       </Page>
 
       {/* S4: SENSITIVE PATHS */}
-      <Page pageNum={55} totalPages={totalPages} title={t.sections.s8} t={t}>
+      <Page pageNum={layout?.s4} totalPages={totalPages} title={t.sections.s8} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HASSAS DOSYA VE DİZİN İFŞA TARAMASI</h4>
@@ -135,7 +135,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
 
       {/* S5: SUBDOMAINS (MULTIPLE PAGES) */}
       {subChunks.slice(0, 40).map((chunk, idx) => (
-         <Page key={`sub-${idx}`} pageNum={70 + idx} totalPages={totalPages} title={`BÖLÜM V: ALT ALAN ADI KEŞİF DÖKÜMÜ — PART ${idx + 1}`} t={t}>
+         <Page key={`sub-${idx}`} pageNum={(layout?.s5 ?? 8) + idx} totalPages={totalPages} title={`BÖLÜM V: ALT ALAN ADI KEŞİF DÖKÜMÜ — PART ${idx + 1}`} t={t}>
             <div className="space-y-4">
                <div className="bg-slate-50 p-4 border-l-4 border-primary rounded-r-2xl">
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.verified}</p>
@@ -164,7 +164,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
       ))}
 
       {/* S6: SSL LABS */}
-      <Page pageNum={115} totalPages={totalPages} title={t.sections.n2} t={t}>
+      <Page pageNum={layout?.s6} totalPages={totalPages} title={t.sections.n2} t={t}>
          <div className="space-y-8">
             <div className="flex items-center gap-6 p-10 bg-slate-50 border border-slate-100 text-slate-800 rounded-[3rem] shadow-sm relative overflow-hidden">
                <div className="absolute top-0 right-0 p-4 opacity-5 print:!opacity-5" style={{ opacity: 0.05 }}>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Database, Shield, ShieldAlert, ShieldCheck, Cpu } from 'lucide-react';
 import { Page, DataItem } from './FullReportComponents';
 
-export const NextGenPages = ({ auditData, t, totalPages }) => {
+export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
   const whois = auditData.whoisData || {};
   const cookies = auditData.cookies || [];
   const cors = auditData.corsData || {};
@@ -13,7 +13,7 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
   return (
     <>
       {/* S7: WHOIS & RDAP */}
-      <Page pageNum={130} totalPages={totalPages} title={t.sections.n3} t={t}>
+      <Page pageNum={layout?.s7} totalPages={totalPages} title={t.sections.n3} t={t}>
          <div className="space-y-10">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
@@ -51,7 +51,7 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
       </Page>
 
       {/* S8: COOKIE SECURITY */}
-      <Page pageNum={145} totalPages={totalPages} title={t.sections.n4} t={t}>
+      <Page pageNum={layout?.s8} totalPages={totalPages} title={t.sections.n4} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">COOKIE (ÇEREZ) GÜVENLİK ANALİZİ</h4>
@@ -94,7 +94,7 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
       </Page>
 
       {/* S9: CORS POLICY */}
-      <Page pageNum={160} totalPages={totalPages} title={t.sections.n5} t={t}>
+      <Page pageNum={layout?.s9} totalPages={totalPages} title={t.sections.n5} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">CORS POLİTİKASI VE API GÜVENLİĞİ</h4>
@@ -120,7 +120,7 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
       </Page>
 
       {/* S10: TECH STACK */}
-      <Page pageNum={175} totalPages={totalPages} title={t.sections.n6} t={t}>
+      <Page pageNum={layout?.s10} totalPages={totalPages} title={t.sections.n6} t={t}>
          <div className="space-y-8">
             <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TEKNOLOJİ PARMAK İZİ TESPİTİ (TECH STACK)</h4>
             <div className="grid grid-cols-1 gap-4">
@@ -146,7 +146,7 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
       </Page>
 
       {/* S11: GEO-IP ANALYSIS */}
-      <Page pageNum={190} totalPages={totalPages} title={t.sections.n7} t={t}>
+      <Page pageNum={layout?.s11} totalPages={totalPages} title={t.sections.n7} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">IP ADRESİ COĞRAFİ KONUM VE ALTYAPI ANALİZİ</h4>
@@ -184,7 +184,7 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
       </Page>
 
       {/* S12: IP REPUTATION */}
-      <Page pageNum={210} totalPages={totalPages} title={t.sections.n8} t={t}>
+      <Page pageNum={layout?.s12} totalPages={totalPages} title={t.sections.n8} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">ALIENVAULT OTX — IP REPUTATION CHECK</h4>

@@ -4,7 +4,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import { Page, DataItem } from './FullReportComponents';
 import { chunkArray } from './FullReportUtils';
 
-export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
+export const LastPages = ({ auditData, t, layout, totalPages, siteName, metadata }) => {
   const methodology = auditData.toolMethodology || [];
   const methodologyChunks = chunkArray(methodology, 1);
   const sslLabs = auditData.sslGrade || {};
@@ -17,7 +17,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
     <>
       {/* METHODOLOGY PAGES */}
       {methodologyChunks.map((chunk, idx) => (
-         <Page key={`meth-${idx}`} pageNum={220 + idx} totalPages={totalPages} title={`METODOLOJİ — DENETİM PROSEDÜRÜ #${idx + 1}`} t={t}>
+         <Page key={`meth-${idx}`} pageNum={(layout?.meth ?? 1) + idx} totalPages={totalPages} title={`METODOLOJİ — DENETİM PROSEDÜRÜ #${idx + 1}`} t={t}>
             <div className="space-y-12">
                {chunk.map((m, i) => (
                   <div key={i} className="space-y-8 animate-in fade-in slide-in-from-left-4">
@@ -74,7 +74,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
       ))}
 
       {/* TECHNICAL DUMP - PART 1 */}
-      <Page pageNum={235} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 1" t={t}>
+      <Page pageNum={layout?.dump1} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 1" t={t}>
          <div className="space-y-6">
             <div className="bg-red-900/5 border-2 border-red-900/10 p-6 rounded-[2.5rem] mb-4">
                <div className="flex items-center gap-4 mb-4">
@@ -108,7 +108,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
       </Page>
 
       {/* TECHNICAL DUMP - PART 2 */}
-      <Page pageNum={236} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 2" t={t}>
+      <Page pageNum={layout?.dump2} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 2" t={t}>
          <div className="space-y-8">
             <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 shadow-sm relative overflow-hidden group">
                <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -131,7 +131,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
       </Page>
 
       {/* LEGAL PAGE */}
-      <Page pageNum={248} totalPages={totalPages} title="YASAL BİLGİLENDİRME VE SORUMLULUK" t={t}>
+      <Page pageNum={layout?.legal} totalPages={totalPages} title="YASAL BİLGİLENDİRME VE SORUMLULUK" t={t}>
          <div className="space-y-6">
             {clauses.map((c, i) => (
                <div key={i} className="border-b border-slate-100 pb-4">
@@ -149,7 +149,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
           FINAL ONAY SAYFASI (Page 250) 
           Raporun en son sayfasıdır. Burada denetim doğrulaması, QR Kod ve resmî imza yer alır.
       */}
-      <Page pageNum={250} totalPages={totalPages} title={t.items?.final} t={t}>
+      <Page pageNum={layout?.final} totalPages={totalPages} title={t.items?.final} t={t}>
         <div className="h-full flex flex-col justify-between pt-12 pb-6">
            <div className="space-y-[40px]">
               {/* 

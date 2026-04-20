@@ -8,6 +8,7 @@ import { TableOfContents } from './FullReportTOCPage';
 import { StandartPages } from './FullReportStandartPage';
 import { NextGenPages } from './FullReportNextGenPage';
 import { LastPages } from './FullReportLastPage';
+import { calculatePageLayout } from './FullReportUtils';
 
 /**
  * FullFormalReport — Modular Orchestrator (V3 - Forensic Edition)
@@ -174,7 +175,9 @@ const FullFormalReport = () => {
     );
   }
 
-  const totalPages = 250;
+  // Gerçek veriyle sayfa düzenini hesapla
+  const layout = calculatePageLayout(auditData);
+  const totalPages = layout.total;
 
   return (
     <div className="bg-gray-200 min-h-screen py-12 print:py-0 font-sans print:bg-white text-black text-left overflow-x-hidden transition-all">
@@ -182,35 +185,29 @@ const FullFormalReport = () => {
       <style>
         {`
           @media print {
-            @page { 
-              margin: 0; 
-            }
-            body { 
-              margin: 0;
-              -webkit-print-color-adjust: exact;
-            }
-            /* PDF linkleri ve tarihleri gizlemeye zorla */
+            @page { margin: 0; }
+            body { margin: 0; -webkit-print-color-adjust: exact; }
             header, footer { display: none !important; }
           }
         `}
       </style>
 
       <div className="max-w-[210mm] mx-auto shadow-[0_50px_100px_rgba(0,0,0,0.15)] bg-white print:shadow-none">
-        
-        {/* PART 1: FIRST IMPRESSIONS */}
-        <CoverPage siteName={siteName} t={t} metadata={metadata} totalPages={totalPages} />
-        <TableOfContents t={t} totalPages={totalPages} />
 
-        {/* PART 2: STANDART FORENSIC (S1-S6) */}
-        <StandartPages auditData={auditData} t={t} totalPages={totalPages} />
+          {/* PART 1: FIRST IMPRESSIONS */}
+          <CoverPage siteName={siteName} t={t} metadata={metadata} totalPages={totalPages} />
+          <TableOfContents t={t} layout={layout} />
 
-        {/* PART 3: NEXT-GEN ANALYTICS (S7-S12) */}
-        <NextGenPages auditData={auditData} t={t} totalPages={totalPages} />
+          {/* PART 2: STANDART FORENSIC (S1-S6) */}
+          <StandartPages auditData={auditData} t={t} layout={layout} totalPages={totalPages} />
 
-        {/* PART 4: FINALIZATION & SIGNATURE */}
-        <LastPages auditData={auditData} t={t} totalPages={totalPages} siteName={siteName} metadata={metadata} />
+          {/* PART 3: NEXT-GEN ANALYTICS (S7-S12) */}
+          <NextGenPages auditData={auditData} t={t} layout={layout} totalPages={totalPages} />
 
-      </div>
+          {/* PART 4: FINALIZATION & SIGNATURE */}
+          <LastPages auditData={auditData} t={t} layout={layout} totalPages={totalPages} siteName={siteName} metadata={metadata} />
+
+        </div>
 
       {/* Floating Controls */}
       <div className="fixed bottom-10 right-10 flex flex-col gap-4 print:hidden z-50 animate-in fade-in slide-in-from-bottom-5">
