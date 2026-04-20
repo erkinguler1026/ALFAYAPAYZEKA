@@ -140,7 +140,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
                </div>
             ))}
             <div className="mt-12 p-8 bg-slate-50 rounded-[2rem] border border-slate-100 italic text-[10px] text-slate-400 font-bold leading-relaxed">
-               "Bu rapor ALFA YAPAY ZEKA Teknolojileri tarafından otomatik olarak üretilmiştir. Herhangi bir düzenleme veya manipülasyon raporun kurguladığı dijital hash imzasını (Integrity Hash) geçersiz kılar. Raporun tüm sayfaları mühürlüdür."
+               "Bu rapor ALFA YAPAY ZEKA Teknolojileri tarafından otomatik olarak üretilmiştir. Herhangi bir düzenleme veya manipülasyon raporun kurguladığı dijital hash imzasını (Integrity Hash) geçersiz kılar. Raporun tüm sayfaları dijital olarak şifrelenmiştir."
             </div>
          </div>
       </Page>
@@ -166,10 +166,10 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
                  <div className="flex items-center gap-8">
                     <ShieldCheck size={40} className="text-green-600" />
                     <div className="font-mono text-[9px] text-slate-500 uppercase leading-loose text-left">
-                       <p>Engine: ALFA-XRAY-V3.0 (Security Intelligence Core)</p>
-                       <p>Target: https://www.{siteName.toLowerCase()}</p>
-                       <p>Integrity Hash: {metadata.integrityHash}</p>
-                       <p>Verification Date: {metadata.isoDate}</p>
+                       <p>ENGINE: ALFA-XRAY-V3.0 (SECURITY INTELLIGENCE CORE)</p>
+                       <p>TARGET: HTTPS://WWW.{siteName.toUpperCase()}</p>
+                       <p>INTEGRITY HASH: {metadata.integrityHash}</p>
+                       <p>VERIFICATION DATE: {metadata.isoDate}</p>
                     </div>
                  </div>
               </div>
@@ -215,7 +215,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
                  <p className="text-[8px] text-slate-300 font-mono uppercase tracking-[0.2em]">SYS_NODE: ALFA-PRIMARY-XRAY-TX-CORE</p>
               </div>
               <div className="px-3 py-1 bg-slate-50 border rounded text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                 End of Dossier — Page 250
+                 END OF DOSSIER — PAGE 250
               </div>
            </div>
         </div>
