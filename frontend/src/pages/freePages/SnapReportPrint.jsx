@@ -67,6 +67,12 @@ const SnapReportPrint = () => {
         const siteParam = searchParams.get('site');
         
         let targetResults = null;
+        /* 
+           MÜKKERER YÜKLEME KONTROLÜ (CACHING):
+           Rapor sayfası her açıldığında API'ye tekrar gitmek yerine, SnapScoreCard.jsx tarafından 
+           yazılan sessionStorage verisini kontrol eder. Bu sayede 32 saniyelik tarama animasyonları 
+           atlatılarak rapor saniyeler içinde hazır hale gelir.
+        */
         const cached = sessionStorage.getItem(`alfa_scan_${token}`);
         
         if (cached) {
@@ -217,13 +223,24 @@ const SnapReportPrint = () => {
         @media print {
           @page { size: 210mm 297mm; margin: 0; }
           body { background: white; }
+          /* Yazdırma modunda A4 boyutlarını zorla ve marjları sıfırla */
           .a4-page { width: 210mm; height: 297mm; margin: 0; border: none; box-shadow: none; break-after: page; }
         }
+        /* 
+           A4 SAYFA DÜZENİ:
+           - width/height: 210x297mm (Uluslararası A4 Standartı)
+           - padding: 15mm (Tüm sayfanın ana kenar boşluğu. Çerçeve buradan başlar.)
+        */
         .a4-page { width: 210mm; height: 297mm; background: white; margin: 0 auto 20px auto; padding: 15mm; display: flex; flex-direction: column; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.1); overflow: hidden; }
       `}</style>
 
       {/* PAGE 1: COVER */}
       <div className="a4-page">
+        {/* 
+            GÖRSEL ÇERÇEVE (DOUBLE BORDER):
+            - border-[10px] border-double: Snap ve Full raporlarının imza tasarımı. 
+            - Bu div, 15mm'lik sayfa padding'inden sonra başlar.
+        */}
         <div className="w-full h-full border-[10px] border-double border-slate-100 flex flex-col items-center justify-between p-12">
            <div className="text-center space-y-4">
               <ShieldCheck size={80} className="text-blue-600 mx-auto" />

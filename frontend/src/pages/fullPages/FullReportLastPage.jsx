@@ -137,15 +137,18 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
          </div>
       </Page>
 
-      {/* FINAL ONAY PAGE */}
+      {/* 
+          FINAL ONAY SAYFASI (Page 250) 
+          Raporun en son sayfasıdır. Burada denetim doğrulaması, QR Kod ve resmî imza yer alır.
+      */}
       <Page pageNum={250} totalPages={totalPages} title={t.items?.final} t={t}>
         <div className="h-full flex flex-col justify-between py-12">
            <div className="space-y-[40px]">
-              <div className="flex items-center gap-4 border-b-4 border-primary pb-4">
-                 <Shield size={48} className="text-primary" />
-                 <h3 className="text-4xl font-black uppercase tracking-tighter">{t.items?.final}</h3>
-              </div>
-              
+              {/* 
+                  DİNAMİK METİNLER (Translation Object):
+                  Aşağıdaki {t.signatureDisclaimer} ifadesi dil seçimine göre (TR/EN) otomatik dolar. 
+                  Bu metinler doğrudan burada yazılı değildir, merkezi çeviri dosyasından beslenir.
+              */}
               <p className="text-lg text-gray-600 leading-relaxed italic border-l-4 border-slate-200 pl-6 pr-12 text-left">
                  {t.signatureDisclaimer}
               </p>
@@ -163,22 +166,13 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
                  </div>
               </div>
               
-              <div className="flex items-center justify-center mt-8 gap-[60px]">
-                 <div className="flex flex-col items-center justify-center relative">
-                    <div className="p-8 border-[6px] border-double border-red-600 rounded-[2rem] bg-transparent flex flex-col items-center justify-center space-y-4 shadow-sm transform -rotate-12 scale-90 mix-blend-multiply opacity-80">
-                       <ShieldCheck size={50} className="text-red-600" />
-                       <div className="text-center">
-                          <p className="text-xl font-black uppercase tracking-[0.3em] text-red-600">ALFA SECURED</p>
-                          <p className="text-[8px] font-bold text-red-600 mt-2 uppercase italic tracking-[0.4em]">Pentest Methodology Verified</p>
-                       </div>
-                    </div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest italic opacity-40 absolute -bottom-16">Official System Security Identification</p>
-                 </div>
-    
+              <div className="flex items-center justify-start mt-4">
+                 {/* 
+                     QR-CODE BÖLÜMÜ:
+                     QRCodeSVG bileşeni raporun dijital doğrulama linkini ve özet verilerini 
+                     içeren karekodun teknik olarak üretildiği yerdir.
+                 */}
                  <div className="bg-white border-2 border-slate-900 p-4 rounded-[1.5rem] shadow-xl flex items-center justify-center relative group">
-                    <div className="absolute -top-3 -right-3 bg-primary text-white p-1 rounded-full shadow-lg">
-                       <QrCode size={16} />
-                    </div>
                     <QRCodeSVG 
                       value={`TGT: www.${siteName.toLowerCase()}\nHASH: ${metadata.integrityHash.slice(0, 20)}...\nDATE: ${metadata.isoDate}`}
                       size={120}
@@ -189,12 +183,17 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
               </div>
            </div>
     
-           <div className="flex justify-end pt-12 pr-12">
+           {/* 
+               İmza ve Unvan Alanı:
+               Sayfa taşmasını önlemek için 'pt-4' (padding-top) kullanılarak yukarı çekilmiştir. 
+               Görselliği bozan eski 'STAMP' (Damga) yapısı buradan kaldırılmıştır.
+           */}
+           <div className="flex justify-end -mt-16 pr-12">
               <div className="text-right flex flex-col items-end">
                  <div className="relative inline-block z-10 -mb-12 mr-6">
                     <img src="/CLEAN_SIGNATURE_EG_FINAL.png" alt="Signature" className="h-[120px] mix-blend-multiply brightness-90 contrast-125" />
                  </div>
-                 <div className="space-y-1 relative z-0 pt-4 border-t-2 border-slate-100 min-w-[250px]">
+                 <div className="space-y-1 relative z-0 pt-4 min-w-[250px]">
                     <p className="text-3xl font-black tracking-tighter leading-none text-slate-900">{t.signatureName}</p>
                     <p className="text-base font-bold text-primary mt-1">{t.signatureHead}</p>
                     <p className="text-[10px] font-black text-slate-300 uppercase tracking-[0.2em] mt-1">{t.signatureUnit}</p>

@@ -14,16 +14,7 @@ import { Page } from './FullReportComponents';
 export const CoverPage = ({ siteName, t, metadata, totalPages }) => {
   return (
     <Page pageNum={1} totalPages={totalPages} isCover t={t}>
-       {/* 
-          Görseldeki Çift Border Yapısı (Double Border)
-          - pointer-events-none: İçerik seçimini engellememesi için.
-          - absolute inset: Sayfa sınırlarına göre hizalama.
-       */}
-       <div className="absolute inset-4 border border-slate-300 rounded-sm pointer-events-none z-50" />
-       <div className="absolute inset-6 border border-slate-300/60 rounded-sm pointer-events-none z-50" />
-
-       {/* Ana İçerik Konteynırı: Snap-Report simetrisini yakalamak için h-full ve justify-between kullanıldı */}
-       <div className="h-full flex flex-col items-center justify-between py-24 relative bg-white w-full z-10 px-12">
+       <div className="w-full h-full border-[10px] border-double border-slate-100 flex flex-col items-center justify-between p-12 relative bg-white w-full z-10">
           
           {/* 1. ÜST GRUP: Logo ve Başlık */}
           <div className="flex flex-col items-center mt-4">

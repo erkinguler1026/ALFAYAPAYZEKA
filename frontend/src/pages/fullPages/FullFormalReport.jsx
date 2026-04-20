@@ -88,8 +88,8 @@ const FullFormalReport = () => {
       introText: `Bu belge, ${siteName} altyapısının siber güvenlik dayanıklılığını ölçmek amacıyla ALFA standartlarında üretilmiştir.`,
       tableHeaders: { asset: "Teknik Varlık", methodology: "Metodoloji", status: "Bulgu Durumu" },
       verified: "Taranmış / Doğrulanmış",
-      signatureHead: "Siber Güvenlik Başkanı",
-      signatureUnit: "ALFA Siber Analiz Ünitesi",
+      signatureHead: "Siber Güvenlik Uzmanı",
+      signatureUnit: "ALFA SİBER GÜVENLİK BİRİMİ",
       signatureName: "Erkin GÜLER",
       signatureDisclaimer: "Bu belge dijital olarak imzalanmış olup, teknik bulguların doğruluğu ALFA YAPAY ZEKA laboratuvarları tarafından onaylanmıştır.",
       sections: {
