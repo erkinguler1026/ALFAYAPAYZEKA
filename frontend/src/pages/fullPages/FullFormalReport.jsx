@@ -104,7 +104,7 @@ const FullFormalReport = () => {
         n5: "BÖLÜM IX: CORS POLİTİKASI VE API GÜVENLİĞİ (S9)",
         n6: "BÖLÜM X: TEKNOLOJİ PARMAK İZİ TESPİTİ (S10)",
         n7: "BÖLÜM XI: GEO-IP KONUM VE ISP ANALİZİ (S11)",
-        n8: "BÖLÜM XII: IP VE DOMAİN İTİBAR KONTROLÜ (S12)"
+        n8: "BÖLÜM XII: IP VE DOMAIN İTİBAR KONTROLÜ (S12)"
       },
       footer: {
         meta: `www.${siteName.toLowerCase()} — ADLİ BİLİŞİM DENETİM DOSYASI — ALFA-V3`,
@@ -150,7 +150,7 @@ const FullFormalReport = () => {
         n3: "Section VII: WHOIS & RDAP Ownership (S7)",
         n4: "Section VIII: Cookie Security Analysis (S8)",
         n5: "Section IX: CORS Policy & API Security (S9)",
-        n6: "Section X: Technology Fingerprint (S10)",
+        n6: "Section X: Technology Fingerprinting (S10)",
         n7: "Section XI: Geo-IP & ISP Analysis (S11)",
         n8: "Section XII: IP & Domain Reputation (S12)"
       },

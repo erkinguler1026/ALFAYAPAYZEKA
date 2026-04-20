@@ -187,7 +187,7 @@ export const NextGenPages = ({ auditData, t, totalPages }) => {
       <Page pageNum={210} totalPages={totalPages} title={t.sections.n8} t={t}>
          <div className="space-y-8">
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">ALİENVAULT OTX — IP REPUTATION CHECK</h4>
+               <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">ALIENVAULT OTX — IP REPUTATION CHECK</h4>
                 <div className={`p-8 rounded-[2rem] border-2 shadow-sm ${ipReputation.isMalicious ? 'bg-red-50 border-red-200' : 'bg-green-50/50 border-green-100'}`}>
                    <div className="flex items-center gap-6">
                       <div className={`w-16 h-16 rounded-2xl flex items-center justify-center shadow-sm border ${ipReputation.isMalicious ? 'bg-red-100 text-red-600 border-red-200' : 'bg-green-100 text-green-600 border-green-200'}`}>
