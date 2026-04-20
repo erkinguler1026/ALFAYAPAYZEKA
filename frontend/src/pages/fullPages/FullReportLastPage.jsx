@@ -76,7 +76,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
       {/* TECHNICAL DUMP - PART 1 */}
       <Page pageNum={235} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 1" t={t}>
          <div className="space-y-6">
-            <div className="bg-red-900/5 border-2 border-red-900/10 p-8 rounded-[2.5rem] mb-8">
+            <div className="bg-red-900/5 border-2 border-red-900/10 p-6 rounded-[2.5rem] mb-4">
                <div className="flex items-center gap-4 mb-4">
                   <Database size={32} className="text-red-900" />
                   <h4 className="text-xl font-black text-red-900 uppercase tracking-tighter">HAM TEKNİK KANITLAR (TECHNICAL PROOF GALLERY)</h4>
@@ -87,12 +87,12 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
             </div>
 
             <div className="space-y-8">
-               <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 shadow-sm relative overflow-hidden group">
+               <section className="bg-slate-50 border border-slate-200 rounded-[2rem] p-6 shadow-sm relative overflow-hidden group">
                   <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
                      <Terminal size={100} className="text-blue-600" />
                   </div>
                   <h5 className="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">DUMP: INFRASTRUCTURE_SNAPSHOT.JSON</h5>
-                  <pre className="font-mono text-[8px] text-slate-500 leading-tight max-h-[500px] overflow-hidden text-left">
+                  <pre className="font-mono text-[8px] text-slate-500 leading-tight max-h-[460px] overflow-hidden text-left">
                      {JSON.stringify({
                         target: siteName.toLowerCase(),
                         timestamp: metadata.isoDate,
@@ -140,7 +140,7 @@ export const LastPages = ({ auditData, t, totalPages, siteName, metadata }) => {
                </div>
             ))}
             <div className="mt-12 p-8 bg-slate-50 rounded-[2rem] border border-slate-100 italic text-[10px] text-slate-400 font-bold leading-relaxed">
-               "Bu rapor ALFA YAPAY ZEKA Teknolojileri tarafından otomatik olarak üretilmiştir. Herhangi bir düzenleme veya manipülasyon raporun kurguladığı dijital hash imzasını (Integrity Hash) geçersiz kılar. Raporun tüm sayfaları dijital olarak şifrelenmiştir."
+               "Bu rapor ALFA YAPAY ZEKA Teknolojileri tarafından AI destekli olarak gerçek şartlarda üretilmiştir. Herhangi bir düzenleme veya manipülasyon raporun kurguladığı dijital hash imzasını (Integrity Hash) geçersiz kılar. Raporun tüm sayfaları dijital olarak şifrelenmiştir."
             </div>
          </div>
       </Page>
