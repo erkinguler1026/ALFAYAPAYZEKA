@@ -23,12 +23,11 @@ export const chunkArray = (arr, size) => {
  */
 export function calculatePageLayout(auditData) {
   const subdomains   = auditData?.subdomainList || [];
-  const methodology  = auditData?.toolMethodology || [];
+
 
   // Kaç "chunk" sayfası oluşacağını hesapla
   const subdChunks = Math.max(1, Math.ceil(subdomains.length / 22));
   // Subdomain 0 ise yine de 1 sayfa (no-data sayfası) render edilecek
-  const methChunks = Math.max(1, methodology.length);
 
   let p = 0;
   const layout = {};
@@ -39,19 +38,20 @@ export function calculatePageLayout(auditData) {
   layout.s1     = ++p; // 4  — IP Çözümleme
   layout.s2     = ++p; // 5  — Port Tarama
   layout.s3     = ++p; // 6  — HTTP Başlıkları
-  layout.s4     = ++p; // 7  — Hassas Dosya Tarama
-  layout.s5     = ++p; // 8  — Subdomain (ilk chunk)
-  p += subdChunks - 1; //     — Kalan subdomain chunk'ları
-  layout.s6     = ++p; //     — SSL Labs
-  layout.s7     = ++p; //     — WHOIS / RDAP
-  layout.s8     = ++p; //     — Cookie Güvenliği
-  layout.s9     = ++p; //     — CORS
-  layout.s10    = ++p; //     — Teknoloji Tespiti
-  layout.s11    = ++p; //     — Geo-IP
-  layout.s12    = ++p; //     — IP İtibar
-
-  layout.meth   = ++p; //     — Metodoloji (ilk chunk)
-  p += methChunks - 1; //     — Kalan metodoloji chunkları
+  layout.s4     = ++p; // 7  — SSL/TLS Analizi
+  layout.s5     = ++p; // 8  — Sunucu Bilgi İfşası
+  layout.s6     = ++p; // 9  — DNS E-Posta Güvenliği (SPF/DMARC)
+  layout.s7     = ++p; // 10 — Hassas Dosya Tarama
+  layout.s8     = ++p; // 11 — Subdomain (ilk chunk)
+  p += subdChunks - 1; //    — Kalan subdomain chunk'ları
+  layout.s9     = ++p; //    — SSL Labs
+  layout.s10    = ++p; //    — WHOIS / RDAP
+  layout.s11    = ++p; //    — Cookie Güvenliği
+  layout.s12    = ++p; //    — CORS
+  layout.s13    = ++p; //    — Teknoloji Tespiti
+  layout.s14    = ++p; //    — Geo-IP
+  layout.s15    = ++p; //    — IP İtibar
+  layout.s16    = ++p; //    — Sitemap Analizi
 
   layout.dump1  = ++p; //     — JSON Dump Part 1
   layout.dump2  = ++p; //     — JSON Dump Part 2

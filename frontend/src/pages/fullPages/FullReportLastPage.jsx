@@ -2,11 +2,10 @@ import React from 'react';
 import { Database, Shield, ShieldCheck, Terminal, QrCode, CheckCircle } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { Page, DataItem } from './FullReportComponents';
-import { chunkArray } from './FullReportUtils';
+
 
 export const LastPages = ({ auditData, t, layout, totalPages, siteName, metadata }) => {
-  const methodology = auditData.toolMethodology || [];
-  const methodologyChunks = chunkArray(methodology, 1);
+
   const sslLabs = auditData.sslGrade || {};
   const ports = auditData.network?.ports || [];
   const techs = auditData.technologies || [];
@@ -15,63 +14,7 @@ export const LastPages = ({ auditData, t, layout, totalPages, siteName, metadata
 
   return (
     <>
-      {/* METHODOLOGY PAGES */}
-      {methodologyChunks.map((chunk, idx) => (
-         <Page key={`meth-${idx}`} pageNum={(layout?.meth ?? 1) + idx} totalPages={totalPages} title={`METODOLOJİ — DENETİM PROSEDÜRÜ #${idx + 1}`} t={t}>
-            <div className="space-y-12">
-               {chunk.map((m, i) => (
-                  <div key={i} className="space-y-8 animate-in fade-in slide-in-from-left-4">
-                     <div className="flex items-center gap-6 border-b-4 border-slate-100 pb-6">
-                        <div className="w-20 h-20 bg-slate-50 text-blue-600 border border-slate-200 flex items-center justify-center rounded-[2rem] text-4xl font-black shadow-sm italic">
-                           {idx + 1}
-                        </div>
-                        <div>
-                           <h3 className="text-2xl font-black text-slate-800 uppercase tracking-tighter">{m.name}</h3>
-                           <div className="flex gap-3 mt-1">
-                              <span className={`px-4 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest ${m.statusClass === 'USED' ? 'bg-green-100 text-green-700 border border-green-200' : 'bg-red-100 text-red-700 border border-red-200'}`}>
-                                 STATUS: {m.status}
-                              </span>
-                              <span className="px-4 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest bg-blue-100 text-blue-700 border border-blue-200">
-                                 LEVEL: L4 TECHNICAL
-                              </span>
-                           </div>
-                        </div>
-                     </div>
 
-                     <div className="relative">
-                        <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-primary to-transparent opacity-30" />
-                        <p className="text-sm leading-[1.8] text-slate-700 font-medium italic indent-12 text-justify pr-6">
-                           {m.paragraph}
-                        </p>
-                     </div>
-
-                     <div className="grid grid-cols-2 gap-8 mt-12 bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
-                        <div className="space-y-4">
-                           <h6 className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">STANDART UYUMU (COMPLIANCE)</h6>
-                           <ul className="space-y-2 text-xs font-bold text-slate-600">
-                              <li className="flex items-center gap-2"><Shield size={12} className="text-primary" /> ISO 27001:2022 Annex A.8.15</li>
-                              <li className="flex items-center gap-2"><Shield size={12} className="text-primary" /> NIST SP 800-115 Technical Guide</li>
-                              <li className="flex items-center gap-2"><Shield size={12} className="text-primary" /> OWASP ASVS v4.0 L3 Integrity</li>
-                           </ul>
-                        </div>
-                        <div className="space-y-4">
-                           <h6 className="text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]">TEKNİK VERİ SETİ (DATASET)</h6>
-                           <ul className="space-y-2 text-xs font-bold text-slate-600">
-                              <li className="flex items-center gap-2 text-blue-600"><CheckCircle size={12} /> Gerçek Zamanlı Sunucu Yanıtı</li>
-                              <li className="flex items-center gap-2 text-blue-600"><CheckCircle size={12} /> Kriptografik İmza Doğrulaması</li>
-                              <li className="flex items-center gap-2 text-blue-600"><CheckCircle size={12} /> Varlık Sahipliği Teyidi (Whois/DNS)</li>
-                           </ul>
-                        </div>
-                     </div>
-
-                     <div className="mt-8 p-6 border-l-4 border-slate-200 bg-white italic text-[11px] text-slate-400 font-bold leading-relaxed">
-                        "Bu metodoloji, ALFA YAPAY ZEKA Pentest Laboratuvarları tarafından geliştirilen X-RAY V3 hibrit tarama protokollerini temel almaktadır. Toplanan veriler uçtan uca şifreli olarak işlenmiş ve adli raporlama standartlarına uygun hale getirilmiştir."
-                     </div>
-                  </div>
-               ))}
-            </div>
-         </Page>
-      ))}
 
       {/* TECHNICAL DUMP - PART 1 */}
       <Page pageNum={layout?.dump1} totalPages={totalPages} title="TEKNİK BULGU VE KANIT DOSYASI (JSON DUMP) — PART 1" t={t}>

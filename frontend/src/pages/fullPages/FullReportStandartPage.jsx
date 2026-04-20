@@ -9,6 +9,9 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
   const sensitive = auditData.sensitiveData || {};
   const sslLabs = auditData.sslGrade || {};
   const headersAnalytic = auditData.sections?.s3?.findings || [];
+  const sslStatus = auditData.sections?.s4?.findings || [];
+  const serverExposure = auditData.sections?.s5?.findings || [];
+  const dnsSecurity = auditData.sections?.s6?.findings || [];
   
   const subChunks = chunkArray(subdomains, 22);
 
@@ -40,7 +43,7 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       </Page>
 
       {/* S2: PORT SCAN */}
-      <Page pageNum={layout?.s2} totalPages={totalPages} title={t.sections.s3} t={t}>
+      <Page pageNum={layout?.s2} totalPages={totalPages} title={t.sections.s2} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TCP STEALTH PORT SCAN (17 KRİTİK NOKTA)</h4>
@@ -78,18 +81,18 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       </Page>
 
       {/* S3: HEADERS */}
-      <Page pageNum={layout?.s3} totalPages={totalPages} title={t.sections.s5} t={t}>
+      <Page pageNum={layout?.s3} totalPages={totalPages} title={t.sections.s3} t={t}>
          <div className="space-y-8">
             <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HTTP RESPONSE HEADER AUDIT</h4>
             <p className="text-[12px] text-slate-500 italic mb-6">Sunucu tarafından gönderilen güvenlik başlıklarının varlığı ve konfigürasyon doğruluğu denetlenmiştir.</p>
             <div className="grid grid-cols-1 gap-4">
                {headersAnalytic.map((f, i) => (
-                  <div key={i} className={`p-6 rounded-[2rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
+                  <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
                      <div>
-                        <h6 className="font-black text-xs uppercase text-slate-800">{f.item}</h6>
-                        <p className="text-[10px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
+                        <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
                      </div>
-                     <div className={`px-4 py-1 rounded-full text-[9px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
+                     <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
                         {f.severity}
                      </div>
                   </div>
@@ -98,8 +101,79 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
          </div>
       </Page>
 
-      {/* S4: SENSITIVE PATHS */}
-      <Page pageNum={layout?.s4} totalPages={totalPages} title={t.sections.s8} t={t}>
+      {/* S4: SSL / HTTPS STATUS (NEW) */}
+      <Page pageNum={layout?.s4} totalPages={totalPages} title={t.sections.s4} t={t}>
+         <div className="space-y-8">
+            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">SSL/TLS & HTTPS STATUS DURUM ANALİZİ</h4>
+            <p className="text-[12px] text-slate-500 italic mb-6">Sunucu sertifikaları, HSTS zinciri ve robots.txt güvenlik durumları incelenmiştir.</p>
+            <div className="grid grid-cols-1 gap-4">
+               {sslStatus.map((f, i) => (
+                  <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' || f.severity === 'INFO' ? 'bg-green-50 border-green-100' : 'bg-orange-50 border-orange-100'}`}>
+                     <div>
+                        <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
+                     </div>
+                     <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' || f.severity === 'INFO' ? 'bg-green-600 text-white' : 'bg-orange-600 text-white'}`}>
+                        {f.severity}
+                     </div>
+                  </div>
+               ))}
+            </div>
+         </div>
+      </Page>
+
+      {/* S5: SERVER EXPOSURE (NEW) */}
+      <Page pageNum={layout?.s5} totalPages={totalPages} title={t.sections.s5} t={t}>
+         <div className="space-y-8">
+            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">SUNUCU BİLGİ İFŞA ANALİZİ (SERVER EXPOSURE)</h4>
+            <p className="text-[12px] text-slate-500 italic mb-6">Sunucu imza sızıntıları, teknoloji ifşası ve hedeflenmiş versiyon taraması yapılmıştır.</p>
+            <div className="grid grid-cols-1 gap-4">
+               {serverExposure.length > 0 ? serverExposure.map((f, i) => (
+                  <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
+                     <div>
+                        <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
+                     </div>
+                     <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
+                        {f.severity}
+                     </div>
+                  </div>
+               )) : (
+                  <div className="p-6 border-2 border-dashed border-slate-200 rounded-[1.5rem] text-center">
+                     <p className="text-emerald-600 font-bold text-sm uppercase tracking-widest">GÜVENLİ — SUNUCU BİLGİ İFŞASI YOK</p>
+                  </div>
+               )}
+            </div>
+         </div>
+      </Page>
+
+      {/* S6: DNS EMAIL SECURITY (NEW) */}
+      <Page pageNum={layout?.s6} totalPages={totalPages} title={t.sections.s6} t={t}>
+         <div className="space-y-8">
+            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">DNS E-POSTA GÜVENLİĞİ (SPF / DMARC)</h4>
+            <p className="text-[12px] text-slate-500 italic mb-6">E-posta alan adı sahtekarlığı (phishing / spoofing) riskleri analiz edilmiştir.</p>
+            <div className="grid grid-cols-1 gap-4">
+               {dnsSecurity.length > 0 ? dnsSecurity.map((f, i) => (
+                  <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
+                     <div>
+                        <h6 className="font-bold text-[11px] uppercase text-slate-800">{f.item}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">DURUM: {f.status}</p>
+                     </div>
+                     <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
+                        {f.severity}
+                     </div>
+                  </div>
+               )) : (
+                  <div className="p-6 border-2 border-dashed border-slate-200 rounded-[1.5rem] text-center">
+                     <p className="text-emerald-600 font-bold text-sm uppercase tracking-widest">DNS KAYIT BULGUSU YOK</p>
+                  </div>
+               )}
+            </div>
+         </div>
+      </Page>
+
+      {/* S7: SENSITIVE PATHS */}
+      <Page pageNum={layout?.s7} totalPages={totalPages} title={t.sections.s7} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">HASSAS DOSYA VE DİZİN İFŞA TARAMASI</h4>
@@ -133,9 +207,9 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
          </div>
       </Page>
 
-      {/* S5: SUBDOMAINS (MULTIPLE PAGES) */}
+      {/* S8: SUBDOMAINS (MULTIPLE PAGES) */}
       {subChunks.slice(0, 40).map((chunk, idx) => (
-         <Page key={`sub-${idx}`} pageNum={(layout?.s5 ?? 8) + idx} totalPages={totalPages} title={`BÖLÜM V: ALT ALAN ADI KEŞİF DÖKÜMÜ — PART ${idx + 1}`} t={t}>
+         <Page key={`sub-${idx}`} pageNum={(layout?.s8 ?? 11) + idx} totalPages={totalPages} title={`BÖLÜM VIII: ALT ALAN ADI KEŞİF DÖKÜMÜ — PART ${idx + 1}`} t={t}>
             <div className="space-y-4">
                <div className="bg-slate-50 p-4 border-l-4 border-primary rounded-r-2xl">
                   <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{t.verified}</p>
@@ -163,17 +237,19 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
          </Page>
       ))}
 
-      {/* S6: SSL LABS */}
-      <Page pageNum={layout?.s6} totalPages={totalPages} title={t.sections.n2} t={t}>
+      {/* S9: SSL LABS */}
+      <Page pageNum={layout?.s9} totalPages={totalPages} title={t.sections.s9} t={t}>
          <div className="space-y-8">
-            <div className="flex items-center gap-6 p-10 bg-slate-50 border border-slate-100 text-slate-800 rounded-[3rem] shadow-sm relative overflow-hidden">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 p-10 bg-slate-50 border border-slate-100 text-slate-800 rounded-[3rem] shadow-sm relative overflow-hidden w-full">
                <div className="absolute top-0 right-0 p-4 opacity-5 print:!opacity-5" style={{ opacity: 0.05 }}>
-                  <Shield size={85} className="text-slate-500 print:text-slate-200" strokeWidth={1} />
+                  <Shield size={120} className="text-slate-500 print:text-slate-200" strokeWidth={1} />
                </div>
-               <div className="text-6xl font-black text-blue-600">{sslLabs.grade || 'T'}</div>
-               <div>
-                  <h3 className="text-2xl font-black">QUALYS SSL LABS — GLOBAL GRADE</h3>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sertifika Zinciri, Protokol Desteği ve El Sıkışma Analizi</p>
+               <div className={`font-black text-blue-600 tracking-tighter shrink-0 ${sslLabs.grade?.length > 3 ? 'text-3xl' : 'text-7xl'}`}>
+                  {sslLabs.grade || 'N/A'}
+               </div>
+               <div className="flex-1 max-w-full relative z-10">
+                  <h3 className="text-xl font-black tracking-tight leading-tight md:text-2xl break-words">QUALYS SSL LABS — GLOBAL GRADE</h3>
+                  <p className="text-[9px] md:text-xs font-bold text-slate-400 uppercase tracking-widest mt-2 break-words">Sertifika Zinciri, Protokol Desteği ve El Sıkışma Analizi</p>
                </div>
             </div>
 

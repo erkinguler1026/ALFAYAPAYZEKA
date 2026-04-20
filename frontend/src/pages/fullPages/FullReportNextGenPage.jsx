@@ -9,11 +9,12 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
   const techs = auditData.technologies || [];
   const geoData = auditData.ipGeo || {};
   const ipReputation = auditData.ipReputation || {};
+  const sitemap = auditData.sitemapData || {};
 
   return (
     <>
-      {/* S7: WHOIS & RDAP */}
-      <Page pageNum={layout?.s7} totalPages={totalPages} title={t.sections.n3} t={t}>
+      {/* S10: WHOIS & RDAP */}
+      <Page pageNum={layout?.s10} totalPages={totalPages} title={t.sections.s10} t={t}>
          <div className="space-y-10">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
@@ -50,8 +51,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          </div>
       </Page>
 
-      {/* S8: COOKIE SECURITY */}
-      <Page pageNum={layout?.s8} totalPages={totalPages} title={t.sections.n4} t={t}>
+      {/* S11: COOKIE SECURITY */}
+      <Page pageNum={layout?.s11} totalPages={totalPages} title={t.sections.s11} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">COOKIE (ÇEREZ) GÜVENLİK ANALİZİ</h4>
@@ -93,8 +94,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          </div>
       </Page>
 
-      {/* S9: CORS POLICY */}
-      <Page pageNum={layout?.s9} totalPages={totalPages} title={t.sections.n5} t={t}>
+      {/* S12: CORS POLICY */}
+      <Page pageNum={layout?.s12} totalPages={totalPages} title={t.sections.s12} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">CORS POLİTİKASI VE API GÜVENLİĞİ</h4>
@@ -119,8 +120,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          </div>
       </Page>
 
-      {/* S10: TECH STACK */}
-      <Page pageNum={layout?.s10} totalPages={totalPages} title={t.sections.n6} t={t}>
+      {/* S13: TECH STACK */}
+      <Page pageNum={layout?.s13} totalPages={totalPages} title={t.sections.s13} t={t}>
          <div className="space-y-8">
             <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">TEKNOLOJİ PARMAK İZİ TESPİTİ (TECH STACK)</h4>
             <div className="grid grid-cols-1 gap-4">
@@ -145,8 +146,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          </div>
       </Page>
 
-      {/* S11: GEO-IP ANALYSIS */}
-      <Page pageNum={layout?.s11} totalPages={totalPages} title={t.sections.n7} t={t}>
+      {/* S14: GEO-IP ANALYSIS */}
+      <Page pageNum={layout?.s14} totalPages={totalPages} title={t.sections.s14} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">IP ADRESİ COĞRAFİ KONUM VE ALTYAPI ANALİZİ</h4>
@@ -183,8 +184,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          </div>
       </Page>
 
-      {/* S12: IP REPUTATION */}
-      <Page pageNum={layout?.s12} totalPages={totalPages} title={t.sections.n8} t={t}>
+      {/* S15: IP REPUTATION */}
+      <Page pageNum={layout?.s15} totalPages={totalPages} title={t.sections.s15} t={t}>
          <div className="space-y-8">
             <section>
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">ALIENVAULT OTX — IP REPUTATION CHECK</h4>
@@ -207,6 +208,43 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                   </div>
                </div>
             </section>
+         </div>
+      </Page>
+
+      {/* S16: SITEMAP & ASSETS */}
+      <Page pageNum={layout?.s16} totalPages={totalPages} title={t.sections.s16} t={t}>
+         <div className="space-y-8">
+            <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">SİTE HARİTASI VE MİMARİ ENVANTER</h4>
+            <div className={`p-8 rounded-[2rem] border-2 shadow-sm ${sitemap.found ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200'}`}>
+               <div className="flex justify-between items-center mb-6 border-b pb-4">
+                  <div>
+                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">DURUM</p>
+                     <p className={`text-xl font-black ${sitemap.found ? 'text-blue-700' : 'text-slate-600'}`}>{sitemap.found ? 'SITEMAP.XML TESPİT EDİLDİ' : 'SİTE HARİTASI BULUNAMADI'}</p>
+                  </div>
+                  <div className="text-right">
+                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">URL SAYISI</p>
+                     <p className="text-3xl font-black text-slate-900">{sitemap.urlCount || 0}</p>
+                  </div>
+               </div>
+               
+               {sitemap.found && sitemap.urls?.length > 0 && (
+                  <div>
+                     <h5 className="font-black text-[10px] uppercase text-slate-400 mb-3 tracking-widest">Örnek URL Yapıları</h5>
+                     <div className="grid grid-cols-1 gap-2 max-h-60 overflow-hidden relative">
+                        {sitemap.urls.slice(0, 10).map((url, idx) => (
+                           <div key={idx} className="p-2 bg-white border rounded font-mono text-[9px] text-slate-600 truncate">
+                              {url}
+                           </div>
+                        ))}
+                        {sitemap.urls.length > 10 && (
+                           <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-blue-50 to-transparent flex items-end justify-center pb-2">
+                              <span className="text-[10px] font-bold text-blue-800">...ve {sitemap.urls.length - 10} adet daha</span>
+                           </div>
+                        )}
+                     </div>
+                  </div>
+               )}
+            </div>
          </div>
       </Page>
     </>
