@@ -21,7 +21,7 @@ export const StandartPages = ({ auditData, t, totalPages }) => {
                <h4 className="text-sm font-black border-b-2 border-primary mb-4 uppercase tracking-widest">AĞ ÇÖZÜMLEME ANALİZİ</h4>
                <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm">
                   <div className="grid grid-cols-2 gap-8">
-                     <DataItem label="HEDEF DOMAIN" value={auditData.target} />
+                     <DataItem label="HEDEF DOMAIN" value={`https://www.${auditData.target}`} />
                      <DataItem label="RESOLVED IP" value={auditData.ipAddress} />
                      <DataItem label="IP PROTOKOLÜ" value={auditData.ipFamily} />
                      <DataItem label="SİSTEM DURUMU" value={auditData.ipResolved ? 'AKTİF / ÇEVRİMİÇİ' : 'BİLİNMİYOR'} />

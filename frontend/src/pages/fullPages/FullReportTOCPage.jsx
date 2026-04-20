@@ -64,7 +64,7 @@ export const TableOfContents = ({ t, totalPages }) => {
              <div className="relative z-10 text-left">
                 <h4 className="text-slate-900 text-2xl font-black mb-4 uppercase tracking-tighter">GÜVENLİK SERTİFİKASYONU VE BÜTÜNLÜK</h4>
                 <p className="text-slate-500 text-sm leading-relaxed font-bold italic pr-20">
-                   Bu rapor, ALFA XRAY-V3 motoru tarafından üretilmiş olup, uluslararası sızma testi standartlarına (OWASP, NIST, ISO 27001) tam uyumluluk göstermektedir. Dijital hash imzası ile bütünüyle korunmaktadır.
+                   Bu rapor, ALFA XRAY-V3 motoru tarafından üretilmiş olup, uluslararası sızma testi standartlarına (OWASP, NIST, ISO 27001:2022 BGYS) tam uyumluluk göstermektedir. Dijital hash imzası ile bütünüyle korunmaktadır.
                 </p>
              </div>
           </div>
