@@ -46,7 +46,7 @@ export function calculatePageLayout(auditData) {
 
   // Chunk Page Counts (Forensic Edition: Higher Density)
   const subdChunks = Math.max(1, Math.ceil(subdomains.length / 28));
-  const siteChunks = Math.max(1, Math.ceil(sitemap.length / 32));
+  const siteChunks = Math.max(1, Math.ceil(sitemap.length / 20)); // NextGenPage'deki SITEMAP_PER_PAGE ile senkronize (20/sayfa)
   const dumpChunks = Math.max(5, Math.ceil(dumpText.length / 1200)); // 1200 char per page for forensic granularity
 
   let p = 0;

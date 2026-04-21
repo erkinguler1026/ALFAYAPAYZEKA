@@ -13,8 +13,9 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
   const sitemapData = auditData.sitemapData || {};
   const sitemapUrls = sitemapData.urls || [];
   
-  const sitemapChunks = sitemapUrls.length > 0 ? Array.from({ length: Math.ceil(sitemapUrls.length / 32) }, (_, i) =>
-    sitemapUrls.slice(i * 32, i * 32 + 32)
+  const SITEMAP_PER_PAGE = 20; // Sayfa taşmasını önlemek için A4 sayfasına sığan maksimum URL sayısı
+  const sitemapChunks = sitemapUrls.length > 0 ? Array.from({ length: Math.ceil(sitemapUrls.length / SITEMAP_PER_PAGE) }, (_, i) =>
+    sitemapUrls.slice(i * SITEMAP_PER_PAGE, i * SITEMAP_PER_PAGE + SITEMAP_PER_PAGE)
   ) : [[]];
 
   return (
@@ -254,7 +255,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                      <tbody>
                         {chunk.map((item, i) => (
                            <tr key={i} className="border-b border-slate-50 transition-colors hover:bg-slate-50/50">
-                              <td className="px-5 py-2 font-mono text-slate-300">{(idx * 25) + i + 1}</td>
+                              <td className="px-5 py-2 font-mono text-slate-300">{(idx * 20) + i + 1}</td>
                               <td className="px-5 py-2 font-mono text-blue-600 truncate max-w-[600px]">{typeof item === 'string' ? item : item.url || item.subdomain}</td>
                            </tr>
                         ))}
@@ -264,7 +265,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                      </tbody>
                   </table>
                </div>
-               {idx === sitemapChunks.length - 1 && sitemapUrls.length > 64 && (
+               {idx === sitemapChunks.length - 1 && sitemapUrls.length > 40 && (
                   <p className="text-center text-[9px] text-slate-400 font-bold italic uppercase tracking-widest mt-4">
                      NOT: Toplam {sitemapUrls.length} link tespit edilmiştir. Listenin tamamı "JSON DUMP" bölümünde dijital kanıt olarak sunulmaktadır.
                   </p>
