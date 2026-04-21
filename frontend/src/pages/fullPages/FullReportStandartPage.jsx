@@ -278,7 +278,7 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                               <div key={i} className="flex items-center justify-between p-4 bg-red-600/10 border border-red-600/30 rounded-2xl">
                                  <div className="flex items-center gap-4">
                                     <ShieldAlert size={20} className="text-red-500" />
-                                    <span className="font-mono text-white text-sm">{f.path}</span>
+                                    <span className="font-mono text-slate-900 font-bold text-sm">{f.path}</span>
                                  </div>
                                  <span className="px-3 py-1 bg-red-600 text-white text-[9px] font-black rounded-lg uppercase">ACİL MÜDAHALE GEREKLİ</span>
                               </div>
