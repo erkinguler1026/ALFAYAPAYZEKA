@@ -1,8 +1,8 @@
 # ALFAYAPAYZEKA — Frontend
 
-> **Sürüm:** V1.4.0 | **Tarih:** Mart 2026 | **Durum:** 🟢 Aktif / Production
+> **Sürüm:** V1.7.0 "Forensic Edition" | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
 
-React + Vite + Tailwind CSS v4 ile inşa edilmiş **Alfa Yapay Zeka Ajansı** web sitesinin frontend katmanıdır.
+React + Vite + Tailwind CSS v4 ile inşa edilmiş **Alfa Yapay Zeka Ajansı** web sitesinin frontend katmanıdır. V1.7.0 sürümü ile birlikte "Forensic Minimalism" tasarım dili ve dinamik Teknik Analiz (X-RAY V3) katmanı entegre edilmiştir.
 
 ---
 
@@ -42,8 +42,10 @@ npm run build
 | `/snap-report` | `SnapReport.jsx` | Herkese açık | Dijital Zırh 60 kampanya formu |
 | `/ai-pentest` | `AIPentest.jsx` | Herkese açık | AI destekli pentest tanıtım |
 | `/web-risk-raporu` | `WebRisk.jsx` | Herkese açık | Web risk analiz bilgi sayfası |
-| `/scorecard` | `SecurityScorecard.jsx` | Token ile erişim | ALFA SNAP rapor görüntüleyici |
-| `/audit-generator` | `AuditReportGenerator.jsx` | Admin + Token | ALFA FULL 250-sayfa rapor üretici |
+| `/scorecard` | `SnapScoreCard.jsx` | Token ile erişim | ALFA SNAP (Hızlı) rapor |
+| `/full-scorecard` | `FullScoreCard.jsx` | Admin / Token | ALFA FULL (X-RAY V3) Skor Kartı |
+| `/formal-report` | `FullFormalReport.jsx` | Admin / Token | 250 Sayfalık Resmi Pentest Raporu |
+| `/audit-generator` | `AuditReportGenerator.jsx` | Admin + Token | Rapor üretim ve konfigürasyon |
 | `/admin-panel` | `AdminDashboard.jsx` | **Yalnızca Local** | Rapor mühendislik paneli |
 | `/sozlesme/:type` | `ContractView.jsx` | Herkese açık | Sözleşme görüntüleyici |
 | `/privacy`, `/terms`, `/kvkk`, `/cookie` | `Legal.jsx` | Herkese açık | Yasal metinler |
@@ -78,17 +80,17 @@ npm run build
 
 | Dosya | Açıklama |
 |---|---|
-| `store/index.js` | Redux Toolkit store yapılandırması — V1.4.0 |
+| `store/index.js` | Redux Toolkit store yapılandırması — V1.7.0 |
 | `store/slices/uiSlice.js` | Mobil menü açılış/kapanış ve UI durum yönetimi |
 
 ---
 
-## 📊 Rapor Sistemi
+## 📊 Rapor Sistemi (V3.0)
 
 | Rapor Türü | Bileşen | PDF Dosya Adı Formatı |
 |---|---|---|
-| **ALFA SNAP** | `SecurityScorecard.jsx` | `ALFA_SNAP_PENETRASYON_RAPORU_DOMAIN_GUN_AY_YIL_SAAT` |
-| **ALFA FULL** | `AuditReportGenerator.jsx` | `ALFA_FULL_PENETRASYON_RAPORU_DOMAIN_GUN_AY_YIL_SAAT` |
+| **ALFA SNAP** | `SnapScoreCard.jsx` | `ALFA_SNAP_PENETRASYON_RAPORU_DOMAIN_TARIH` |
+| **ALFA FULL** | `FullFormalReport.jsx` | `ALFA_FULL_PENETRASYON_RAPORU_DOMAIN_TARIH` |
 
 ---
 
@@ -113,27 +115,25 @@ npm run build
 
 ```
 frontend/
-├── public/                 # Statik dosyalar (imzalar, favicon vb.)
+├── public/                 # Statik dosyalar
 ├── src/
 │   ├── assets/             # Görseller
 │   ├── components/         # Ortak bileşenler
-│   │   ├── Header.jsx
-│   │   ├── Footer.jsx
-│   │   ├── Layout.jsx
-│   │   ├── AdminPasswordModal.jsx
-│   │   ├── MatrixRain.jsx
-│   │   ├── CampaignCountdown.jsx
-│   │   └── CampaignModal.jsx
 │   ├── pages/              # Sayfa bileşenleri
-│   │   ├── Home.jsx
-│   │   ├── SnapReport.jsx
-│   │   ├── SecurityScorecard.jsx   ← ALFA SNAP
-│   │   ├── AuditReportGenerator.jsx ← ALFA FULL
-│   │   ├── AdminDashboard.jsx
-│   │   └── ... (diğerleri)
+│   │   ├── freePages/      # Ücretsiz servisler (Snap)
+│   │   ├── fullPages/      # Profesyonel denetim (Full)
+│   │   │   ├── FullFormalReport.jsx
+│   │   │   ├── FullScoreCard.jsx
+│   │   │   └── FullReportTechAnalysisPage.jsx
+│   │   └── AdminDashboard.jsx
 │   ├── store/              # Redux Toolkit
-│   │   ├── index.js
-│   │   └── slices/uiSlice.js
+│   ├── utils/              # API ve Yardımcılar
+│   ├── App.jsx             # Router
+│   ├── main.jsx            # Giriş
+│   └── index.css           # Global CSS
+├── .env                    # Değişkenler
+└── vite.config.js          # Vite Config
+```ice.js
 │   ├── utils/
 │   │   └── api.js          # Merkezi API istemcisi
 │   ├── App.jsx             # Router ve global yapı

@@ -1,31 +1,29 @@
 # 🖥️ ALFA YAPAY ZEKA — Backend API Sunucusu
 
 > **Sürüm:** V1.7.0 "Forensic Edition" | **Platform:** Node.js + Express
->
-> **Son Güncelleme:** 21.04.2026 — X-RAY V2 Motoru ve ISO 27001 Mapping Entegrasyonu.
 
-ALFA YAPAY ZEKA platformunun sunucu tarafı katmanıdır. V1.7.0 ile birlikte "Gerçek Röntgen" (X-RAY) siber güvenlik denetim motoru V2.0 seviyesine yükseltilmiştir.
+ALFA YAPAY ZEKA platformunun sunucu tarafı katmanıdır. V1.7.0 ile birlikte "Gerçek Röntgen" (X-RAY) siber güvenlik denetim motoru **V3.0 V-CORE** seviyesine yükseltilmiştir. Bu sürüm, sızma testi bulgularını dinamik olarak üreten ve ISO 27001:2022 standartlarıyla milimetrik eşleme yapan ana motoru barındırır.
 
 ---
 
-## 🛡️ X-RAY V2.0 Analiz Motoru
+## 🛡️ X-RAY V3.0 V-CORE Analiz Motoru
 
-Yeni nesil analiz motoru, hedef sistemler üzerinde 8 aşamalı derinlemesine denetim yapar:
+Yeni nesil analiz motoru, hedef sistemler üzerinde derinlemesine denetim yapar:
 1. **OSINT & Recon**: DNS, IP ve Alan adı istihbaratı.
-2. **Network Audit**: 17 kritik port üzerinde gerçek zamanlı TCP tarama.
+2. **Network Audit**: Kritik portlar üzerinde gerçek zamanlı TCP tarama (Port 22, 25, 445 vb. yüksek risk puanlaması).
 3. **AppSec Analysis**: HTTP güvenlik başlıkları, sunucu imzaları ve yazılım ifşası.
 4. **SSL/TLS Audit**: Sertifika zinciri, şifreleme gücü ve SSL Labs benchmark.
 5. **DNS Security**: SPF, DMARC, MX ve e-posta sahteciliği koruması.
 6. **Next-Gen X-RAY**: Subdomain keşfi, IP Repütasyon (OTX), CORS ve Whois.
-7. **Forensic Probe**: Hassas dosya (.env, .git) ve dizin keşfi.
-8. **Compliance Mapping**: Tüm bulguların ISO/IEC 27001:2022 maddeleriyle eşleştirilmesi.
+7. **Compliance Mapping**: Tüm teknik bulguların ISO/IEC 27001:2022 maddeleriyle otomatik eşleştirilmesi.
+8. **Dynamic Reporting**: `realFullPentestEngine.js` üzerinden 250 sayfalık rapor verisinin senkron üretimi.
 
 ---
 
-## 📡 API Endpoint Referansı (Yeni)
+## 📡 API Endpoint Referansı
 
-### `GET /api/full-audit?url=hedef.com`
-V3 "Auditor-Ready" raporu için gereken tüm ham ve işlenmiş veriyi üretir.
+### `GET /api/full-audit?site=hedef.com`
+V3 "Auditor-Ready" raporu için gereken tüm dinamik veriyi üretir.
 - **Dönüş**: 250 sayfalık raporu besleyecek kapsamlı JSON (ISO Mapping, CVSS Skorları, Kategorik Sağlık).
 
 ---
