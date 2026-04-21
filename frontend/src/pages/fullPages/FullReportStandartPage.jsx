@@ -333,14 +333,11 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       {/* S9: SSL LABS */}
       <Page pageNum={layout?.s9} totalPages={totalPages} title={t.sections.s9} t={t}>
          <div className="space-y-8">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 p-10 bg-slate-50 border border-slate-100 text-slate-800 rounded-[3rem] shadow-sm relative overflow-hidden w-full">
-               <div className="absolute top-0 right-0 p-4 opacity-5 print:!opacity-5" style={{ opacity: 0.05 }}>
-                  <Shield size={120} className="text-slate-500 print:text-slate-200" strokeWidth={1} />
-               </div>
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8 p-10 bg-slate-50 border border-slate-100 text-slate-800 rounded-[3rem] shadow-sm w-full">
                <div className={`font-black text-blue-600 tracking-tighter shrink-0 ${sslLabs.grade?.length > 3 ? 'text-3xl' : 'text-7xl'}`}>
                   {sslLabs.grade || 'N/A'}
                </div>
-               <div className="flex-1 max-w-full relative z-10">
+               <div className="flex-1 max-w-full">
                   <div className="flex justify-between items-start border-b border-white/20 pb-2 mb-2">
                      <h3 className="text-xl font-black tracking-tight leading-tight md:text-2xl break-words">QUALYS SSL LABS — GLOBAL GRADE</h3>
                      <IsoBadge isoId={GLOBAL_ISO_MAPPING.n3?.id} isoName={GLOBAL_ISO_MAPPING.n3?.name} />
