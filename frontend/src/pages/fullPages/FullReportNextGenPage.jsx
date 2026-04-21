@@ -115,11 +115,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                   <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">CORS POLİTİKASI VE API GÜVENLİK ANALİZİ</h4>
                   <IsoBadge isoId={GLOBAL_ISO_MAPPING.n6?.id} isoName={GLOBAL_ISO_MAPPING.n6?.name} />
                </div>
-               <div className="p-8 bg-slate-50 rounded-[2rem] border border-slate-200 relative overflow-hidden group shadow-sm">
-                  <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none group-hover:rotate-12 transition-transform duration-700">
-                     <Shield size={120} className="text-slate-900" />
-                  </div>
-                  <div className="grid grid-cols-2 gap-8 relative z-10">
+               <div className="p-8 bg-slate-50 rounded-[2rem] border border-slate-200 shadow-sm">
+                  <div className="grid grid-cols-2 gap-8">
                      <DataItem label="CONTROL-ALLOW-ORIGIN" value={cors.allowOrigin || 'Kısıtlı'} />
                      <DataItem label="CONTROL-ALLOW-METHODS" value={cors.allowMethods || 'Varsayılan'} />
                      <DataItem label="ALLOW-CREDENTIALS" value={cors.allowCredentials ? 'EVET' : 'HAYIR'} />
