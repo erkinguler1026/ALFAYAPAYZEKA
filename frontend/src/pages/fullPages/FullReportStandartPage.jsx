@@ -266,11 +266,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                   <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">HASSAS DOSYA VE DİZİN İFŞA TARAMASI</h4>
                   <IsoBadge isoId={GLOBAL_ISO_MAPPING.s8?.id} isoName={GLOBAL_ISO_MAPPING.s8?.name} />
                </div>
-               <div className="p-10 bg-red-50/30 border-2 border-red-100 rounded-[3rem] shadow-sm relative overflow-hidden">
-                  <div className="absolute top-0 right-0 p-8 opacity-5 print:!opacity-5" style={{ opacity: 0.05 }}>
-                     <Search size={105} className="text-red-900 print:text-red-200" strokeWidth={1} />
-                  </div>
-                  <div className="relative z-10 space-y-6">
+               <div className="p-10 bg-red-50/30 border-2 border-red-100 rounded-[3rem] shadow-sm">
+                  <div className="space-y-6">
                      <h5 className="text-slate-900 text-xl font-black uppercase tracking-tighter">V3.0 PATH BRUTEFORCE SONUÇLARI</h5>
                      <div className="space-y-4">
                         {sensitive.findings && sensitive.findings.length > 0 ? (
