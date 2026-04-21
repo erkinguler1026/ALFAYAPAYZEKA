@@ -9,6 +9,7 @@ import { StandartPages } from './FullReportStandartPage';
 import { NextGenPages } from './FullReportNextGenPage';
 import { LastPages } from './FullReportLastPage';
 import { SummaryPage } from './FullReportSummaryPage';
+import { TechAnalysisPage } from './FullReportTechAnalysisPage';
 import { calculatePageLayout } from './FullReportUtils';
 
 /**
@@ -246,6 +247,9 @@ const FullFormalReport = () => {
 
           {/* PART 1.5: EXECUTIVE SUMMARY */}
           <SummaryPage auditData={auditData} layout={layout} t={t} totalPages={totalPages} />
+
+          {/* PART 1.6: TECHNICAL ANALYSIS SUMMARY (5 FRAMES) */}
+          <TechAnalysisPage auditData={auditData} t={t} layout={layout} totalPages={totalPages} />
 
           {/* PART 2: STANDART FORENSIC (S1-S6) */}
           <StandartPages auditData={auditData} t={t} layout={layout} totalPages={totalPages} />

@@ -93,5 +93,13 @@ Sistemde tekrarlayan görevleri hızlandırmak için aşağıdaki komut kalıpla
 
 ---
 
+## 10. REVİZYON 11 (21 Nisan 2026) - Teknik Analiz Entegrasyonu ve Rapor Stabilizasyonu
+1. **Dinamik Teknik Analiz Çerçeveleri:** `FullScoreCard.jsx` üzerindeki 5 ana teknik analiz kategorisi (3.1 - 3.5), `FullReportTechAnalysisPage.jsx` bileşeni üzerinden resmi rapora (Sayfa 6+) dinamik olarak entegre edildi.
+2. **Rapor Navigasyonu & UX:** Resmi rapor sayfasından skor kartına hızlı dönüş için "Back to Scorecard" butonu eklendi.
+3. **Minimalist Adli Estetik:** Raporun okunabilirliğini artırmak için dekoratif ikonlar (Kalkan, Büyüteç vb.) kaldırıldı, daha profesyonel ve sade bir denetçi tasarımı benimsendi.
+4. **Veri Tutarlılığı:** `sessionStorage` önbellekleme mekanizması güçlendirilerek, skor kartı ve resmi rapor arasındaki veri senkronizasyonu %100 sağlandı.
+
+---
+
 **MGK (MÜŞTERİ GÖZÜYLE KONTROL) İLKESİ:** 
 UI, CSS ve içerik düzenlemeleri yaparken her zaman "müşteri/son kullanıcı bunu nasıl görür?" vizyonuyla hareket et. Kullanıcının uyarısını beklemeden; dil/karakter çeviri hatalarını (örneğin CSS uppercase kaynaklı 'i' -> 'İ' sorunları), hizalama kaçıklıklarını veya okunaksız renk seçimlerini proaktif analiz et ve baştan mükemmelleştir. Müşteri "olmamış" demeden sen işi parlat.

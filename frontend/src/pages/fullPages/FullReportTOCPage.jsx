@@ -14,6 +14,7 @@ export const TableOfContents = ({ t, layout }) => {
 
   const items = [
     { title: "YÖNETİCİ ÖZETİ: RISK SCORE & ALFA YAPAY ZEKA", page: layout?.summary },
+    { title: "TEKNİK ANALİZ VE ÖZET BULGULAR",          page: layout?.techSummary1 },
     { title: t.sections.s1,           page: layout?.s1 },
     { title: t.sections.s2,           page: layout?.s2 },
     { title: t.sections.s3,           page: layout?.s3 },

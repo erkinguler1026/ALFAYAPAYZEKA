@@ -57,7 +57,9 @@ export function calculatePageLayout(auditData) {
   layout.cert   = ++p; // 3
   layout.summary= ++p; // 4
   layout.summary2= ++p; // 5
-  layout.s1     = ++p; // 6
+  layout.techSummary1 = ++p; // 6: (S4, S3, S2)
+  layout.techSummary2 = ++p; // 7: (S6, S10)
+  layout.s1     = ++p; // 8
   layout.s2     = ++p; 
   layout.s3     = ++p; 
   layout.s4     = ++p; 
