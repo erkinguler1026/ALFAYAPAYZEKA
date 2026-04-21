@@ -1,0 +1,79 @@
+import { Link } from 'react-router-dom';
+import { Bot } from 'lucide-react';
+
+/**
+ * Footer Bileşeni — Alt Bilgi ve Navigasyon (V1.4.0)
+ * 
+ * Açıklama: Sayfa altı künyesi, hızlı erişim bağlantıları, sosyal medya 
+ * linkleri ve hukuki metin erişim noktalarını barındırır.
+ * 
+ * Versiyon: V1.4.0
+ * 
+ * Özellikler:
+ *   - SPA uyumlu React Router linkleri.
+ *   - Dijital Sözleşme Sistemi (Contract Viewer) entegrasyonu.
+ *   - Responsive mizanpaj ve gradyan dekorasyonlar.
+ * 
+ * © 2026 ALFA YAPAY ZEKA — Siber Tehditlere Kapalı, Müşterilere Açık.
+ */
+const Footer = () => {
+  return (
+    <footer className="py-16 md:py-32 px-6 border-t border-white/5 relative z-10 bg-gradient-to-br from-[#050505] to-purple-700/20 overflow-hidden print:hidden">
+      <div className="absolute bottom-0 left-0 right-0 h-[300px] bg-gradient-to-t from-primary/10 to-transparent pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-24 mb-16 md:mb-32">
+          <div className="max-w-sm">
+            <Link to="/" className="flex items-center gap-4 mb-8 group cursor-pointer w-fit">
+              <Bot className="text-primary w-8 h-8 group-hover:scale-110 transition-transform" />
+              <span className="font-black text-2xl tracking-tighter uppercase text-white group-hover:text-primary transition-colors">ALFA YAPAY ZEKA</span>
+            </Link>
+            <p className="text-white/30 text-base leading-relaxed font-normal mb-3">
+              Siber Tehditlere Kapalı, Müşterilere Açık — İşte Web Siteniz
+            </p>
+            <p className="text-white/20 text-sm leading-relaxed font-light">
+              Hackerlara karşı zırhlanmış, 7/24 satışa açık dijital sistemler kuruyoruz.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-24 text-[13px] font-bold tracking-widest uppercase text-white/40">
+            <div className="flex flex-col gap-6">
+              <span className="text-white text-[11px] tracking-[0.4em] mb-2">Platform</span>
+              <Link to="/portfolio" className="hover:text-primary transition-colors">Portfolyo</Link>
+              <Link to="/pricing" className="hover:text-primary transition-colors">Fiyatlandırma</Link>
+              <Link to="/ai-pentest" className="hover:text-primary transition-colors uppercase">AI-PENTEST</Link>
+            </div>
+            <div className="flex flex-col gap-6">
+              <span className="text-white text-[11px] tracking-[0.4em] mb-2 uppercase">Şirket</span>
+              <Link to="/about" className="hover:text-primary transition-colors">Hakkımızda</Link>
+              <Link to="/contact" className="hover:text-primary transition-colors">İletişim</Link>
+              <Link to="/legal" className="hover:text-primary transition-colors">Bilgi Toplumu</Link>
+            </div>
+            <div className="flex flex-col gap-6">
+              <span className="text-white text-[11px] tracking-[0.4em] mb-2 uppercase">Sözleşmeler</span>
+              <Link to="/sozlesme/ai-web" target="_blank" className="hover:text-primary transition-colors text-xs">AI-Web Tasarım</Link>
+              <Link to="/sozlesme/ai-pentest" target="_blank" className="hover:text-primary transition-colors text-xs">AI-Pentest</Link>
+            </div>
+            <div className="flex flex-col gap-6">
+              <span className="text-white text-[11px] tracking-[0.4em] mb-2">Sosyal</span>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors uppercase tracking-widest">LinkedIn</a>
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors uppercase tracking-widest">Twitter</a>
+            </div>
+          </div>
+        </div>
+        
+        <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-[11px] font-bold tracking-[0.3em] text-white/20 uppercase">
+          <span>© 2026 ALFA YAPAY ZEKA AJANSI — Siber Tehditlere Kapalı, Müşterilere Açık.</span>
+          <div className="flex flex-wrap gap-x-8 gap-y-4 justify-center md:justify-end">
+            <Link to="/privacy" className="hover:text-white transition-colors cursor-pointer">GİZLİLİK POLİTİKASI</Link>
+            <Link to="/terms" className="hover:text-white transition-colors cursor-pointer">KULLANIM ŞARTLARI</Link>
+            <Link to="/kvkk" className="hover:text-white transition-colors cursor-pointer">KVKK AYDINLATMA</Link>
+            <Link to="/cookie" className="hover:text-white transition-colors cursor-pointer">ÇEREZ POLİTİKASI</Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

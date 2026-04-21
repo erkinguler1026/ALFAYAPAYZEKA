@@ -67,33 +67,11 @@ const FullFormalReport = () => {
   React.useEffect(() => {
     const fetchAudit = async () => {
       try {
-        const domain = (siteParam || 'site.com').toLowerCase();
-        // ─── 1) ScoreCard'dan kalan cache var mı? ───
-        const cacheKey = `alfa_audit_${domain}`;
-        const cached = sessionStorage.getItem(cacheKey);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          const ageMs = Date.now() - (parsed.cachedAt || 0);
-          if (ageMs < 1800000) { // 30 dakika geçerli
-            console.log(`[ALFA-REPORT] ScoreCard cache'inden yüklendi: ${domain} (${Math.round(ageMs/1000)}s önce — 2. TARAMA YAPILMADI)`);
-            setAuditData(parsed.results);
-            setIsAuditLoading(false);
-            return;
-          }
-        }
-        // ─── 2) Cache yok → Canlı tarama yap ve cache'e kaydet ───
         const HOST = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://api.alfayapayzeka.com';
-        const res = await fetch(`${HOST}/api/full-pentest?url=${domain}`);
+        const res = await fetch(`${HOST}/api/full-pentest?url=${siteName.toLowerCase()}`);
         const data = await res.json();
         if(data.success) {
            setAuditData(data.results);
-           // Bu tarama sonucunu da cache'e yaz (ScoreCard için de kullanılabilir)
-           sessionStorage.setItem(cacheKey, JSON.stringify({
-             results: data.results,
-             cachedAt: Date.now(),
-             domain
-           }));
-           console.log(`[ALFA-REPORT] Yeni tarama yapıldı ve cache'e alındı: ${domain}`);
         }
       } catch(e) {
         console.error(e);
@@ -102,7 +80,7 @@ const FullFormalReport = () => {
       }
     };
     fetchAudit();
-  }, [siteName, siteParam]);
+  }, [siteName]);
 
   const t = {
     tr: {

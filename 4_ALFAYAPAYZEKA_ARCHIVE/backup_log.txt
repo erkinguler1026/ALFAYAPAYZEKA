@@ -1,0 +1,20 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : 21 Nisan 2026 Sali 01:05:07
+   Source : F:\web_app_REACT_NODEJS_\4_ALFAYAPAYZEKA\
+     Dest : F:\web_app_REACT_NODEJS_\YEDEK_R12_20042026\4_ALFAYAPAYZEKA_ARCHIVE\
+
+    Files : *.*
+	    
+ Exc Dirs : node_modules
+	    .git
+	    
+  Options : *.* /TEE /S /E /DCOPY:DA /COPY:DAT /MT:32 /R:3 /W:5 
+
+------------------------------------------------------------------------------
+
+	    New File  		     300	F:\web_app_REACT_NODEJS_\4_ALFAYAPAYZEKA\.gitignore  0%  100%  
+	    New File  		   1.1 m	F:\web_app_REACT_NODEJS_\4_ALFAYAPAYZEKA\ALFA_FULL_PENTEST_ABCKALITE.COM_2026-04-10_20_22_53.pdf

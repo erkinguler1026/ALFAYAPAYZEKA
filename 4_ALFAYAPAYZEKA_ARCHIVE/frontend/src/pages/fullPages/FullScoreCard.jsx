@@ -43,33 +43,11 @@ const FullScoreCard = () => {
     document.title = `ALFA_FULL_REPORT_${domain.toLowerCase()}_${formattedDate}`;
     const fetchAudit = async () => {
       try {
-        // ─── 1) Önce sessionStorage'da bu domain için veri var mı bak ───
-        const cacheKey = `alfa_audit_${domain}`;
-        const cached = sessionStorage.getItem(cacheKey);
-        if (cached) {
-          const parsed = JSON.parse(cached);
-          // 30 dakika içindeki veriyi kullan (1800000 ms)
-          const ageMs = Date.now() - (parsed.cachedAt || 0);
-          if (ageMs < 1800000) {
-            console.log(`[ALFA-CACHE] Önbellekten yüklendi: ${domain} (${Math.round(ageMs/1000)}s önce)`);
-            setAuditData(parsed.results);
-            setTimeout(() => setIsLoading(false), 500);
-            return;
-          }
-        }
-        // ─── 2) Cache yok veya süresi geçmiş → Canlı tarama yap ───
         const HOST = window.location.hostname === 'localhost' ? 'http://localhost:5000' : 'https://api.alfayapayzeka.com';
         const res = await fetch(`${HOST}/api/full-audit?url=${domain}`);
         const data = await res.json();
         if(data.success && data.results) {
           setAuditData(data.results);
-          // ─── 3) Tarama bitti → Veriyi sessionStorage'a kaydet ───
-          sessionStorage.setItem(cacheKey, JSON.stringify({
-            results: data.results,
-            cachedAt: Date.now(),
-            domain
-          }));
-          console.log(`[ALFA-CACHE] Tarama tamamlandı ve önbelleğe alındı: ${domain}`);
         }
       } catch(e) {
         console.error("Audit fetch error:", e);
