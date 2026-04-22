@@ -171,10 +171,10 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
   return (
     <>
       {/* SAYFA 1: S4, S3, S2 */}
-      <Page pageNum={layout?.techSummary1} totalPages={totalPages} title="TEKNİK ANALİZ VE BULGULAR — I" t={t}>
+      <Page pageNum={layout?.techSummary1} totalPages={totalPages} title={!t.reportTitle?.includes('FULL') ? "TEKNİK ANALİZ VE BULGULAR — I" : "TECHNICAL ANALYSIS & FINDINGS — I"} t={t}>
         <div className="space-y-4 pt-4">
           <p className="text-[11px] text-slate-500 italic mb-6 border-b border-slate-100 pb-2">
-            {isTr 
+            {!t.reportTitle?.includes('FULL') 
               ? "Hedef altyapı üzerinde gerçekleştirilen katmansal güvenlik analizlerinin özet bulguları ve ISO 27001:2022 eşleşmeleri aşağıda sunulmuştur."
               : "Summary findings of layered security analyses conducted on the target infrastructure and ISO 27001:2022 mappings are presented below."}
           </p>
@@ -185,7 +185,7 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
       </Page>
 
       {/* SAYFA 2: S6, S10 */}
-      <Page pageNum={layout?.techSummary2} totalPages={totalPages} title="TEKNİK ANALİZ VE BULGULAR — II" t={t}>
+      <Page pageNum={layout?.techSummary2} totalPages={totalPages} title={!t.reportTitle?.includes('FULL') ? "TEKNİK ANALİZ VE BULGULAR — II" : "TECHNICAL ANALYSIS & FINDINGS — II"} t={t}>
         <div className="space-y-4 pt-4">
            <p className="text-[11px] text-slate-500 italic mb-6 border-b border-slate-100 pb-2">
             {isTr 

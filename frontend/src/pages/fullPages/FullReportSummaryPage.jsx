@@ -165,10 +165,10 @@ export const SummaryPage = ({ auditData, t, layout, totalPages }) => {
                 </div>
                 
                 <div className="bg-slate-50 border border-slate-100 p-8 rounded-[2.5rem] flex flex-col items-center justify-center shadow-inner">
-                   <div className="w-full flex justify-between items-center mb-6">
-                      <h5 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">DYNAMICS RISK HEATMAP (ISO 27005)</h5>
-                      <ComplianceBadges mapping={{ iso27005: "8.1.1", iso27002: "5.1", itil: "ISM-01" }} />
-                   </div>
+                    <div className="w-full flex justify-between items-center mb-6">
+                       <h5 className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">{t.items?.heatmapTitle}</h5>
+                       <ComplianceBadges mapping={{ iso27005: "8.1.1", iso27002: "5.1", itil: "ISM-01" }} />
+                    </div>
                    <RiskMatrix findings={findings} t={t} />
                 </div>
              </div>

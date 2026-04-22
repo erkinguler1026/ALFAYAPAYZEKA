@@ -100,7 +100,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.1.1",
     itil: "ISM-01",
     cobit: "APO13.01",
-    name: "Ağ Güvenliği (Network Security)"
+    name: "Ağ Güvenliği (Network Security)",
+    nameEn: "Network Security Audit"
   },
   s2: {
     iso27001: "A.8.21",
@@ -108,7 +109,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.1.2",
     itil: "ISM-02",
     cobit: "APO13.02",
-    name: "Ağ Hizmetlerinin Güvenliği"
+    name: "Ağ Hizmetlerinin Güvenliği",
+    nameEn: "Security of Network Services"
   },
   s3: {
     iso27001: "A.8.26",
@@ -116,7 +118,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.2.1",
     itil: "SD-04",
     cobit: "BAI03.05",
-    name: "Uygulama Güvenliği Gereksinimleri"
+    name: "Uygulama Güvenliği Gereksinimleri",
+    nameEn: "Application Security Requirements"
   },
   s4: {
     iso27001: "A.8.24",
@@ -124,7 +127,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.2.2",
     itil: "SD-05",
     cobit: "BAI03.06",
-    name: "Kriptografik Kontroller"
+    name: "Kriptografik Kontroller",
+    nameEn: "Cryptographic Controls & PKI"
   },
   s5: {
     iso27001: "A.8.8",
@@ -132,7 +136,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "9.2.1",
     itil: "ISM-08",
     cobit: "DSS05.01",
-    name: "Teknik Zafiyet Yönetimi"
+    name: "Teknik Zafiyet Yönetimi",
+    nameEn: "Technical Vulnerability Mgmt."
   },
   s6: {
     iso27001: "A.8.21",
@@ -140,7 +145,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.1.2",
     itil: "ISM-02",
     cobit: "APO13.02",
-    name: "Servis Güvenliği"
+    name: "Servis Güvenliği",
+    nameEn: "Service Security"
   },
   s7: {
     iso27001: "A.8.26",
@@ -148,7 +154,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.2.1",
     itil: "SD-04",
     cobit: "BAI03.05",
-    name: "Web Uygulama Güvenliği"
+    name: "Web Uygulama Güvenliği",
+    nameEn: "Web Application Security"
   },
   s8: {
     iso27001: "A.8.20",
@@ -156,7 +163,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.1.1",
     itil: "ISM-01",
     cobit: "APO13.01",
-    name: "Varlık Envanteri (Subdomains)"
+    name: "Varlık Envanteri (Subdomains)",
+    nameEn: "Asset Inventory (Subdomains)"
   },
   s9: {
     iso27001: "A.8.24",
@@ -164,7 +172,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.2.2",
     itil: "SD-05",
     cobit: "BAI03.06",
-    name: "TLS/SSL Bütünlüğü"
+    name: "TLS/SSL Bütünlüğü",
+    nameEn: "TLS/SSL Integrity"
   },
   s10: {
     iso27001: "A.5.9",
@@ -172,7 +181,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "7.1.1",
     itil: "AM-01",
     cobit: "BAI09.01",
-    name: "Bilgi Varlıkları Envanteri"
+    name: "Bilgi Varlıkları Envanteri",
+    nameEn: "Information Asset Inventory"
   },
   s11: {
     iso27001: "A.8.26",
@@ -180,7 +190,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.2.1",
     itil: "SD-04",
     cobit: "BAI03.05",
-    name: "Form ve Girdi Güvenliği"
+    name: "Form ve Girdi Güvenliği",
+    nameEn: "Form & Input Security"
   },
   s12: {
     iso27001: "A.8.26",
@@ -188,7 +199,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "8.2.1",
     itil: "SD-04",
     cobit: "BAI03.05",
-    name: "İstemci Tarafı Güvenliği"
+    name: "İstemci Tarafı Güvenliği",
+    nameEn: "Client-Side Security"
   },
   s13: {
     iso27001: "A.8.8",
@@ -196,7 +208,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "9.2.1",
     itil: "ISM-08",
     cobit: "DSS05.01",
-    name: "Sunucu Yapılandırma Analizi"
+    name: "Sunucu Yapılandırma Analizi",
+    nameEn: "Server Configuration Analysis"
   },
   s14: {
     iso27001: "A.5.7",
@@ -204,7 +217,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "6.1.1",
     itil: "ISM-07",
     cobit: "APO12.01",
-    name: "Tehdit İstihbaratı"
+    name: "Tehdit İstihbaratı",
+    nameEn: "Threat Intelligence"
   },
   s15: {
     iso27001: "A.5.7",
@@ -212,7 +226,8 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "6.1.1",
     itil: "ISM-07",
     cobit: "APO12.01",
-    name: "IP Repütasyon Analizi"
+    name: "IP Repütasyon Analizi",
+    nameEn: "IP Reputation Analysis"
   },
   s16: {
     iso27001: "A.5.9",
@@ -220,6 +235,7 @@ export const GLOBAL_ISO_MAPPING = {
     iso27005: "7.1.1",
     itil: "AM-01",
     cobit: "BAI09.01",
-    name: "Mimari ve Haritalama"
-  }
+    name: "Mimari ve Haritalama",
+    nameEn: "Architecture & Mapping"
+  },
 };

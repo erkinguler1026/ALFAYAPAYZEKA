@@ -122,9 +122,13 @@ export const TableOfContents = ({ t, layout }) => {
 
             <div className="p-6 bg-slate-50 border border-slate-200 rounded-[2.5rem] mt-4 shadow-sm">
                <p className="text-[9px] font-mono text-slate-500 leading-relaxed text-center uppercase tracking-widest">
-                  ALFA X-RAY V3 CORE ENGINE IS NATIVELY COMPLIANT WITH THE ABOVE FRAMEWORKS.
+                  {t.reportTitle?.includes('PENETRASYON')
+                    ? "ALFA X-RAY V3 CORE MOTORU, YUKARIDAKİ ÇERÇEVELERLE DOĞAL OLARAK UYUMLUDUR."
+                    : "ALFA X-RAY V3 CORE ENGINE IS NATIVELY COMPLIANT WITH THE ABOVE FRAMEWORKS."}
                   <br/>
-                  <span className="text-primary font-black">AUTOMATED CROSS-REFERENCING ACTIVE.</span>
+                  <span className="text-primary font-black">
+                    {t.reportTitle?.includes('PENETRASYON') ? "OTOMATİK ÇAPRAZ REFERANS AKTİF." : "AUTOMATED CROSS-REFERENCING ACTIVE."}
+                  </span>
                </p>
             </div>
           </div>

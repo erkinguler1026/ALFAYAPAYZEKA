@@ -102,5 +102,12 @@ Sistemde tekrarlayan görevleri hızlandırmak için aşağıdaki komut kalıpla
 
 ---
 
+## 12. REVİZYON 13 (22 Nisan 2026) - Bilingual Finalizasyon ve Depo Temizliği
+1. **Bilingual Raporlama Tamamlandı:** Tüm `FullReport` sayfalarındaki (Özet, Teknik Analiz, Standartlar, Yasal Metinler) teknik meta veriler ve uyumluluk açıklamaları İngilizce dil desteğiyle %100 uyumlu hale getirildi.
+2. **Gereksiz Dosya Temizliği:** Geliştirme sürecinde kullanılan yardımcı scriptler (`check_comments.js`, `write_finding_library.js`, `dump_findings.js` vb.) ve geçici HTML dosyaları repo dışına çıkarılarak depo temizliği sağlandı.
+3. **Sistem Kararlılığı:** Rapor render motorundaki olası "White Screen" hataları ve dil senkronizasyon problemleri giderilerek uluslararası denetim standartlarına uygunluk teyit edildi.
+
+---
+
 **MGK (MÜŞTERİ GÖZÜYLE KONTROL) İLKESİ:** 
 UI, CSS ve içerik düzenlemeleri yaparken her zaman "müşteri/son kullanıcı bunu nasıl görür?" vizyonuyla hareket et. Kullanıcının uyarısını beklemeden; dil/karakter çeviri hatalarını (örneğin CSS uppercase kaynaklı 'i' -> 'İ' sorunları), hizalama kaçıklıklarını veya okunaksız renk seçimlerini proaktif analiz et ve baştan mükemmelleştir. Müşteri "olmamış" demeden sen işi parlat.

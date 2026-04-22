@@ -4,6 +4,7 @@ import { Page, DataItem, ComplianceBadges } from './FullReportComponents';
 import { chunkArray, GLOBAL_ISO_MAPPING, safeUpper } from './FullReportUtils';
 
 export const StandartPages = ({ auditData, t, layout, totalPages }) => {
+  const isTr = t.reportTitle && !t.reportTitle.includes('FULL');
   const subdomains = auditData.subdomainList || [];
   const ports = auditData.network?.ports || [];
   const sensitive = auditData.sensitiveData || {};
@@ -30,8 +31,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                   <div className="grid grid-cols-2 gap-y-6 gap-x-12">
                      <DataItem label={t.targetDomainLabel} value={auditData.target} />
                      <DataItem label="PRIMARY IPv4" value={auditData.ipAddress} />
-                     <DataItem label={t.items?.recordCount} value={`${(auditData.network?.ipv4?.length || 0) + (auditData.network?.ipv6?.length || 0)} ENTRY`} />
-                     <DataItem label={t.items?.dnsStatus} value={auditData.ipResolved ? 'ACTIVE / REACHABLE' : 'UNRESOLVED'} />
+                     <DataItem label={t.items?.recordCount} value={`${(auditData.network?.ipv4?.length || 0) + (auditData.network?.ipv6?.length || 0)} ${t.items?.entriesLabel}`} />
+                     <DataItem label={t.items?.dnsStatus} value={auditData.ipResolved ? t.items?.activeStatus : t.items?.inactiveStatus} />
                   </div>
                   
                   <div className="mt-8 grid grid-cols-2 gap-6 border-t border-blue-100 pt-6">
@@ -48,14 +49,14 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                         <div className="flex flex-wrap gap-2">
                            {auditData.network?.ipv6?.length > 0 ? auditData.network.ipv6.map((ip, i) => (
                               <span key={i} className="px-3 py-1 bg-white border border-blue-200 text-[10px] font-mono font-bold rounded-lg text-blue-700">{ip}</span>
-                            ) ) : <span className="text-[10px] italic text-slate-300">{t.items?.notDetected}</span>}
+                             ) ) : <span className="text-[10px] italic text-slate-300">{t.items?.notDetected}</span>}
                         </div>
                      </div>
-                </div>
-            </div>
+                 </div>
+             </div>
                
-            <div className="mt-8 p-6 bg-primary/5 border border-primary/10 rounded-[2rem] font-mono text-[9px] text-primary/60 text-left">
-                  <p className="font-black mb-2 uppercase tracking-widest">[DNS RESOLVER TRACE - EVIDENCE ID: {auditData.reportId?.substring(0,8)}]</p>
+             <div className="mt-8 p-6 bg-primary/5 border border-primary/10 rounded-[2rem] font-mono text-[9px] text-primary/60 text-left">
+                  <p className="font-black mb-2 uppercase tracking-widest">[{isTr ? 'DNS ÇÖZÜMLEME İZİ' : 'DNS RESOLVER TRACE'} - EVIDENCE ID: {auditData.reportId?.substring(0,8)}]</p>
                   <p>{`> QUERY: A ${auditData.target} ... [SUCCESS]`}</p>
                   {auditData.network?.ipv4?.map((ip, i) => <p key={i}>{`  >> ANSWER: ${ip} (IPv4)`}</p>)}
                   {auditData.network?.ipv6?.map((ip, i) => <p key={i}>{`  >> ANSWER: ${ip} (IPv6)`}</p>)}
@@ -116,7 +117,7 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                                  </div>
                               </td>
                               <td className="px-5 py-3 font-mono text-[9px] text-slate-400 italic">
-                                 {p.banner || 'No banner response recorded'}
+                                 {p.banner || (isTr ? 'Banner yanıtı kaydedilmedi' : 'No banner response recorded')}
                               </td>
                               <td className="px-5 py-3 text-right font-black">
                                  <span className={`px-3 py-1 rounded-lg ${p.risk === 'CRITICAL' || p.risk === 'HIGH' ? 'bg-red-50 text-red-600' : 'bg-slate-50 text-slate-400'}`}>
@@ -130,11 +131,11 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                </div>
                
                <div className="mt-6 p-6 bg-slate-50 border border-slate-200 rounded-[2rem] shadow-inner text-left">
-                  <p className="text-[9px] font-black text-primary mb-3 uppercase tracking-[0.2em]">[FORENSIC NETWORK DIAGNOSTIC TRACE]</p>
+                  <p className="text-[9px] font-black text-primary mb-3 uppercase tracking-[0.2em]">[{isTr ? 'ADLİ AĞ TANILAMA İZİ' : 'FORENSIC NETWORK DIAGNOSTIC TRACE'}]</p>
                   <div className="font-mono text-[9px] text-slate-500 space-y-1">
                      {ports.length > 0 ? ports.map((p, i) => (
                         <p key={i}>{`[${new Date().toISOString()}] DEBUG: Port ${p.port} (${p.service}) responding with banner: ${p.banner || 'ACK'}`}</p>
-                     )) : <p>[SYSTEM] NO OPEN PORTS DETECTED ON TARGET INFRASTRUCTURE.</p>}
+                     )) : <p>[SYSTEM] {isTr ? 'HEDEF ALTYAPIDA AÇIK PORT TESPİT EDİLMEDİ.' : 'NO OPEN PORTS DETECTED ON TARGET INFRASTRUCTURE.'}</p>}
                   </div>
                </div>
             </section>
@@ -145,7 +146,7 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s3} totalPages={totalPages} title={t.sections.s3} t={t}>
          <div className="space-y-8">
             <div className="flex justify-between items-start border-b-2 border-primary mb-4">
-               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2 text-left">HTTP RESPONSE HEADER AUDIT</h4>
+               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2 text-left">{isTr ? 'HTTP YANIT BAŞLIĞI DENETİMİ' : 'HTTP RESPONSE HEADER AUDIT'}</h4>
                <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s3} />
             </div>
             <p className="text-[12px] text-slate-500 italic mb-6 text-left">{t.items?.headerAuditDesc}</p>
@@ -153,8 +154,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                {headersAnalytic.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
                      <div>
-                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(f.item)}</h6>
-                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{t.items?.statusLabel}: {safeUpper(f.status)}</p>
+                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(!isTr && f.itemEn ? f.itemEn : f.item)}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{t.items?.statusLabel}: {safeUpper(!isTr && f.statusEn ? f.statusEn : f.status)}</p>
                      </div>
                      <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
                         {f.severity}
@@ -169,7 +170,7 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s4} totalPages={totalPages} title={t.sections.s4} t={t}>
          <div className="space-y-8">
             <div className="flex justify-between items-start border-b-2 border-primary mb-4">
-               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2 text-left">TLS/SSL & HSTS COMPLIANCE ANALİZİ</h4>
+               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2 text-left">{t.items?.sslStatusTitle}</h4>
                <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s4} />
             </div>
             <p className="text-[12px] text-slate-500 italic mb-6 text-left">{t.items?.sslStatusDesc}</p>
@@ -177,8 +178,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                {sslStatus.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' || f.severity === 'INFO' ? 'bg-green-50 border-green-100' : 'bg-orange-50 border-orange-100'}`}>
                      <div>
-                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(f.item)}</h6>
-                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{t.items?.statusLabel}: {safeUpper(f.status)}</p>
+                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(!isTr && f.itemEn ? f.itemEn : f.item)}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{t.items?.statusLabel}: {safeUpper(!isTr && f.statusEn ? f.statusEn : f.status)}</p>
                      </div>
                      <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' || f.severity === 'INFO' ? 'bg-green-600 text-white' : 'bg-orange-600 text-white'}`}>
                         {f.severity}
@@ -193,7 +194,7 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s5} totalPages={totalPages} title={t.sections.s5} t={t}>
          <div className="space-y-8">
             <div className="flex justify-between items-start border-b-2 border-primary mb-4">
-               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2 text-left">SERVER & TECH EXPOSURE ANALYSIS</h4>
+               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2 text-left">{isTr ? 'SUNUCU VE TEKNOLOJİ İFŞA ANALİZİ' : 'SERVER & TECH EXPOSURE ANALYSIS'}</h4>
                <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s5} />
             </div>
             <p className="text-[12px] text-slate-500 italic mb-6 text-left">{t.items?.serverExposureDesc}</p>
@@ -201,8 +202,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                {serverExposure.length > 0 ? serverExposure.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'}`}>
                      <div>
-                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(f.item)}</h6>
-                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{t.items?.statusLabel}: {safeUpper(f.status)}</p>
+                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(!isTr && f.itemEn ? f.itemEn : f.item)}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{t.items?.statusLabel}: {safeUpper(!isTr && f.statusEn ? f.statusEn : f.status)}</p>
                      </div>
                      <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'}`}>
                         {f.severity}
@@ -228,8 +229,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                {dnsSecurity.map((f, i) => (
                   <div key={i} className={`p-4 rounded-[1.5rem] border-2 flex items-center justify-between ${f.severity === 'OK' ? 'bg-emerald-50 border-emerald-100' : 'bg-red-50 border-red-100'}`}>
                      <div>
-                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(f.item)}</h6>
-                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{t.items?.statusLabel}: {safeUpper(f.status)}</p>
+                        <h6 className="font-bold text-[11px] text-slate-800">{safeUpper(!isTr && f.itemEn ? f.itemEn : f.item)}</h6>
+                        <p className="text-[9px] font-bold text-slate-400 mt-1 uppercase tracking-widest">{t.items?.statusLabel}: {safeUpper(!isTr && f.statusEn ? f.statusEn : f.status)}</p>
                      </div>
                      <div className={`px-3 py-1 rounded-full text-[8px] font-black ${f.severity === 'OK' ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'}`}>
                         {f.severity}
@@ -241,13 +242,13 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
             <section className="mt-8 text-left">
                <h5 className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-4">{t.items?.txtEvidenceTitle}</h5>
                <div className="bg-slate-50 border border-slate-200 rounded-[2rem] p-8 font-mono text-[9px] text-slate-600 leading-relaxed shadow-sm">
-                  <p className="text-primary font-black mb-2 uppercase">[RAW TXT RECORDS]</p>
+                  <p className="text-primary font-black mb-2 uppercase">[{isTr ? 'HAM TXT KAYITLARI' : 'RAW TXT RECORDS'}]</p>
                   {(dnsSecurityDetails.allTxt || []).map((txt, i) => (
                      <p key={`txt-${i}`} className="mb-1"> {">"} {txt}</p>
                   ))}
                   {dnsSecurityDetails.caaRecords?.length > 0 && (
                      <>
-                        <p className="text-primary font-black mt-4 mb-2 uppercase">[CAA RECORDS]</p>
+                        <p className="text-primary font-black mt-4 mb-2 uppercase">[{isTr ? 'CAA KAYITLARI' : 'CAA RECORDS'}]</p>
                         {dnsSecurityDetails.caaRecords.map((caa, i) => (
                            <p key={`caa-${i}`}> {">"} {caa.value} ({caa.tag})</p>
                         ))}
@@ -348,8 +349,8 @@ export const StandartPages = ({ auditData, t, layout, totalPages }) => {
                   <h5 className="font-black text-[10px] uppercase text-slate-400 mb-4 tracking-widest">{t.items?.certDetails}</h5>
                   <div className="space-y-3">
                      <DataItem label={t.items?.certIssuer} value={sslLabs.cert?.issuer} />
-                     <DataItem label="KEY STRENGTH" value={`${sslLabs.cert?.keyStrength} bit ${sslLabs.cert?.keyAlg}`} />
-                     <DataItem label="DAYS TO EXPIRY" value={`${sslLabs.cert?.daysUntilExpiry} GÜN`} />
+                     <DataItem label={isTr ? 'ANAHTAR GÜCÜ' : 'KEY STRENGTH'} value={`${sslLabs.cert?.keyStrength} bit ${sslLabs.cert?.keyAlg}`} />
+                     <DataItem label={isTr ? 'SONA ERME SÜRESİ' : 'DAYS TO EXPIRY'} value={`${sslLabs.cert?.daysUntilExpiry} ${t.items?.days}`} />
                   </div>
                </div>
                <div className="p-base bg-slate-50 border rounded-2xl p-6">

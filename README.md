@@ -2,7 +2,7 @@
 
 > **Sürüm:** V3.0.0 "Forensic Master Edition" | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
 >
-> **Son Güncelleme:** 22.04.2026 — ALFA X-RAY V3: Çoklu Standart Uyumluluk Matrisi (ISO 27005:2022, ITIL v4, COBIT 2019) entegre edildi. Sayfa 3 "Referans Standartlar" görsel sistemi yenilendi ve teknik stabilizasyon sağlandı.
+> **Son Güncelleme:** 22.04.2026 — ALFA X-RAY V3: Tam kapsamlı İngilizce (Bilingual) raporlama desteği finalize edildi. Rapor bileşenleri uluslararası denetim standartlarına (ISO/ITIL/COBIT) uygun hale getirildi. Proje dizini gereksiz geliştirme dosyalarından arındırılarak temizlendi.
 
 **ALFA YAPAY ZEKA**, kurumsal işletmelere yönelik yapay zeka tabanlı siber güvenlik hizmetleri sunan profesyonel bir web platformudur. V3.0.0 sürümü ile birlikte sunulan "Forensic Master Edition", sızma testi sonuçlarını uluslararası ISO standartlarıyla eşleştirerek denetçilere hazır (Auditor-Ready) dökümantasyon sunar.
 

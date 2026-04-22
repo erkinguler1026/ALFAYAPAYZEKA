@@ -4,6 +4,7 @@ import { Page, DataItem, ComplianceBadges } from './FullReportComponents';
 import { GLOBAL_ISO_MAPPING, safeUpper } from './FullReportUtils';
 
 export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
+  const isTr = t.reportTitle && !t.reportTitle.includes('FULL');
   const whois = auditData.whoisData || {};
   const cookies = auditData.cookies || [];
   const cors = auditData.corsData || {};
@@ -36,7 +37,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                      <div className="grid grid-cols-3 gap-4 border-b border-blue-100/50 pb-4">
                         <div>
                            <p className="text-slate-400 mb-1 tracking-widest text-[8px]">{safeUpper(t.items?.registrar)}</p>
-                           <p className="text-blue-700 font-black text-[11px] truncate">{safeUpper(whois.registrar) || (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'GİZLİ / KORUMALI' : 'PROTECTED')}</p>
+                           <p className="text-blue-700 font-black text-[11px] truncate">{safeUpper(whois.registrar) || (isTr ? 'GİZLİ / KORUMALI' : 'PROTECTED')}</p>
                         </div>
                         <div>
                            <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">{t.items?.createdDate}</p>
@@ -77,7 +78,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                   <div className="text-right">
                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{t.items?.secureConsent}</p>
                      <p className={`text-xl font-black tracking-tighter ${cookies.every(c => c.httpOnly && c.secure) ? 'text-emerald-600' : 'text-orange-600'}`}>
-                        {cookies.every(c => c.httpOnly && c.secure) ? safeUpper(t.items?.systemSecure) : (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'RİSKLİ / EKSİK BAYRAK' : 'RISKY / MISSING FLAGS')}
+                        {cookies.every(c => c.httpOnly && c.secure) ? safeUpper(t.items?.systemSecure) : (isTr ? 'RİSKLİ / EKSİK BAYRAK' : 'RISKY / MISSING FLAGS')}
                      </p>
                   </div>
                </div>
@@ -120,7 +121,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                      <DataItem label="CONTROL-ALLOW-ORIGIN" value={cors.allowOrigin || 'Restricted'} />
                      <DataItem label="CONTROL-ALLOW-METHODS" value={cors.allowMethods || 'Default'} />
                      <DataItem label="ALLOW-CREDENTIALS" value={cors.allowCredentials ? t.items?.yes : t.items?.no} />
-                     <DataItem label={t.items?.statusLabel} value={cors.isWildcard ? (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'KRİTİK / WILDCARD (*)' : 'CRITICAL / WILDCARD (*)') : (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'GÜVENLİ / KISITLI' : 'SECURE / RESTRICTED')} />
+                     <DataItem label={t.items?.statusLabel} value={cors.isWildcard ? (isTr ? 'KRİTİK / WILDCARD (*)' : 'CRITICAL / WILDCARD (*)') : (isTr ? 'GÜVENLİ / KISITLI' : 'SECURE / RESTRICTED')} />
                   </div>
                   {cors.isWildcard && (
                      <div className="mt-6 p-4 bg-red-600/20 border border-red-600/40 rounded-2xl flex items-center gap-4 animate-pulse">
@@ -188,7 +189,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                <div className="grid grid-cols-3 gap-6">
                    <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isProxy ? 'bg-red-50 border-red-200' : 'bg-green-50/50 border-green-100'}`}>
                       <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">PROXY / VPN</p>
-                      <p className={`text-xl font-black ${ geoData.isProxy ? 'text-red-700' : 'text-green-600'}`}>{geoData.isProxy ? (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'TESPİT EDİLDİ' : 'DETECTED') : t.items?.clean}</p>
+                      <p className={`text-xl font-black ${ geoData.isProxy ? 'text-red-700' : 'text-green-600'}`}>{geoData.isProxy ? (isTr ? 'TESPİT EDİLDİ' : 'DETECTED') : t.items?.clean}</p>
                    </div>
                    <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isHosting ? 'bg-amber-50 border-amber-200' : 'bg-green-50/50 border-green-100'}`}>
                       <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">HOSTING / DATACENTER</p>
@@ -264,7 +265,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                </div>
                {idx === sitemapChunks.length - 1 && sitemapUrls.length > 40 && (
                   <p className="text-center text-[9px] text-slate-400 font-bold italic uppercase tracking-widest mt-4">
-                     {t.reportTitle?.includes('MÜHENDİSLİĞİ') 
+                     {isTr 
                        ? `NOT: Toplam ${sitemapUrls.length} link tespit edilmiştir. Listenin tamamı "JSON DUMP" bölümünde dijital kanıt olarak sunulmaktadır.`
                        : `NOTE: Total ${sitemapUrls.length} links detected. The complete list is provided as digital evidence in the "JSON DUMP" section.`}
                   </p>

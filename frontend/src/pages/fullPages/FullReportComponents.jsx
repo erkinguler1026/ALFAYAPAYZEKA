@@ -98,7 +98,7 @@ export const Page = ({ children, pageNum, totalPages, title, isCover, t }) => {
       {!isCover && (
         <div className="absolute top-[7mm] left-0 right-0 flex justify-center opacity-10 pointer-events-none select-none text-center">
           <span className="text-[12px] font-black tracking-[12px] uppercase">
-            {t?.classificationLabel || 'TİCARİ SIR — KİŞİYE ÖZEL GİZLİ'}
+            {t?.classificationLabel || (t?.reportTitle?.includes('PENETRASYON') ? 'TİCARİ SIR — KİŞİYE ÖZEL GİZLİ' : 'COMMERCIAL SECRET — PRIVATE & CONFIDENTIAL')}
           </span>
         </div>
       )}
@@ -109,7 +109,7 @@ export const Page = ({ children, pageNum, totalPages, title, isCover, t }) => {
             <div className="flex items-center gap-2">
               <Shield className="text-primary" size={20} />
               <span className="font-black tracking-tighter text-lg uppercase underline decoration-primary decoration-4 underline-offset-4">
-                {t?.unitTitle || 'ALFA YAPAY ZEKA — GÜVENLİK BİRİMİ'}
+                {t?.unitTitle || (t?.reportTitle?.includes('PENETRASYON') ? 'ALFA YAPAY ZEKA — GÜVENLİK BİRİMİ' : 'ALFA ARTIFICIAL INTELLIGENCE — SECURITY UNIT')}
               </span>
             </div>
             <span className="text-[9px] font-bold text-gray-400 mt-1 uppercase tracking-widest">
@@ -154,8 +154,6 @@ export const Page = ({ children, pageNum, totalPages, title, isCover, t }) => {
  * @description Yönetici özeti için 5x5 Risk Isı Haritası (Likelihood vs Impact).
  */
 export const RiskMatrix = ({ findings = [], t }) => {
-  const isTr = t?.classification === 'GİZLİ' || true;
-
   // Severity to Matrix mapping (Olasılık ve Etki tahmini)
   const matrixData = findings.map(f => {
     if (f.severity === 'CRITICAL') return { x: 4, y: 4, color: 'bg-rose-600' };
@@ -170,7 +168,7 @@ export const RiskMatrix = ({ findings = [], t }) => {
         {/* Y-Axis Label (Rotated) */}
         <div className="flex items-center h-full">
            <span className="text-[8px] font-black text-slate-400 uppercase tracking-[0.3em] -rotate-90 whitespace-nowrap origin-center">
-              {isTr ? 'ETKİ (IMPACT)' : 'IMPACT'}
+              {t?.reportTitle?.includes('PENETRASYON') ? 'ETKİ (IMPACT)' : 'IMPACT'}
            </span>
         </div>
         
@@ -200,7 +198,7 @@ export const RiskMatrix = ({ findings = [], t }) => {
            {/* X-Axis Label */}
            <div className="w-full text-center mt-2">
               <span className="text-[8px] font-black text-slate-400 uppercase tracking-[0.3em]">
-                 {isTr ? 'OLASILIK (LIKELIHOOD)' : 'LIKELIHOOD'}
+                 {t?.reportTitle?.toUpperCase().includes('PENETRASYON') || t?.reportTitle?.toUpperCase().includes('PENETRATION') ? 'OLASILIK (LIKELIHOOD)' : 'LIKELIHOOD'}
               </span>
            </div>
         </div>
