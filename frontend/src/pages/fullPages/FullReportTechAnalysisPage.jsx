@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import { Page, IsoBadge } from './FullReportComponents';
-import { safeUpper } from './FullReportUtils';
+import { Page, ComplianceBadges } from './FullReportComponents';
+import { safeUpper, GLOBAL_ISO_MAPPING } from './FullReportUtils';
 import { AlertTriangle, ShieldCheck } from 'lucide-react';
 
 /**
@@ -67,7 +67,7 @@ const getDynamicDescription = (catId, data, isTr) => {
   }
 };
 
-const TechFrame = ({ cat, isTr }) => {
+const TechFrame = ({ cat }) => {
   const healthColor = cat.health >= 80 ? 'border-emerald-500' : (cat.health >= 50 ? 'border-amber-500' : 'border-rose-500');
   const bgColor = cat.health >= 80 ? 'bg-emerald-50/20' : (cat.health >= 50 ? 'bg-amber-50/20' : 'bg-rose-50/20');
   const textColor = cat.health >= 80 ? 'text-emerald-800' : (cat.health >= 50 ? 'text-amber-800' : 'text-rose-800');
@@ -84,7 +84,7 @@ const TechFrame = ({ cat, isTr }) => {
           </h3>
         </div>
         <div className="flex items-center gap-4">
-           <IsoBadge isoId={cat.iso} isoName={isTr ? "ISO 27001 Standardı" : "ISO 27001 Standard"} />
+           <ComplianceBadges mapping={cat.mapping} />
            <span className={`px-3 py-1 rounded-full text-[10px] font-black tracking-widest bg-white border border-gray-100 shadow-sm ${cat.health >= 80 ? 'text-emerald-500' : (cat.health >= 50 ? 'text-amber-500' : 'text-rose-500')}`}>
              {safeUpper(cat.status)}
            </span>
@@ -111,7 +111,7 @@ const TechFrame = ({ cat, isTr }) => {
 };
 
 export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
-  const isTr = t.reportTitle?.includes('MÜHENDİSLİĞİ');
+  const isTr = t.reportVariant === 'X-RAY' && !t.reportTitle.includes('FULL'); // Daha sağlam bir dil kontrolü
 
   const categories = useMemo(() => {
     if (!auditData) return [];
@@ -121,7 +121,7 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
         id: 'service',
         index: 'S4',
         name: isTr ? 'BÖLÜM IV: HASSAS DOSYA ANALİZİ (S4)' : 'SECTION IV: SENSITIVE FILE AUDIT (S4)',
-        iso: 'A.8.9',
+        mapping: GLOBAL_ISO_MAPPING.s11, // S4 mapping
         health: auditData.categoricalHealth?.service ?? 100,
         isoTitle: isTr ? 'ISO 27001:2022 A.8.9 Konfigürasyon Yönetimi' : 'ISO 27001:2022 A.8.9 Configuration Management',
         desc: getDynamicDescription('service', auditData, isTr)
@@ -130,7 +130,7 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
         id: 'headers',
         index: 'S3',
         name: isTr ? 'BÖLÜM III: GÜVENLİK BAŞLIKLARI (S3)' : 'SECTION III: SECURITY HEADERS (S3)',
-        iso: 'A.8.26',
+        mapping: GLOBAL_ISO_MAPPING.s3,
         health: auditData.categoricalHealth?.headers ?? 100,
         isoTitle: isTr ? 'ISO 27001:2022 A.8.26 Uygulama Güvenliği' : 'ISO 27001:2022 A.8.26 Application Security',
         desc: getDynamicDescription('headers', auditData, isTr)
@@ -139,7 +139,7 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
         id: 'network',
         index: 'S2',
         name: isTr ? 'BÖLÜM II: AĞ VE PORT GÜVENLİĞİ (S2)' : 'SECTION II: NETWORK & PORT SECURITY (S2)',
-        iso: 'A.8.20',
+        mapping: GLOBAL_ISO_MAPPING.s2,
         health: auditData.categoricalHealth?.network ?? 100,
         isoTitle: isTr ? 'ISO 27001:2022 A.8.20 Ağ Güvenliği Kontrolü' : 'ISO 27001:2022 A.8.20 Network Security Control',
         desc: getDynamicDescription('network', auditData, isTr)
@@ -148,7 +148,7 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
         id: 'domain',
         index: 'S6',
         name: isTr ? 'BÖLÜM VI: SSL LABS GÜVENLİK (S6)' : 'SECTION VI: SSL LABS SECURITY (S6)',
-        iso: 'A.5.7',
+        mapping: GLOBAL_ISO_MAPPING.s6,
         health: auditData.categoricalHealth?.domain ?? 100,
         isoTitle: isTr ? 'ISO 27001:2022 A.5.7 Tehdit İstihbaratı' : 'ISO 27001:2022 A.5.7 Threat Intelligence',
         desc: getDynamicDescription('domain', auditData, isTr)
@@ -157,7 +157,7 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
         id: 'patching',
         index: 'S10',
         name: isTr ? 'BÖLÜM X: YAZILIM VE YAMA (S10)' : 'SECTION X: SOFTWARE PATCHING (S10)',
-        iso: 'A.8.8',
+        mapping: GLOBAL_ISO_MAPPING.s13, // S10 mapping
         health: auditData.categoricalHealth?.patching ?? 100,
         isoTitle: isTr ? 'ISO 27001:2022 A.8.8 Teknik Zafiyet Yönetimi' : 'ISO 27001:2022 A.8.8 Technical Vulnerability Management',
         desc: getDynamicDescription('patching', auditData, isTr)
@@ -179,7 +179,7 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
               : "Summary findings of layered security analyses conducted on the target infrastructure and ISO 27001:2022 mappings are presented below."}
           </p>
           {categories.slice(0, 3).map((cat, i) => (
-            <TechFrame key={i} cat={cat} isTr={isTr} />
+            <TechFrame key={i} cat={cat} />
           ))}
         </div>
       </Page>
@@ -193,7 +193,7 @@ export const TechAnalysisPage = ({ auditData, t, layout, totalPages }) => {
               : "Technical summaries based on certification, SSL/TLS encryption quality, and software patch analysis:"}
           </p>
           {categories.slice(3, 5).map((cat, i) => (
-            <TechFrame key={i} cat={cat} isTr={isTr} />
+            <TechFrame key={i} cat={cat} />
           ))}
           
           <div className="mt-12 bg-slate-50 p-8 rounded-[2.5rem] border border-dashed border-slate-200">

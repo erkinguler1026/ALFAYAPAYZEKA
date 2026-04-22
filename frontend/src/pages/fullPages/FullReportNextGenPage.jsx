@@ -1,6 +1,6 @@
 import React from 'react';
 import { Database, Shield, ShieldAlert, ShieldCheck, Cpu } from 'lucide-react';
-import { Page, DataItem, IsoBadge } from './FullReportComponents';
+import { Page, DataItem, ComplianceBadges } from './FullReportComponents';
 import { GLOBAL_ISO_MAPPING, safeUpper } from './FullReportUtils';
 
 export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
@@ -25,8 +25,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          <div className="space-y-10">
             <section>
                <div className="flex justify-between items-start border-b-2 border-primary/20 pb-2 mb-4">
-                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">WHOIS & RDAP DOMAIN KAYIT ANALİZİ</h4>
-                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n4?.id} isoName={GLOBAL_ISO_MAPPING.n4?.name} />
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">{t.items?.whoisTitle}</h4>
+                  <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s10} />
                </div>
                <div className="bg-blue-50/30 border border-blue-100/50 rounded-[2.5rem] p-8 font-mono text-[10px] leading-relaxed relative overflow-hidden group shadow-sm">
                   <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">
@@ -35,15 +35,15 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                   <div className="space-y-4 text-slate-700">
                      <div className="grid grid-cols-3 gap-4 border-b border-blue-100/50 pb-4">
                         <div>
-                           <p className="text-slate-400 mb-1 tracking-widest text-[8px]">{safeUpper('REGISTRAR')}</p>
-                           <p className="text-blue-700 font-black text-[11px] truncate">{safeUpper(whois.registrar) || 'GİZLİ / KORUMALI'}</p>
+                           <p className="text-slate-400 mb-1 tracking-widest text-[8px]">{safeUpper(t.items?.registrar)}</p>
+                           <p className="text-blue-700 font-black text-[11px] truncate">{safeUpper(whois.registrar) || (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'GİZLİ / KORUMALI' : 'PROTECTED')}</p>
                         </div>
                         <div>
-                           <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">KAYIT TARİHİ</p>
+                           <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">{t.items?.createdDate}</p>
                            <p className="text-slate-900 font-black text-[11px]">{whois.createdDate ? new Date(whois.createdDate).toLocaleDateString() : 'N/A'}</p>
                         </div>
                         <div>
-                           <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">BİTİŞ TARİHİ</p>
+                           <p className="text-slate-400 mb-1 uppercase tracking-widest text-[8px]">{t.items?.expiryDate}</p>
                            <p className="text-red-500 font-black text-[11px]">{whois.expiryDate ? new Date(whois.expiryDate).toLocaleDateString() : 'N/A'}</p>
                         </div>
                      </div>
@@ -66,18 +66,18 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          <div className="space-y-8">
             <section>
                <div className="flex justify-between items-start border-b-2 border-primary mb-4">
-                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">COOKIE (ÇEREZ) GÜVENLİK ANALİZİ</h4>
-                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n5?.id} isoName={GLOBAL_ISO_MAPPING.n5?.name} />
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">{t.items?.cookieTitle}</h4>
+                  <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s11} />
                </div>
                <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 flex items-center justify-between mb-6 shadow-sm">
                   <div>
-                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">TESPİT EDİLEN ÇEREZ SAYISI</p>
+                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{t.items?.cookieCount}</p>
                      <p className="text-4xl font-black text-slate-900 tracking-tighter">{cookies.length}</p>
                   </div>
                   <div className="text-right">
-                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">GÜVENLİ ONAY DURUMU</p>
+                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{t.items?.secureConsent}</p>
                      <p className={`text-xl font-black tracking-tighter ${cookies.every(c => c.httpOnly && c.secure) ? 'text-emerald-600' : 'text-orange-600'}`}>
-                        {cookies.every(c => c.httpOnly && c.secure) ? 'TAM GÜVENLİ' : 'RİSKLİ / EKSİK BAYRAK'}
+                        {cookies.every(c => c.httpOnly && c.secure) ? safeUpper(t.items?.systemSecure) : (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'RİSKLİ / EKSİK BAYRAK' : 'RISKY / MISSING FLAGS')}
                      </p>
                   </div>
                </div>
@@ -85,7 +85,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                   <table className="w-full text-[10px]">
                      <thead className="bg-slate-100 text-slate-900 font-black tracking-tighter">
                         <tr>
-                           <th className="p-4 text-left">{safeUpper('ÇEREZ ADI (COOKIE NAME)')}</th>
+                           <th className="p-4 text-left">{safeUpper('COOKIE NAME')}</th>
                            <th className="p-4 text-center">{safeUpper('HTTPONLY')}</th>
                            <th className="p-4 text-center">{safeUpper('SECURE')}</th>
                            <th className="p-4 text-center">{safeUpper('SAMESITE')}</th>
@@ -95,8 +95,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                         {cookies.map((c, i) => (
                            <tr key={i} className="border-b">
                               <td className="p-4 font-bold text-slate-800">{c.name}</td>
-                              <td className="p-4 text-center">{c.httpOnly ? <span className="text-emerald-600">EVET</span> : <span className="text-red-600 font-bold underline">HAYIR</span>}</td>
-                              <td className="p-4 text-center">{c.secure ? <span className="text-emerald-600">EVET</span> : <span className="text-red-600 font-bold underline">HAYIR</span>}</td>
+                              <td className="p-4 text-center">{c.httpOnly ? <span className="text-emerald-600">{t.items?.yes}</span> : <span className="text-red-600 font-bold underline">{t.items?.no}</span>}</td>
+                              <td className="p-4 text-center">{c.secure ? <span className="text-emerald-600">{t.items?.yes}</span> : <span className="text-red-600 font-bold underline">{t.items?.no}</span>}</td>
                               <td className="p-4 text-center font-mono">{c.sameSite || 'None'}</td>
                            </tr>
                         ))}
@@ -112,20 +112,20 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          <div className="space-y-8">
             <section>
                <div className="flex justify-between items-start border-b-2 border-primary mb-4">
-                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">CORS POLİTİKASI VE API GÜVENLİK ANALİZİ</h4>
-                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n6?.id} isoName={GLOBAL_ISO_MAPPING.n6?.name} />
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">{t.items?.corsTitle}</h4>
+                  <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s12} />
                </div>
                <div className="p-8 bg-slate-50 rounded-[2rem] border border-slate-200 shadow-sm">
                   <div className="grid grid-cols-2 gap-8">
-                     <DataItem label="CONTROL-ALLOW-ORIGIN" value={cors.allowOrigin || 'Kısıtlı'} />
-                     <DataItem label="CONTROL-ALLOW-METHODS" value={cors.allowMethods || 'Varsayılan'} />
-                     <DataItem label="ALLOW-CREDENTIALS" value={cors.allowCredentials ? 'EVET' : 'HAYIR'} />
-                     <DataItem label="POLİTİKA GÜVENLİK DURUMU" value={cors.isWildcard ? 'KRİTİK / WILDCARD (*)' : 'GÜVENLİ / KISITLI'} />
+                     <DataItem label="CONTROL-ALLOW-ORIGIN" value={cors.allowOrigin || 'Restricted'} />
+                     <DataItem label="CONTROL-ALLOW-METHODS" value={cors.allowMethods || 'Default'} />
+                     <DataItem label="ALLOW-CREDENTIALS" value={cors.allowCredentials ? t.items?.yes : t.items?.no} />
+                     <DataItem label={t.items?.statusLabel} value={cors.isWildcard ? (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'KRİTİK / WILDCARD (*)' : 'CRITICAL / WILDCARD (*)') : (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'GÜVENLİ / KISITLI' : 'SECURE / RESTRICTED')} />
                   </div>
                   {cors.isWildcard && (
                      <div className="mt-6 p-4 bg-red-600/20 border border-red-600/40 rounded-2xl flex items-center gap-4 animate-pulse">
                         <ShieldAlert className="text-red-500" size={24} />
-                        <p className="text-[10px] text-red-100 font-bold uppercase tracking-tight">Kritik Uyarı: Wildcard (*) CORS politikası, saldırganların kullanıcı verilerini çalmasına olanak tanır!</p>
+                        <p className="text-[10px] text-red-100 font-bold uppercase tracking-tight">{t.items?.wildcardAlert}</p>
                      </div>
                   )}
                </div>
@@ -137,8 +137,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
       <Page pageNum={layout?.s13} totalPages={totalPages} title={t.sections.s13} t={t}>
          <div className="space-y-8">
             <div className="flex justify-between items-start border-b-2 border-primary mb-4">
-               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">TEKNOLOJİ PARMAK İZİ TESPİTİ (TECH STACK)</h4>
-               <IsoBadge isoId={GLOBAL_ISO_MAPPING.n7?.id} isoName={GLOBAL_ISO_MAPPING.n7?.name} />
+               <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">{t.items?.techStackTitle}</h4>
+               <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s13} />
             </div>
             <div className="grid grid-cols-1 gap-4">
                {techs.map((tech, i) => (
@@ -156,7 +156,7 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                   </div>
                ))}
                {techs.length === 0 && (
-                  <div className="p-10 text-center text-slate-400 italic bg-slate-50 rounded-[2rem]">Aktif teknoloji tespiti yapılamadı (Güvenlik duvarı engeli).</div>
+                  <div className="p-10 text-center text-slate-400 italic bg-slate-50 rounded-[2rem]">{t.items?.noTechFound}</div>
                )}
             </div>
          </div>
@@ -167,36 +167,36 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          <div className="space-y-8">
             <section>
                <div className="flex justify-between items-start border-b-2 border-primary mb-4">
-                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">COĞRAFİ KONUM VE ALTYAPI ANALİZİ</h4>
-                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n2?.id} isoName={GLOBAL_ISO_MAPPING.n2?.name} />
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">{t.items?.geoTitle}</h4>
+                  <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s14} />
                </div>
                <div className="bg-slate-50 p-8 rounded-[2rem] border border-slate-100 shadow-sm">
                   <div className="grid grid-cols-2 gap-8">
-                     <DataItem label="IP ADRESİ" value={geoData.ip} />
-                     <DataItem label="ÜLKE" value={geoData.country ? `${geoData.country} (${geoData.countryCode})` : 'N/A'} />
-                     <DataItem label="BÖLGE / ŞEHİR" value={geoData.city ? `${geoData.city}, ${geoData.region}` : 'N/A'} />
+                     <DataItem label="IP ADDRESS" value={geoData.ip} />
+                     <DataItem label="COUNTRY" value={geoData.country ? `${geoData.country} (${geoData.countryCode})` : 'N/A'} />
+                     <DataItem label="REGION / CITY" value={geoData.city ? `${geoData.city}, ${geoData.region}` : 'N/A'} />
                      <DataItem label="TIMEZONE" value={geoData.timezone} />
                      <DataItem label="ISP" value={geoData.isp} />
-                     <DataItem label="ORGANİZASYON" value={geoData.org} />
+                     <DataItem label="ORGANIZATION" value={geoData.org} />
                      <DataItem label="ASN" value={geoData.asn} />
-                     <DataItem label="KOORDİNAT" value={geoData.lat && geoData.lon ? `${geoData.lat}, ${geoData.lon}` : 'N/A'} />
+                     <DataItem label="COORDINATE" value={geoData.lat && geoData.lon ? `${geoData.lat}, ${geoData.lon}` : 'N/A'} />
                   </div>
                </div>
             </section>
             <section>
-               <h4 className="text-sm font-black border-b-2 border-primary mb-6 uppercase tracking-widest">ALTYAPI RİSK GÖSTERGELERİ</h4>
+               <h4 className="text-sm font-black border-b-2 border-primary mb-6 uppercase tracking-widest">{t.items?.infraRisk}</h4>
                <div className="grid grid-cols-3 gap-6">
                    <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isProxy ? 'bg-red-50 border-red-200' : 'bg-green-50/50 border-green-100'}`}>
                       <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">PROXY / VPN</p>
-                      <p className={`text-xl font-black ${ geoData.isProxy ? 'text-red-700' : 'text-green-600'}`}>{geoData.isProxy ? 'TESPİT EDİLDİ' : 'TEMİZ'}</p>
+                      <p className={`text-xl font-black ${ geoData.isProxy ? 'text-red-700' : 'text-green-600'}`}>{geoData.isProxy ? (t.reportTitle?.includes('MÜHENDİSLİĞİ') ? 'TESPİT EDİLDİ' : 'DETECTED') : t.items?.clean}</p>
                    </div>
                    <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isHosting ? 'bg-amber-50 border-amber-200' : 'bg-green-50/50 border-green-100'}`}>
                       <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">HOSTING / DATACENTER</p>
-                      <p className={`text-xl font-black ${ geoData.isHosting ? 'text-amber-700' : 'text-green-600'}`}>{geoData.isHosting ? 'EVET' : 'HAYIR'}</p>
+                      <p className={`text-xl font-black ${ geoData.isHosting ? 'text-amber-700' : 'text-green-600'}`}>{geoData.isHosting ? t.items?.yes : t.items?.no}</p>
                    </div>
                   <div className={`p-6 rounded-[2rem] border-2 text-center shadow-sm ${ geoData.isMobile ? 'bg-blue-50 border-blue-200' : 'bg-slate-50 border-slate-200'}`}>
-                     <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">MOBİL AĞ</p>
-                     <p className={`text-xl font-black ${ geoData.isMobile ? 'text-blue-700' : 'text-slate-700'}`}>{geoData.isMobile ? 'EVET' : 'HAYIR'}</p>
+                     <p className="text-[9px] font-black uppercase tracking-widest mb-2 text-slate-400">MOBILE NETWORK</p>
+                     <p className={`text-xl font-black ${ geoData.isMobile ? 'text-blue-700' : 'text-slate-700'}`}>{geoData.isMobile ? t.items?.yes : t.items?.no}</p>
                   </div>
                </div>
             </section>
@@ -208,8 +208,8 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
          <div className="space-y-8">
             <section>
                <div className="flex justify-between items-start border-b-2 border-primary mb-4">
-                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">ALIENVAULT OTX — IP REPUTATION CHECK</h4>
-                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n8?.id} isoName={GLOBAL_ISO_MAPPING.n8?.name} />
+                  <h4 className="text-sm font-black uppercase tracking-widest leading-none py-2">{t.items?.reputationTitle}</h4>
+                  <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s15} />
                </div>
                <div className={`p-8 rounded-[2rem] border-2 shadow-sm ${ipReputation.isMalicious ? 'bg-red-50 border-red-200' : 'bg-green-50/50 border-green-100'}`}>
                    <div className="flex items-center gap-6">
@@ -218,15 +218,15 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                       </div>
                       <div className="flex-1">
                          <h5 className={`text-xl font-black uppercase tracking-tight ${ipReputation.isMalicious ? 'text-red-700' : 'text-green-600'}`}>
-                            {ipReputation.isMalicious ? 'TEHLİKELİ / MALICIOUS IP TESPİT EDİLDİ' : 'TEMİZ / GÜVENLİ IP REPUTASYONU'}
+                            {ipReputation.isMalicious ? t.items?.maliciousIpDetected : t.items?.cleanIpReputation}
                          </h5>
-                         <p className="text-xs font-bold text-slate-400 mt-1">İstihbarat Kaynağı: AlienVault Open Threat Exchange (OTX) API v1</p>
+                         <p className="text-xs font-bold text-slate-400 mt-1">{t.items?.intelligenceSource}: AlienVault Open Threat Exchange (OTX) API v1</p>
                       </div>
                    </div>
                   <div className="grid grid-cols-3 gap-6 mt-8">
-                     <DataItem label="AKTİF PULSE SAYISI" value={ipReputation.pulseCount || 0} />
-                     <DataItem label="MALWARE ÖRNEKLERİ" value={ipReputation.malwareCount || 0} />
-                     <DataItem label="GÖZLEMLENEN URL" value={ipReputation.urlCount || 0} />
+                     <DataItem label="PULSE COUNT" value={ipReputation.pulseCount || 0} />
+                     <DataItem label="MALWARE SAMPLES" value={ipReputation.malwareCount || 0} />
+                     <DataItem label="OBSERVED URLS" value={ipReputation.urlCount || 0} />
                   </div>
                </div>
             </section>
@@ -235,11 +235,11 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
 
       {/* S16: SITEMAP ANALİZİ (DYNAMIK MULTI-PAGE) */}
       {sitemapChunks.map((chunk, idx) => (
-         <Page key={`sitemap-${idx}`} pageNum={(layout?.s16 ?? 25) + idx} totalPages={totalPages} title={`BÖLÜM XVI: SITEMAP & URL INDEX — PART ${idx + 1}`} t={t}>
+         <Page key={`sitemap-${idx}`} pageNum={(layout?.s16 ?? 25) + idx} totalPages={totalPages} title={`${t.sections.s16} — PART ${idx + 1}`} t={t}>
             <div className="space-y-8">
                <div className="flex justify-between items-start border-b-2 border-primary/20 pb-2 mb-4">
-                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">SITEMAP URL ENVANTERİ</h4>
-                  <IsoBadge isoId={GLOBAL_ISO_MAPPING.n9?.id} isoName={GLOBAL_ISO_MAPPING.n9?.name} />
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-primary">{t.items?.sitemapTitle}</h4>
+                  <ComplianceBadges mapping={GLOBAL_ISO_MAPPING.s16} />
                </div>
                <div className="bg-white border-2 border-slate-100 rounded-[2.5rem] overflow-hidden shadow-sm">
                   <table className="w-full text-[10px]">
@@ -257,14 +257,16 @@ export const NextGenPages = ({ auditData, t, layout, totalPages }) => {
                            </tr>
                         ))}
                         {chunk.length === 0 && (
-                           <tr><td colSpan="2" className="p-12 text-center text-slate-300 italic">Sitemap verisi bulunamadı veya erişilemez durumda.</td></tr>
+                           <tr><td colSpan="2" className="p-12 text-center text-slate-300 italic">{t.items?.sitemapDesc}</td></tr>
                         )}
                      </tbody>
                   </table>
                </div>
                {idx === sitemapChunks.length - 1 && sitemapUrls.length > 40 && (
                   <p className="text-center text-[9px] text-slate-400 font-bold italic uppercase tracking-widest mt-4">
-                     NOT: Toplam {sitemapUrls.length} link tespit edilmiştir. Listenin tamamı "JSON DUMP" bölümünde dijital kanıt olarak sunulmaktadır.
+                     {t.reportTitle?.includes('MÜHENDİSLİĞİ') 
+                       ? `NOT: Toplam ${sitemapUrls.length} link tespit edilmiştir. Listenin tamamı "JSON DUMP" bölümünde dijital kanıt olarak sunulmaktadır.`
+                       : `NOTE: Total ${sitemapUrls.length} links detected. The complete list is provided as digital evidence in the "JSON DUMP" section.`}
                   </p>
                )}
             </div>

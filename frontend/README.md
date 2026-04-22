@@ -1,8 +1,8 @@
 # ALFAYAPAYZEKA — Frontend
 
-> **Sürüm:** V1.7.0 "Forensic Edition" | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
+> **Sürüm:** V3.0.0 "Forensic Master Edition" | **Tarih:** Nisan 2026 | **Durum:** 🟢 Aktif / Production
 
-React + Vite + Tailwind CSS v4 ile inşa edilmiş **Alfa Yapay Zeka Ajansı** web sitesinin frontend katmanıdır. V1.7.0 sürümü ile birlikte "Forensic Minimalism" tasarım dili ve dinamik Teknik Analiz (X-RAY V3) katmanı entegre edilmiştir.
+React + Vite + Tailwind CSS v4 ile inşa edilmiş **Alfa Yapay Zeka Ajansı** web sitesinin frontend katmanıdır. V3.0.0 sürümü ile birlikte Çoklu Standart Uyumluluk Matrisi (ISO 27005:2022, ITIL v4, COBIT) ve dinamik Teknik Analiz (X-RAY V3) katmanı entegre edilmiştir.
 
 ---
 

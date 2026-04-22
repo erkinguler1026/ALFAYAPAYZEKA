@@ -93,11 +93,12 @@ Sistemde tekrarlayan görevleri hızlandırmak için aşağıdaki komut kalıpla
 
 ---
 
-## 10. REVİZYON 11 (21 Nisan 2026) - Teknik Analiz Entegrasyonu ve Rapor Stabilizasyonu
-1. **Dinamik Teknik Analiz Çerçeveleri:** `FullScoreCard.jsx` üzerindeki 5 ana teknik analiz kategorisi (3.1 - 3.5), `FullReportTechAnalysisPage.jsx` bileşeni üzerinden resmi rapora (Sayfa 6+) dinamik olarak entegre edildi.
-2. **Rapor Navigasyonu & UX:** Resmi rapor sayfasından skor kartına hızlı dönüş için "Back to Scorecard" butonu eklendi.
-3. **Minimalist Adli Estetik:** Raporun okunabilirliğini artırmak için dekoratif ikonlar (Kalkan, Büyüteç vb.) kaldırıldı, daha profesyonel ve sade bir denetçi tasarımı benimsendi.
-4. **Veri Tutarlılığı:** `sessionStorage` önbellekleme mekanizması güçlendirilerek, skor kartı ve resmi rapor arasındaki veri senkronizasyonu %100 sağlandı.
+## 11. REVİZYON 12 (22 Nisan 2026) - Çoklu Standart Uyumluluğu ve Forensic Master Edition
+1. **Çoklu Standart Uyumluluk Matrisi:** Raporun kapsamı ISO 27001'den; **ISO 27005:2022 (Risk Yönetimi)**, **ISO 27002:2022**, **ITIL v4** ve **COBIT 2019** standartlarını kapsayacak şekilde genişletildi.
+2. **Global Compliance & Risk Matrix:** Raporun sonuna tüm denetim modüllerinin uluslararası standartlarla çapraz eşleştirmesini yapan interaktif bir matris sayfası eklendi.
+3. **Görsel Standartlar Listesi (Sayfa 3):** Güvenlik Sertifikasyonu sayfasında, referans alınan 6 ana standardın (ISO, ITIL, COBIT, OWASP) görsel olarak zenginleştirilmiş, pastel renk kodlu bir listesi eklendi.
+4. **Teknik Stabilizasyon (White Screen Fix):** `IsoBadge` ve `ComplianceBadges` bileşenleri arasındaki senkronizasyon hatası giderilerek raporun render performansı ve stabilitesi artırıldı.
+5. **Dinamik Dil ve Başlık Kontrolü:** `isTr` mantığı, rapor başlığındaki manuel değişikliklerden etkilenmeyecek şekilde `reportVariant` ve `lang` parametrelerine bağlandı.
 
 ---
 

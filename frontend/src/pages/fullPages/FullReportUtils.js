@@ -91,22 +91,135 @@ export function calculatePageLayout(auditData) {
   return layout;
 }
 
-// ── ISO 27001:2022 GLOBAL MAPPING ──
+// ── MULTI-STANDARD COMPLIANCE MAPPING (ISO 27005:2022 PRIMARY) ──
+// Bu tablo, ALFA X-RAY V3 denetim modüllerinin uluslararası standartlarla olan çapraz eşleştirmesini barındırır.
 export const GLOBAL_ISO_MAPPING = {
-  s1:  { id: "A.8.20", name: "Ağ güvenliği" },
-  s2:  { id: "A.8.21", name: "Ağ hizmetlerinin güvenliği" },
-  s3:  { id: "A.8.26", name: "Uygulama güvenliği gereksinimleri" },
-  s4:  { id: "A.8.24", name: "Hizmetlerin kullanımı (Kriptografi)" },
-  s5:  { id: "A.8.8",  name: "Teknik zafiyet yönetimi" },
-  s6:  { id: "A.8.21", name: "Ağ hizmetlerinin güvenliği" },
-  s7:  { id: "A.8.26", name: "Uygulama güvenliği gereksinimleri" },
-  s8:  { id: "A.8.20", name: "Ağ güvenliği" },
-  s9:  { id: "A.8.24", name: "Hizmetlerin kullanımı (Kriptografi)" },
-  s10: { id: "A.5.9",  name: "Bilgi envanteri ve diğer ilişkili varlıklar" },
-  s11: { id: "A.8.26", name: "Uygulama güvenliği gereksinimleri" },
-  s12: { id: "A.8.26", name: "Uygulama güvenliği gereksinimleri" },
-  s13: { id: "A.8.8",  name: "Teknik zafiyet yönetimi" },
-  s14: { id: "A.5.7",  name: "Tehdit istihbaratı" },
-  s15: { id: "A.5.7",  name: "Tehdit istihbaratı" },
-  s16: { id: "A.5.9",  name: "Bilgi envanteri ve diğer ilişkili varlıklar" }
+  s1: {
+    iso27001: "A.8.20",
+    iso27002: "8.20",
+    iso27005: "8.1.1",
+    itil: "ISM-01",
+    cobit: "APO13.01",
+    name: "Ağ Güvenliği (Network Security)"
+  },
+  s2: {
+    iso27001: "A.8.21",
+    iso27002: "8.21",
+    iso27005: "8.1.2",
+    itil: "ISM-02",
+    cobit: "APO13.02",
+    name: "Ağ Hizmetlerinin Güvenliği"
+  },
+  s3: {
+    iso27001: "A.8.26",
+    iso27002: "8.26",
+    iso27005: "8.2.1",
+    itil: "SD-04",
+    cobit: "BAI03.05",
+    name: "Uygulama Güvenliği Gereksinimleri"
+  },
+  s4: {
+    iso27001: "A.8.24",
+    iso27002: "8.24",
+    iso27005: "8.2.2",
+    itil: "SD-05",
+    cobit: "BAI03.06",
+    name: "Kriptografik Kontroller"
+  },
+  s5: {
+    iso27001: "A.8.8",
+    iso27002: "8.8",
+    iso27005: "9.2.1",
+    itil: "ISM-08",
+    cobit: "DSS05.01",
+    name: "Teknik Zafiyet Yönetimi"
+  },
+  s6: {
+    iso27001: "A.8.21",
+    iso27002: "8.21",
+    iso27005: "8.1.2",
+    itil: "ISM-02",
+    cobit: "APO13.02",
+    name: "Servis Güvenliği"
+  },
+  s7: {
+    iso27001: "A.8.26",
+    iso27002: "8.26",
+    iso27005: "8.2.1",
+    itil: "SD-04",
+    cobit: "BAI03.05",
+    name: "Web Uygulama Güvenliği"
+  },
+  s8: {
+    iso27001: "A.8.20",
+    iso27002: "8.20",
+    iso27005: "8.1.1",
+    itil: "ISM-01",
+    cobit: "APO13.01",
+    name: "Varlık Envanteri (Subdomains)"
+  },
+  s9: {
+    iso27001: "A.8.24",
+    iso27002: "8.24",
+    iso27005: "8.2.2",
+    itil: "SD-05",
+    cobit: "BAI03.06",
+    name: "TLS/SSL Bütünlüğü"
+  },
+  s10: {
+    iso27001: "A.5.9",
+    iso27002: "5.9",
+    iso27005: "7.1.1",
+    itil: "AM-01",
+    cobit: "BAI09.01",
+    name: "Bilgi Varlıkları Envanteri"
+  },
+  s11: {
+    iso27001: "A.8.26",
+    iso27002: "8.26",
+    iso27005: "8.2.1",
+    itil: "SD-04",
+    cobit: "BAI03.05",
+    name: "Form ve Girdi Güvenliği"
+  },
+  s12: {
+    iso27001: "A.8.26",
+    iso27002: "8.26",
+    iso27005: "8.2.1",
+    itil: "SD-04",
+    cobit: "BAI03.05",
+    name: "İstemci Tarafı Güvenliği"
+  },
+  s13: {
+    iso27001: "A.8.8",
+    iso27002: "8.8",
+    iso27005: "9.2.1",
+    itil: "ISM-08",
+    cobit: "DSS05.01",
+    name: "Sunucu Yapılandırma Analizi"
+  },
+  s14: {
+    iso27001: "A.5.7",
+    iso27002: "5.7",
+    iso27005: "6.1.1",
+    itil: "ISM-07",
+    cobit: "APO12.01",
+    name: "Tehdit İstihbaratı"
+  },
+  s15: {
+    iso27001: "A.5.7",
+    iso27002: "5.7",
+    iso27005: "6.1.1",
+    itil: "ISM-07",
+    cobit: "APO12.01",
+    name: "IP Repütasyon Analizi"
+  },
+  s16: {
+    iso27001: "A.5.9",
+    iso27002: "5.9",
+    iso27005: "7.1.1",
+    itil: "AM-01",
+    cobit: "BAI09.01",
+    name: "Mimari ve Haritalama"
+  }
 };

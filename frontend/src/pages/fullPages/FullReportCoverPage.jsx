@@ -23,11 +23,11 @@ export const CoverPage = ({ siteName, t, metadata, totalPages }) => {
              </div>
              <div className="text-center space-y-4">
                 <h1 className="text-5xl font-black text-slate-900 tracking-tight leading-none uppercase flex flex-col items-center">
-                   <span>ALFA PENETRASYON</span>
-                   <span className="mt-2 text-slate-900">FULL X-RAY RAPORU</span>
+                   <span>{t.reportTitle}</span>
+                   <span className="mt-2 text-slate-900">{t.reportVariant} {t.reportSuffix}</span>
                 </h1>
                 <p className="text-[14px] font-bold text-slate-400 tracking-[0.4em] uppercase">
-                   KAPSAMLI GÜVENLİK DENETİMİ & PENTEST
+                   {t.items?.coverScope}
                 </p>
              </div>
           </div>
@@ -37,7 +37,7 @@ export const CoverPage = ({ siteName, t, metadata, totalPages }) => {
              <div className="space-y-12">
                 <div className="w-full h-px bg-slate-200/60" />
                 <div className="text-center py-4">
-                   <p className="text-[11px] font-black text-slate-300 uppercase tracking-[4px] mb-6">HEDEF KURULUŞ / DOMAIN</p>
+                   <p className="text-[11px] font-black text-slate-300 uppercase tracking-[4px] mb-6">{t.targetDomainLabel}</p>
                    <h5 className="font-serif font-black text-slate-900 tracking-[-0.02em] leading-none text-center px-4 whitespace-nowrap" 
                         style={{ fontSize: (siteName.length > 20 ? '1.6rem' : '2.2rem') }}>
                        https://www.{siteName.toLowerCase()}

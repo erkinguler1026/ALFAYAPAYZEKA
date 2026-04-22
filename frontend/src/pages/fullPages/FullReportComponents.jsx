@@ -14,19 +14,39 @@ import { Shield, ShieldCheck, ShieldAlert } from 'lucide-react';
 
 /**
  * @component IsoBadge
- * @description Bölüm başlıklarında ve bulgu kutularında kullanılan ISO 27001 uyumluluk rozeti.
+ * @description Tekil ISO maddelerini göstermek için kullanılan klasik rozet.
+ * Geriye dönük uyumluluk için korunmuştur.
  */
-export const IsoBadge = ({ isoId, isoName }) => {
-  if (!isoId) return null;
+export const IsoBadge = ({ isoId, isoName }) => (
+  <div className="flex items-center gap-1.5 bg-blue-50 border border-blue-100/50 px-2 py-0.5 rounded-lg shadow-sm">
+    <ShieldCheck size={10} className="text-blue-600" />
+    <span className="text-[7px] font-black text-blue-800 uppercase tracking-tighter">{isoName || 'ISO 27001'}:</span>
+    <span className="text-[8px] font-mono font-black text-blue-600">{isoId}</span>
+  </div>
+);
+
+const Badge = ({ label, value, color = "emerald" }) => (
+  <div className={`flex items-center gap-1.5 bg-${color}-50 border border-${color}-100/50 px-2 py-0.5 rounded-lg shadow-sm`}>
+    <span className={`text-[7px] font-black text-${color}-800 uppercase tracking-tighter`}>{label}:</span>
+    <span className={`text-[8px] font-mono font-black text-${color}-600 whitespace-nowrap`}>{value}</span>
+  </div>
+);
+
+/**
+ * @component ComplianceBadges
+ * @description Bölüm başlıklarında kullanılan çoklu standart uyumluluk rozetleri.
+ * ISO 27001/2/5, ITIL ve COBIT çapraz eşleştirmelerini görselleştirir.
+ */
+export const ComplianceBadges = ({ mapping }) => {
+  if (!mapping) return null;
+
   return (
-    <div className="flex items-center gap-2 bg-[#f0fdf4] border border-emerald-100/50 px-3 py-1.5 rounded-xl shadow-sm group hover:shadow-md transition-all">
-      <div className="w-7 h-7 rounded-lg bg-emerald-100 flex items-center justify-center text-emerald-600 shrink-0">
-        <Shield size={14} strokeWidth={2.5} />
-      </div>
-      <div className="flex flex-col">
-        <div className="text-[9px] font-black text-emerald-800 leading-none mb-0.5">{isoId}</div>
-        <div className="text-[7px] font-black text-emerald-600/60 uppercase tracking-tighter leading-none whitespace-nowrap">{isoName}</div>
-      </div>
+    <div className="flex flex-wrap gap-2 items-center">
+      {mapping.iso27005 && <Badge label="ISO 27005" value={mapping.iso27005} color="blue" />}
+      {mapping.iso27001 && <Badge label="ISO 27001" value={mapping.iso27001} color="emerald" />}
+      {mapping.iso27002 && <Badge label="ISO 27002" value={mapping.iso27002} color="slate" />}
+      {mapping.itil && <Badge label="ITIL v4" value={mapping.itil} color="indigo" />}
+      {mapping.cobit && <Badge label="COBIT" value={mapping.cobit} color="amber" />}
     </div>
   );
 };
@@ -126,6 +146,81 @@ export const Page = ({ children, pageNum, totalPages, title, isCover, t }) => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+/**
+ * @component RiskMatrix
+ * @description Yönetici özeti için 5x5 Risk Isı Haritası (Likelihood vs Impact).
+ */
+export const RiskMatrix = ({ findings = [], t }) => {
+  const isTr = t?.classification === 'GİZLİ' || true;
+
+  // Severity to Matrix mapping (Olasılık ve Etki tahmini)
+  const matrixData = findings.map(f => {
+    if (f.severity === 'CRITICAL') return { x: 4, y: 4, color: 'bg-rose-600' };
+    if (f.severity === 'HIGH') return { x: 3, y: 4, color: 'bg-orange-500' };
+    if (f.severity === 'MEDIUM') return { x: 2, y: 2, color: 'bg-yellow-400' };
+    return { x: 1, y: 1, color: 'bg-blue-400' };
+  });
+
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-4">
+        {/* Y-Axis Label (Rotated) */}
+        <div className="flex items-center h-full">
+           <span className="text-[8px] font-black text-slate-400 uppercase tracking-[0.3em] -rotate-90 whitespace-nowrap origin-center">
+              {isTr ? 'ETKİ (IMPACT)' : 'IMPACT'}
+           </span>
+        </div>
+        
+        {/* Grid */}
+        <div className="relative flex-1">
+           <div className="grid grid-cols-5 grid-rows-5 gap-1 w-[220px] h-[220px] border-b-2 border-l-2 border-slate-200 p-1">
+              {[...Array(25)].map((_, i) => {
+                 const x = i % 5;
+                 const y = 4 - Math.floor(i / 5);
+                 
+                 // Renk paleti (Heatmap mantığı)
+                 let bg = 'bg-slate-50';
+                 if (x + y >= 6) bg = 'bg-rose-50';
+                 else if (x + y >= 4) bg = 'bg-orange-50';
+                 else if (x + y >= 2) bg = 'bg-yellow-50';
+                 
+                 return (
+                    <div key={i} className={`rounded-sm ${bg} transition-colors relative flex items-center justify-center`}>
+                       {matrixData.map((d, idx) => (d.x === x && d.y === y) && (
+                          <div key={idx} className={`w-3 h-3 rounded-full ${d.color} shadow-sm animate-pulse absolute`} style={{ left: `${Math.random()*40 + 30}%`, top: `${Math.random()*40 + 30}%` }} />
+                       ))}
+                    </div>
+                 );
+              })}
+           </div>
+           
+           {/* X-Axis Label */}
+           <div className="w-full text-center mt-2">
+              <span className="text-[8px] font-black text-slate-400 uppercase tracking-[0.3em]">
+                 {isTr ? 'OLASILIK (LIKELIHOOD)' : 'LIKELIHOOD'}
+              </span>
+           </div>
+        </div>
+      </div>
+      
+      {/* Legend */}
+      <div className="flex justify-center gap-4 mt-2">
+         <div className="flex items-center gap-1">
+            <div className="w-2 h-2 rounded-full bg-rose-600" />
+            <span className="text-[7px] font-bold text-slate-400 uppercase">Critical</span>
+         </div>
+         <div className="flex items-center gap-1">
+            <div className="w-2 h-2 rounded-full bg-orange-500" />
+            <span className="text-[7px] font-bold text-slate-400 uppercase">High</span>
+         </div>
+         <div className="flex items-center gap-1">
+            <div className="w-2 h-2 rounded-full bg-yellow-400" />
+            <span className="text-[7px] font-bold text-slate-400 uppercase">Medium</span>
+         </div>
+      </div>
     </div>
   );
 };
